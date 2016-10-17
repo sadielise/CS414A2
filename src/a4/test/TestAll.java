@@ -1,3 +1,4 @@
+package cs414.c.a4.domain;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;

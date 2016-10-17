@@ -1,4 +1,4 @@
-package cs414.c.a4.domain;
+package a4.domain;
 
 public class GoToJail {
 

@@ -1,4 +1,5 @@
 package a4.test;
+
 import static org.junit.Assert.*;
 
 import org.junit.runner.RunWith;

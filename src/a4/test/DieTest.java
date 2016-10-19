@@ -6,11 +6,11 @@ import org.junit.Test;
 import a4.domain.*;
 
 
-public class DiceTest {
+public class DieTest {
 
 	@Test
 	public void testRoll_6Sides() {
-		Dice die = new Dice(6);
+		Die die = new Die(6);
 		for(int i = 0; i < 15; i++){
 			int test = die.roll();
 			assertTrue((1 <= test) && (test <= 6));
@@ -19,7 +19,7 @@ public class DiceTest {
 	
 	@Test
 	public void testRoll_20Sides() {
-		Dice die = new Dice(20);
+		Die die = new Die(20);
 		for(int i = 0; i < 15; i++){
 			int test = die.roll();
 			assertTrue((1 <= test) && (test <= 20));
@@ -28,7 +28,7 @@ public class DiceTest {
 	
 	@Test
 	public void testRoll_2Sides() {
-		Dice die = new Dice(2);
+		Die die = new Die(2);
 		for(int i = 0; i < 15; i++){
 			int test = die.roll();
 			assertTrue((1 <= test) && (test <= 2));

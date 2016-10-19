@@ -2,8 +2,7 @@ package a4.test;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
+
 import org.junit.Test;
 import a4.domain.*;
 
@@ -49,9 +48,10 @@ public class BankTest {
 	public void testRemoveBalance_Success() {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
-		int actual = bank.removeBalance(2500);
-		int expected = initialBalance - 2500;
-		assertTrue(actual == expected);
+		int toRemove = 2500;
+		int actual = bank.removeBalance(toRemove);
+		assertTrue(actual == toRemove);
+		assertTrue(bank.getBalance() == (initialBalance  - toRemove));
 	}
 	
 	@Test
@@ -59,41 +59,44 @@ public class BankTest {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
 		int actual = bank.removeBalance(0);
-		assertTrue(actual == initialBalance);
+		assertTrue(0 == actual);
+		assertTrue(bank.getBalance() == initialBalance);
 	}
 	
 	@Test
-	public void testRemoveBalance_RemoveTooMuch_ReturnNegative() {
+	public void testRemoveBalance_RemoveTooMuch() {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
 		int actual = bank.removeBalance(600000);
-		assertTrue(actual == -1);
-	}
-	
-	@Test
-	public void testRemoveBalance_RemoveTooMuch_BalanceNotAltered() {
-		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
-		bank.removeBalance(600000);
-		int actual = bank.getBalance();
 		assertTrue(actual == initialBalance);
+		assertTrue(0 == bank.getBalance());
 	}
 	
 	@Test
-	public void testRemoveBalance_RemoveTooMuchCorner_ReturnNegative() {
+	public void testRemoveBalance_RemoveTooMuchCorner() {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
 		int actual = bank.removeBalance(initialBalance + 1);
-		assertTrue(actual == -1);
+		assertTrue(actual == initialBalance);
+		assertTrue(0 == bank.getBalance());
 	}
 	
 	@Test
-	public void testRemoveBalance_RemoveTooMuchCorner_BalanceNotAltered() {
+	public void testRemoveBalance_RemoveTooMuchCorner_Two() {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
-		bank.removeBalance(initialBalance + 1);
-		int actual = bank.getBalance();
-		assertTrue(actual == initialBalance);
+		int actual = bank.removeBalance(initialBalance - 1);
+		assertTrue(actual == (initialBalance - 1));
+		assertTrue(1 == bank.getBalance());
+	}
+	
+	@Test
+	public void testRemoveBalance_BankEmpty() {
+		int initialBalance = 0;
+		Bank bank = new Bank(initialBalance);
+		int actual = bank.removeBalance(500000);
+		assertTrue(0 == actual);
+		assertTrue(0 == bank.getBalance());
 	}
 	
 	@Test

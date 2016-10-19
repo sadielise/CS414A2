@@ -18,32 +18,38 @@ public class Bank {
 	/*
 	 * Summary:
 	 * removes ammountToRemove from the balance of the bank
+	 * if ammountToRemove is larger than the balance, 
+	 * the remaining balance of the bank will be removed.
 	 * 
 	 * Returns:
-	 * the remaining balance of the bank
-	 * OR
-	 * -1 if ammountToRemove is larger than the balance, 
-	 * in this case, the amount will not be removed from the bank
+	 * The amount that was removed from the bank
+	 * if the bank's balance is 0, the method will return 0
+	 * 
 	 */
-	public int removeBalance(int ammountToRemove){
-		if(balance < ammountToRemove){
-			return -1;
+	public int removeBalance(int amountToRemove){
+		if(0 == balance){
+			return 0;
+		}
+		else if(balance < amountToRemove){
+			int remainingInBank = balance;
+			balance = 0;
+			return remainingInBank;
 		}
 		else{
-			balance -= ammountToRemove;
-			return balance;
+			balance -= amountToRemove;
+			return amountToRemove;
 		}
 	}
 	
 	/*
 	 * Summary:
-	 * Adds ammountToAdd to the balance of the bank
+	 * Adds amountToAdd to the balance of the bank
 	 * 
 	 * Returns:
 	 * the new balance of the bank
 	 */
-	public int addBalance(int ammountToAdd){
-		balance+= ammountToAdd;
+	public int addBalance(int amountToAdd){
+		balance+= amountToAdd;
 		return balance;
 	}
 }

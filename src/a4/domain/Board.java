@@ -9,6 +9,10 @@ public class Board {
 		spaces = board_spaces;
 	}
 
+	public List<BoardSpace> getSpaces() {
+		return spaces;
+	}
+
 	public void addSpace(BoardSpace space_to_add) {
 		spaces.add(space_to_add);
 	}

@@ -17,14 +17,14 @@ public class BoardTest {
 	@Before
 	public void initialize() {
 		test_spaces = new ArrayList<BoardSpace>();
-		test_board = new Board(test_spaces);
-		space1 = new BoardSpace(0);
+		test_board = new Board();
+		space1 = new OpenSpace();
 	}
 
 	// Construct
 	@Test
 	public void testBoardConstructor() {
-		test_board = new Board(test_spaces);
+		test_board = new Board();
 		assertEquals(test_board.getClass(), Board.class);
 	}
 
@@ -46,7 +46,7 @@ public class BoardTest {
 	@Test
 	public void testRemoveUnknownSpaceFromBoard() {
 		test_board.addSpace(space1);
-		test_board.removeSpace(new BoardSpace(1));
+		test_board.removeSpace(new OpenSpace());
 		assertEquals(1, test_board.getSpaces().size());
 	}
 }

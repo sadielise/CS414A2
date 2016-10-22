@@ -43,11 +43,10 @@ public class Player {
 	}
 
 	/*
-	 * Summary: removes ammountToRemove from the balance of the player if
-	 * ammountToRemove is larger than the balance, .
+	 * Summary: removes ammountToRemove from the balance of the player 
 	 * 
-	 * Returns: The remaining balance of the player if ammountToRemove is larger
-	 * than the balance, will return -1
+	 * Returns: The remaining balance of the player 
+	 * if ammountToRemove is larger than the balance, will return -1
 	 * 
 	 */
 	public int removeBalance(int amountToRemove) {
@@ -87,8 +86,8 @@ public class Player {
 	 * Summary: this allows the player to move a certain amount of spaces and
 	 * updates their location accordingly
 	 * 
-	 * Parameters: numSpaces: the number of spaces to move the player maxSpaces:
-	 * the total number of spaces on the board
+	 * Parameters: numSpaces: the number of spaces to move the player 
+	 * maxSpaces: the total number of spaces on the board
 	 */
 	public void move(int numSpaces, int maxSpaces) {
 		location = (location + numSpaces) % maxSpaces;

@@ -1,5 +1,12 @@
 package a4.domain;
 
-public class Token {
-
+public enum Token {
+	WHEELBARROW,
+	BATTLESHIP,
+	THIMBLE,
+	BOOT,
+	DOG,
+	SCOTTIE_DOG,
+	TOP_HAT,
+	CAT
 }

@@ -22,4 +22,6 @@ public interface IMonopolyGame {
 	public void developProperty(String property);
 	
 	public void trade(String currProperty, String otherProperty);
+	
+	public void newGame(List<String> playerNames, int timeInMinutes);
 }

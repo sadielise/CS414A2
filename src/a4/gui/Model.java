@@ -1,6 +1,7 @@
 package a4.gui;
 
 import java.util.List;
+import java.util.Timer;
 
 import a4.domain.IMonopolyGame;
 
@@ -75,6 +76,10 @@ public class Model implements IModel {
 	public void playerSentToJail(String playerName) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	public void startNewGame(List<String> playerNames, int timeInMinutes){
+		game.newGame(playerNames,timeInMinutes);
 	}
 	
 }

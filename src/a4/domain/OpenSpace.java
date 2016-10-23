@@ -1,7 +1,5 @@
 package a4.domain;
 
-import java.util.ArrayList;
-
 public class OpenSpace extends BoardSpace {
 	public OpenSpace() {
 	}

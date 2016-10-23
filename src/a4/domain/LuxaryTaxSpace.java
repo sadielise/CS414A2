@@ -1,7 +1,5 @@
 package a4.domain;
 
-import java.util.ArrayList;
-
 public class LuxaryTaxSpace extends BoardSpace {
 	public LuxaryTaxSpace() {
 	}

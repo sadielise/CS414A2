@@ -1,6 +1,5 @@
 package a4.domain;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class JailSpace extends BoardSpace {

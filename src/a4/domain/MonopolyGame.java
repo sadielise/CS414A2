@@ -3,7 +3,7 @@ package a4.domain;
 import java.util.Date;
 import java.util.List;
 
-public class MonopolyGame {
+public class MonopolyGame implements IMonopolyGame {
 	List<Player> players;
 	Board board;
 	List<Die> dice;
@@ -82,6 +82,60 @@ public class MonopolyGame {
 	}
 	
 	public void setHouseCount(int newHouseCount){
+		
+	}
+
+	@Override
+	public String getCurrentPlayer() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getPlayers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getBankroll(String player) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLocation(String player) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public List<String> getProperties(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String getProperty(int location) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void roll() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void developProperty(String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void trade(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub
 		
 	}
 	

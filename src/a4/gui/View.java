@@ -48,6 +48,7 @@ public class View extends JFrame{
 
 		JPanel playerOptionsAndInfo = new JPanel();
 		playerOptionsAndInfo.setLayout(new BoxLayout(playerOptionsAndInfo,BoxLayout.X_AXIS));
+		buttonSetup(playerOptionsAndInfo,controller.getNewGameButton(), "New Game");
 		buttonSetup(playerOptionsAndInfo,controller.getRollButton(), "Roll");
 		buttonSetup(playerOptionsAndInfo,controller.getDevelopButton(), "Develop");
 		buttonSetup(playerOptionsAndInfo,controller.getTradeButton(), "Trade");
@@ -73,7 +74,7 @@ public class View extends JFrame{
 
 
 	public void paint(Graphics g){
-		currentPlayer.setText(" Current Player: " + model.getCurrentPlayer());
+		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		super.paint(g);
 	}

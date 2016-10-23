@@ -2,8 +2,10 @@ package a4.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 public class Controller {
 	private Model model;
@@ -21,8 +23,10 @@ public class Controller {
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("Debug-Controller: " + "Reset button pressed");
+				System.out.println("Debug-Controller: " + "Roll button pressed");
+				model.roll();
 			}
+			
 		});
 
 		return button;
@@ -34,6 +38,19 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("Debug-Controller: " + "Develop button pressed");
+				DevelopDialog.createAndShowDevelopDialog(model);
+			}
+		});
+
+		return button;
+	}
+	
+	public JButton getNewGameButton(){
+		JButton button = new JButton();
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+			{
+				System.out.println("Debug-Controller: " + "New Game button pressed");
 			}
 		});
 
@@ -46,6 +63,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("Debug-Controller: " + "Trade button pressed");
+				TradeDialog.createAndShowTradeDialog(model);
 			}
 		});
 

@@ -1,72 +1,208 @@
 package a4.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Container;
-import java.awt.GridLayout;
+import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
+import java.util.ArrayList;
 
-import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
 
-public class NewGameDialog extends JPanel{
-	JFrame frame;
-	Model model;
-	String newGameDesc = "Make a new game!";
-	
-	public NewGameDialog(JFrame frame, Model m){
-		super(new BorderLayout());
+public class NewGameDialog extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textPlayer1;
+	private JTextField textPlayer2;
+	private JTextField textPlayer3;
+	private JTextField textPlayer4;
+	private JTextField textTimer;
+	private Model model;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void createAndDisplayNewGameDialog(Model m) {
+					NewGameDialog frame = new NewGameDialog(m);
+					frame.pack();
+					frame.setVisible(true);
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public NewGameDialog(Model m) {
 		model = m;
-		this.frame = frame;
-		JLabel title;
-
-		//Create the components.
-		JPanel choicePanel = createDialogBox();
-
-
-		title = new JLabel("Click the \"Start\" button"
-				+ " once you have entered all the information!",
-				JLabel.CENTER);
-
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 		
-		choicePanel.setBorder(BorderFactory.createEmptyBorder(20,20,5,20));
-
-		//Lay out the main panel.
-		add(title, BorderLayout.NORTH);         
-		add(choicePanel, BorderLayout.CENTER);
+		JPanel panel = new JPanel();
+		contentPane.add(panel, BorderLayout.CENTER);
+		
+		JLabel labelPlayer1 = new JLabel("Player 1: ");
+		labelPlayer1.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JLabel title = new JLabel("Enter information to start the game!");
+		title.setVerticalAlignment(SwingConstants.TOP);
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		textPlayer1 = new JTextField();
+		textPlayer1.setColumns(10);
+		
+		JLabel labelPlayer2 = new JLabel("Player 2: ");
+		labelPlayer2.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		textPlayer2 = new JTextField();
+		textPlayer2.setColumns(10);
+		
+		textPlayer3 = new JTextField();
+		textPlayer3.setColumns(10);
+		
+		JLabel labelPlayer3 = new JLabel("Player 3: ");
+		labelPlayer3.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		textPlayer4 = new JTextField();
+		textPlayer4.setColumns(10);
+		
+		JLabel labelPlayer4 = new JLabel("Player 4: ");
+		labelPlayer4.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		textTimer = new JTextField();
+		textTimer.setColumns(10);
+		
+		JLabel labelTimer = new JLabel("Time in minutes: ");
+		labelTimer.setHorizontalAlignment(SwingConstants.LEFT);
+		
+		JButton btnStartNewGame = new JButton("Start");
+		btnStartNewGame.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				getInfoAndStart();
+				dispose();
+			}
+		});
+		
+		JButton btnCancel = new JButton("Cancel");
+		btnCancel.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+			}
+		});
+		
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(113)
+							.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(labelTimer)
+									.addGap(18)
+									.addComponent(textTimer, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(labelPlayer4)
+									.addGap(18)
+									.addComponent(textPlayer4, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
+								.addComponent(title)
+								.addGroup(gl_panel.createSequentialGroup()
+									.addComponent(labelPlayer1)
+									.addGap(18)
+									.addComponent(textPlayer1, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
+								.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(labelPlayer3)
+										.addGap(18)
+										.addComponent(textPlayer3, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_panel.createSequentialGroup()
+										.addComponent(labelPlayer2)
+										.addGap(18)
+										.addComponent(textPlayer2, GroupLayout.PREFERRED_SIZE, 162, GroupLayout.PREFERRED_SIZE)))))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(154)
+							.addComponent(btnStartNewGame)
+							.addGap(18)
+							.addComponent(btnCancel)))
+					.addContainerGap(51, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addComponent(title)
+					.addGap(24)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(labelPlayer1)
+						.addComponent(textPlayer1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(labelPlayer2)
+						.addComponent(textPlayer2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(labelPlayer3))
+						.addComponent(textPlayer3, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(labelPlayer4))
+						.addComponent(textPlayer4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(3)
+							.addComponent(labelTimer))
+						.addComponent(textTimer, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+					.addGroup(gl_panel.createParallelGroup(Alignment.BASELINE)
+						.addComponent(btnStartNewGame)
+						.addComponent(btnCancel))
+					.addGap(20))
+		);
+		panel.setLayout(gl_panel);
 	}
 	
-	private JPanel createDialogBox(){
-		JPanel newGamePanel = new JPanel();
+	private void getInfoAndStart(){
+		final int numberOfPlayers = 4;
+		ArrayList<String> playerNames = new ArrayList<String>();
+		String namePlayer1 = textPlayer1.getText();
+		String namePlayer2 = textPlayer2.getText();
+		String namePlayer3 = textPlayer3.getText();
+		String namePlayer4 = textPlayer4.getText();
+		String timeInMinutes = textTimer.getText();
 		
-		return null;
-	}
-	
-	public static void createAndShowNewGameDialog(Model m) {
-		//Make sure we have nice window decorations.
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
-
-		//Create and set up the window.
-		JFrame frame = new JFrame("New Game");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-
-		//Set up the content pane.
-		Container contentPane = frame.getContentPane();
-		contentPane.setLayout(new GridLayout(1,1));
-		contentPane.add(new NewGameDialog(frame, m));
-
-		//Display the window.
-		frame.pack();
-		frame.setVisible(true);
+		if(!namePlayer1.trim().isEmpty()){
+			playerNames.add(namePlayer1);
+		}
+		if(!namePlayer2.trim().isEmpty()){
+			playerNames.add(namePlayer2);
+		}
+		if(!namePlayer3.trim().isEmpty()){
+			playerNames.add(namePlayer3);
+		}
+		if(!namePlayer4.trim().isEmpty()){
+			playerNames.add(namePlayer4);
+		}
+		int numberOfMinutes;
+		try{
+			numberOfMinutes = Integer.parseInt(timeInMinutes);
+		}catch(Exception e){
+			numberOfMinutes = 30;
+		}
+		model.startNewGame(playerNames, numberOfMinutes);
 	}
 }

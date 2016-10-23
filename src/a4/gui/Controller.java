@@ -51,6 +51,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				System.out.println("Debug-Controller: " + "New Game button pressed");
+				NewGameDialog.createAndDisplayNewGameDialog(model);
 			}
 		});
 

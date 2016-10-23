@@ -138,6 +138,12 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void newGame(List<String> playerNames, int timeInMinutes) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

@@ -80,11 +80,11 @@ public class TradeDialog extends JPanel{
 				ButtonGroup currentGroup = new ButtonGroup();
 				ButtonGroup otherGroup = new ButtonGroup();
 				
-				JPanel propertiesPanel = new JPanel();
+				JPanel propertiesPanel = new JPanel(new GridLayout(2,0));
 			
 				JRadioButton[] currentPropertiesButtons = new JRadioButton[properties.size()];
 				JRadioButton[] otherPropertiesButtons = new JRadioButton[otherPlayersProperties.size()];
-				propertiesPanel.add(new JLabel("Select one of your properties to trade: "));
+				propertiesPanel.add(new JLabel("Select one property to trade: "));
 				for(int i = 0; i < properties.size(); i++){
 					currentPropertiesButtons[i] = new JRadioButton(properties.get(i));
 					currentPropertiesButtons[i].setActionCommand(properties.get(i));

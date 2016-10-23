@@ -53,7 +53,7 @@ public class DevelopDialog extends JPanel{
 	    }
 
 	private JPanel createDialogBox(){
-		List<String> properties = model.getPlayersProperties(); 
+		List<String> properties = model.getCurrentPlayersProperties(); 
 		int numberOfButtons = properties.size();
 		ButtonGroup group = new ButtonGroup();
 		JRadioButton[] propertyButtons = new JRadioButton[numberOfButtons];
@@ -113,7 +113,7 @@ public class DevelopDialog extends JPanel{
         JDialog.setDefaultLookAndFeelDecorated(true);
        
         //Create and set up the window.
-        JFrame frame = new JFrame("VoteDialog");
+        JFrame frame = new JFrame("DevlopDialog");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 
         //Set up the content pane.

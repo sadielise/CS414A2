@@ -12,12 +12,11 @@ public class PlayerTest {
 	Player player;
 	String name = "Gabby";
 	int balance = 15000;
-	String status = "Initial status";
 	int location = 0;
 
 	@Before
 	public void setUp() throws Exception {
-		player = new Player(name, balance, status, location);
+		player = new Player(name, balance, location);
 	}
 
 	@After
@@ -33,14 +32,14 @@ public class PlayerTest {
 	
 	@Test
 	public void testToString_EmptyName(){
-		Player player2 = new Player("", balance, status, location);
+		Player player2 = new Player("", balance, location);
 		String actual = player2.toString();
 		assertTrue("" == actual);
 	}
 	
 	@Test
 	public void testEqual_Success(){
-		Player player2 = new Player(name, balance, status, location);
+		Player player2 = new Player(name, balance, location);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertTrue(player.equals(player2));
@@ -61,7 +60,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testEqual_DifferentNames(){
-		Player player2 = new Player("Sadie", balance, status, location);
+		Player player2 = new Player("Sadie", balance, location);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertFalse(player.equals(player2));
@@ -70,7 +69,7 @@ public class PlayerTest {
 	@Test
 	public void testEqual_NullName(){
 		player.setName(null);
-		Player player2 = new Player(name, balance, status, location);
+		Player player2 = new Player(name, balance, location);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertFalse(player.equals(player2));
@@ -79,7 +78,7 @@ public class PlayerTest {
 	@Test
 	public void testEqual_BothNullName(){
 		player.setName(null);
-		Player player2 = new Player(null, balance, status, location);
+		Player player2 = new Player(null, balance, location);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertTrue(player.equals(player2));
@@ -87,7 +86,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testEqual_DifferentTokens(){
-		Player player2 = new Player(name, balance, status, location);
+		Player player2 = new Player(name, balance, location);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.CAT);
 		assertFalse(player.equals(player2));
@@ -108,7 +107,7 @@ public class PlayerTest {
 
 	@Test
 	public void testGetName_EmptyName() {
-		Player player2 = new Player("", balance, status, location);
+		Player player2 = new Player("", balance, location);
 		String actual = player2.getName();
 		assertTrue("" == actual);
 	}
@@ -137,7 +136,7 @@ public class PlayerTest {
 	@Test
 	public void testGetBalance_ZeroBalance() {
 		int initialBalance = 0;
-		Player player2 = new Player(name, initialBalance, status, location);
+		Player player2 = new Player(name, initialBalance, location);
 		int actual = player2.getBalance();
 		assertTrue(actual == initialBalance);
 	}
@@ -263,7 +262,7 @@ public class PlayerTest {
 
 	@Test
 	public void testGetLocation_NegativeLocation() {
-		Player player2 = new Player(name, balance, "", -1);
+		Player player2 = new Player(name, balance, -1);
 		int actual = player2.getLocation();
 		assertTrue(-1 == actual);
 	}
@@ -310,31 +309,20 @@ public class PlayerTest {
 	}
 
 	@Test
-	public void testGetStatus_Success() {
-		String actual = player.getStatus();
-		assertTrue(actual == status);
+	public void testGetInJail_Success() {
+		boolean actual = player.getInJail();
+		assertFalse(actual);
 	}
 
 	@Test
-	public void testGetStatus_EmptyStatus() {
-		Player player2 = new Player(name, balance, "", location);
-		String actual = player2.getStatus();
-		assertTrue("" == actual);
+	public void testSetInJail_setToTrue() {
+		player.setInJail(true);
+		assertTrue(player.getInJail());
 	}
 
 	@Test
-	public void testSetStatus_Success() {
-		String newStatus = "new Status";
-		player.setStatus(newStatus);
-		String actual = player.getStatus();
-		assertTrue(actual == newStatus);
-	}
-
-	@Test
-	public void testSetStatus_EmptyStatus() {
-		player.setStatus("");
-		String actual = player.getStatus();
-		assertTrue("" == actual);
+	public void testSetInJail_setToFalse() {
+		assertFalse(player.getInJail());
 	}
 
 	@Test
@@ -357,6 +345,51 @@ public class PlayerTest {
 		int actual = player.getRailroadCount();
 		assertTrue(actual == newCount);
 	}
+	
+	@Test
+	public void testAddRailroad_Success(){
+		player.addRailroad();
+		assertTrue(1 == player.getRailroadCount());
+	}
+	
+	@Test
+	public void testAddRailroad_AddMultiple(){
+		player.addRailroad();
+		player.addRailroad();
+		player.addRailroad();
+		assertTrue(3 == player.getRailroadCount());
+	}
+	
+	@Test
+	public void testRemoveRailroad_Success(){
+		player.setRailroadCount(3);
+		assertTrue(2 == player.removeRailroad());
+	}
+	
+	@Test
+	public void testRemoveRailroad_RemoveMultiple(){
+		player.setRailroadCount(4);
+		assertTrue(3 == player.removeRailroad());
+		assertTrue(2 == player.removeRailroad());
+		assertTrue(1 == player.removeRailroad());
+	}
+	
+	@Test
+	public void testRemoveRailroad_RemoveAll(){
+		player.setRailroadCount(3);
+		assertTrue(2 == player.removeRailroad());
+		assertTrue(1 == player.removeRailroad());
+		assertTrue(0 == player.removeRailroad());
+	}
+	
+	@Test
+	public void testRemoveRailroad_RemoveTooMany(){
+		player.setRailroadCount(2);
+		assertTrue(1 == player.removeRailroad());
+		assertTrue(0 == player.removeRailroad());
+		assertTrue(-1 == player.removeRailroad());
+		assertTrue(0 == player.getRailroadCount());
+	}
 
 	@Test
 	public void testGetUtilityCount_Success() {
@@ -377,5 +410,50 @@ public class PlayerTest {
 		player.setUtilityCount(newCount);
 		int actual = player.getUtilityCount();
 		assertTrue(actual == newCount);
+	}
+	
+	@Test
+	public void testAddUtility_Success(){
+		player.addUtility();
+		assertTrue(1 == player.getUtilityCount());
+	}
+	
+	@Test
+	public void testAddUtility_AddMultiple(){
+		player.addUtility();
+		player.addUtility();
+		player.addUtility();
+		assertTrue(3 == player.getUtilityCount());
+	}
+	
+	@Test
+	public void testRemoveUtility_Success(){
+		player.setUtilityCount(3);
+		assertTrue(2 == player.removeUtility());
+	}
+	
+	@Test
+	public void testRemoveUtility_RemoveMultiple(){
+		player.setUtilityCount(4);
+		assertTrue(3 == player.removeUtility());
+		assertTrue(2 == player.removeUtility());
+		assertTrue(1 == player.removeUtility());
+	}
+	
+	@Test
+	public void testRemoveUtility_RemoveAll(){
+		player.setUtilityCount(3);
+		assertTrue(2 == player.removeUtility());
+		assertTrue(1 == player.removeUtility());
+		assertTrue(0 == player.removeUtility());
+	}
+	
+	@Test
+	public void testRemoveUtility_RemoveTooMany(){
+		player.setUtilityCount(2);
+		assertTrue(1 == player.removeUtility());
+		assertTrue(0 == player.removeUtility());
+		assertTrue(-1 == player.removeUtility());
+		assertTrue(0 == player.getUtilityCount());
 	}
 }

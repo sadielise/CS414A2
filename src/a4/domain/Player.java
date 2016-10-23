@@ -20,6 +20,41 @@ public class Player {
 		numRailroads = 0;
 		numUtilities = 0;
 	}
+	
+	public String toString(){
+		return name;
+	}
+	
+/*	Not sure if we need this?
+ * @Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((token == null) ? 0 : token.hashCode());
+		return result;
+	}
+	*/
+
+	//Players are equal if the name and token are equal
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (token != other.token)
+			return false;
+		return true;
+	}
 
 	public String getName() {
 		return name;
@@ -88,9 +123,17 @@ public class Player {
 	 * 
 	 * Parameters: numSpaces: the number of spaces to move the player 
 	 * maxSpaces: the total number of spaces on the board
+	 * 
+	 * Returns: a boolean that indicates if the player passed go
 	 */
-	public void move(int numSpaces, int maxSpaces) {
-		location = (location + numSpaces) % maxSpaces;
+	public boolean move(int numSpaces, int maxSpaces) {
+		boolean passedGo = false;
+		location = location + numSpaces;
+		if(location >= maxSpaces){
+			location = location % maxSpaces;
+			passedGo = true;
+		}
+		return passedGo;
 	}
 
 	public int getRailroadCount() {

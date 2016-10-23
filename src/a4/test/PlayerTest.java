@@ -26,6 +26,81 @@ public class PlayerTest {
 	}
 
 	@Test
+	public void testToString(){
+		String actual = player.toString();
+		assertTrue(name == actual);
+	}
+	
+	@Test
+	public void testToString_EmptyName(){
+		Player player2 = new Player("", balance, status, location);
+		String actual = player2.toString();
+		assertTrue("" == actual);
+	}
+	
+	@Test
+	public void testEqual_Success(){
+		Player player2 = new Player(name, balance, status, location);
+		player.setToken(Token.THIMBLE);
+		player2.setToken(Token.THIMBLE);
+		assertTrue(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_SameObject(){
+		player.setToken(Token.THIMBLE);
+		assertTrue(player.equals(player));
+	}
+	
+	@Test
+	public void testEqual_DifferentObjects(){
+		String player2 = name;
+		player.setToken(Token.THIMBLE);
+		assertFalse(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_DifferentNames(){
+		Player player2 = new Player("Sadie", balance, status, location);
+		player.setToken(Token.THIMBLE);
+		player2.setToken(Token.THIMBLE);
+		assertFalse(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_NullName(){
+		player.setName(null);
+		Player player2 = new Player(name, balance, status, location);
+		player.setToken(Token.THIMBLE);
+		player2.setToken(Token.THIMBLE);
+		assertFalse(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_BothNullName(){
+		player.setName(null);
+		Player player2 = new Player(null, balance, status, location);
+		player.setToken(Token.THIMBLE);
+		player2.setToken(Token.THIMBLE);
+		assertTrue(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_DifferentTokens(){
+		Player player2 = new Player(name, balance, status, location);
+		player.setToken(Token.THIMBLE);
+		player2.setToken(Token.CAT);
+		assertFalse(player.equals(player2));
+	}
+	
+	@Test
+	public void testEqual_NullObject(){
+		Player player2 = null;
+		player.setToken(Token.THIMBLE);
+		assertFalse(player.equals(player2));
+	}
+	
+	@Test
 	public void testGetName_Success() {
 		String actual = player.getName();
 		assertTrue(actual == name);
@@ -222,13 +297,15 @@ public class PlayerTest {
 
 	@Test
 	public void testMove_MovePastMax() {
-		player.move(6, 5);
+		boolean actual = player.move(6, 5);
+		assert(true == actual);
 		assertTrue(1 == player.getLocation());
 	}
 
 	@Test
 	public void testMove_MoveToMax() {
-		player.move(5, 5);
+		boolean actual = player.move(5, 5);
+		assertTrue(true == actual);
 		assertTrue(0 == player.getLocation());
 	}
 

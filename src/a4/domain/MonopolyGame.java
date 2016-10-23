@@ -22,7 +22,7 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	//returns the player that wins the game
 	public Player endGame(){
-		return new Player();
+		return null;
 	}
 	
 	public void addPlayer(){

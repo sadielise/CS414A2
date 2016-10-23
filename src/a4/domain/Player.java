@@ -5,17 +5,17 @@ public class Player {
 	private String name;
 	private int balance;
 	private Token token;
-	private String status;
+	private boolean inJail;
 	private int location;
 	// NOTE: location is zero based
 	private int numRailroads;
 	private int numUtilities;
 
-	public Player(String name, int balance, String status, int location) {
+	public Player(String name, int balance, int location) {
 		this.name = name;
 		this.balance = balance;
 		token = null;
-		this.status = status;
+		inJail = false;
 		this.location = location;
 		numRailroads = 0;
 		numUtilities = 0;
@@ -101,12 +101,12 @@ public class Player {
 		this.token = token;
 	}
 
-	public String getStatus() {
-		return status;
+	public boolean getInJail() {
+		return inJail;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setInJail(boolean inJail) {
+		this.inJail = inJail;
 	}
 
 	public int getLocation() {
@@ -143,6 +143,22 @@ public class Player {
 	public void setRailroadCount(int numRailroads) {
 		this.numRailroads = numRailroads;
 	}
+	
+	public void addRailroad(){
+		numRailroads++;
+	}
+	
+	//returns new railroad count
+	//returns -1 if fails
+	public int removeRailroad(){
+		if(numRailroads > 0){
+			numRailroads--;
+			return numRailroads;
+		}
+		else{
+			return -1;
+		}	
+	}
 
 	public int getUtilityCount() {
 		return numUtilities;
@@ -151,5 +167,21 @@ public class Player {
 	public void setUtilityCount(int numUtilities) {
 		this.numUtilities = numUtilities;
 	}
+	
+	public void addUtility(){
+		numUtilities++;
+	}
+	
+	//returns new railroad count
+	//returns -1 if fails
+	public int removeUtility(){
+		if(numUtilities > 0){
+			numUtilities--;
+			return numUtilities;
+		}
+		else{
+			return -1;
+		}	
+	} 
 
 }

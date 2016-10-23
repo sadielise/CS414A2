@@ -5,11 +5,14 @@ import static org.junit.Assert.*;
 import java.util.ArrayList;
 
 import a4.domain.*;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class BoardSpaceTest {
-	BoardSpace test_board_space = new BoardSpace(1);
+	BoardSpaceFactory test_factory = new BoardSpaceFactory();
+	BoardSpace test_space = test_factory.getBoardSpace("Open");
 	ArrayList<Player> test_players = new ArrayList<Player>();
 	Player player1 = new Player();
 	Player player2 = new Player();
@@ -18,77 +21,75 @@ public class BoardSpaceTest {
 
 	@Before
 	public void initialize() {
-
 	}
 
 	// Construct
 	@Test
 	public void testBoardSpaceConstructor() {
-		BoardSpace board_space = new BoardSpace(1);
-		assertEquals(board_space.getClass(), BoardSpace.class);
+		assertEquals(OpenSpace.class, test_space.getClass());
 	}
 
 	@Test
 	public void testGetLocation() {
-		assertEquals(1, test_board_space.getLocation());
+		assertEquals(3, test_space.getLocation());
 	}
 
 	@Test
 	public void testGetPlayersWithNobodyThere() {
-		assertEquals(new ArrayList<>(), test_board_space.getPlayers());
+		assertEquals(new ArrayList<>(), test_space.getPlayers());
 	}
 
 	@Test
 	public void testGetPlayersWithOnePersonThere() {
-		test_board_space.addPlayer(player1);
+		test_space.addPlayer(player1);
 		ArrayList<Player> players_list = new ArrayList<Player>();
 		players_list.add(player1);
-		assertEquals(players_list, test_board_space.getPlayers());
+		assertEquals(players_list, test_space.getPlayers());
 	}
 
 	@Test
 	public void testGetPlayersWithAllPersonThere() {
-		test_board_space.addPlayer(player1);
-		test_board_space.addPlayer(player2);
-		test_board_space.addPlayer(player3);
-		test_board_space.addPlayer(player4);
+		test_space.addPlayer(player1);
+		test_space.addPlayer(player2);
+		test_space.addPlayer(player3);
+		test_space.addPlayer(player4);
 		ArrayList<Player> players_list = new ArrayList<Player>();
 		players_list.add(player1);
 		players_list.add(player2);
 		players_list.add(player3);
 		players_list.add(player4);
-		assertEquals(players_list, test_board_space.getPlayers());
+		assertEquals(players_list, test_space.getPlayers());
 	}
 
 	@Test
 	public void testSetLocation() {
-		test_board_space.setLocation(17);
-		assertEquals(17, test_board_space.getLocation());
+		test_space.setLocation(17);
+		assertEquals(17, test_space.getLocation());
 	}
 
 	@Test
 	public void testAddPlayer() {
-		test_board_space.addPlayer(player1);
-		assertEquals(1, test_board_space.getPlayers().size());
+		test_space.addPlayer(player1);
+		assertEquals(1, test_space.getPlayers().size());
 	}
 
 	@Test
 	public void testAddPlayerAlreadyThere() {
-		test_board_space.addPlayer(player1);
-		test_board_space.addPlayer(player1);
-		assertEquals(1, test_board_space.getPlayers().size());
+		test_space.addPlayer(player1);
+		test_space.addPlayer(player1);
+		assertEquals(1, test_space.getPlayers().size());
 	}
 
 	@Test
 	public void testRemoveExistingPlayer() {
-		test_board_space.addPlayer(player1);
-		assertTrue(test_board_space.removePlayer(player1));
-		assertEquals(0, test_board_space.getPlayers().size());
+		test_space.addPlayer(player1);
+		assertTrue(test_space.removePlayer(player1));
+		assertEquals(0, test_space.getPlayers().size());
 	}
 
 	@Test
 	public void testRemoveNonExistingPlayer() {
-		assertFalse(test_board_space.removePlayer(player1));
-		assertEquals(0, test_board_space.getPlayers().size());
+		assertFalse(test_space.removePlayer(player1));
+		assertEquals(0, test_space.getPlayers().size());
 	}
 }

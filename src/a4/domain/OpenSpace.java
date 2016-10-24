@@ -1,11 +1,10 @@
 package a4.domain;
 
 public class OpenSpace extends BoardSpace {
-	String name;
-
-	public OpenSpace(String name) {
-		this.name = name;
+	public OpenSpace() {
 	}
+
+	String name;
 
 	String getName() {
 		return name;

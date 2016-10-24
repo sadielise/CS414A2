@@ -45,8 +45,16 @@ public class MonopolyGame {
 		return null;
 	}
 
-	public void addPlayer(){
-
+	//returns true if the player is added 
+	//returns false if player has already been added
+	public boolean addPlayer(Player player){
+		if(players.contains(player)){
+			return false;
+		}
+		else{
+			players.add(player);
+			return true;
+		}
 	}
 
 	public void removePlayer(){
@@ -90,10 +98,40 @@ public class MonopolyGame {
 
 	}
 
-	public void purchaseProperty(){
-
+	//returns true if player has enough money to buy property
+	//returns false if player cannot purchase property
+	//PreCondition: the current Player is on a property space
+	public boolean purchaseProperty(){
+		int location = currentPlayer.getLocation();
+		BoardSpace space = board.getSpaces().get(location); 
+		Property property = space.getProperty();
+		return purchaseProperty(currentPlayer, property, property.getValue());
+	}
+	
+	public boolean purchaseProperty(Player player, Property property, int price){
+		int playerBalance = player.removeBalance(price);
+		if(-1 == playerBalance){
+			return false;
+		}
+		bank.addBalance(price);
+		property.setOwner(player);
+		//TODO: should the turn move to the next player?
+		return true;
 	}
 
+	public boolean bid(int[] bids, Property property){
+		//get values from model
+		int highestBid = 0;
+		int winningPlayer = 0;
+		for(int i = 0; i < bids.length; i++){
+			if(bids[i] > highestBid){
+				highestBid = bids[i];
+				winningPlayer = i;
+			}
+		}
+		return purchaseProperty(players.get(winningPlayer), property, highestBid);
+	}
+	
 	public void mortgageProperty(){
 
 	}

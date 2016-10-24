@@ -3,21 +3,12 @@ package a4.domain;
 import java.util.ArrayList;
 
 public class BoardSpaceFactory {
-	int location;
-	ArrayList<Player> players = new ArrayList<Player>();
-	static int counter = 1;
-
-	public BoardSpaceFactory() {
-		location = counter;
-		counter++;
-	}
-
 	public BoardSpace getBoardSpace(String type) {
 		switch (type) {
 		case ("IncomeTax"):
 			return new IncomeTaxSpace();
 		case ("LuxaryTax"):
-			return new LuxaryTaxSpace();
+			return new LuxuryTaxSpace();
 		case ("Open"):
 			return new OpenSpace();
 		case ("GoToJail"):

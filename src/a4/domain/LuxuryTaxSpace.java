@@ -1,10 +1,10 @@
 package a4.domain;
 
-public class IncomeTaxSpace extends BoardSpace {
-	int value = 200;
-
-	public IncomeTaxSpace() {
+public class LuxuryTaxSpace extends BoardSpace {
+	public LuxuryTaxSpace() {
 	}
+
+	int value = 100;
 
 	int getValue() {
 		return value;

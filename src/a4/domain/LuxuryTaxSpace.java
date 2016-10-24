@@ -6,7 +6,7 @@ public class LuxuryTaxSpace extends BoardSpace {
 
 	int value = 100;
 
-	int getValue() {
+	public int getValue() {
 		return value;
 	}
 

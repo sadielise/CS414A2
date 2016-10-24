@@ -10,27 +10,27 @@ public class Property extends PropertySpace {
 		this.value = value;
 	}
 
-	int getValue() {
+	public int getValue() {
 		return value;
 	}
 
-	void setValue(int new_value) {
+	public void setValue(int new_value) {
 		value = new_value;
 	}
 
-	Player getOwner() {
+	public Player getOwner() {
 		return owner;
 	}
 
-	void setOwner(Player new_owner) {
+	public void setOwner(Player new_owner) {
 		owner = new_owner;
 	}
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String new_name) {
+	public void setName(String new_name) {
 		name = new_name;
 	}
 }

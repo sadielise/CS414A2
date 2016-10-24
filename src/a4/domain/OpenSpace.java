@@ -6,11 +6,11 @@ public class OpenSpace extends BoardSpace {
 
 	String name;
 
-	String getName() {
+	public String getName() {
 		return name;
 	}
 
-	void setName(String new_name) {
+	public void setName(String new_name) {
 		name = new_name;
 	}
 }

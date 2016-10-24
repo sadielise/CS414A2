@@ -32,7 +32,8 @@ public class BoardTest {
 	@Test
 	public void testAddSpaceToBoard() {
 		test_board.addSpace(space1);
-		assertEquals(1, test_board.getSpaces().size());
+		// 41 For the 40 made in the constructor, plus the one added 
+		assertEquals(41, test_board.getSpaces().size());
 	}
 
 	// Remove
@@ -40,13 +41,13 @@ public class BoardTest {
 	public void testRemoveSpaceFromBoard() {
 		test_board.addSpace(space1);
 		test_board.removeSpace(space1);
-		assertEquals(0, test_board.getSpaces().size());
+		assertEquals(40, test_board.getSpaces().size());
 	}
 
 	@Test
 	public void testRemoveUnknownSpaceFromBoard() {
 		test_board.addSpace(space1);
 		test_board.removeSpace(new OpenSpace());
-		assertEquals(1, test_board.getSpaces().size());
+		assertEquals(41, test_board.getSpaces().size());
 	}
 }

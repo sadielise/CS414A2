@@ -53,7 +53,7 @@ public class Board {
 		spaces.add(space_factory.getPropertySpace("Railroad", "Short Line", 200, ""));
 		spaces.add(space_factory.getBoardSpace("Open"));
 		spaces.add(space_factory.getPropertySpace("Street", "Park Place", 350, ""));
-		spaces.add(space_factory.getBoardSpace("LuxaryTax"));
+		spaces.add(space_factory.getBoardSpace("LuxuryTax"));
 		spaces.add(space_factory.getPropertySpace("Street", "Boardwalk", 400, ""));
 	}
 

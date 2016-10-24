@@ -6,7 +6,7 @@ public class IncomeTaxSpace extends BoardSpace {
 	public IncomeTaxSpace() {
 	}
 
-	int getValue() {
+	public int getValue() {
 		return value;
 	}
 

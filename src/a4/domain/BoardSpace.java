@@ -32,4 +32,8 @@ public class BoardSpace {
 	public boolean removePlayer(Player player_to_remove) {
 		return players.remove(player_to_remove);
 	}
+
+	public static void restartCounter() {
+		counter = 0;
+	}
 }

@@ -7,7 +7,7 @@ public class BoardSpaceFactory {
 		switch (type) {
 		case ("IncomeTax"):
 			return new IncomeTaxSpace();
-		case ("LuxaryTax"):
+		case ("LuxuryTax"):
 			return new LuxuryTaxSpace();
 		case ("Open"):
 			return new OpenSpace();

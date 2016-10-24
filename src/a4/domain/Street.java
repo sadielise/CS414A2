@@ -1,8 +1,8 @@
 package a4.domain;
 
 public class Street extends Property {
-	int houseCount;
-	int hotelCount;
+	int houseCount = 0;
+	int hotelCount = 0;
 	String color;
 
 	Street(String name, int value, String color) {

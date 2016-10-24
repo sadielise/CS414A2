@@ -60,7 +60,7 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetJailAndAttemptToEscape() {
 		JailSpace js = (JailSpace) test_factory.getBoardSpace("Jail");
-		Player test_player = new Player();
+		Player test_player = new Player("Test Player", 1500, 0);
 		js.putPlayerInJail(test_player);
 		assertEquals(0, js.getAttempts(test_player));
 		js.incrementAttempts(test_player);
@@ -70,7 +70,7 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetOutOfJail() {
 		JailSpace js = (JailSpace) test_factory.getBoardSpace("Jail");
-		Player test_player = new Player();
+		Player test_player = new Player("Test Player", 1500, 0);
 		js.putPlayerInJail(test_player);
 		js.getOutOfJail(test_player);
 		assertEquals(0, js.getAttempts(test_player));
@@ -93,7 +93,7 @@ public class BoardSpaceFactoryTest {
 	// Property
 	@Test
 	public void testGetStreet() {
-		Player test_player = new Player();
+		Player test_player = new Player("Test Player", 1500, 0);
 		Street street = (Street) test_factory.getPropertySpace("Street", "Street Name", 150, "Blue");
 		street.setOwner(test_player);
 		assertEquals("Street Name", street.getName());

@@ -16,7 +16,7 @@ public class NeighborhoodTest {
 	
 	@Before
 	public void initialize() {
-		test_player = new Player();
+		test_player = new Player("Test Player", 1500, 0);
 		test_street = new Street("Test Street", 200);
 		test_neighborhood = new Neighborhood("Test Color");
 	}

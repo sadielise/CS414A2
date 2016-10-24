@@ -1,8 +1,12 @@
 package a4.domain;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+
+import a4.gui.IModel;
+
 
 public class MonopolyGame implements IMonopolyGame {
 	List<Player> players;
@@ -20,9 +24,9 @@ public class MonopolyGame implements IMonopolyGame {
 		board = new Board();
 		dice = new ArrayList<Die>();
 		bank = new Bank(100000);
+		properties = new ArrayList<Property>();
 		startTime = new Date();
 		houseCount = 5;
-		model = new Model();
 		Player p1 = new Player("Chancey", 100, "alive", 0);
 		Player p2 = new Player("david", 100, "alive", 0);
 		Die d1 = new Die(6);
@@ -31,6 +35,11 @@ public class MonopolyGame implements IMonopolyGame {
 		players.add(p2);
 		dice.add(d1);
 		dice.add(d2);
+		currentPlayer = players.get(0);
+		Property prop1 = new Property("Maple", 0);
+		Property prop2 = new Property("Elizabeth", 20);
+		properties.add(prop1);
+		properties.add(prop2);
 	}
 	public void setupGame(){
 
@@ -45,7 +54,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return null;
 	}
 
-	public void addPlayer(){
+	public void addPlayer(String name){
 
 	}
 
@@ -56,12 +65,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(){
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
-		int newLocation = currentPlayer.getLocation() + value1 + value2;
-		if(newLocation >= properties.size()){ //Player passes go
-			currentPlayer.addBalance(200); 
-			newLocation = newLocation % properties.size();
-		}
-		currentPlayer.setLocation(newLocation);
+		currentPlayer.move(value1+value2, board.size());
 		playerMoved();
 		
 	}
@@ -79,19 +83,20 @@ public class MonopolyGame implements IMonopolyGame {
 				model.paidRentTo(currentProperty.getOwner().getName(), currentProperty.getValue());
 			}
 		}
-//		else if(currentProperty instanceOf GoToJail){ 
-//			tempProperty = (GoToJail)currentProperty;
-//			tempProperty.sendToJail(currentPlayer);
-//			model.playerSentToJail(currentPlayer.getName());
-//		}
+		else if(currentProperty instanceOf GoToJail){ 
+			GoToJail tempProperty = (GoToJail)currentProperty;
+			tempProperty.sendToJail(currentPlayer);
+			model.playerSentToJail(currentPlayer.getName());
+		}
 	}
 
 	public void determinePlayOrder(){
-
+		Collections.shuffle(players);
+		
 	}
 
 	public void purchaseProperty(){
-
+		
 	}
 
 	public void mortgageProperty(){
@@ -103,10 +108,6 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void sellProperty(){
-
-	}
-
-	public void takeTurn(){
 
 	}
 
@@ -140,7 +141,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return true;
 	}
 
-	public void buyHouse(){
+	public void buyHouse(Player owner, Property property){
+		
 
 	}
 
@@ -149,70 +151,105 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public int getHouseCount(){
-		return 0;
+		return houseCount;
 	}
 
 	public void setHouseCount(int newHouseCount){
-
+		houseCount = newHouseCount;
 	}
 
 	@Override
 	public String getCurrentPlayer() {
-		// TODO Auto-generated method stub
-		return null;
+		return currentPlayer.toString();
 	}
 
 	@Override
 	public List<String> getPlayers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> playerNames = new ArrayList<String>();
+		for(Player curr : players){
+			playerNames.add(curr.toString());
+		}
+		return playerNames;
 	}
 
 	@Override
 	public int getBankroll(String player) {
-		// TODO Auto-generated method stub
-		return 0;
+		for(Player curr : players){
+			if(player.equals(curr.toString())){
+				return curr.getBalance();
+			}
+		}
+		return -1;
 	}
 
 	@Override
 	public int getLocation(String player) {
-		// TODO Auto-generated method stub
-		return 0;
+		Player temp = findPlayer(player);
+		if(temp == null){
+			return -1;
+		}
+		return temp.getLocation();
 	}
 
 	@Override
 	public List<String> getProperties(String player) {
-		// TODO Auto-generated method stub
-		return null;
+		List<String> propertyList = new ArrayList<String>();
+		for(Property curr: properties){
+			if(curr.getOwner().toString().equals(player)){
+				propertyList.add(curr.toString());
+			}
+		}
+		return propertyList;
 	}
 
 	@Override
 	public String getProperty(int location) {
-		// TODO Auto-generated method stub
-		return null;
+		return properties.get(location).toString();
 	}
 
 	@Override
-	public void roll() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void developProperty(String property) {
-		// TODO Auto-generated method stub
-		
+	public void developProperty(String property) { // Unfinished?
+		Property currentProperty = findProperty(property);
+		if(currentProperty == null){
+			System.err.println("Error: Property not found! : " + property);
+		}else if(currentProperty.getOwner() == null){
+			model.propertyCannotBeDeveloped(property);
+		}else{
+			buyHouse(currentPlayer, currentProperty);
+		}	
 	}
 
 	@Override
 	public void trade(String currProperty, String otherProperty) {
 		// TODO Auto-generated method stub
-		
 	}
 	
-	public Player getCurrentPlayer(){
+	public Player getCurrentPlayerReference(){
 		return currentPlayer;
 	}
-
-
+	
+	public Player findPlayer(String playerName){
+		for(Player curr: players){
+			if(curr.toString().equals(playerName)){
+				return curr;
+			}
+		}
+		return null;
+	}
+	public Property findProperty(String propertyName){
+		for(Property curr: properties){
+			if(curr.toString().equals(propertyName)){
+				return curr;
+			}
+		}
+		return null;
+	}
+	
+	public ArrayList<Player> getPlayerList(){
+		return (ArrayList)players;
+	}
+	
+	public Bank getBank(){
+		return bank;
+	}
 }

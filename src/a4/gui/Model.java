@@ -4,7 +4,7 @@ import java.util.List;
 
 import a4.domain.IMonopolyGame;
 
-public class Model {
+public class Model implements IModel {
 	
 	private View view;
 	private IMonopolyGame game;
@@ -51,6 +51,30 @@ public class Model {
 	
 	public void trade(String currProperty, String otherProperty){
 		game.trade(currProperty, otherProperty);
+	}
+
+	@Override
+	public void propertyIsUnowned(String propertyName, int propertyValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unableToPayRentTo(String playerName, int rentAmount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void paidRentTo(String playerName, int rentAmount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playerSentToJail(String playerName) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

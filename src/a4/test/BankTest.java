@@ -81,7 +81,7 @@ public class BankTest {
 	}
 
 	@Test
-	public void testRemoveBalance_RemoveTooMuchCorner_Two() {
+	public void testRemoveBalance_SuccessCorner() {
 		int initialBalance = 500000;
 		Bank bank = new Bank(initialBalance);
 		int actual = bank.removeBalance(initialBalance - 1);

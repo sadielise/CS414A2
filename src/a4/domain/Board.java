@@ -7,7 +7,16 @@ public class Board {
 	List<BoardSpace> spaces = new ArrayList<BoardSpace>();
 
 	public Board() {
-		BoardSpaceFactory space_factory = new BoardSpaceFactory();
+		ArrayList<Neighborhood> neighborhoods = new ArrayList<Neighborhood>();
+		neighborhoods.add(new Neighborhood("Brown"));
+		neighborhoods.add(new Neighborhood("SkyBlue"));
+		neighborhoods.add(new Neighborhood("Pink"));
+		neighborhoods.add(new Neighborhood("Orange"));
+		neighborhoods.add(new Neighborhood("Red"));
+		neighborhoods.add(new Neighborhood("Yellow"));
+		neighborhoods.add(new Neighborhood("Green"));
+		neighborhoods.add(new Neighborhood("Blue"));
+		BoardSpaceFactory space_factory = new BoardSpaceFactory(neighborhoods);
 		// Bottom
 		spaces.add(space_factory.getBoardSpace("Open"));
 		spaces.add(space_factory.getPropertySpace("Street", "Mediterranean Avenue", 60, "Brown"));
@@ -46,15 +55,15 @@ public class Board {
 
 		// Right
 		spaces.add(space_factory.getBoardSpace("GoToJail"));
-		spaces.add(space_factory.getPropertySpace("Street", "Pacific Avenue", 300, ""));
-		spaces.add(space_factory.getPropertySpace("Street", "North Carolina Avenue", 300, ""));
+		spaces.add(space_factory.getPropertySpace("Street", "Pacific Avenue", 300, "Green"));
+		spaces.add(space_factory.getPropertySpace("Street", "North Carolina Avenue", 300, "Green"));
 		spaces.add(space_factory.getBoardSpace("Open"));
-		spaces.add(space_factory.getPropertySpace("Street", "Pennsylvania Avenue", 320, ""));
+		spaces.add(space_factory.getPropertySpace("Street", "Pennsylvania Avenue", 320, "Green"));
 		spaces.add(space_factory.getPropertySpace("Railroad", "Short Line", 200, ""));
 		spaces.add(space_factory.getBoardSpace("Open"));
-		spaces.add(space_factory.getPropertySpace("Street", "Park Place", 350, ""));
+		spaces.add(space_factory.getPropertySpace("Street", "Park Place", 350, "Blue"));
 		spaces.add(space_factory.getBoardSpace("LuxuryTax"));
-		spaces.add(space_factory.getPropertySpace("Street", "Boardwalk", 400, ""));
+		spaces.add(space_factory.getPropertySpace("Street", "Boardwalk", 400, "Blue"));
 	}
 
 	public List<BoardSpace> getSpaces() {

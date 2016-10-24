@@ -2,6 +2,8 @@ package a4.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,10 +12,13 @@ import a4.domain.*;
 
 public class BoardSpaceFactoryTest {
 	BoardSpaceFactory test_factory;
+	ArrayList<Neighborhood> test_neighborhoods;
 
 	@Before
 	public void initialize() {
-		test_factory = new BoardSpaceFactory();
+		test_neighborhoods = new ArrayList<Neighborhood>();
+		test_neighborhoods.add(new Neighborhood("Test Color"));
+		test_factory = new BoardSpaceFactory(test_neighborhoods);
 	}
 	
 	@After
@@ -23,7 +28,7 @@ public class BoardSpaceFactoryTest {
 
 	@Test
 	public void testConstructor() {
-		test_factory = new BoardSpaceFactory();
+		test_factory = new BoardSpaceFactory(null);
 		assertEquals(BoardSpaceFactory.class, test_factory.getClass());
 	}
 
@@ -91,7 +96,6 @@ public class BoardSpaceFactoryTest {
 		Player test_player = new Player();
 		Street street = (Street) test_factory.getPropertySpace("Street", "Street Name", 150, "Blue");
 		street.setOwner(test_player);
-		assertEquals("Blue", street.getColor());
 		assertEquals("Street Name", street.getName());
 		assertEquals(test_player, street.getOwner());
 	}

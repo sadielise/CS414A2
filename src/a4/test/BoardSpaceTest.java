@@ -10,8 +10,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class BoardSpaceTest {
-	BoardSpaceFactory test_factory = new BoardSpaceFactory();
-	BoardSpace test_space = test_factory.getBoardSpace("Open");
+	ArrayList<Neighborhood> test_neighborhoods;
+	BoardSpaceFactory test_factory;
+	BoardSpace test_space;
 	ArrayList<Player> test_players = new ArrayList<Player>();
 	Player player1 = new Player();
 	Player player2 = new Player();
@@ -20,6 +21,10 @@ public class BoardSpaceTest {
 
 	@Before
 	public void initialize() {
+		test_neighborhoods = new ArrayList<Neighborhood>();
+		test_neighborhoods.add(new Neighborhood("Test Color"));
+		test_factory = new BoardSpaceFactory(test_neighborhoods);
+		test_space = test_factory.getBoardSpace("Open");
 	}
 
 	// Construct

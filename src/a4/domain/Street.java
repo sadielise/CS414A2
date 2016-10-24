@@ -3,11 +3,10 @@ package a4.domain;
 public class Street extends Property {
 	int houseCount = 0;
 	int hotelCount = 0;
-	String color;
+	Neighborhood neighborhood;
 
-	Street(String name, int value, String color) {
+	public Street(String name, int value) {
 		super(name, value);
-		this.color = color;
 	}
 
 	public int getHouseCount() {
@@ -26,14 +25,6 @@ public class Street extends Property {
 		this.hotelCount = hotelCount;
 	}
 
-	public String getColor() {
-		return color;
-	}
-
-	public void setColor(String color) {
-		this.color = color;
-	}
-
 	public void addHouse() {
 		if (houseCount < 4)
 			houseCount++;
@@ -50,5 +41,9 @@ public class Street extends Property {
 			hotelCount = 0;
 			houseCount = 4;
 		}
+	}
+
+	public void addToNeighborhood() {
+
 	}
 }

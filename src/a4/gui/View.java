@@ -59,10 +59,7 @@ public class View extends JFrame{
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
 
-
-
 		playingBoard = new PlayingBoard(model);
-
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");

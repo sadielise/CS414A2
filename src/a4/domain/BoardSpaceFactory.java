@@ -3,10 +3,8 @@ package a4.domain;
 import java.util.ArrayList;
 
 public class BoardSpaceFactory {
-	ArrayList<Neighborhood> neighborhoods;
 	
-	public BoardSpaceFactory(ArrayList<Neighborhood> neighborhoods) {
-		this.neighborhoods = neighborhoods;
+	public BoardSpaceFactory() {
 	}
 
 	public BoardSpace getBoardSpace(String type) {
@@ -27,26 +25,10 @@ public class BoardSpaceFactory {
 	}
 
 	public BoardSpace getPropertySpace(String type, String name, int value, String color) {
-		switch (type) {
-		case ("Street"): {
-			Street street = new Street(name, value);
-			addToNeighborhood(color, street);
-			return street;
-		}
-		case ("Railroad"):
-			return new Railroad(name, value);
-		case ("Utility"):
-			return new Utility(name, value);
-		default:
-			return null;
-		}
+		PropertySpace propertySpace = new PropertySpace(type, name, value, color);
+		return propertySpace;
 	}
 
 
-	void addToNeighborhood(String color, Street s) {
-		for (Neighborhood n : neighborhoods) {
-			if (n.getColor() == color)
-				n.addStreetToNeighborhood(s);
-		}
-	}
+
 }

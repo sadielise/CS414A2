@@ -1,6 +1,6 @@
 package a4.domain;
 
-public class Property extends PropertySpace {
+public class Property{
 	int value;
 	Player owner;
 	String name;

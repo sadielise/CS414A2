@@ -1,10 +1,20 @@
 package a4.domain;
 
 public class PropertySpace extends BoardSpace {
-	public PropertySpace() {
-	}
 
 	Property property;
+
+	public PropertySpace(String type, String name, int value, String color) {
+		if (type.toLowerCase().equals("railroad")) {
+			property = new Railroad(name, value);
+		} else if (type.toLowerCase().equals("utility")) {
+			property = new Utility(name, value);
+		} else if (type.toLowerCase().equals("utility")) {
+			property = new Street(name, value, color);
+		} else {
+			property = new Property(name, value);
+		}
+	}
 
 	Property getProperty() {
 		return property;

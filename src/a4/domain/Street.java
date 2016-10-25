@@ -4,9 +4,11 @@ public class Street extends Property {
 	int houseCount = 0;
 	int hotelCount = 0;
 	Neighborhood neighborhood;
+	String color;
 
-	public Street(String name, int value) {
+	public Street(String name, int value, String color) {
 		super(name, value);
+		this.color = color;
 	}
 
 	public int getHouseCount() {
@@ -42,8 +44,25 @@ public class Street extends Property {
 			houseCount = 4;
 		}
 	}
+	
+	public String getColor(){
+		return color;
+	}
+	
+	public void setColor(String newColor){
+		this.color = newColor;
+	}
 
-	public void addToNeighborhood() {
-
+	public void addToNeighborhood(Neighborhood n) {
+		neighborhood = n;
+	}
+	
+	public int getRent(){
+		int rent = value;
+		if(0 == houseCount && 0 == hotelCount && owner == neighborhood.belongsTo()){
+			rent = rent *2;
+		}
+		return value;
+		//TODO: this needs unit tests still
 	}
 }

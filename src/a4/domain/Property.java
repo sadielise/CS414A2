@@ -2,7 +2,7 @@ package a4.domain;
 
 public class Property{
 	int value;
-	Player owner;
+	Player owner = null;
 	String name;
 	private boolean isMortgaged;
 	
@@ -46,5 +46,8 @@ public class Property{
 	public String toString(){
 		return name + ": Currently Mortgaged: " + isMortgaged;
 	}
-	
+
+	public int getRent() {
+		return 0;
+	}
 }

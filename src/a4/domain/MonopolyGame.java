@@ -339,6 +339,24 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<Player> getPlayerList(){
 		return players;
 	}
+
+	@Override
+	public void endTurn() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public int getPlayerNumber(String player) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void undevelop(String property) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	private void GoToJail() {
 		// TODO Auto-generated method stub

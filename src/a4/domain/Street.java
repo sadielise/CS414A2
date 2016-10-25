@@ -3,12 +3,15 @@ package a4.domain;
 public class Street extends Property {
 	int houseCount = 0;
 	int hotelCount = 0;
+	int[] rent;
 	Neighborhood neighborhood;
 	String color;
+	boolean isMortgaged = false;
 
-	public Street(String name, int value, String color) {
+	public Street(String name, int value, int[] rent, String color) {
 		super(name, value);
 		this.color = color;
+		this.rent = rent;
 	}
 
 	public int getHouseCount() {
@@ -28,7 +31,8 @@ public class Street extends Property {
 	}
 
 	public void addHouse() {
-		if (houseCount < 4 && hotelCount < 1)
+		if (hotelCount >= 1) {}
+		else if (houseCount < 4)
 			houseCount++;
 		else if (hotelCount == 0) {
 			houseCount = 0;
@@ -57,14 +61,18 @@ public class Street extends Property {
 		neighborhood = n;
 	}
 
+	@Override
 	public int getRent() {
-		int rent = value;
-		if (0 == houseCount && 0 == hotelCount && owner == neighborhood.belongsTo()) {
-			rent = rent * 2;
-		}
-		return value;
+		if (houseCount > 0)
+			return rent[houseCount];
+		else if (hotelCount > 0)
+			return rent[hotelCount * 5];
+		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null && neighborhood.belongsTo().equals(owner))
+			return rent[0] * 2;
+		else
+			return rent[0];
 	}
-	
+
 	public Neighborhood getNeighborhood(){
 		return neighborhood;
 	}

@@ -22,8 +22,8 @@ public class BoardSpaceFactory {
 		}
 	}
 
-	public BoardSpace getPropertySpace(String type, String name, int value, String color) {
-		PropertySpace propertySpace = new PropertySpace(type, name, value, color);
+	public BoardSpace getPropertySpace(String type, String name, int value, int[] rent, String color) {
+		PropertySpace propertySpace = new PropertySpace(type, name, value, rent, color);
 		return propertySpace;
 	}
 

@@ -2,7 +2,7 @@ package a4.domain;
 
 public class Property{
 	int value;
-	Player owner;
+	Player owner = null;
 	String name;
 	
 	Property(String name, int value) {
@@ -32,5 +32,9 @@ public class Property{
 
 	public void setName(String new_name) {
 		name = new_name;
+	}
+
+	public int getRent() {
+		return 0;
 	}
 }

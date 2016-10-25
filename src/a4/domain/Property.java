@@ -4,8 +4,9 @@ public class Property{
 	int value;
 	Player owner;
 	String name;
+	private boolean isMortgaged;
 	
-	Property(String name, int value) {
+	public Property(String name, int value) {
 		this.name = name;
 		this.value = value;
 	}
@@ -33,4 +34,17 @@ public class Property{
 	public void setName(String new_name) {
 		name = new_name;
 	}
+	
+	public boolean getIsMortgaged(){
+		return isMortgaged;
+	}
+	
+	public void setIsMortgaged(boolean state){
+		isMortgaged = state;
+	}
+	
+	public String toString(){
+		return name + ": Currently Mortgaged: " + isMortgaged;
+	}
+	
 }

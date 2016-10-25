@@ -18,6 +18,10 @@ public class MonopolyGameTest {
 	@Before
 	public void doBeforeTests(){
 		testGame = new MonopolyGame();
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("Chancey");
+		names.add("David");
+		testGame.setupGame(names, 30);
 	}
 //	@Test
 //	public void testRoll() {
@@ -43,24 +47,26 @@ public class MonopolyGameTest {
 	
 	@Test
 	public void testTransferMoneyPlayerToPlayer(){
-		ArrayList<Player> playerList = testGame.getPlayerList();
-		int balance1 = playerList.get(0).getBalance();
-		int balance2 = playerList.get(1).getBalance();
-		boolean success = testGame.transferMoney(playerList.get(0), playerList.get(1), balance1);
+		Player testPlayer1 = testGame.getPlayerList().get(0);
+		Player testPlayer2 = testGame.getPlayerList().get(1);
+		int balance1 = testPlayer1.getBalance();
+		int balance2 = testPlayer2.getBalance();
+		boolean success = testGame.transferMoney(testPlayer1, testPlayer2, balance1);
 		assertTrue(success);
-		assertEquals(0, playerList.get(0).getBalance());
-		assertEquals(balance2 + balance1, playerList.get(1).getBalance());
+		assertEquals(0, testPlayer1.getBalance());
+		assertEquals(balance2 + balance1, testPlayer2.getBalance());
 	}
 	
 	@Test
 	public void testTransferMoneyPlayerToPlayerOverdraft(){
-		ArrayList<Player> playerList = testGame.getPlayerList();
-		int balance1 = playerList.get(0).getBalance();
-		int balance2 = playerList.get(1).getBalance();
-		boolean success = testGame.transferMoney(playerList.get(0), playerList.get(1), balance1 +100);
+		Player testPlayer1 = testGame.getPlayerList().get(0);
+		Player testPlayer2 = testGame.getPlayerList().get(1);
+		int balance1 = testPlayer1.getBalance();
+		int balance2 = testPlayer2.getBalance();
+		boolean success = testGame.transferMoney(testPlayer1, testPlayer2, balance1 +100);
 		assertFalse(success);
-		assertEquals(balance1, playerList.get(0).getBalance());
-		assertEquals(balance2 , playerList.get(1).getBalance());
+		assertEquals(balance1, testPlayer1.getBalance());
+		assertEquals(balance2 , testPlayer2.getBalance());
 	}
 	
 	@Test
@@ -110,6 +116,7 @@ public class MonopolyGameTest {
 		assertEquals(playerBalance, testPlayer.getBalance());
 		assertEquals(bankBalance, testBank.getBalance());
 	}
+	
 	@Test 
 	public void testGetHouseCount(){
 		testGame.setHouseCount(10);
@@ -126,7 +133,8 @@ public class MonopolyGameTest {
 	
 	@Test
 	public void testGetCurrentPlayer(){
-		
+		String testString = testGame.getCurrentPlayerReference().toString();
+		assertEquals(testString, testGame.getCurrentPlayer());
 	}
 
 	@Test
@@ -161,7 +169,7 @@ public class MonopolyGameTest {
 		Player player = new Player("Gabby", 200, 0);
 		int propertyValue = 300;
 		Property property = new Property("Super cool property", propertyValue);
-		assertFalse(purchaseProperty(player, property, propertyValue));
+		assertFalse(testGame.purchaseProperty(player, property, propertyValue));
 		assertTrue(200 == player.getBalance());
 		assertTrue(null == property.getOwner());
 		//TODO: chack bank balance
@@ -240,5 +248,10 @@ public class MonopolyGameTest {
 	assertFalse(testGame.getPlayerList().contains(testPlayer));
 	boolean success = testGame.removePlayer(testPlayer);
 	assertFalse(success);
+	}
+
+	@Test
+	public void testBuyHouse(){
+		testGame.ge
 	}
 }

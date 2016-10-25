@@ -28,7 +28,7 @@ public class Street extends Property {
 	}
 
 	public void addHouse() {
-		if (houseCount < 4)
+		if (houseCount < 4 && hotelCount < 1)
 			houseCount++;
 		else if (hotelCount == 0) {
 			houseCount = 0;
@@ -63,6 +63,12 @@ public class Street extends Property {
 			rent = rent * 2;
 		}
 		return value;
-		// TODO: this needs unit tests still
+	}
+	
+	public Neighborhood getNeighborhood(){
+		return neighborhood;
+	}
+	public String toString(){
+		return name + ": Value: " + value + " Number of Houses: " + houseCount + " Currently Mortgaged: " + isMortgaged;
 	}
 }

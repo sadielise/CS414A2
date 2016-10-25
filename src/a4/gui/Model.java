@@ -82,4 +82,8 @@ public class Model implements IModel {
 		game.newGame(playerNames,timeInMinutes);
 	}
 	
+	public void startNewGame(List<String> playerNames, int timeInMinutes){
+		game.newGame(playerNames,timeInMinutes);
+	}
+	
 }

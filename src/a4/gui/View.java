@@ -80,7 +80,7 @@ public class View extends JFrame{
 	}
 
 
-	Dimension getEcnlosingBox(){
+	Dimension getEnclosingBox(){
 		return playingBoard.getSize();
 	}
 }

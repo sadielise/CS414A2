@@ -66,7 +66,7 @@ public class Street extends Property {
 			return rent[houseCount];
 		else if (hotelCount > 0)
 			return rent[hotelCount * 5];
-		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null && neighborhood.belongsTo() == owner)
+		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null && neighborhood.belongsTo().equals(owner))
 			return rent[0] * 2;
 		else
 			return rent[0];

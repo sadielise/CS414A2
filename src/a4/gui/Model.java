@@ -38,6 +38,10 @@ public class Model {
 		return game.getProperties(game.getCurrentPlayer());
 	}
 	
+	public int getPlayerLocation(String player){
+		return game.getLocation(player);
+	}
+	
 	public String getProperty(int location){
 		return game.getProperty(location);
 	}

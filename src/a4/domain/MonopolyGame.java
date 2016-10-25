@@ -1,6 +1,7 @@
 package a4.domain;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class MonopolyGame implements IMonopolyGame {
@@ -21,14 +22,21 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 	
 	//returns the player that wins the game
-	public Player endGame(){
-		Player winner = new Player("_", 0, 0);
+	public Player endGame() {
+		Player winner = players.get(0);
+		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
+		for (Player p : players)
+			liquidatedFunds.put(p, p.getBalance());
 		for (Property p : properties) {
-			// TODO: Sell all houses
-			mortgageProperty(p);
+			Street s = (Street) p;
+			int housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+			int hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			int propertyValue = s.getValue();
+			int oldValue = liquidatedFunds.get(s.getOwner());
+			liquidatedFunds.put(s.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
 		}
 		for (Player p : players) {
-			if (p.getBalance() > winner.getBalance())
+			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
 				winner = p;
 		}
 		return winner;

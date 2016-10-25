@@ -10,14 +10,14 @@ public class Board {
 	public Board() {
 		BoardSpace space = null;
 		neighborhoods = new ArrayList<Neighborhood>();
-		neighborhoods.add(new Neighborhood("Brown"));
-		neighborhoods.add(new Neighborhood("SkyBlue"));
-		neighborhoods.add(new Neighborhood("Pink"));
-		neighborhoods.add(new Neighborhood("Orange"));
-		neighborhoods.add(new Neighborhood("Red"));
-		neighborhoods.add(new Neighborhood("Yellow"));
-		neighborhoods.add(new Neighborhood("Green"));
-		neighborhoods.add(new Neighborhood("Blue"));
+		neighborhoods.add(new Neighborhood("Brown", 50));
+		neighborhoods.add(new Neighborhood("SkyBlue", 50));
+		neighborhoods.add(new Neighborhood("Pink", 100));
+		neighborhoods.add(new Neighborhood("Orange", 100));
+		neighborhoods.add(new Neighborhood("Red", 150));
+		neighborhoods.add(new Neighborhood("Yellow", 150));
+		neighborhoods.add(new Neighborhood("Green", 200));
+		neighborhoods.add(new Neighborhood("Blue", 200));
 		BoardSpaceFactory space_factory = new BoardSpaceFactory();
 
 		// Bottom

@@ -1,6 +1,7 @@
 package a4.gui;
 
 import java.util.List;
+import java.util.Timer;
 
 import a4.domain.IMonopolyGame;
 
@@ -51,6 +52,10 @@ public class Model {
 	
 	public void trade(String currProperty, String otherProperty){
 		game.trade(currProperty, otherProperty);
+	}
+	
+	public void startNewGame(List<String> playerNames, int timeInMinutes){
+		game.newGame(playerNames,timeInMinutes);
 	}
 	
 }

@@ -22,7 +22,7 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	//returns the player that wins the game
 	public Player endGame(){
-		return new Player();
+		return null;
 	}
 	
 	public void addPlayer(){
@@ -135,6 +135,12 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public void trade(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void newGame(List<String> playerNames, int timeInMinutes) {
 		// TODO Auto-generated method stub
 		
 	}

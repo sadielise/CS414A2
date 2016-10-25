@@ -22,7 +22,16 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	//returns the player that wins the game
 	public Player endGame(){
-		return null;
+		Player winner = new Player("_", 0, 0);
+		for (Property p : properties) {
+			// TODO: Sell all houses
+			mortgageProperty(p);
+		}
+		for (Player p : players) {
+			if (p.getBalance() > winner.getBalance())
+				winner = p;
+		}
+		return winner;
 	}
 	
 	public void addPlayer(){
@@ -45,7 +54,7 @@ public class MonopolyGame implements IMonopolyGame {
 		
 	}
 	
-	public void mortgageProperty(){
+	public void mortgageProperty(Property p){
 		
 	}
 	

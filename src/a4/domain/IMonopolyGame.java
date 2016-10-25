@@ -20,6 +20,12 @@ public interface IMonopolyGame {
 	
 	public void developProperty(String property);
 	
+	public void endTurn();
+	
+	public void undevelop(String property);
+	
+	public int getPlayerNumber(String player);
+	
 	public void trade(String currProperty, String otherProperty);
 	
 	public void newGame(List<String> playerNames, int timeInMinutes);

@@ -80,7 +80,7 @@ public class View extends JFrame{
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
 		if(model.getIcon(model.getPlayer()) != null){
-		currentIcon.setText(" Icon: " + model.getIcon(model.getPlayer()));
+			currentIcon.setText(" Icon: " + model.getIcon(model.getPlayer()));
 		}
 		else{
 			currentIcon.setText(" Current Icon: <YOUR ICON HERE>");
@@ -90,6 +90,26 @@ public class View extends JFrame{
 		super.paint(g);
 	}
 
+	public void unownedPropertyDialog(String property, int cost){
+		controller.createLandedOnUnownedDialog(property, cost);
+	}
+
+	public void unableToPayDialog(String player, int rentDue){
+		controller.createUnableToPayDialog(player,rentDue);
+	}
+
+	public void paidRentDialog(String playerName, int rentAmount) {
+		controller.createPaidRentDialog(playerName, rentAmount);
+
+	}
+
+	public void sentToJailDialog(String playerName) {
+		controller.createSentToJailDialog(playerName);
+	}
+
+	public void propertyCannotBeDevelopedDialog(String propertyName) {
+		controller.createPropertyCannotBeDevelopedDialog(propertyName);
+	}
 
 	Dimension getEnclosingBox(){
 		return playingBoard.getSize();

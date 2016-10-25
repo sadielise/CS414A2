@@ -162,6 +162,18 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void purchaseProperty(String player, String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void purchaseAuctionedProperty(List<Double> offers) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 	

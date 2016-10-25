@@ -89,7 +89,7 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetStreet() {
 		Player test_player = new Player("Test Player", 1500, 0);
-		BoardSpace street = test_factory.getPropertySpace("Street", "Street Name", 150, "Blue");
+		BoardSpace street = test_factory.getPropertySpace("Street", "Street Name", 150, new int[]{1, 2, 3, 4, 5, 6}, "Blue");
 		street.addPlayer(test_player);
 	}
 

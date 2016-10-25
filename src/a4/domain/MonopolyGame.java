@@ -28,12 +28,16 @@ public class MonopolyGame implements IMonopolyGame {
 		for (Player p : players)
 			liquidatedFunds.put(p, p.getBalance());
 		for (Property p : properties) {
-			Street s = (Street) p;
-			int housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
-			int hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
-			int propertyValue = s.getValue();
-			int oldValue = liquidatedFunds.get(s.getOwner());
-			liquidatedFunds.put(s.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
+			int housesValue = 0;
+			int hotelValue = 0;
+			if(p instanceof Street){
+				Street s = (Street) p;
+				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			}
+			int propertyValue = p.getValue();
+			int oldValue = liquidatedFunds.get(p.getOwner());
+			liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
 		}
 		for (Player p : players) {
 			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))

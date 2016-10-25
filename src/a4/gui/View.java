@@ -65,10 +65,7 @@ public class View extends JFrame{
 		playerOptionsAndInfo.add(currentLocation);
 		playerOptionsAndInfo.add(currentIcon);
 
-
-
 		playingBoard = new PlayingBoard(model);
-
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");

@@ -49,6 +49,10 @@ public class Model implements IModel {
 	public void purchaseAuctionedProperty(List<Double> offers){
 		game.purchaseAuctionedProperty(offers);
 	}
+
+	public int getPlayerLocation(String player){
+		return game.getLocation(player);
+	}
 	public String getProperty(int location){
 		return game.getProperty(location);
 	}

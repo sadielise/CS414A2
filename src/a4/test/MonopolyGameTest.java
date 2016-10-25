@@ -216,4 +216,29 @@ public class MonopolyGameTest {
 		Player testPlayer = testGame.findPlayer(testName);
 		assertNull(testPlayer);
 	}
+	
+	@Test
+	public void testRemovePlayer(){
+		Player testPlayer = testGame.getCurrentPlayerReference();
+		assertTrue(testGame.getPlayerList().contains(testPlayer));
+		boolean success = testGame.removePlayer(testPlayer);
+		assertTrue(success);
+		assertFalse(testGame.getPlayerList().contains(testPlayer));
+	}
+	
+	@Test
+	public void testRemovePlayerNull(){
+		Player testPlayer = null;
+		assertFalse(testGame.getPlayerList().contains(testPlayer));
+		boolean success = testGame.removePlayer(testPlayer);
+		assertFalse(success);
+	}
+	
+	@Test
+	public void testRemovePlayerNotInGame(){
+	Player testPlayer = new Player("asldkfj", 100, 0);
+	assertFalse(testGame.getPlayerList().contains(testPlayer));
+	boolean success = testGame.removePlayer(testPlayer);
+	assertFalse(success);
+	}
 }

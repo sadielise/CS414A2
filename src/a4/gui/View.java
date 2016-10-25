@@ -20,6 +20,8 @@ public class View extends JFrame{
 	private PlayingBoard playingBoard;
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
+	private JLabel currentLocation;
+	private JLabel currentIcon;
 	public void setModel(Model m){
 		model = m;
 	}
@@ -56,8 +58,12 @@ public class View extends JFrame{
 
 		currentPlayer = new JLabel(" Current Player:    ");
 		currentBankroll = new JLabel(" Current Bankroll:    ");
+		currentLocation = new JLabel(" Current Location:    ");
+		currentIcon = new JLabel(" Icon:    ");
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
+		playerOptionsAndInfo.add(currentLocation);
+		playerOptionsAndInfo.add(currentIcon);
 
 		playingBoard = new PlayingBoard(model);
 
@@ -69,10 +75,18 @@ public class View extends JFrame{
 
 	}
 
-
-	public void paint(Graphics g){
+	public void update(){
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
+		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
+		if(model.getIcon(model.getPlayer()) != null){
+		currentIcon.setText(" Icon: " + model.getIcon(model.getPlayer()));
+		}
+		else{
+			currentIcon.setText(" Current Icon: <YOUR ICON HERE>");
+		}
+	}
+	public void paint(Graphics g){
 		super.paint(g);
 	}
 

@@ -1,7 +1,9 @@
 package a4.gui;
 
 import java.util.List;
-import java.util.Timer;
+
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import a4.domain.IMonopolyGame;
 
@@ -9,6 +11,7 @@ public class Model {
 	
 	private View view;
 	private IMonopolyGame game;
+	boolean isStarted = false;
 	
 	public void setView(View v){
 		view = v;
@@ -20,6 +23,10 @@ public class Model {
 	
 	public String getPlayer(){
 		return game.getCurrentPlayer();
+	}
+	
+	public int getLocation(String player){
+		return game.getLocation(player);
 	}
 	
 	public List<String> getPlayers(){
@@ -60,6 +67,26 @@ public class Model {
 	
 	public void startNewGame(List<String> playerNames, int timeInMinutes){
 		game.newGame(playerNames,timeInMinutes);
+		isStarted = true;
+	}
+	
+	public void endTurn(){
+		game.endTurn();
+		
+	}
+	
+	public Icon getIcon(String player){
+		int playerNumber = game.getPlayerNumber(player);
+		Icon currentIcon = new ImageIcon("filepath/icon"+playerNumber);
+		return null;
+	}
+	
+	public void undevelop(String property){
+		game.undevelop(property);
+	}
+	
+	private void update(){
+		view.update();
 	}
 	
 }

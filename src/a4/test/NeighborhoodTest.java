@@ -18,7 +18,7 @@ public class NeighborhoodTest {
 	public void initialize() {
 		test_player = new Player("Test Player", 1500, 0);
 		test_neighborhood = new Neighborhood("Test Color");
-		test_street = new Street("Test Street", 200, "Test Color");
+		test_street = new Street("Test Street", 200, new int[]{1, 2,3, 4, 5, 6}, "Test Color");
 	}
 
 	@Test

@@ -9,7 +9,7 @@ public class PropertySpace extends BoardSpace {
 			property = new Railroad(name, value);
 		} else if (type.toLowerCase().equals("utility")) {
 			property = new Utility(name, value);
-		} else if (type.toLowerCase().equals("utility")) {
+		} else if (type.toLowerCase().equals("street")) {
 			property = new Street(name, value, color);
 		} else {
 			property = new Property(name, value);

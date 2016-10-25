@@ -12,13 +12,10 @@ import a4.domain.*;
 
 public class BoardSpaceFactoryTest {
 	BoardSpaceFactory test_factory;
-	ArrayList<Neighborhood> test_neighborhoods;
 
 	@Before
 	public void initialize() {
-		test_neighborhoods = new ArrayList<Neighborhood>();
-		test_neighborhoods.add(new Neighborhood("Test Color"));
-		test_factory = new BoardSpaceFactory(test_neighborhoods);
+		test_factory = new BoardSpaceFactory();
 	}
 	
 	@After
@@ -28,7 +25,7 @@ public class BoardSpaceFactoryTest {
 
 	@Test
 	public void testConstructor() {
-		test_factory = new BoardSpaceFactory(null);
+		test_factory = new BoardSpaceFactory();
 		assertEquals(BoardSpaceFactory.class, test_factory.getClass());
 	}
 
@@ -94,10 +91,8 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetStreet() {
 		Player test_player = new Player("Test Player", 1500, 0);
-		Street street = (Street) test_factory.getPropertySpace("Street", "Street Name", 150, "Blue");
-		street.setOwner(test_player);
-		assertEquals("Street Name", street.getName());
-		assertEquals(test_player, street.getOwner());
+		BoardSpace street = test_factory.getPropertySpace("Street", "Street Name", 150, "Blue");
+		street.addPlayer(test_player);
 	}
 
 }

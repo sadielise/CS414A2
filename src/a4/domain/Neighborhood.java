@@ -16,7 +16,7 @@ public class Neighborhood {
 	public String getColor() {
 		return color;
 	}
-	
+
 	public void setColor(String new_color) {
 		color = new_color;
 	}
@@ -32,7 +32,7 @@ public class Neighborhood {
 	public boolean isOwnedByOnePlayer() {
 		return isOwnedByOnePlayer;
 	}
-	
+
 	public Player belongsTo() {
 		return ownedBy;
 	}

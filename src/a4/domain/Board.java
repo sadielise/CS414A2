@@ -7,7 +7,6 @@ public class Board {
 	List<BoardSpace> spaces = new ArrayList<BoardSpace>();
 	ArrayList<Neighborhood> neighborhoods;
 
-
 	public Board() {
 		BoardSpace space = null;
 		neighborhoods = new ArrayList<Neighborhood>();
@@ -20,6 +19,7 @@ public class Board {
 		neighborhoods.add(new Neighborhood("Green"));
 		neighborhoods.add(new Neighborhood("Blue"));
 		BoardSpaceFactory space_factory = new BoardSpaceFactory();
+
 		// Bottom
 		spaces.add(space_factory.getBoardSpace("Open"));
 		space = space_factory.getPropertySpace("Street", "Mediterranean Avenue", 60, "Brown");
@@ -41,6 +41,7 @@ public class Board {
 		space = space_factory.getPropertySpace("Street", "Connecticut Avenue", 120, "SkyBlue");
 		this.addToNeighborhood(space);
 		spaces.add(space);
+
 		// Left
 		spaces.add(space_factory.getBoardSpace("Jail"));
 		space = space_factory.getPropertySpace("Street", "St. Charles Place", 140, "Pink");
@@ -123,14 +124,14 @@ public class Board {
 	public void removeSpace(BoardSpace space_to_remove) {
 		spaces.remove(space_to_remove);
 	}
-	
-	//Precondition: the boardspace is a street property space
+
+	// Precondition: the boardspace is a street property space
 	public void addToNeighborhood(BoardSpace space) {
 		Street s = (Street) ((PropertySpace) space).getProperty();
 		for (Neighborhood n : neighborhoods) {
 			if (n.getColor() == s.getColor())
 				n.addStreetToNeighborhood(s);
-				s.addToNeighborhood(n);
+			s.addToNeighborhood(n);
 		}
 	}
 }

@@ -3,7 +3,7 @@ package a4.domain;
 import java.util.ArrayList;
 
 public class BoardSpaceFactory {
-	
+
 	public BoardSpaceFactory() {
 	}
 
@@ -28,7 +28,5 @@ public class BoardSpaceFactory {
 		PropertySpace propertySpace = new PropertySpace(type, name, value, color);
 		return propertySpace;
 	}
-
-
 
 }

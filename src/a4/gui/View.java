@@ -78,9 +78,7 @@ public class View extends JFrame{
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
-	}
-	public void paint(Graphics g){
-		super.paint(g);
+		playingBoard.update();
 	}
 
 	public void unownedPropertyDialog(String property, int cost){
@@ -130,6 +128,31 @@ public class View extends JFrame{
 	public void propertyWasDevelopedDialog(String property, int numberOfHouses) {
 		controller.createPropertyWasDevelopedDialog(property, numberOfHouses);
 		
+	}
+
+	public void propertyWasMortgagedDialog(String property, int amount) {
+		controller.createPropertyWasMortgagedDialog(property, amount);
+	}
+
+	public void couldNotUndevelopProperty(String property) {
+		controller.createCouldNotUndevelopProperty(property);
+	}
+
+	public void propertyUnmortgagedDialog(String property) {
+		controller.createPropertyUnmortgagedDialog(property);
+	}
+
+	public void unableToPurchasePropertyDialog(String player, String property) {
+		controller.createUnableToPurchasePropertyDialog(player, property);
+		
+	}
+
+	public void purchasedPropertyDialog(String player, String property) {
+		controller.createPurchasedPropertyDialog(player, property);
+	}
+
+	public void auctionFailedDialog(String property) {
+		controller.createAuctionFailedDialog(property);
 	}
 
 

@@ -35,4 +35,8 @@ public interface IMonopolyGame {
 	public void purchaseAuctionedProperty(List<Integer> offers);
 
 	public void payJailFine(String player, boolean isPayingFine);
+
+	public List<String> getDevelopableProperties(String player);
+
+	public List<String> getPlayersUndevelopableProperties(String player);
 }

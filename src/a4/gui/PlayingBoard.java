@@ -77,7 +77,7 @@ public class PlayingBoard extends JLayeredPane{
 		
 		if(paintCount != 0){
 			List<String> players = model.getPlayers();
-			for(int i = 0; i < players.size(); i++){
+			for(int i = 0; i < players.size(); i++){ 
 				int location = model.getPlayerLocation(players.get(i));
 				int x = playerPositions[location][0];
 				int y = playerPositions[location][1];

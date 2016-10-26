@@ -2,9 +2,6 @@ package a4.gui;
 
 import java.util.List;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import a4.domain.IMonopolyGame;
 
 public class Model implements IModel {
@@ -44,6 +41,14 @@ public class Model implements IModel {
 
 	public List<String> getPlayersProperties(String player){
 		return game.getProperties(game.getCurrentPlayer());
+	}
+	
+	public List<String> getPlayersDevelopableProperties(String player){
+		return game.getDevelopableProperties(player);
+	}
+	
+	public List<String> getPlayersUndevelopableProperties(String player){
+		return game.getPlayersUndevelopableProperties(player);
 	}
 
 	public void purchaseAuctionedProperty(List<Integer> offers){
@@ -115,6 +120,7 @@ public class Model implements IModel {
 		view.propertyCannotBeDevelopedDialog(propertyName);
 	}
 
+	// not sure what this is for yet :(
 	private void update(){
 		view.update();
 	}
@@ -148,6 +154,47 @@ public class Model implements IModel {
 
 	public void payJailFine(String player, boolean isPayingFine) {
 		game.payJailFine(player,isPayingFine);
+	}
+
+	@Override
+	public void unableToPayTax(int amount) {
+		unableToPayRentTo("Tax", amount);
+	}
+
+	@Override
+	public void propertyWasMortgagedFor(String property, int amount) {
+		view.update();
+		view.propertyWasMortgagedDialog(property, amount);
+	}
+
+	@Override
+	public void couldNotUndevelopProperty(String property) {
+		view.couldNotUndevelopProperty(property);
+	}
+
+	@Override
+	public void propertyWasUnmortgagedFor(String property, int value) {
+		view.propertyUnmortgagedDialog(property);
+	}
+
+	@Override
+	public void couldNotPurchaseProperty(String player, String property) {
+		view.unableToPurchasePropertyDialog(player, property);
+		view.update();
+		
+	}
+
+	@Override
+	public void purchasedProperty(String player, String property) {
+		view.purchasedPropertyDialog(player, property);
+		view.update();
+		
+	}
+
+	@Override
+	public void auctionFailed(String property){
+		view.auctionFailedDialog(property);
+		view.update();
 		
 	}
 }

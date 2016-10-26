@@ -480,5 +480,8 @@ public class MonopolyGameTest {
 		assertTrue(tempJail.isInPrison(testGame.getCurrentPlayerReference()));
 		assertTrue(tempJail.getPlayers().contains(testGame.getCurrentPlayerReference()));
 	}
+	
+	@Test
+	public void testMor
 
 }

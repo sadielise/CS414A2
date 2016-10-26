@@ -36,11 +36,16 @@ public class MonopolyGame implements IMonopolyGame {
 		dice.add(d2);
 		model = null;
 	}
-	public void setupGame(List<String> names, int time){
+	public boolean setupGame(List<String> names, int time){
 		endTime = new Date(time);
+		if(names == null || names.size() < 2 || names.size() > 4){
+			return false;
+		}
+		players.clear();
 		for(String name: names){
 			players.add(new Player(name, 1500, 0));
 		}
+		properties.clear();
 		for(BoardSpace space: board.getSpaces()){
 			if(space instanceof PropertySpace){
 				properties.add(((PropertySpace)space).getProperty());
@@ -48,7 +53,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		determinePlayOrder();
 		currentPlayer = players.get(0);
-//		model.setCurrentPlayer(currentPlayer.toString());
+		return true;
 	}
 
 	public void playGame(){
@@ -95,9 +100,10 @@ public class MonopolyGame implements IMonopolyGame {
 	public boolean removePlayer(Player player){
 		if(players.contains(player)){
 			players.remove(player);
-			if(players.size() == 1){
-				endGame();
-			}
+//			if(players.size() == 1){
+//				endGame();
+//				return true;
+//			}
 			return true;
 		}
 		else if(player == null){
@@ -125,7 +131,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	private void playerMoved(){
-
+		// TODO Auto-generated method stub
 	}
 
 	public void determinePlayOrder(){
@@ -154,7 +160,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void mortgageProperty(Property propertyToMortgage){
-
+		// TODO Auto-generated method stub
 	}
 	
 	private void unmortgageProperty(Property propertyToUnmortgage) {
@@ -163,11 +169,11 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void tradeProperty(){
-
+		// TODO Auto-generated method stub
 	}
 
 	public void auctionProperty(List<Integer> bids){
-
+		// TODO Auto-generated method stub
 	}
 	
 	public boolean bid(int[] bids, Property property){
@@ -335,12 +341,17 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public void trade(String currProperty, String otherProperty) {
-
+		// TODO Auto-generated method stub
 	}
 
 	@Override
 	public void newGame(List<String> playerNames, int timeInMinutes) {
-		// TODO Auto-generated method stub
+		boolean success = setupGame(playerNames, timeInMinutes);
+		if(success){
+			model.newGameCreated();
+		}else{
+			model.newGameFailedToCreate();
+		}
 
 	}
 
@@ -412,7 +423,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 	@Override
 	public void roll() {
-		// TODO Auto-generated method stub
+		roll(0);
 		
 	}
 }

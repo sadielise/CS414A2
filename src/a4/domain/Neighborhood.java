@@ -56,13 +56,14 @@ public class Neighborhood {
 		isOwnedByOnePlayer = false;
 		ownedBy = null;
 	}
-	
-	public int getHouseValue() {
-		return houseValue;
+
+	public boolean addHouse(Street tempStreet) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	public void setHouseValue(int houseValue) {
-		this.houseValue = houseValue;
+	public boolean removeHouse(Street tempStreet) {
+		// TODO Auto-generated method stub
+		return false;
 	}
-
 }

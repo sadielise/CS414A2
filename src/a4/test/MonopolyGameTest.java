@@ -25,6 +25,14 @@ public class MonopolyGameTest {
 		names.add("David");
 		testGame.setupGame(names, 30);
 	}
+	
+	public void testSetupGame(){
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("Chancey");
+		names.add("David");
+		assertTrue(testGame.setupGame(names, 30));
+		assertTrue(testGame.getCurrentPlayerReference().equals(testGame.getPlayerList().get(0)));
+	}
 //	@Test
 //	public void testRoll() {
 //		int oldLocation = testGame.getCurrentPlayerReference().getLocation();

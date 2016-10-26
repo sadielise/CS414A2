@@ -77,9 +77,6 @@ public class Street extends Property {
 			return rent[0];
 	}
 
-	public Neighborhood getNeighborhood(){
-		return neighborhood;
-	}
 	public String toString(){
 		return name + ": Value: " + value + " Number of Houses: " + houseCount + " Currently Mortgaged: " + isMortgaged;
 	}

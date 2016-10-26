@@ -14,6 +14,7 @@ import a4.domain.MonopolyGame;
 import a4.domain.Player;
 import a4.domain.Property;
 import a4.domain.PropertySpace;
+import a4.gui.Model;
 
 public class MonopolyGameTest {
 	private MonopolyGame testGame;
@@ -24,8 +25,11 @@ public class MonopolyGameTest {
 		names.add("Chancey");
 		names.add("David");
 		testGame.setupGame(names, 30);
+		Model model = new Model();
+		testGame.setModel(model);
 	}
 	
+	@Test
 	public void testSetupGame(){
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
@@ -33,6 +37,33 @@ public class MonopolyGameTest {
 		assertTrue(testGame.setupGame(names, 30));
 		assertTrue(testGame.getCurrentPlayerReference().equals(testGame.getPlayerList().get(0)));
 	}
+	
+	@Test
+	public void testSetupGameNullListOfNames(){
+		assertFalse(testGame.setupGame(null, 30));
+		assertNull(testGame.getCurrentPlayerReference());
+	}
+	
+	@Test
+	public void testSetupGameTooFewPlayers(){
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("Chancey");
+		assertFalse(testGame.setupGame(names, 30));
+		assertNull(testGame.getCurrentPlayerReference());
+	}
+	
+	@Test
+	public void testSetupGameTooManyPlayers(){
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("Chancey");
+		names.add("David");
+		names.add("Jeff");
+		names.add("Gabby");
+		names.add("Saddie");
+		assertFalse(testGame.setupGame(names, 30));
+		assertNull(testGame.getCurrentPlayerReference());
+	}
+	
 //	@Test
 //	public void testRoll() {
 //		int oldLocation = testGame.getCurrentPlayerReference().getLocation();

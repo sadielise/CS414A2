@@ -19,7 +19,7 @@ public class MonopolyGame implements IMonopolyGame {
 	Date endTime;
 	int houseCount;
 	int hotelCount;
-	private Player currentPlayer;
+	private Player currentPlayer = null;
 	private IModel model = new Model();
 
 	public MonopolyGame(){ //This is a fake constructor... Need to redo later
@@ -28,8 +28,6 @@ public class MonopolyGame implements IMonopolyGame {
 		dice = new ArrayList<Die>();
 		bank = new Bank(20580);
 		properties = new ArrayList<Property>();
-		houseCount = 32;
-		hotelCount = 5;
 		Die d1 = new Die(6);
 		Die d2 = new Die(6);
 		dice.add(d1);
@@ -37,7 +35,11 @@ public class MonopolyGame implements IMonopolyGame {
 		model = null;
 	}
 	public boolean setupGame(List<String> names, int time){
+		currentPlayer = null;
 		endTime = new Date(time);
+		houseCount = 32;
+		hotelCount = 5;
+		bank.setBalance(20580);
 		if(names == null || names.size() < 2 || names.size() > 4){
 			return false;
 		}
@@ -352,7 +354,6 @@ public class MonopolyGame implements IMonopolyGame {
 		}else{
 			model.newGameFailedToCreate();
 		}
-
 	}
 
 	public Player findPlayer(String playerName){

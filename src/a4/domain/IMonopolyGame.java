@@ -2,6 +2,8 @@ package a4.domain;
 
 import java.util.List;
 
+import a4.gui.Model;
+
 public interface IMonopolyGame {
 
 	public String getCurrentPlayer();
@@ -33,4 +35,6 @@ public interface IMonopolyGame {
 	public void purchaseProperty(String player, String property);
 	
 	public void purchaseAuctionedProperty(List<Double> offers);
+	
+	public void setModel(Model model);
 }

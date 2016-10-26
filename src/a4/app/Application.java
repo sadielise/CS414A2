@@ -22,6 +22,6 @@ public class Application {
 		view.setController(controller);
 
 		view.build();
-		view.show();
+		view.setVisible(true);
 	}
 }

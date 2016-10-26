@@ -46,7 +46,7 @@ public class Model implements IModel {
 		return game.getProperties(game.getCurrentPlayer());
 	}
 
-	public void purchaseAuctionedProperty(List<Double> offers){
+	public void purchaseAuctionedProperty(List<Integer> offers){
 		game.purchaseAuctionedProperty(offers);
 	}
 

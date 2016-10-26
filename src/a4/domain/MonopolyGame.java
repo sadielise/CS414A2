@@ -191,11 +191,9 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	@Override
-	public void purchaseAuctionedProperty(List<Double> offers) {
+	public void purchaseAuctionedProperty(List<Integer> offers) {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
 	
 }

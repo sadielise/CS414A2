@@ -101,7 +101,7 @@ public class Controller {
 			createAuctionDialog(property);
 		}
 	}
-	
+
 	public void createAuctionDialog(String property){
 		JOptionPane.showMessageDialog(view, property +" is up for auction. Please enter your bids when the dialog appears. Highest bid will buy the property!");
 		List<String> players = model.getPlayers();
@@ -118,9 +118,9 @@ public class Controller {
 			offers.set(i,offer);
 		}
 		model.purchaseAuctionedProperty(offers);
-		
+
 	}
-	
+
 	public void createUnableToPayDialog(String player, int rentDue) {
 		JOptionPane.showMessageDialog(view, "You were unable to pay, and must undevelop!");
 		DevelopDialog.createAndShowDevelopDialog(model, true);	
@@ -137,7 +137,7 @@ public class Controller {
 	}
 	public void createStartNormalTurnDialog(String player) {
 		JOptionPane.showMessageDialog(view, "It is " + player +"'s turn!");
-		
+
 	}
 	public void createStartJailTurnDialog(String player) {
 		int choice = JOptionPane.showConfirmDialog(view, "It is " +player + "'s turn, but you are in jail! Do you want to pay the fine?", "In Jail Dialog", JOptionPane.YES_NO_OPTION);
@@ -153,10 +153,31 @@ public class Controller {
 	}
 	public void createFailedToCreateNewGameDialog() {
 		JOptionPane.showMessageDialog(view, "New game was unable to be created! Please try again!");
-		
+
 	}
 	public void createPropertyWasDevelopedDialog(String property, int numberOfHouses) {
 		JOptionPane.showMessageDialog(view, property + "was developed, and now has " + numberOfHouses + " houses!");
-		
+
+	}
+	public void createPropertyWasMortgagedDialog(String property, int amount) {
+		JOptionPane.showMessageDialog(view, "You mortgaged " + property + "for $" + amount+".");
+	}
+	public void createCouldNotUndevelopProperty(String property) {
+		JOptionPane.showMessageDialog(view, property + " could not be undeveloped.");
+
+	}
+	public void createPropertyUnmortgagedDialog(String property) {
+		JOptionPane.showMessageDialog(view, property + " was unmortgaged.");
+	}
+	public void createUnableToPurchasePropertyDialog(String player, String property) {
+		JOptionPane.showMessageDialog(view, player +" was unable to purchase " + property + " so it will be auctioned.");
+		createAuctionDialog(property);
+	}
+	public void createPurchasedPropertyDialog(String player, String property) {
+		JOptionPane.showMessageDialog(view, player + " purchased " + property+ ".");
+	}
+	public void createAuctionFailedDialog(String property) {
+		JOptionPane.showMessageDialog(view, "Auction for " + property + " failed. Restarting Auction.");
+		createAuctionDialog(property);
 	}
 }

@@ -63,7 +63,13 @@ public class DevelopDialog extends JPanel{
 	}
 
 	private JPanel createDialogBox(){
-		List<String> properties = model.getCurrentPlayersProperties(); 
+		List<String> properties;
+		if(isUndevelop){
+			properties = model.getPlayersUndevelopableProperties(model.getPlayer());
+		}
+		else{
+			properties = model.getPlayersDevelopableProperties(model.getPlayer());
+		}
 		int numberOfButtons = properties.size();
 		ButtonGroup group = new ButtonGroup();
 		JRadioButton[] propertyButtons = new JRadioButton[numberOfButtons];
@@ -76,7 +82,15 @@ public class DevelopDialog extends JPanel{
 
 		propertyButtons[0].setSelected(true);
 
-		JButton developButton = new JButton("Develop!");
+		JButton developButton;
+		if(isUndevelop){
+			developButton = new JButton("Undevelop!");
+		}
+		else{
+			developButton = new JButton("Develop!");
+		}
+
+
 
 		developButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e){

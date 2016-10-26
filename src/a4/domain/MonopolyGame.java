@@ -201,5 +201,17 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<String> getDevelopableProperties(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getPlayersUndevelopableProperties(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

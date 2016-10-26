@@ -38,7 +38,8 @@ public class PlayingBoard extends JLayeredPane{
 		playerPositions = new int[40][2];
 		int i = 0;
 		try {
-			Scanner scanner = new Scanner(new File("C:/Users/Sadie/Documents/Github/CS414Project/src/a4/gui/player1positions.txt"));
+			
+			Scanner scanner = new Scanner(new File("player1positions.txt"));
 			while(scanner.hasNextInt()){
 				playerPositions[i][0] = scanner.nextInt();
 				playerPositions[i][1] = scanner.nextInt();
@@ -52,13 +53,13 @@ public class PlayingBoard extends JLayeredPane{
 	
 	private void readTokens(){
 		tokens = new ArrayList<ImageIcon>();
-		ImageIcon car = new ImageIcon("C:/Users/Sadie/Documents/GitHub/CS414Project/src/a4/gui/car.png");
+		ImageIcon car = new ImageIcon("car.png");
 		tokens.add(car);
-		ImageIcon dog = new ImageIcon("C:/Users/Sadie/Documents/GitHub/CS414Project/src/a4/gui/dog.png");
+		ImageIcon dog = new ImageIcon("dog.png");
 		tokens.add(dog);
-		ImageIcon hat = new ImageIcon("C:/Users/Sadie/Documents/GitHub/CS414Project/src/a4/gui/hat.png");
+		ImageIcon hat = new ImageIcon("hat.png");
 		tokens.add(hat);
-		ImageIcon wheelbarrow = new ImageIcon("C:/Users/Sadie/Documents/GitHub/CS414Project/src/a4/gui/wheelbarrow.png");
+		ImageIcon wheelbarrow = new ImageIcon("wheelbarrow.png");
 		tokens.add(wheelbarrow);
 	}
 
@@ -69,7 +70,7 @@ public class PlayingBoard extends JLayeredPane{
 
 		BufferedImage board;
 		try {
-			board = ImageIO.read(new File("C:/Users/Sadie/Documents/GitHub/CS414Project/src/a4/gui/boardImg.jpg"));
+			board = ImageIO.read(new File("boardImg.jpg"));
 			g.drawImage(board, 0, 0, this);
 		} catch (IOException e) {
 

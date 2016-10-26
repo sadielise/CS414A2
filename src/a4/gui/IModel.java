@@ -5,5 +5,11 @@ public interface IModel {
 	public void unableToPayRentTo(String playerName , int rentAmount);
 	public void paidRentTo(String playerName , int rentAmount);
 	public void playerSentToJail(String playerName);
+	public void propertyWasDeveloped(String property, int numberOfHouses);
 	public void propertyCannotBeDeveloped(String propertyName);
+	public void startNormalTurn(String player);
+	public void startJailTurn(String player);
+	public void newGameCreated();
+	public void newGameFailedToCreate();
+
 }

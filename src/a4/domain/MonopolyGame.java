@@ -1,6 +1,7 @@
 package a4.domain;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 public class MonopolyGame implements IMonopolyGame {
@@ -21,8 +22,28 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 	
 	//returns the player that wins the game
-	public Player endGame(){
-		return null;
+	public Player endGame() {
+		Player winner = players.get(0);
+		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
+		for (Player p : players)
+			liquidatedFunds.put(p, p.getBalance());
+		for (Property p : properties) {
+			int housesValue = 0;
+			int hotelValue = 0;
+			if(p instanceof Street){
+				Street s = (Street) p;
+				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			}
+			int propertyValue = p.getValue();
+			int oldValue = liquidatedFunds.get(p.getOwner());
+			liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
+		}
+		for (Player p : players) {
+			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
+				winner = p;
+		}
+		return winner;
 	}
 	
 	public void addPlayer(){
@@ -45,7 +66,7 @@ public class MonopolyGame implements IMonopolyGame {
 		
 	}
 	
-	public void mortgageProperty(){
+	public void mortgageProperty(Property p){
 		
 	}
 	
@@ -162,7 +183,35 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
-	
-	
+
+	@Override
+	public void purchaseProperty(String player, String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void purchaseAuctionedProperty(List<Integer> offers) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void payJailFine(String player, boolean isPayingFine) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<String> getDevelopableProperties(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getPlayersUndevelopableProperties(String player) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

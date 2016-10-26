@@ -29,4 +29,14 @@ public interface IMonopolyGame {
 	public void trade(String currProperty, String otherProperty);
 	
 	public void newGame(List<String> playerNames, int timeInMinutes);
+	
+	public void purchaseProperty(String player, String property);
+	
+	public void purchaseAuctionedProperty(List<Integer> offers);
+
+	public void payJailFine(String player, boolean isPayingFine);
+
+	public List<String> getDevelopableProperties(String player);
+
+	public List<String> getPlayersUndevelopableProperties(String player);
 }

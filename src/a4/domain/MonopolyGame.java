@@ -34,6 +34,7 @@ public class MonopolyGame implements IMonopolyGame {
 		dice.add(d2);
 		model = null;
 	}
+	
 	public boolean setupGame(List<String> names, int time){
 		currentPlayer = null;
 		endTime = new Date(time);
@@ -148,7 +149,16 @@ public class MonopolyGame implements IMonopolyGame {
 		int location = currentPlayer.getLocation();
 		BoardSpace space = board.getSpaces().get(location); 
 		Property property = ((PropertySpace)space).getProperty();
-		return purchaseProperty(currentPlayer, property, property.getValue());
+		if(property.getOwner() != null){
+			// SEND MESSAGE TO MODEL SAYING THAT YOU CAN'T PURCHASE THE PROPERTY
+			return false;
+		}
+		else if(property.getIsMortgaged() == true){
+			// ASK USER IF THEY WANT TO KEEP THE PROPERTY MORTGAGED AND HANDLE RESPONSE
+		}
+		else{
+			return purchaseProperty(currentPlayer, property, property.getValue());
+		}
 	}
 
 	public boolean purchaseProperty(Player player, Property property, int price){
@@ -162,16 +172,45 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void mortgageProperty(Property propertyToMortgage){
-		// TODO Auto-generated method stub
+		if(currentPlayer.getName() != propertyToMortgage.getOwner().getName()){
+			// SEND MESSAGE TO MODEL
+		}
+		else{
+			propertyToMortgage.setOwner(null);
+			propertyToMortgage.setIsMortgaged(true);
+			currentPlayer.addBalance(propertyToMortgage.getValue()/2);
+		}
 	}
 	
 	private void unmortgageProperty(Property propertyToUnmortgage) {
-		// TODO Auto-generated method stub
-
+		if(currentPlayer.getName() != propertyToUnmortgage.getOwner().getName()){
+			// SEND MESSAGE TO MODEL
+		}
+		else if(propertyToUnmortgage.getIsMortgaged() == false){
+			// SEND MESSAGE TO MODEL
+		}
+		else{
+			int total = (propertyToUnmortgage.getValue()/2) + ((propertyToUnmortgage.getValue()/2)/10);
+			if(currentPlayer.getBalance() < total){
+				// SEND MESSAGE TO MODEL
+			}
+			else{
+				propertyToUnmortgage.setIsMortgaged(false);
+				currentPlayer.removeBalance(total);
+			}
+		}
 	}
 
-	public void tradeProperty(){
-		// TODO Auto-generated method stub
+	public void tradeProperty(Property property1, Property property2){
+		if(property1.getIsMortgaged() != property2.getIsMortgaged()){
+			// SEND MESSAGE TO MODEL
+		}
+		else{
+			Player player1 = property1.getOwner();
+			Player player2 = property2.getOwner();
+			property1.setOwner(player2);
+			property2.setOwner(player1);
+		}
 	}
 
 	public void auctionProperty(List<Integer> bids){
@@ -208,6 +247,7 @@ public class MonopolyGame implements IMonopolyGame {
 		toBank.addBalance(amount);
 		return true;
 	}
+	
 	public boolean transferMoney(Bank fromBank, Player toPlayer, int amount){
 		if(fromBank.getBalance() < amount){
 			return false;

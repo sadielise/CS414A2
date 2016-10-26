@@ -13,5 +13,10 @@ public interface IModel {
 	public void newGameFailedToCreate();
 	public void unableToPayTax(int amount);
 	public void propertyWasMortgagedFor(String property, int amount);
+	public void couldNotUndevelopProperty(String property);
+	public void propertyWasUnmortgagedFor(String property, int value);
+	public void couldNotPurchaseProperty(String player, String property);
+	public void purchasedProperty(String player, String property);
+	public void auctionFailed();
 
 }

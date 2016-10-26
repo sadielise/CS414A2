@@ -73,6 +73,14 @@ public class MonopolyGameTest {
 		assertNotEquals(oldLocation, testGame.getCurrentPlayerReference().getLocation());
 	}
 	
+	@Test
+	public void testRollPassGo(){
+		testGame.getCurrentPlayerReference().setLocation(38);
+		int pastBalance = testGame.getCurrentPlayerReference().getBalance();
+		testGame.roll();
+		assertEquals(pastBalance + 200, testGame.getCurrentPlayerReference().getBalance());
+	}
+	
 	@Test 
 	public void testPlayerMovedToUnownedProperty(){
 		testGame.getCurrentPlayerReference().setLocation(1);

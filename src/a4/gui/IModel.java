@@ -12,5 +12,6 @@ public interface IModel {
 	public void newGameCreated();
 	public void newGameFailedToCreate();
 	public void unableToPayTax(int amount);
+	public void propertyWasMortgagedFor(String property, int amount);
 
 }

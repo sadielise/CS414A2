@@ -155,6 +155,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		else if(property.getIsMortgaged() == true){
 			// ASK USER IF THEY WANT TO KEEP THE PROPERTY MORTGAGED AND HANDLE RESPONSE
+			return purchaseProperty(currentPlayer, property, property.getValue());
 		}
 		else{
 			return purchaseProperty(currentPlayer, property, property.getValue());

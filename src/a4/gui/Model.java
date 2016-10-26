@@ -142,4 +142,16 @@ public class Model implements IModel {
 		
 	}
 
+	@Override
+	public void newGameCreated() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void newGameFailedToCreate() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

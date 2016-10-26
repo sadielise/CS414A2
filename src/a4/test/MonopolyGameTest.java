@@ -10,6 +10,10 @@ import org.junit.Test;
 
 import a4.domain.Bank;
 import a4.domain.BoardSpace;
+import a4.domain.GoToJailSpace;
+import a4.domain.IncomeTaxSpace;
+import a4.domain.JailSpace;
+import a4.domain.LuxuryTaxSpace;
 import a4.domain.MonopolyGame;
 import a4.domain.Player;
 import a4.domain.Property;
@@ -24,7 +28,7 @@ public class MonopolyGameTest {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		names.add("David");
-		testGame.setupGame(names, 30);
+		testGame.newGame(names, 30);
 		Model model = new Model();
 		testGame.setModel(model);
 	}
@@ -41,7 +45,6 @@ public class MonopolyGameTest {
 	@Test
 	public void testSetupGameNullListOfNames(){
 		assertFalse(testGame.setupGame(null, 30));
-		assertNull(testGame.getCurrentPlayerReference());
 	}
 	
 	@Test
@@ -49,7 +52,6 @@ public class MonopolyGameTest {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		assertFalse(testGame.setupGame(names, 30));
-		assertNull(testGame.getCurrentPlayerReference());
 	}
 	
 	@Test
@@ -61,31 +63,155 @@ public class MonopolyGameTest {
 		names.add("Gabby");
 		names.add("Saddie");
 		assertFalse(testGame.setupGame(names, 30));
-		assertNull(testGame.getCurrentPlayerReference());
-	}
-	
-//	@Test
-//	public void testRoll() {
-//		int oldLocation = testGame.getCurrentPlayerReference().getLocation();
-//		testGame.roll();
-//		assertNotEquals(oldLocation, testGame.getCurrentPlayerReference().getLocation());
-//	}
-//	
-	@Test 
-	public void testPlayerMovedToUnownedProperty(){
 		
 	}
 	
 	@Test
-	public void testPlayerMovedToOwnedProperty(){
-		
+	public void testRoll() {
+		int oldLocation = testGame.getCurrentPlayerReference().getLocation();
+		testGame.roll();
+		assertNotEquals(oldLocation, testGame.getCurrentPlayerReference().getLocation());
+	}
+	
+	@Test 
+	public void testPlayerMovedToUnownedProperty(){
+		testGame.getCurrentPlayerReference().setLocation(1);
+		testGame.playerMoved();
+		assertTrue(testGame.getBoard().getSpaces().get(1) instanceof PropertySpace);
+		assertTrue(true);
+		assertNull(((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty().getOwner());
+	}
+	
+	@Test
+	public void testPlayerMovedToOwnedPropertyAndCanPayRent(){
+		Player tempPlayer = testGame.getPlayerList().get(testGame.getPlayerList().size()-1);
+		assertNotNull(tempPlayer);
+		Property tempProperty = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
+		tempProperty.setOwner(tempPlayer);
+		testGame.getCurrentPlayerReference().setLocation(1);
+		int currentPlayerBalance = testGame.getCurrentPlayerReference().getBalance();
+		int ownerBalance = tempPlayer.getBalance();
+		int rent = tempProperty.getRent();
+		testGame.playerMoved();
+		assertEquals(currentPlayerBalance - rent, testGame.getCurrentPlayerReference().getBalance());
+		assertEquals(ownerBalance + rent, tempPlayer.getBalance());
+	}
+	
+	@Test
+	public void testPlayerMovedToOwnedPropertyAndCannotPayRent(){
+		Player tempPlayer = testGame.getPlayerList().get(testGame.getPlayerList().size()-1);
+		assertNotNull(tempPlayer);
+		Property tempProperty = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
+		tempProperty.setOwner(tempPlayer);
+		testGame.getCurrentPlayerReference().setLocation(1);
+		testGame.getCurrentPlayerReference().setBalance(0);
+		int ownerBalance = tempPlayer.getBalance();
+		testGame.playerMoved();
+		assertEquals(0, testGame.getCurrentPlayerReference().getBalance());
+		assertEquals(ownerBalance, tempPlayer.getBalance());
 	}
 	
 	@Test
 	public void testPlayerMovedToGoToJail(){
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		int goToJailLoc = 0;
+		JailSpace tempJail = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof GoToJailSpace){
+				goToJailLoc = space.getLocation();
+			}
+			if(space instanceof JailSpace){
+				tempJail = (JailSpace)space;			}
+		}
+		assertNotEquals(0, goToJailLoc);
+		assertNotNull(tempJail);
+		currentPlayer.setLocation(goToJailLoc);
+		testGame.playerMoved();
+		assertTrue(currentPlayer.getInJail());
+		assertEquals(currentPlayer.getLocation(), tempJail.getLocation());	
+	}
+	
+	@Test
+	public void testPlayerMovedToLuxuryTaxAndCanPay(){
+		LuxuryTaxSpace luxuryTax = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof LuxuryTaxSpace){
+				luxuryTax = (LuxuryTaxSpace)space;
+			}
+		}
+		assertNotNull(luxuryTax);
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		currentPlayer.setLocation(luxuryTax.getLocation());
+		int playerBalance = currentPlayer.getBalance();
+		int bankBalance = testGame.getBank().getBalance();
+		testGame.playerMoved();
+		assertEquals(playerBalance - 200, currentPlayer.getBalance());
+		assertEquals(bankBalance + 200, testGame.getBank().getBalance());
+	}
+	
+	@Test
+	public void testPlayerMovedToLuxuryTaxAndCannotPay(){
+		LuxuryTaxSpace luxuryTax = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof LuxuryTaxSpace){
+				luxuryTax = (LuxuryTaxSpace)space;
+			}
+		}
+		assertNotNull(luxuryTax);
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		currentPlayer.setLocation(luxuryTax.getLocation());
+		currentPlayer.setBalance(0);
+		int bankBalance = testGame.getBank().getBalance();
+		testGame.playerMoved();
+		assertEquals(0, currentPlayer.getBalance());
+		assertEquals(bankBalance, testGame.getBank().getBalance());
+	}
+	
+	@Test
+	public void testPlayerMovedToIncomeTaxAndCanPay(){
+		IncomeTaxSpace incomeTax = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof IncomeTaxSpace){
+				incomeTax = (IncomeTaxSpace)space;
+			}
+		}
+		assertNotNull(incomeTax);
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		currentPlayer.setLocation(incomeTax.getLocation());
+		int playerBalance = currentPlayer.getBalance();
+		int bankBalance = testGame.getBank().getBalance();
+		testGame.playerMoved();
+		assertEquals(playerBalance - 100, currentPlayer.getBalance());
+		assertEquals(bankBalance + 100, testGame.getBank().getBalance());
+	}
+	
+	@Test
+	public void testPlayerMovedToIncomeTaxAndCannotPay(){
+		IncomeTaxSpace incomeTax = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof IncomeTaxSpace){
+				incomeTax = (IncomeTaxSpace)space;
+			}
+		}
+		assertNotNull(incomeTax);
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		currentPlayer.setLocation(incomeTax.getLocation());
+		currentPlayer.setBalance(0);
+		int bankBalance = testGame.getBank().getBalance();
+		testGame.playerMoved();
+		assertEquals(0, currentPlayer.getBalance());
+		assertEquals(bankBalance, testGame.getBank().getBalance());
+	}
+	
+	@Test
+	public void testPlayerMovedToOpenSpace(){
 		
 	}
 	
+	@Test 
+	public void testPlayerMovedToJailSpace(){
+		
+	}
 	@Test
 	public void testTransferMoneyPlayerToPlayer(){
 		Player testPlayer1 = testGame.getPlayerList().get(0);
@@ -301,9 +427,20 @@ public class MonopolyGameTest {
 		assertTrue(testGame.purchaseProperty());
 		testPlayer.setLocation(3);
 		assertTrue(testGame.purchaseProperty());
-//		assertEquals(1, testGame.buyHouse(property));
-		
+//		assertEquals(1, testGame.buyHouse(property));		
 	}
 	
-	
+	@Test
+	public void testGoToJail(){
+		testGame.goToJail();
+		JailSpace tempJail = null;
+		for(BoardSpace space: testGame.getBoard().getSpaces()){
+			if(space instanceof JailSpace){
+				tempJail = (JailSpace)space;
+			}
+		}
+		assertNotNull(tempJail);
+		assertEquals(tempJail.getLocation(), testGame.getCurrentPlayerReference().getLocation());
+		assertTrue(tempJail.isInPrison(testGame.getCurrentPlayerReference()));
+	}
 }

@@ -19,36 +19,31 @@ public class MonopolyGame implements IMonopolyGame {
 	Date endTime;
 	int houseCount;
 	int hotelCount;
-	private Player currentPlayer = null;
-	private IModel model = new Model();
+	private Player currentPlayer;
+	private IModel model;
+	private int initialBankBalance = 20580;
 
-	public MonopolyGame(){ //This is a fake constructor... Need to redo later
-		players = new ArrayList<Player>();
-		board = new Board();
-		dice = new ArrayList<Die>();
-		bank = new Bank(20580);
-		properties = new ArrayList<Property>();
-		Die d1 = new Die(6);
-		Die d2 = new Die(6);
-		dice.add(d1);
-		dice.add(d2);
-		model = null;
+	public MonopolyGame(){
+
 	}
-	
-	public boolean setupGame(List<String> names, int time){
-		currentPlayer = null;
-		endTime = new Date(time);
-		houseCount = 32;
-		hotelCount = 5;
-		bank.setBalance(20580);
+	public boolean setupGame(List<String> names, int time){	
 		if(names == null || names.size() < 2 || names.size() > 4){
 			return false;
 		}
-		players.clear();
+		
+		players = new ArrayList<Player>();
+		properties = new ArrayList<Property>();
+		board = new Board();
+		dice = new ArrayList<Die>();
+		dice.add(new Die(6));
+		dice.add(new Die(6));
+		bank = new Bank(initialBankBalance);
+		endTime = new Date(time);
+		bank.setBalance(20580);	
+		
 		for(String name: names){
 			players.add(new Player(name, 1500, 0));
 		}
-		properties.clear();
 		for(BoardSpace space: board.getSpaces()){
 			if(space instanceof PropertySpace){
 				properties.add(((PropertySpace)space).getProperty());
@@ -117,14 +112,21 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	@Override
+	public void roll() {
+		roll(0);	
+	}
+	
 	public void roll(int pastNumberOfDoubles){
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
 		if(value1 == value2 && pastNumberOfDoubles == 3){
-			GoToJail();
-			model.playerSentToJail(currentPlayer.toString());
+			goToJail();
+//			model.playerSentToJail(currentPlayer.toString());
 		}else{
-			currentPlayer.move(value1+value2, board.getSpaces().size());
+			if(currentPlayer.move(value1+value2, board.getSpaces().size())){
+				transferMoney(bank, currentPlayer, 200);
+			}
 			playerMoved();
 			if(value1 == value2){
 				pastNumberOfDoubles++;
@@ -132,9 +134,36 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		}
 	}
-
-	private void playerMoved(){
-		// TODO Auto-generated method stub
+	
+	public void playerMoved(){
+		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
+		if(spaceOfPlayer instanceof LuxuryTaxSpace){
+			if(!transferMoney(currentPlayer, bank, 200)){
+//				model.unableToPayTax(200);
+			}
+		}else if(spaceOfPlayer instanceof IncomeTaxSpace){
+			if(!transferMoney(currentPlayer, bank, 100)){
+//				model.unableToPayTax(100);
+			}
+		}else if(spaceOfPlayer instanceof OpenSpace){
+			
+		}else if(spaceOfPlayer instanceof PropertySpace){
+			Property currentProperty = ((PropertySpace)spaceOfPlayer).getProperty();
+			if(currentProperty.getOwner() == null){
+//				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
+			}else if(!currentProperty.getOwner().equals(currentPlayer)){
+				if(!transferMoney(currentPlayer, currentProperty.getOwner(), currentProperty.getRent())){
+//					model.unableToPayRentTo(currentProperty.getOwner().toString(), currentProperty.getRent());
+				}				
+			}
+		}else if(spaceOfPlayer instanceof GoToJailSpace){
+			goToJail();
+//			model.playerSentToJail(currentPlayer.toString());
+		}else if(spaceOfPlayer instanceof JailSpace){
+			
+		}else{
+			System.err.println("You done messed A-ARon!");
+		}
 	}
 
 	public void determinePlayOrder(){
@@ -389,11 +418,20 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public void newGame(List<String> playerNames, int timeInMinutes) {
+		players = null;
+		board = null;
+		dice = null;
+		bank = null;
+		properties = null;
+		currentPlayer = null;
+		endTime = null;
+		BoardSpace.restartCounter();
 		boolean success = setupGame(playerNames, timeInMinutes);
 		if(success){
-			model.newGameCreated();
+//			model.newGameCreated();
+//			model.startNormalTurn(currentPlayer.toString());
 		}else{
-			model.newGameFailedToCreate();
+//			model.newGameFailedToCreate();
 		}
 	}
 
@@ -448,9 +486,16 @@ public class MonopolyGame implements IMonopolyGame {
 		
 	}
 	
-	private void GoToJail() {
-		// TODO Auto-generated method stub
-
+	public void goToJail() {
+		int jailLoc = 0;
+		for(BoardSpace space: board.getSpaces()){
+			if(space instanceof JailSpace){
+				((JailSpace)space).putPlayerInJail(currentPlayer);
+				jailLoc = space.getLocation();
+			}
+		}
+		currentPlayer.setLocation(jailLoc);
+		currentPlayer.setInJail(true);
 	}
 
 	public Bank getBank(){
@@ -462,10 +507,5 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	public void setModel(Model newModel){
 		model = newModel;
-	}
-	@Override
-	public void roll() {
-		roll(0);
-		
 	}
 }

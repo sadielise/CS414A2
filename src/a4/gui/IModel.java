@@ -11,5 +11,6 @@ public interface IModel {
 	public void startJailTurn(String player);
 	public void newGameCreated();
 	public void newGameFailedToCreate();
+	public void unableToPayTax(int amount);
 
 }

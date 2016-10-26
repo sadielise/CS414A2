@@ -154,4 +154,46 @@ public class Model implements IModel {
 		
 	}
 
+
+	@Override
+	public void unableToPayTax(int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void propertyWasMortgagedFor(String property, int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void couldNotUndevelopProperty(String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void propertyWasUnmortgagedFor(String property, int value) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void couldNotPurchaseProperty(String player, String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void purchasedProperty(String player, String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void auctionFailed() {
+		// TODO Auto-generated method stub
+		
+	}
 }

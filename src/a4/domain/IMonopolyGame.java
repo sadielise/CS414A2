@@ -29,4 +29,8 @@ public interface IMonopolyGame {
 	public void trade(String currProperty, String otherProperty);
 	
 	public void newGame(List<String> playerNames, int timeInMinutes);
+	
+	public void purchaseProperty(String player, String property);
+	
+	public void purchaseAuctionedProperty(List<Double> offers);
 }

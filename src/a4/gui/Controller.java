@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 public class Controller {
 	private Model model;
@@ -37,7 +38,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				if(model.isStarted){
-					DevelopDialog.createAndShowDevelopDialog(model);
+					DevelopDialog.createAndShowDevelopDialog(model, false);
 				}
 			}
 		});
@@ -78,11 +79,43 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				if(model.isStarted){
+					if(!model.hasRolled){
+						model.roll();
+					}
 					model.endTurn();
 				}
 			}
 		});
 
 		return button;
+	}
+
+	public void createLandedOnUnownedDialog(String property, int cost){
+		int choice = JOptionPane.showConfirmDialog(view, "Would you like to purchase " + property+ " for $"+cost+"?", "Purchase dialog", JOptionPane.YES_NO_OPTION);
+		if(choice == JOptionPane.YES_OPTION){
+			model.purchaseProperty(model.getPlayer(), property);
+		}
+		else{
+			createAuctionDialog(property);
+		}
+	}
+	
+	public void createAuctionDialog(String property){
+		
+	}
+	
+	public void createUnableToPayDialog(String player, int rentDue) {
+		JOptionPane.showMessageDialog(view, "You were unable to pay, and must undevelop!");
+		DevelopDialog.createAndShowDevelopDialog(model, true);	
+	}
+	public void createPaidRentDialog(String playerName, int rentAmount) {
+		JOptionPane.showMessageDialog(view, "You paid $" + rentAmount +" to " + playerName + " for landing on owned property");
+
+	}
+	public void createSentToJailDialog(String playerName) {
+		JOptionPane.showMessageDialog(view, "You were sent to jail!");
+	}
+	public void createPropertyCannotBeDevelopedDialog(String propertyName) {
+		JOptionPane.showMessageDialog(view, propertyName +" cannot be developed!");
 	}
 }

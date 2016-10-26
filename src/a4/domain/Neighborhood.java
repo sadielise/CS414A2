@@ -10,8 +10,9 @@ public class Neighborhood {
 	Player ownedBy = null;
 	int houseValue;
 
-	public Neighborhood(String color) {
+	public Neighborhood(String color, int houseValue) {
 		this.color = color;
+		this.houseValue = houseValue;
 	}
 
 	public String getColor() {
@@ -28,6 +29,14 @@ public class Neighborhood {
 
 	public void addStreetToNeighborhood(Street street) {
 		streets.add(street);
+	}
+
+	public int getHouseValue() {
+		return houseValue;
+	}
+
+	public void setHouseValue(int newHouseValue) {
+		houseValue = newHouseValue;
 	}
 
 	public boolean isOwnedByOnePlayer() {

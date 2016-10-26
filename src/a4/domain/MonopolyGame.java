@@ -3,6 +3,7 @@ package a4.domain;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import a4.gui.IModel;
@@ -19,7 +20,7 @@ public class MonopolyGame implements IMonopolyGame {
 	int houseCount;
 	int hotelCount;
 	private Player currentPlayer;
-	private IModel model;
+	private IModel model = new Model();
 
 	public MonopolyGame(){ //This is a fake constructor... Need to redo later
 		players = new ArrayList<Player>();
@@ -55,8 +56,28 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	//returns the player that wins the game
-	public Player endGame(){
-		return null;
+	public Player endGame() {
+		Player winner = players.get(0);
+		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
+		for (Player p : players)
+			liquidatedFunds.put(p, p.getBalance());
+		for (Property p : properties) {
+			int housesValue = 0;
+			int hotelValue = 0;
+			if(p instanceof Street){
+				Street s = (Street) p;
+				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			}
+			int propertyValue = p.getValue();
+			int oldValue = liquidatedFunds.get(p.getOwner());
+			liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
+		}
+		for (Player p : players) {
+			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
+				winner = p;
+		}
+		return winner;
 	}
 
 	//returns true if the player is added 
@@ -96,7 +117,6 @@ public class MonopolyGame implements IMonopolyGame {
 		}else{
 			currentPlayer.move(value1+value2, board.getSpaces().size());
 			playerMoved();
-			model.update();
 			if(value1 == value2){
 				pastNumberOfDoubles++;
 				roll(pastNumberOfDoubles);
@@ -362,6 +382,18 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void purchaseProperty(String player, String property) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void purchaseAuctionedProperty(List<Double> offers) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	private void GoToJail() {
 		// TODO Auto-generated method stub
@@ -377,5 +409,10 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	public void setModel(Model newModel){
 		model = newModel;
+	}
+	@Override
+	public void roll() {
+		// TODO Auto-generated method stub
+		
 	}
 }

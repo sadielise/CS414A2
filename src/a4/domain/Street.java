@@ -30,6 +30,10 @@ public class Street extends Property {
 		this.hotelCount = hotelCount;
 	}
 
+	public Neighborhood getNeighborhood() {
+		return neighborhood;
+	}
+
 	public void addHouse() {
 		if (hotelCount >= 1) {}
 		else if (houseCount < 4)

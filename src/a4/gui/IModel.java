@@ -9,6 +9,5 @@ public interface IModel {
 	public void propertyCannotBeDeveloped(String propertyName);
 	public void startNormalTurn(String player);
 	public void startJailTurn(String player);
-	public void setCurrentPlayer(String player);
-	
+
 }

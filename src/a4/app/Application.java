@@ -23,5 +23,7 @@ public class Application {
 
 		view.build();
 		view.show();
+		
+		game.setModel(model);
 	}
 }

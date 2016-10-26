@@ -16,7 +16,7 @@ public class PropertySpace extends BoardSpace {
 		}
 	}
 
-	Property getProperty() {
+	public Property getProperty() {
 		return property;
 	}
 

@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import a4.gui.IModel;
+import a4.gui.Model;
 
 
 public class MonopolyGame implements IMonopolyGame {
@@ -32,6 +33,7 @@ public class MonopolyGame implements IMonopolyGame {
 		Die d2 = new Die(6);
 		dice.add(d1);
 		dice.add(d2);
+		model = null;
 	}
 	public void setupGame(List<String> names, int time){
 		endTime = new Date(time);
@@ -45,7 +47,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		determinePlayOrder();
 		currentPlayer = players.get(0);
-		model.setCurrentPlayer(currentPlayer.toString());
+//		model.setCurrentPlayer(currentPlayer.toString());
 	}
 
 	public void playGame(){
@@ -90,9 +92,11 @@ public class MonopolyGame implements IMonopolyGame {
 		int value2 = dice.get(1).roll();
 		if(value1 == value2 && pastNumberOfDoubles == 3){
 			GoToJail();
+			model.playerSentToJail(currentPlayer.toString());
 		}else{
 			currentPlayer.move(value1+value2, board.getSpaces().size());
 			playerMoved();
+			model.update();
 			if(value1 == value2){
 				pastNumberOfDoubles++;
 				roll(pastNumberOfDoubles);
@@ -129,11 +133,11 @@ public class MonopolyGame implements IMonopolyGame {
 		return true;
 	}
 
-	public void mortgageProperty(){
+	public void mortgageProperty(Property propertyToMortgage){
 
 	}
 	
-	private void unmortgageProperty(Property currentProperty) {
+	private void unmortgageProperty(Property propertyToUnmortgage) {
 		// TODO Auto-generated method stub
 
 	}
@@ -270,6 +274,7 @@ public class MonopolyGame implements IMonopolyGame {
 		List<String> propertyList = new ArrayList<String>();
 		for(Property curr: properties){
 			if(curr.getOwner().toString().equals(player)){
+//				System.out.println(curr.toString());
 				propertyList.add(curr.toString());
 			}
 		}
@@ -365,5 +370,12 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public Bank getBank(){
 		return bank;
+	}
+	public Board getBoard(){
+		return board;
+	}
+	
+	public void setModel(Model newModel){
+		model = newModel;
 	}
 }

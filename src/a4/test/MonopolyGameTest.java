@@ -9,9 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import a4.domain.Bank;
+import a4.domain.BoardSpace;
 import a4.domain.MonopolyGame;
 import a4.domain.Player;
 import a4.domain.Property;
+import a4.domain.PropertySpace;
 
 public class MonopolyGameTest {
 	private MonopolyGame testGame;
@@ -251,7 +253,18 @@ public class MonopolyGameTest {
 	}
 
 	@Test
-	public void testBuyHouse(){
-		testGame.ge
+	public void testBuyHouse(){ //finish when neighborhood updated
+		Player testPlayer = testGame.getCurrentPlayerReference();
+		testGame.transferMoney(testGame.getBank(), testPlayer, 10000);
+		testPlayer.setLocation(1);
+		BoardSpace space = testGame.getBoard().getSpaces().get(testPlayer.getLocation()); 
+		Property property = ((PropertySpace)space).getProperty();
+		assertTrue(testGame.purchaseProperty());
+		testPlayer.setLocation(3);
+		assertTrue(testGame.purchaseProperty());
+//		assertEquals(1, testGame.buyHouse(property));
+		
 	}
+	
+	
 }

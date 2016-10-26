@@ -32,5 +32,5 @@ public interface IMonopolyGame {
 	
 	public void purchaseProperty(String player, String property);
 	
-	public void purchaseAuctionedProperty(List<Double> offers);
+	public void purchaseAuctionedProperty(List<Integer> offers);
 }

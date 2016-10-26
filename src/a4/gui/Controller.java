@@ -2,6 +2,8 @@ package a4.gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -101,6 +103,21 @@ public class Controller {
 	}
 	
 	public void createAuctionDialog(String property){
+		JOptionPane.showMessageDialog(view, property +" is up for auction. Please enter your bids when the dialog appears. Highest bid will buy the property!");
+		List<String> players = model.getPlayers();
+		List<Integer> offers = new ArrayList<Integer>();
+		String bid;
+		int offer;
+		for(int i = 0; i < players.size(); i++){
+			bid = JOptionPane.showInputDialog(players.get(i) + " please enter your bid!");
+			try{
+				offer = Integer.parseInt(bid);
+			}catch(Exception e){
+				offer = 0;
+			}
+			offers.set(i,offer);
+		}
+		model.purchaseAuctionedProperty(offers);
 		
 	}
 	

@@ -21,7 +21,7 @@ public class View extends JFrame{
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
 	private JLabel currentLocation;
-	private JLabel currentIcon;
+	
 	public void setModel(Model m){
 		model = m;
 	}
@@ -59,12 +59,11 @@ public class View extends JFrame{
 		currentPlayer = new JLabel(" Current Player:    ");
 		currentBankroll = new JLabel(" Current Bankroll:    ");
 		currentLocation = new JLabel(" Current Location:    ");
-		currentIcon = new JLabel(" Icon:    ");
+		
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
 		playerOptionsAndInfo.add(currentLocation);
-		playerOptionsAndInfo.add(currentIcon);
-
+		
 		playingBoard = new PlayingBoard(model);
 
 		Container contentPane = getContentPane();
@@ -79,12 +78,6 @@ public class View extends JFrame{
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
-		if(model.getIcon(model.getPlayer()) != null){
-			currentIcon.setText(" Icon: " + model.getIcon(model.getPlayer()));
-		}
-		else{
-			currentIcon.setText(" Current Icon: <YOUR ICON HERE>");
-		}
 	}
 	public void paint(Graphics g){
 		super.paint(g);
@@ -114,4 +107,30 @@ public class View extends JFrame{
 	Dimension getEnclosingBox(){
 		return playingBoard.getSize();
 	}
+
+	public void startNormalTurnDialog(String player) {
+		controller.createStartNormalTurnDialog(player);
+		
+	}
+	public void startJailTurnDialog(String player) {
+		controller.createStartJailTurnDialog(player);
+		
+	}
+
+	public void startNewGameDialog() {
+		controller.createNewGameDialog();
+		
+	}
+
+	public void failedToCreateNewGameDialog() {
+		controller.createFailedToCreateNewGameDialog();
+		
+	}
+
+	public void propertyWasDevelopedDialog(String property, int numberOfHouses) {
+		controller.createPropertyWasDevelopedDialog(property, numberOfHouses);
+		
+	}
+
+
 }

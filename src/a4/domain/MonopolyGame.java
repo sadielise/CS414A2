@@ -195,5 +195,11 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void payJailFine(String player, boolean isPayingFine) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

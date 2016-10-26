@@ -85,11 +85,6 @@ public class Model implements IModel {
 
 	}
 
-	public Icon getIcon(String player){
-		int playerNumber = game.getPlayerNumber(player);
-		Icon currentIcon = new ImageIcon("filepath/icon"+playerNumber);
-		return null;
-	}
 
 	public void undevelop(String property){
 		game.undevelop(property);
@@ -122,5 +117,37 @@ public class Model implements IModel {
 
 	private void update(){
 		view.update();
+	}
+
+	public void propertyWasDeveloped(String property, int numberOfHouses) {
+		view.propertyWasDevelopedDialog(property,numberOfHouses);
+		
+	}
+
+	public void startNormalTurn(String player) {
+		view.update();
+		hasRolled = false;
+		view.startNormalTurnDialog(player);
+	}
+
+	public void startJailTurn(String player) {
+		view.update();
+		hasRolled = true;
+		view.startJailTurnDialog(player);		
+	}
+
+	public void newGameCreated() {
+		view.startNewGameDialog();
+		startNormalTurn(game.getCurrentPlayer());
+		
+	}
+
+	public void newGameFailedToCreate() {
+		view.failedToCreateNewGameDialog();
+	}
+
+	public void payJailFine(String player, boolean isPayingFine) {
+		game.payJailFine(player,isPayingFine);
+		
 	}
 }

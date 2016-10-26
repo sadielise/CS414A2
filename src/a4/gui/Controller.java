@@ -135,4 +135,28 @@ public class Controller {
 	public void createPropertyCannotBeDevelopedDialog(String propertyName) {
 		JOptionPane.showMessageDialog(view, propertyName +" cannot be developed!");
 	}
+	public void createStartNormalTurnDialog(String player) {
+		JOptionPane.showMessageDialog(view, "It is " + player +"'s turn!");
+		
+	}
+	public void createStartJailTurnDialog(String player) {
+		int choice = JOptionPane.showConfirmDialog(view, "It is " +player + "'s turn, but you are in jail! Do you want to pay the fine?", "In Jail Dialog", JOptionPane.YES_NO_OPTION);
+		if (choice == JOptionPane.YES_OPTION){
+			model.payJailFine(player, true);
+		}
+		else{
+			model.payJailFine(player, false);
+		}
+	}
+	public void createNewGameDialog() {
+		JOptionPane.showMessageDialog(view, "New game has started!");
+	}
+	public void createFailedToCreateNewGameDialog() {
+		JOptionPane.showMessageDialog(view, "New game was unable to be created! Please try again!");
+		
+	}
+	public void createPropertyWasDevelopedDialog(String property, int numberOfHouses) {
+		JOptionPane.showMessageDialog(view, property + "was developed, and now has " + numberOfHouses + " houses!");
+		
+	}
 }

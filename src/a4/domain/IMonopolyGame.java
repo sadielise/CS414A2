@@ -33,4 +33,6 @@ public interface IMonopolyGame {
 	public void purchaseProperty(String player, String property);
 	
 	public void purchaseAuctionedProperty(List<Integer> offers);
+
+	public void payJailFine(String player, boolean isPayingFine);
 }

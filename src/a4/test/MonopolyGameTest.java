@@ -12,23 +12,12 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import a4.domain.Bank;
-import a4.domain.BoardSpace;
-import a4.domain.GoToJailSpace;
-import a4.domain.IncomeTaxSpace;
-import a4.domain.JailSpace;
-import a4.domain.LuxuryTaxSpace;
-import a4.domain.MonopolyGame;
-import a4.domain.Player;
-import a4.domain.Property;
-import a4.domain.PropertySpace;
-import a4.domain.Street;
-import a4.domain.Utility;
+import a4.domain.*;
 import a4.gui.IModel;
 
 public class MonopolyGameTest {
 	private MonopolyGame testGame;
-	/*@Before
+	@Before
 	public void doBeforeTests(){
 		testGame = new MonopolyGame();
 		ArrayList<String> names = new ArrayList<String>();
@@ -37,7 +26,7 @@ public class MonopolyGameTest {
 		testGame.newGame(names, 30);
 		IModel model = new MockModel(testGame);
 		testGame.setModel(model);
-	}*/
+	}
 
 	@Test
 	public void testSetupGame(){

@@ -80,8 +80,9 @@ public class MonopolyGame implements IMonopolyGame {
 	public void endGame() {
 		Player winner = players.get(0);
 		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
-		for (Player p : players)
+		for (Player p : players) {
 			liquidatedFunds.put(p, p.getBalance());
+		}
 		for (Property p : properties) {
 			int housesValue = 0;
 			int hotelValue = 0;

@@ -13,7 +13,7 @@ import a4.gui.Model;
 
 public class MonopolyGameTest {
 	private MonopolyGame testGame;
-	@Before
+	/*@Before
 	public void doBeforeTests(){
 		testGame = new MonopolyGame();
 		ArrayList<String> names = new ArrayList<String>();
@@ -22,7 +22,7 @@ public class MonopolyGameTest {
 		testGame.newGame(names, 30);
 		Model model = new Model();
 		testGame.setModel(model);
-	}
+	}*/
 
 	@Test
 	public void testSetupGame(){
@@ -560,19 +560,26 @@ public class MonopolyGameTest {
 		s2.setIsMortgaged(false);
 		s2.setOwner(p1);
 		
-		//Yes
+		//No
 		Street s3 = new Street("s3", 20, array, "color");
 		game.properties.add(s3);
 		s3.setHouseCount(1);
 		s3.setIsMortgaged(false);
 		s3.setOwner(p2);
 		
+		//Yes
+		Street s4 = new Street("s4", 20, array, "color");
+		game.properties.add(s4);
+		s4.setHouseCount(1);
+		s4.setIsMortgaged(true);
+		s4.setOwner(p1);
+		
 		java.util.List<String> actual = game.getPlayersUndevelopableProperties(p1.toString());
 		assertTrue(actual.size() == 4);
 		assertTrue(actual.contains(p.toString()));
 		assertTrue(actual.contains(s.toString()));
 		assertTrue(actual.contains(s2.toString()));
-		assertTrue(actual.contains(s3.toString()));
+		assertTrue(actual.contains(s4.toString()));
 	}
 	
 	public void testMortgage(){
@@ -591,4 +598,48 @@ public class MonopolyGameTest {
 //			System.out.println(street.toString());
 //		}
 //	}
+	
+	@Test
+	public void testGetNumberHouses_Success(){
+		MonopolyGame game = new MonopolyGame();
+		game.board = new Board();
+		int[] values = {1,2,3,4};
+		PropertySpace space = new PropertySpace("street", "name", 20, values, "pink");
+		game.board.addSpace(space);
+		Street s = (Street)space.getProperty();
+		s.setHouseCount(2);
+		assertTrue(2 == game.getNumberHouses(40));
+	}
+	
+	@Test
+	public void testGetNumberHouses_StreetHasHotel(){
+		MonopolyGame game = new MonopolyGame();
+		game.board = new Board();
+		int[] values = {1,2,3,4};
+		PropertySpace space = new PropertySpace("street", "name", 20, values, "pink");
+		game.board.addSpace(space);
+		Street s = (Street)space.getProperty();
+		s.setHotelCount(1);
+		assertTrue(5 == game.getNumberHouses(40));
+	}
+	
+	@Test
+	public void testGetNumberHouses_NotPropertySpace(){
+		MonopolyGame game = new MonopolyGame();
+		game.board = new Board();
+		int[] values = {1,2,3,4};
+		BoardSpace space = new BoardSpace();
+		game.board.addSpace(space);
+		assertTrue(0 == game.getNumberHouses(40));
+	}
+	
+	@Test
+	public void testGetNumberHouses_NotStreetProperty(){
+		MonopolyGame game = new MonopolyGame();
+		game.board = new Board();
+		int[] values = {1,2,3,4};
+		PropertySpace space = new PropertySpace("utility", "name", 20, values, "pink");
+		game.board.addSpace(space);
+		assertTrue(0 == game.getNumberHouses(40));
+	}
 }

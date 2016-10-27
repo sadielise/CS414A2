@@ -13,7 +13,7 @@ import a4.gui.Model;
 
 public class MonopolyGame implements IMonopolyGame {
 	public List<Player> players;
-	Board board;
+	public Board board;
 	List<Die> dice;
 	Bank bank;
 	public List<Property> properties;
@@ -601,10 +601,11 @@ public class MonopolyGame implements IMonopolyGame {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
 			if (curr.getOwner().toString().equals(player)) {
-				if (!curr.getIsMortgaged()) {
-					propertyList.add(curr.toString());
-				} else if (curr instanceof Street
-						&& (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0)) {
+				if (curr instanceof Street) {
+					if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+						propertyList.add(curr.toString());
+					}
+				}else if (!curr.getIsMortgaged()) {
 					propertyList.add(curr.toString());
 				}
 			}
@@ -658,8 +659,19 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public int getNumberHouses(int location) {
-		// TODO Auto-generated method stub
-		return 0;
+		int numHouses = 0;
+		BoardSpace space = board.getSpaces().get(location);
+		if(space instanceof PropertySpace){
+			Property p = ((PropertySpace) space).getProperty();
+			if(p instanceof Street){
+				Street s = (Street) p;
+				numHouses += s.getHouseCount();
+				if(s.getHotelCount() > 0){
+					numHouses += 5;
+				}
+			}
+		}
+		return numHouses;
 	}
 
 }

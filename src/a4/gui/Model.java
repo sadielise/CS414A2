@@ -212,20 +212,18 @@ public class Model implements IModel {
 
 	@Override
 	public void failedToLeaveJail() {
-		// TODO Auto-generated method stub
+		view.failedToLeaveJailDialog();
 		
 	}
 
 	@Override
 	public void succeededInLeavingJail() {
-		// TODO Auto-generated method stub
-		
+		view.succeededInLeavingJailDialog();
 	}
 
 	@Override
 	public void unableToPayFine(int amount) {
-		// TODO Auto-generated method stub
-		
+		view.unableToPayDialog("Jail", amount);
 	}
 
 	@Override

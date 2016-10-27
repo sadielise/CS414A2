@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -87,16 +88,18 @@ public class TradeDialog extends JPanel{
 					ButtonGroup currentGroup = new ButtonGroup();
 					ButtonGroup otherGroup = new ButtonGroup();
 
-					JPanel propertiesPanel = new JPanel(new GridLayout(2,0));
+					JPanel propertiesPanel = new JPanel(new GridLayout(0,2));
 
 					JRadioButton[] currentPropertiesButtons = new JRadioButton[properties.size()];
 					JRadioButton[] otherPropertiesButtons = new JRadioButton[otherPlayersProperties.size()];
 					propertiesPanel.add(new JLabel("Select one property to trade: "));
+					Box group1 = Box.createVerticalBox();
+					Box group2 = Box.createVerticalBox();
 					for(int i = 0; i < properties.size(); i++){
 						currentPropertiesButtons[i] = new JRadioButton(properties.get(i));
 						currentPropertiesButtons[i].setActionCommand(properties.get(i));
 						currentGroup.add(currentPropertiesButtons[i]);
-						propertiesPanel.add(currentPropertiesButtons[i]);
+						group1.add(currentPropertiesButtons[i]);
 					}
 
 					propertiesPanel.add(new JLabel("Select one property to recieve: "));
@@ -104,9 +107,11 @@ public class TradeDialog extends JPanel{
 						otherPropertiesButtons[i] = new JRadioButton(otherPlayersProperties.get(i));
 						otherPropertiesButtons[i].setActionCommand(otherPlayersProperties.get(i));
 						otherGroup.add(otherPropertiesButtons[i]);
-						propertiesPanel.add(otherPropertiesButtons[i]);
+						group2.add(otherPropertiesButtons[i]);
 
 					}
+					propertiesPanel.add(group1);
+					propertiesPanel.add(group2);
 
 					currentPropertiesButtons[0].setSelected(true);
 					otherPropertiesButtons[0].setSelected(true);

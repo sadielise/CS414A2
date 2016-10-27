@@ -109,7 +109,7 @@ public class MonopolyGameTest {
 		assertEquals(ownerBalance + rent, tempPlayer.getBalance());
 	}
 
-	/*@Test
+	@Test
 	public void testPlayerMovedToOwnedPropertyAndCannotPayRent(){
 		Player tempPlayer = testGame.getPlayerList().get(testGame.getPlayerList().size()-1);
 		assertNotNull(tempPlayer);
@@ -122,7 +122,7 @@ public class MonopolyGameTest {
 		assertEquals(0, testGame.getCurrentPlayerReference().getBalance());
 		assertEquals(ownerBalance, tempPlayer.getBalance());
 	}
-*/
+
 	@Test
 	public void testPlayerMovedToGoToJail(){
 		Player currentPlayer = testGame.getCurrentPlayerReference();

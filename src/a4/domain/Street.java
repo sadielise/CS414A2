@@ -79,6 +79,6 @@ public class Street extends Property {
 	}
 
 	public String toString() {
-		return name + ": Value: " + value + " Number of Houses: " + houseCount + " Currently Mortgaged: " + isMortgaged;
+		return super.toString() + " \nRent: " + getRent() + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
 	}
 }

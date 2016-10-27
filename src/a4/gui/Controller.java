@@ -105,7 +105,7 @@ public class Controller {
 	public void createAuctionDialog(String property){
 		JOptionPane.showMessageDialog(view, property +" is up for auction. Please enter your bids when the dialog appears. Highest bid will buy the property!");
 		List<String> players = model.getPlayers();
-		List<Integer> offers = new ArrayList<Integer>();
+		List<Integer> offers = new ArrayList<Integer>(players.size());
 		String bid;
 		int offer;
 		for(int i = 0; i < players.size(); i++){
@@ -113,9 +113,9 @@ public class Controller {
 			try{
 				offer = Integer.parseInt(bid);
 			}catch(Exception e){
-				offer = 0;
+				offer = -1;
 			}
-			offers.set(i,offer);
+			offers.add(offer);
 		}
 		model.purchaseAuctionedProperty(offers);
 

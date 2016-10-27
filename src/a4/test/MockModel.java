@@ -138,4 +138,10 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void rolled(int value, boolean isDoubles) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -87,7 +87,7 @@ public class TradeDialog extends JPanel{
 					ButtonGroup currentGroup = new ButtonGroup();
 					ButtonGroup otherGroup = new ButtonGroup();
 
-					JPanel propertiesPanel = new JPanel(new GridLayout(2,0));
+					JPanel propertiesPanel = new JPanel(new GridLayout(0,2));
 
 					JRadioButton[] currentPropertiesButtons = new JRadioButton[properties.size()];
 					JRadioButton[] otherPropertiesButtons = new JRadioButton[otherPlayersProperties.size()];

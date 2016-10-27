@@ -102,10 +102,6 @@ public class View extends JFrame{
 		controller.createPropertyCannotBeDevelopedDialog(propertyName);
 	}
 
-	Dimension getEnclosingBox(){
-		return playingBoard.getSize();
-	}
-
 	public void startNormalTurnDialog(String player) {
 		controller.createStartNormalTurnDialog(player);
 		
@@ -155,5 +151,7 @@ public class View extends JFrame{
 		controller.createAuctionFailedDialog(property);
 	}
 
-
+	Dimension getEnclosingBox(){
+		return playingBoard.getSize();
+	}
 }

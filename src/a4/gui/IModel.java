@@ -17,6 +17,11 @@ public interface IModel {
 	public void propertyWasUnmortgagedFor(String property, int value);
 	public void couldNotPurchaseProperty(String player, String property);
 	public void purchasedProperty(String player, String property);
+	public void failedToLeaveJail();
+	public void succeededInLeavingJail();
+	public void unableToPayFine(int amount);
+	public void tradeFailed(String currProperty, String otherProperty);
+	public void tradeSucceeded(String currProperty, String otherProperty);
 	public void auctionFailed(String property);
 
 }

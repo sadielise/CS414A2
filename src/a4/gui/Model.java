@@ -201,21 +201,45 @@ public class Model implements IModel {
 	@Override
 	public void couldNotPurchaseProperty(String player, String property) {
 		view.unableToPurchasePropertyDialog(player, property);
-		view.update();
-		
+		view.update();		
 	}
 
 	@Override
 	public void purchasedProperty(String player, String property) {
 		view.purchasedPropertyDialog(player, property);
 		view.update();
+	}
+
+	@Override
+	public void failedToLeaveJail() {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
+	public void succeededInLeavingJail() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unableToPayFine(int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tradeFailed(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub		
+	}
+
+	@Override
+	public void tradeSucceeded(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub
+	}
+	
 	public void auctionFailed(String property){
 		view.auctionFailedDialog(property);
-		view.update();
-		
+		view.update();		
 	}
 }

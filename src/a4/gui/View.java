@@ -78,7 +78,7 @@ public class View extends JFrame{
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
-		playingBoard.update();
+		//playingBoard.update();
 	}
 
 	public void unownedPropertyDialog(String property, int cost){

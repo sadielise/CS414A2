@@ -18,6 +18,8 @@ public interface IMonopolyGame {
 	
 	public String getProperty(int location);
 	
+	public int getNumberHouses(int location);
+	
 	public void roll();
 	
 	public void developProperty(String property);
@@ -34,7 +36,14 @@ public interface IMonopolyGame {
 	
 	public void purchaseProperty(String player, String property);
 	
-	public void purchaseAuctionedProperty(List<Double> offers);
-	
 	public void setModel(Model model);
+
+	public void purchaseAuctionedProperty(List<Integer> offers);
+
+	public void payJailFine(String player, boolean isPayingFine);
+
+	public List<String> getDevelopableProperties(String player);
+
+	public List<String> getPlayersUndevelopableProperties(String player);
+
 }

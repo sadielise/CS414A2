@@ -2,9 +2,6 @@ package a4.gui;
 
 import java.util.List;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
-
 import a4.domain.IMonopolyGame;
 
 public class Model implements IModel {
@@ -45,16 +42,45 @@ public class Model implements IModel {
 	public List<String> getPlayersProperties(String player){
 		return game.getProperties(game.getCurrentPlayer());
 	}
+	
+	public List<String> getPlayersDevelopableProperties(String player){
+		return game.getDevelopableProperties(player);
+	}
+	
+	public List<String> getPlayersUndevelopableProperties(String player){
+		return game.getPlayersUndevelopableProperties(player);
+	}
 
-	public void purchaseAuctionedProperty(List<Double> offers){
+	public void purchaseAuctionedProperty(List<Integer> offers){
 		game.purchaseAuctionedProperty(offers);
 	}
 
 	public int getPlayerLocation(String player){
 		return game.getLocation(player);
 	}
+	
 	public String getProperty(int location){
 		return game.getProperty(location);
+	}
+	
+	public int getNumberHouses(int location){
+		int numHouses = game.getNumberHouses(location);
+		if(numHouses > 4){
+			return 0;
+		}
+		else{
+			return numHouses;
+		}
+	}
+	
+	public int getNumberHotels(int location){
+		int numHouses = game.getNumberHouses(location);
+		if(numHouses > 4){
+			return 1;
+		}
+		else{
+			return 0;
+		}
 	}
 
 	public void develop(String property){
@@ -85,11 +111,6 @@ public class Model implements IModel {
 
 	}
 
-	public Icon getIcon(String player){
-		int playerNumber = game.getPlayerNumber(player);
-		Icon currentIcon = new ImageIcon("filepath/icon"+playerNumber);
-		return null;
-	}
 
 	public void undevelop(String property){
 		game.undevelop(property);
@@ -120,81 +141,73 @@ public class Model implements IModel {
 		view.propertyCannotBeDevelopedDialog(propertyName);
 	}
 
+	// not sure what this is for yet :(
 	private void update(){
 		view.update();
 	}
 
-	@Override
-	public void propertyWasDeveloped(int numberOfHouses) {
-		// TODO Auto-generated method stub
+	public void propertyWasDeveloped(String property, int numberOfHouses) {
+		view.propertyWasDevelopedDialog(property,numberOfHouses);
 		
 	}
 
-	@Override
 	public void startNormalTurn(String player) {
-		// TODO Auto-generated method stub
-		
+		view.update();
+		hasRolled = false;
+		view.startNormalTurnDialog(player);
 	}
 
-	@Override
 	public void startJailTurn(String player) {
-		// TODO Auto-generated method stub
-		
+		view.update();
+		hasRolled = true;
+		view.startJailTurnDialog(player);		
 	}
 
-	@Override
 	public void newGameCreated() {
-		// TODO Auto-generated method stub
+		view.startNewGameDialog();
+		startNormalTurn(game.getCurrentPlayer());
 		
 	}
 
-	@Override
 	public void newGameFailedToCreate() {
-		// TODO Auto-generated method stub
-		
+		view.failedToCreateNewGameDialog();
 	}
 
+	public void payJailFine(String player, boolean isPayingFine) {
+		game.payJailFine(player,isPayingFine);
+	}
 
 	@Override
 	public void unableToPayTax(int amount) {
-		// TODO Auto-generated method stub
-		
+		unableToPayRentTo("Tax", amount);
 	}
 
 	@Override
 	public void propertyWasMortgagedFor(String property, int amount) {
-		// TODO Auto-generated method stub
-		
+		view.update();
+		view.propertyWasMortgagedDialog(property, amount);
 	}
 
 	@Override
 	public void couldNotUndevelopProperty(String property) {
-		// TODO Auto-generated method stub
-		
+		view.couldNotUndevelopProperty(property);
 	}
 
 	@Override
 	public void propertyWasUnmortgagedFor(String property, int value) {
-		// TODO Auto-generated method stub
-		
+		view.propertyUnmortgagedDialog(property);
 	}
 
 	@Override
 	public void couldNotPurchaseProperty(String player, String property) {
-		// TODO Auto-generated method stub
-		
+		view.unableToPurchasePropertyDialog(player, property);
+		view.update();		
 	}
 
 	@Override
 	public void purchasedProperty(String player, String property) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void auctionFailed() {
-		// TODO Auto-generated method stub
-		
+		view.purchasedPropertyDialog(player, property);
+		view.update();
 	}
 
 	@Override
@@ -217,13 +230,16 @@ public class Model implements IModel {
 
 	@Override
 	public void tradeFailed(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
 	public void tradeSucceeded(String currProperty, String otherProperty) {
 		// TODO Auto-generated method stub
-		
+	}
+	
+	public void auctionFailed(String property){
+		view.auctionFailedDialog(property);
+		view.update();		
 	}
 }

@@ -5,7 +5,7 @@ public interface IModel {
 	public void unableToPayRentTo(String playerName , int rentAmount);
 	public void paidRentTo(String playerName , int rentAmount);
 	public void playerSentToJail(String playerName);
-	public void propertyWasDeveloped(int numberOfHouses);
+	public void propertyWasDeveloped(String property, int numberOfHouses);
 	public void propertyCannotBeDeveloped(String propertyName);
 	public void startNormalTurn(String player);
 	public void startJailTurn(String player);
@@ -17,11 +17,11 @@ public interface IModel {
 	public void propertyWasUnmortgagedFor(String property, int value);
 	public void couldNotPurchaseProperty(String player, String property);
 	public void purchasedProperty(String player, String property);
-	public void auctionFailed();
 	public void failedToLeaveJail();
 	public void succeededInLeavingJail();
 	public void unableToPayFine(int amount);
 	public void tradeFailed(String currProperty, String otherProperty);
 	public void tradeSucceeded(String currProperty, String otherProperty);
+	public void auctionFailed(String property);
 
 }

@@ -20,10 +20,10 @@ public class Application {
 		controller.setView(view);
 		view.setModel(model);
 		view.setController(controller);
+		game.setModel(model);
 
 		view.build();
-		view.show();
 		
-		game.setModel(model);
+		view.setVisible(true);
 	}
 }

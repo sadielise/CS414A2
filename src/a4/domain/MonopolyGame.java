@@ -290,7 +290,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	@Override
-	public void purchaseAuctionedProperty(List<Double> offers) {
+	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;
 		BoardSpace space = board.getSpaces().get(currentPlayer.getLocation());
 		if(space instanceof PropertySpace){
@@ -302,10 +302,10 @@ public class MonopolyGame implements IMonopolyGame {
 			if(bid(bids, propertyToAuction)){
 				model.purchasedProperty(propertyToAuction.getOwner().toString(), propertyToAuction.toString());
 			}else{
-				model.auctionFailed();
+				model.auctionFailed(propertyToAuction.toString());
 			}
 		}else{
-			model.auctionFailed();
+			model.auctionFailed(propertyToAuction.toString());
 		}
 	}
 
@@ -471,7 +471,7 @@ public class MonopolyGame implements IMonopolyGame {
 			if(success == -1){
 				model.propertyCannotBeDeveloped(property);
 			}else{
-				model.propertyWasDeveloped(currentStreet.getHouseCount());
+				model.propertyWasDeveloped(currentStreet.toString(), currentStreet.getHouseCount());
 			}
 		}else{
 			model.propertyCannotBeDeveloped(property);
@@ -627,7 +627,7 @@ public class MonopolyGame implements IMonopolyGame {
 			}else{
 				jail.incrementAttempts(currentPlayer);
 				if(jail.getAttempts(currentPlayer) > 3){
-					payFineToLeaveJail();
+					payJailFine(currentPlayer.toString(), true);
 
 				}else{
 					model.failedToLeaveJail();
@@ -636,7 +636,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
-	public void payFineToLeaveJail(){
+	@Override
+	public void payJailFine(String player, boolean isPayingFine) {
 		JailSpace jail = (JailSpace)board.getSpaces().get(10);
 		if(currentPlayer.getInJail() == false){
 			model.failedToLeaveJail();
@@ -648,4 +649,10 @@ public class MonopolyGame implements IMonopolyGame {
 			model.succeededInLeavingJail();
 		}
 	}
+	@Override
+	public int getNumberHouses(int location) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	
 }

@@ -21,7 +21,7 @@ public class View extends JFrame{
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
 	private JLabel currentLocation;
-	private JLabel currentIcon;
+	
 	public void setModel(Model m){
 		model = m;
 	}
@@ -59,12 +59,11 @@ public class View extends JFrame{
 		currentPlayer = new JLabel(" Current Player:    ");
 		currentBankroll = new JLabel(" Current Bankroll:    ");
 		currentLocation = new JLabel(" Current Location:    ");
-		currentIcon = new JLabel(" Icon:    ");
+		
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
 		playerOptionsAndInfo.add(currentLocation);
-		playerOptionsAndInfo.add(currentIcon);
-
+		
 		playingBoard = new PlayingBoard(model);
 
 		Container contentPane = getContentPane();
@@ -79,15 +78,7 @@ public class View extends JFrame{
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
-		if(model.getIcon(model.getPlayer()) != null){
-			currentIcon.setText(" Icon: " + model.getIcon(model.getPlayer()));
-		}
-		else{
-			currentIcon.setText(" Current Icon: <YOUR ICON HERE>");
-		}
-	}
-	public void paint(Graphics g){
-		super.paint(g);
+		playingBoard.update();
 	}
 
 	public void unownedPropertyDialog(String property, int cost){
@@ -109,6 +100,55 @@ public class View extends JFrame{
 
 	public void propertyCannotBeDevelopedDialog(String propertyName) {
 		controller.createPropertyCannotBeDevelopedDialog(propertyName);
+	}
+
+	public void startNormalTurnDialog(String player) {
+		controller.createStartNormalTurnDialog(player);
+		
+	}
+	public void startJailTurnDialog(String player) {
+		controller.createStartJailTurnDialog(player);
+		
+	}
+
+	public void startNewGameDialog() {
+		controller.createNewGameDialog();
+		
+	}
+
+	public void failedToCreateNewGameDialog() {
+		controller.createFailedToCreateNewGameDialog();
+		
+	}
+
+	public void propertyWasDevelopedDialog(String property, int numberOfHouses) {
+		controller.createPropertyWasDevelopedDialog(property, numberOfHouses);
+		
+	}
+
+	public void propertyWasMortgagedDialog(String property, int amount) {
+		controller.createPropertyWasMortgagedDialog(property, amount);
+	}
+
+	public void couldNotUndevelopProperty(String property) {
+		controller.createCouldNotUndevelopProperty(property);
+	}
+
+	public void propertyUnmortgagedDialog(String property) {
+		controller.createPropertyUnmortgagedDialog(property);
+	}
+
+	public void unableToPurchasePropertyDialog(String player, String property) {
+		controller.createUnableToPurchasePropertyDialog(player, property);
+		
+	}
+
+	public void purchasedPropertyDialog(String player, String property) {
+		controller.createPurchasedPropertyDialog(player, property);
+	}
+
+	public void auctionFailedDialog(String property) {
+		controller.createAuctionFailedDialog(property);
 	}
 
 	Dimension getEnclosingBox(){

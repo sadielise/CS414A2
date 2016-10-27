@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-public class PlayingBoard extends JLayeredPane{
+public class PlayingBoard extends JPanel{
 	
 	private Model model;
 	private ArrayList<ImageIcon> tokens;
@@ -155,7 +155,7 @@ public class PlayingBoard extends JLayeredPane{
 		} catch (IOException e) {
 
 		}
-		
+
 		if(paintCount != 0){
 			List<String> players = model.getPlayers();
 			for(int i = 0; i < players.size(); i++){ 
@@ -172,7 +172,7 @@ public class PlayingBoard extends JLayeredPane{
 				add(icon);
 			}
 			
-			for(int j = 0; j < propertyLocations.length; j++){
+			/*for(int j = 0; j < propertyLocations.length; j++){
 				int location = propertyLocations[j];
 				JLabel houseIcon = new JLabel();
 				houseIcon.setSize(20,20);
@@ -182,14 +182,14 @@ public class PlayingBoard extends JLayeredPane{
 				hotelIcon.setSize(20, 20);
 				hotelIcon.setLocation(hotelPositions[location][0], hotelPositions[location][1]);
 				hotelIcon.setIcon(hotels.get(model.getNumberHotels(location)));
-			}
+			}*/
 		}
 		
 		paintCount++;
-		
 	}
 	
 	public void update(){
+		removeAll();
 		repaint();
 	}
 

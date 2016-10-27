@@ -185,12 +185,26 @@ public class Controller {
 	}
 	public void createSucceededInLeavingJailDialog() {
 		JOptionPane.showMessageDialog(view, model.getPlayer() +" succeeded in leaving jail! Your token will be moved!");
-	
+
 	}
 	public void createTradeFailedDialog(String currProperty, String otherProperty) {
 		JOptionPane.showMessageDialog(view, currProperty +" was unable to be traded for " +otherProperty);
 	}
 	public void createTradeSucceededDialog(String currProperty, String otherProperty) {
 		JOptionPane.showMessageDialog(view, currProperty +" was traded for " +otherProperty);		
+	}
+	public void createRolledDialog(int value, boolean isDoubles) {
+		if(isDoubles){
+			JOptionPane.showMessageDialog(view, "You rolled " +value +", and it was doubles!");
+		}
+		else{
+			JOptionPane.showMessageDialog(view, "You rolled " +value +".");
+		}
+	}
+	public void createLandedOnNonPropertyDialog(String property) {
+			JOptionPane.showMessageDialog(view, "You landed on " + property);
+	}
+	public void createLandedOnOwnedPropertyDialog(String property, String owner) {
+		JOptionPane.showMessageDialog(view, "You landed on " + property + " which is owned by " + owner);
 	}
 }

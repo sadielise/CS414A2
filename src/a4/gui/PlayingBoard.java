@@ -62,7 +62,7 @@ public class PlayingBoard extends JLayeredPane{
 	
 	private void readHousePositions(){
 		
-		housePositions = new int[22][2];
+		housePositions = new int[40][2];
 		int i = 0;
 		try {
 			Scanner scanner = new Scanner(new File("housepositions.txt"));
@@ -79,7 +79,7 @@ public class PlayingBoard extends JLayeredPane{
 	
 	private void readHotelPositions(){
 		
-		hotelPositions = new int[22][2];
+		hotelPositions = new int[40][2];
 		int i = 0;
 		try {
 			Scanner scanner = new Scanner(new File("hotelpositions.txt"));

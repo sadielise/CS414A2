@@ -3,7 +3,6 @@ package a4.gui;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -165,5 +164,17 @@ public class View extends JFrame{
 
 	public void tradeSucceededDialog(String currProperty, String otherProperty) {
 		controller.createTradeSucceededDialog(currProperty, otherProperty);		
+	}
+
+	public void rolledDialog(int value, boolean isDoubles) {
+		controller.createRolledDialog(value, isDoubles);
+	}
+
+	public void landedOnNonPropertyDialog(String property) {
+		controller.createLandedOnNonPropertyDialog(property);
+	}
+
+	public void landedOnOwnedPropertyDialog(String property, String owner) {
+		controller.createLandedOnOwnedPropertyDialog(property, owner);
 	}
 }

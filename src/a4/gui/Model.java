@@ -240,4 +240,16 @@ public class Model implements IModel {
 		view.auctionFailedDialog(property);
 		view.update();		
 	}
+
+	@Override
+	public void landedOnNonProperty(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void landedOnOwnedProperty(String string, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
 }

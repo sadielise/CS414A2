@@ -9,6 +9,7 @@ public class Board {
 
 	public Board() {
 		BoardSpace space = null;
+		OpenSpace openSpace = null;
 		neighborhoods = new ArrayList<Neighborhood>();
 		neighborhoods.add(new Neighborhood("Brown", 50));
 		neighborhoods.add(new Neighborhood("SkyBlue", 50));
@@ -21,12 +22,18 @@ public class Board {
 		BoardSpaceFactory space_factory = new BoardSpaceFactory();
 
 		// Bottom
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Go");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Mediterranean Avenue", 60,
 				new int[] { 2, 10, 30, 90, 160, 250 }, "Brown");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Community Chest");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Baltic Avenue", 60, new int[] { 4, 20, 60, 180, 320, 450 },
 				"Brown");
 		this.addToNeighborhood(space);
@@ -37,7 +44,10 @@ public class Board {
 				"SkyBlue");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Chance");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Vermont Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 },
 				"SkyBlue");
 		this.addToNeighborhood(space);
@@ -67,7 +77,10 @@ public class Board {
 				new int[] { 14, 70, 200, 550, 750, 950 }, "Orange");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Community Chest");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Tennessee Avenue", 180, new int[] { 14, 200, 550, 750, 950 },
 				"Orange");
 		this.addToNeighborhood(space);
@@ -78,12 +91,18 @@ public class Board {
 		spaces.add(space);
 
 		// Top
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Free Parking");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Kentucky Avenue", 220,
 				new int[] { 18, 90, 250, 700, 875, 1050 }, "Red");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Chance");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Indiana Avenue", 220,
 				new int[] { 18, 90, 250, 700, 875, 1050 }, "Red");
 		this.addToNeighborhood(space);
@@ -117,13 +136,19 @@ public class Board {
 				new int[] { 26, 130, 390, 900, 1100, 1275 }, "Green");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Community Chest");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Pennsylvania Avenue", 320,
 				new int[] { 28, 150, 450, 1000, 1200, 1400 }, "Green");
 		this.addToNeighborhood(space);
 		spaces.add(space);
 		spaces.add(space_factory.getPropertySpace("Railroad", "Short Line", 200, new int[] {}, ""));
-		spaces.add(space_factory.getBoardSpace("Open"));
+		space = space_factory.getBoardSpace("Open");
+		openSpace = (OpenSpace) space;
+		openSpace.setName("Chance");
+		spaces.add(space);
 		space = space_factory.getPropertySpace("Street", "Park Place", 350, new int[] { 35, 175, 500, 1100, 1300 },
 				"Blue");
 		this.addToNeighborhood(space);

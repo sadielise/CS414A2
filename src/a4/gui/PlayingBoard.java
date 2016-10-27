@@ -139,9 +139,9 @@ public class PlayingBoard extends JPanel{
 	private void readHotels(){
 		hotels = new ArrayList<ImageIcon>();
 		ImageIcon hotel0 = new ImageIcon("hotel0.png");
-		houses.add(hotel0);
+		hotels.add(hotel0);
 		ImageIcon hotel1 = new ImageIcon("hotel1.png");
-		houses.add(hotel1);
+		hotels.add(hotel1);
 	}
 
 	@Override
@@ -172,17 +172,19 @@ public class PlayingBoard extends JPanel{
 				add(icon);
 			}
 			
-			/*for(int j = 0; j < propertyLocations.length; j++){
+			for(int j = 0; j < propertyLocations.length; j++){
 				int location = propertyLocations[j];
 				JLabel houseIcon = new JLabel();
 				houseIcon.setSize(20,20);
 				houseIcon.setLocation(housePositions[location][0], housePositions[location][1]);
 				houseIcon.setIcon(houses.get(model.getNumberHouses(location)));
+				add(houseIcon);
 				JLabel hotelIcon = new JLabel();
 				hotelIcon.setSize(20, 20);
 				hotelIcon.setLocation(hotelPositions[location][0], hotelPositions[location][1]);
 				hotelIcon.setIcon(hotels.get(model.getNumberHotels(location)));
-			}*/
+				add(hotelIcon);
+			}
 		}
 		
 		paintCount++;

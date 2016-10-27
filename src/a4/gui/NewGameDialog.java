@@ -27,18 +27,12 @@ public class NewGameDialog extends JFrame {
 	private JTextField textTimer;
 	private Model model;
 
-	/**
-	 * Launch the application.
-	 */
 	public static void createAndDisplayNewGameDialog(Model m) {
 					NewGameDialog frame = new NewGameDialog(m);
 					frame.pack();
 					frame.setVisible(true);
 	}
 
-	/**
-	 * Create the frame.
-	 */
 	public NewGameDialog(Model m) {
 		model = m;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

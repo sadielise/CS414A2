@@ -4,15 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Neighborhood {
-	List<Street> streets = new ArrayList<Street>();
-	String color;
-	boolean isOwnedByOnePlayer = false;
-	Player ownedBy = null;
-	int houseValue;
+	private List<Street> streets = new ArrayList<Street>();
+	private String color;
+	private boolean isOwnedByOnePlayer = false;
+	private Player ownedBy = null;
+	private int houseValue;
+	private int maxNumHouses;
+	private int minNumHouses;
 
 	public Neighborhood(String color, int houseValue) {
 		this.color = color;
 		this.houseValue = houseValue;
+		this.maxNumHouses = 1;
+		this.minNumHouses = 0;
 	}
 
 	public String getColor() {
@@ -55,5 +59,89 @@ public class Neighborhood {
 	public void removeFromOnePlayer() {
 		isOwnedByOnePlayer = false;
 		ownedBy = null;
+	}
+
+	public boolean numHousesEqual() {
+		int houseCount = streets.get(0).getHouseCount();
+		int hotelCount = streets.get(0).getHotelCount();
+		for (Street s : streets) {
+			if (s.getHouseCount() != houseCount) {
+				return false;
+			} else if (s.getHotelCount() != hotelCount) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public boolean addHouse(Street tempStreet) {
+		int streetHouses = tempStreet.getHouseCount();
+		int streetHotel = tempStreet.getHotelCount();
+		if (streetHotel == 1) {
+			streetHouses += 5;
+		}
+		if (null == ownedBy) {
+			return false;
+		} else if (null == tempStreet.getOwner()) {
+			return false;
+		}
+
+		if (streetHotel == 1) {
+			return false;
+		} else if (streetHouses == maxNumHouses) {
+			return false;
+		} else if (streetHouses < maxNumHouses && streetHouses >= minNumHouses) {
+			if (tempStreet.getOwner().getBalance() >= houseValue) {
+				// player can afford house
+				if (numHousesEqual() && streetHouses != 0) {
+					// all of the houses have the same number of houses
+					tempStreet.addHouse();
+					minNumHouses++;
+					return true;
+				} else {
+					tempStreet.addHouse();
+					if (numHousesEqual()) {
+						maxNumHouses++;
+					}
+					return true;
+				}
+			} else {
+				// player cannot afford house
+				return false;
+			}
+		} else {
+			// something went wrong
+			return false;
+		}
+	}
+
+	public boolean removeHouse(Street tempStreet) {
+		int streetHouses = tempStreet.getHouseCount();
+		int streetHotel = tempStreet.getHotelCount();
+		if (streetHotel == 1) {
+			streetHouses += 5;
+		}
+		if (null == tempStreet.getOwner()) {
+			return false;
+		}
+		if (streetHouses == minNumHouses) {
+			return false;
+		} else if (streetHouses <= maxNumHouses && streetHouses > minNumHouses) {
+			if (numHousesEqual()) {
+				// all of the houses have the same number of houses
+				tempStreet.removeHouse();
+				maxNumHouses--;
+				return true;
+			} else {
+				tempStreet.removeHouse();
+				if (numHousesEqual()) {
+					minNumHouses--;
+				}
+				return true;
+			}
+		} else {
+			// something went wrong
+			return false;
+		}
 	}
 }

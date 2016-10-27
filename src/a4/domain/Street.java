@@ -6,6 +6,7 @@ public class Street extends Property {
 	int[] rent;
 	Neighborhood neighborhood;
 	String color;
+	boolean isMortgaged = false;
 
 	public Street(String name, int value, int[] rent, String color) {
 		super(name, value);
@@ -34,8 +35,8 @@ public class Street extends Property {
 	}
 
 	public void addHouse() {
-		if (hotelCount >= 1) {}
-		else if (houseCount < 4)
+		if (hotelCount >= 1) {
+		} else if (houseCount < 4)
 			houseCount++;
 		else if (hotelCount == 0) {
 			houseCount = 0;
@@ -70,9 +71,14 @@ public class Street extends Property {
 			return rent[houseCount];
 		else if (hotelCount > 0)
 			return rent[hotelCount * 5];
-		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null && neighborhood.belongsTo().equals(owner))
+		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null
+				&& neighborhood.belongsTo().equals(owner))
 			return rent[0] * 2;
 		else
 			return rent[0];
+	}
+
+	public String toString() {
+		return name + ": Value: " + value + " Number of Houses: " + houseCount + " Currently Mortgaged: " + isMortgaged;
 	}
 }

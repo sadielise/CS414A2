@@ -20,23 +20,21 @@ public class Player {
 		numRailroads = 0;
 		numUtilities = 0;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return name;
 	}
-	
-/*	Not sure if we need this?
- * @Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((token == null) ? 0 : token.hashCode());
-		return result;
-	}
-	*/
 
-	//Players are equal if the name and token are equal
+	/*
+	 * Not sure if we need this?
+	 * 
+	 * @Override public int hashCode() { final int prime = 31; int result = 1;
+	 * result = prime * result + ((name == null) ? 0 : name.hashCode()); result
+	 * = prime * result + ((token == null) ? 0 : token.hashCode()); return
+	 * result; }
+	 */
+
+	// Players are equal if the name and token are equal
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -78,10 +76,10 @@ public class Player {
 	}
 
 	/*
-	 * Summary: removes ammountToRemove from the balance of the player 
+	 * Summary: removes ammountToRemove from the balance of the player
 	 * 
-	 * Returns: The remaining balance of the player 
-	 * if ammountToRemove is larger than the balance, will return -1
+	 * Returns: The remaining balance of the player if ammountToRemove is larger
+	 * than the balance, will return -1
 	 * 
 	 */
 	public int removeBalance(int amountToRemove) {
@@ -121,15 +119,15 @@ public class Player {
 	 * Summary: this allows the player to move a certain amount of spaces and
 	 * updates their location accordingly
 	 * 
-	 * Parameters: numSpaces: the number of spaces to move the player 
-	 * maxSpaces: the total number of spaces on the board
+	 * Parameters: numSpaces: the number of spaces to move the player maxSpaces:
+	 * the total number of spaces on the board
 	 * 
 	 * Returns: a boolean that indicates if the player passed go
 	 */
 	public boolean move(int numSpaces, int maxSpaces) {
 		boolean passedGo = false;
 		location = location + numSpaces;
-		if(location >= maxSpaces){
+		if (location >= maxSpaces) {
 			location = location % maxSpaces;
 			passedGo = true;
 		}
@@ -143,21 +141,20 @@ public class Player {
 	public void setRailroadCount(int numRailroads) {
 		this.numRailroads = numRailroads;
 	}
-	
-	public void addRailroad(){
+
+	public void addRailroad() {
 		numRailroads++;
 	}
-	
-	//returns new railroad count
-	//returns -1 if fails
-	public int removeRailroad(){
-		if(numRailroads > 0){
+
+	// returns new railroad count
+	// returns -1 if fails
+	public int removeRailroad() {
+		if (numRailroads > 0) {
 			numRailroads--;
 			return numRailroads;
-		}
-		else{
+		} else {
 			return -1;
-		}	
+		}
 	}
 
 	public int getUtilityCount() {
@@ -167,21 +164,20 @@ public class Player {
 	public void setUtilityCount(int numUtilities) {
 		this.numUtilities = numUtilities;
 	}
-	
-	public void addUtility(){
+
+	public void addUtility() {
 		numUtilities++;
 	}
-	
-	//returns new railroad count
-	//returns -1 if fails
-	public int removeUtility(){
-		if(numUtilities > 0){
+
+	// returns new railroad count
+	// returns -1 if fails
+	public int removeUtility() {
+		if (numUtilities > 0) {
 			numUtilities--;
 			return numUtilities;
-		}
-		else{
+		} else {
 			return -1;
-		}	
-	} 
+		}
+	}
 
 }

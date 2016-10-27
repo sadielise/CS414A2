@@ -21,12 +21,12 @@ public class MonopolyGameTest {
 	@Before
 	public void doBeforeTests(){
 		testGame = new MonopolyGame();
+		IModel model = new MockModel(testGame);
+		testGame.setModel(model);
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		names.add("David");
 		testGame.newGame(names, 30);
-		IModel model = new MockModel(testGame);
-		testGame.setModel(model);
 	}
 
 	@Test

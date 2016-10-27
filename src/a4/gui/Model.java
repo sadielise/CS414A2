@@ -108,7 +108,6 @@ public class Model implements IModel {
 
 	public void endTurn(){
 		game.endTurn();
-
 	}
 
 
@@ -148,17 +147,18 @@ public class Model implements IModel {
 
 	public void propertyWasDeveloped(String property, int numberOfHouses) {
 		view.propertyWasDevelopedDialog(property,numberOfHouses);
+		update();
 		
 	}
 
 	public void startNormalTurn(String player) {
-		view.update();
+		update();
 		hasRolled = false;
 		view.startNormalTurnDialog(player);
 	}
 
 	public void startJailTurn(String player) {
-		view.update();
+		update();
 		hasRolled = true;
 		view.startJailTurnDialog(player);		
 	}
@@ -177,68 +177,59 @@ public class Model implements IModel {
 		game.payJailFine(player,isPayingFine);
 	}
 
-	@Override
 	public void unableToPayTax(int amount) {
 		unableToPayRentTo("Tax", amount);
 	}
 
-	@Override
 	public void propertyWasMortgagedFor(String property, int amount) {
-		view.update();
+		update();
 		view.propertyWasMortgagedDialog(property, amount);
 	}
 
-	@Override
 	public void couldNotUndevelopProperty(String property) {
 		view.couldNotUndevelopProperty(property);
 	}
 
-	@Override
 	public void propertyWasUnmortgagedFor(String property, int value) {
+		update();
 		view.propertyUnmortgagedDialog(property);
 	}
 
-	@Override
 	public void couldNotPurchaseProperty(String player, String property) {
 		view.unableToPurchasePropertyDialog(player, property);
-		view.update();		
+		update();		
 	}
 
-	@Override
 	public void purchasedProperty(String player, String property) {
 		view.purchasedPropertyDialog(player, property);
-		view.update();
+		update();
 	}
 
-	@Override
 	public void failedToLeaveJail() {
 		view.failedToLeaveJailDialog();
 		
 	}
 
-	@Override
 	public void succeededInLeavingJail() {
 		view.succeededInLeavingJailDialog();
 	}
 
-	@Override
 	public void unableToPayFine(int amount) {
 		view.unableToPayDialog("Jail", amount);
 	}
 
-	@Override
 	public void tradeFailed(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub		
+		view.tradeFailedDialog(currProperty, otherProperty);
 	}
 
-	@Override
 	public void tradeSucceeded(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub
+		view.tradeSucceededDialog(currProperty, otherProperty);
+		update();
 	}
 	
 	public void auctionFailed(String property){
 		view.auctionFailedDialog(property);
-		view.update();		
+		update();		
 	}
 
 	@Override

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import a4.gui.IModel;
 import a4.gui.Model;
@@ -22,6 +24,7 @@ public class MonopolyGame implements IMonopolyGame {
 	private Player currentPlayer;
 	private IModel model;
 	private int initialBankBalance = 20580;
+	public Timer gameTime;
 
 	public MonopolyGame(){
 
@@ -38,10 +41,12 @@ public class MonopolyGame implements IMonopolyGame {
 		dice.add(new Die(6));
 		dice.add(new Die(6));
 		bank = new Bank(initialBankBalance);
-		endTime = new Date(time);
-		bank.setBalance(20580);	
+		endTime = new Date(time * 1000 * 60);
+		bank.setBalance(initialBankBalance);	
 
 		for(String name: names){
+			Player newPlayer = new Player(name, 0, 0);
+			transferMoney(bank, newPlayer, 1500);
 			players.add(new Player(name, 1500, 0));
 		}
 		for(BoardSpace space: board.getSpaces()){
@@ -52,10 +57,6 @@ public class MonopolyGame implements IMonopolyGame {
 		determinePlayOrder();
 		currentPlayer = players.get(0);
 		return true;
-	}
-
-	public void playGame(){
-		//TODO: implement
 	}
 
 	//returns the player that wins the game
@@ -97,6 +98,12 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public boolean removePlayer(Player player){
 		if(players.contains(player)){
+			for(Property property: properties){
+				if(property.getOwner() != null)
+					if(property.getOwner().equals(player)){
+						property.setOwner(null);
+					}
+				}
 			players.remove(player);
 			//			if(players.size() == 1){
 			//				endGame();
@@ -155,7 +162,7 @@ public class MonopolyGame implements IMonopolyGame {
 				//				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
 			}else if(!currentProperty.getOwner().equals(currentPlayer)){
 				if(!currentProperty.getIsMortgaged()){
-					while(!transferMoney(currentPlayer, currentProperty.getOwner(), currentProperty.getRent())){
+					if(!transferMoney(currentPlayer, currentProperty.getOwner(), currentProperty.getRent())){
 						//					model.unableToPayRentTo(currentProperty.getOwner().toString(), currentProperty.getRent());
 					}
 				}				
@@ -209,12 +216,28 @@ public class MonopolyGame implements IMonopolyGame {
 		}else{
 			if(transferMoney(player, bank, price)){
 				property.setOwner(player);
+				checkIfNeighborhoodIsOwnedBy(player, property);
 				return true;
 			}
 			return false;
 		}
 	}
 
+	private void checkIfNeighborhoodIsOwnedBy(Player player, Property property) {
+		if(property instanceof Street){
+			Neighborhood neighborhood = ((Street)property).getNeighborhood();
+			int housesInNeighborhoodOwnedByPlayer = 0;
+			for(Street curr: neighborhood.getStreets()){
+				if(curr.getOwner().equals(player)){
+					housesInNeighborhoodOwnedByPlayer++;
+				}
+			}
+			if(housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()){
+				neighborhood.assignToOnePlayer(player);
+			}
+		}
+
+	}
 	public int mortgageProperty(Property propertyToMortgage){
 		if(!(currentPlayer.equals(propertyToMortgage.getOwner()))){
 			return -1;
@@ -246,15 +269,24 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public void trade(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub
-		
+		Property property1 = findProperty(currProperty);
+		Property property2 = findProperty(otherProperty);
+		if(property1 == null || property2 == null){
+			model.tradeFailed(currProperty, otherProperty);
+		}else{
+			tradeProperty(property1, property2);
+			model.tradeSucceeded(currProperty, otherProperty);
+		}
+
 	}
-	
+
 	public void tradeProperty(Property property1, Property property2){
-			Player player1 = property1.getOwner();
-			Player player2 = property2.getOwner();
-			property1.setOwner(player2);
-			property2.setOwner(player1);
+		Player player1 = property1.getOwner();
+		Player player2 = property2.getOwner();
+		property1.setOwner(player2);
+		property2.setOwner(player1);
+		checkIfNeighborhoodIsOwnedBy(player1, property2);
+		checkIfNeighborhoodIsOwnedBy(player2, property1);
 	}
 
 	@Override
@@ -319,7 +351,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public int buyHouse(Street property){
 		if(property instanceof Street){
 			Street tempStreet = (Street)property;
-			if(houseCount != 0){
+			if(houseCount != 0 && property.getIsMortgaged() == false){
 				boolean houseBought = tempStreet.getNeighborhood().addHouse(tempStreet);
 				if(houseBought){
 					if(tempStreet.getHotelCount() == 1){
@@ -547,5 +579,44 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public void setModel(Model newModel){
 		model = newModel;
+	}
+
+	public void rollToGetOutOfJail(){
+		JailSpace jail = (JailSpace)board.getSpaces().get(10);
+		if(currentPlayer.getInJail() == false){
+			model.failedToLeaveJail();
+		}else if (jail.getAttempts(currentPlayer) > 3){
+			model.failedToLeaveJail();
+		}else{
+			int value1 = dice.get(0).roll();
+			int value2 = dice.get(1).roll();
+			if(value1 == value2){
+				board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
+				board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
+				playerMoved();
+				model.succeededInLeavingJail();
+			}else{
+				jail.incrementAttempts(currentPlayer);
+				if(jail.getAttempts(currentPlayer) > 3){
+					payFineToLeaveJail();
+
+				}else{
+					model.failedToLeaveJail();
+				}
+			}
+		}
+	}
+
+	public void payFineToLeaveJail(){
+		JailSpace jail = (JailSpace)board.getSpaces().get(10);
+		if(currentPlayer.getInJail() == false){
+			model.failedToLeaveJail();
+		}else if(transferMoney(currentPlayer, bank, 50) == false){
+			model.unableToPayFine(50);
+		}else{
+			currentPlayer.setInJail(false);
+			jail.removePlayer(currentPlayer);
+			model.succeededInLeavingJail();
+		}
 	}
 }

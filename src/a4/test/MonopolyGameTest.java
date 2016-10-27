@@ -18,6 +18,7 @@ import a4.domain.MonopolyGame;
 import a4.domain.Player;
 import a4.domain.Property;
 import a4.domain.PropertySpace;
+import a4.domain.Street;
 import a4.gui.Model;
 
 public class MonopolyGameTest {
@@ -482,6 +483,21 @@ public class MonopolyGameTest {
 	}
 	
 	@Test
-	public void testMor
+	public void testMortgage(){
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		Property p1 = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
+		assertTrue(testGame.purchaseProperty(currentPlayer, p1, p1.getValue()));
+	}
+//	@Test
+//	public void testMeh(){
+//		BoardSpace bs = testGame.getBoard().getSpaces().get(1);
+//		Property p = ((PropertySpace)bs).getProperty();
+//		Street s = (Street)p;
+//		System.out.println(s.toString());
+////		System.out.println(s.getNeighborhood().getStreets().size());
+//		for(Street street: s.getNeighborhood().getStreets()){
+//			System.out.println(street.toString());
+//		}
+//	}
 
 }

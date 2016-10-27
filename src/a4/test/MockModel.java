@@ -13,7 +13,12 @@ public class MockModel implements IModel{
 	
 	@Override
 	public void propertyIsUnowned(String propertyName, int propertyValue) {
+		if(propertyValue == 1){
 		game.purchaseProperty("testPlayer", propertyName);
+		}
+		else{
+			//game.purchaseAuctionedProperty(offers);
+		}
 	}
 
 	@Override

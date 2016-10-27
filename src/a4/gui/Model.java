@@ -108,7 +108,6 @@ public class Model implements IModel {
 
 	public void endTurn(){
 		game.endTurn();
-
 	}
 
 
@@ -148,17 +147,18 @@ public class Model implements IModel {
 
 	public void propertyWasDeveloped(String property, int numberOfHouses) {
 		view.propertyWasDevelopedDialog(property,numberOfHouses);
+		update();
 		
 	}
 
 	public void startNormalTurn(String player) {
-		view.update();
+		update();
 		hasRolled = false;
 		view.startNormalTurnDialog(player);
 	}
 
 	public void startJailTurn(String player) {
-		view.update();
+		update();
 		hasRolled = true;
 		view.startJailTurnDialog(player);		
 	}
@@ -182,7 +182,7 @@ public class Model implements IModel {
 	}
 
 	public void propertyWasMortgagedFor(String property, int amount) {
-		view.update();
+		update();
 		view.propertyWasMortgagedDialog(property, amount);
 	}
 
@@ -191,17 +191,18 @@ public class Model implements IModel {
 	}
 
 	public void propertyWasUnmortgagedFor(String property, int value) {
+		update();
 		view.propertyUnmortgagedDialog(property);
 	}
 
 	public void couldNotPurchaseProperty(String player, String property) {
 		view.unableToPurchasePropertyDialog(player, property);
-		view.update();		
+		update();		
 	}
 
 	public void purchasedProperty(String player, String property) {
 		view.purchasedPropertyDialog(player, property);
-		view.update();
+		update();
 	}
 
 	public void failedToLeaveJail() {
@@ -223,10 +224,11 @@ public class Model implements IModel {
 
 	public void tradeSucceeded(String currProperty, String otherProperty) {
 		view.tradeSucceededDialog(currProperty, otherProperty);
+		update();
 	}
 	
 	public void auctionFailed(String property){
 		view.auctionFailedDialog(property);
-		view.update();		
+		update();		
 	}
 }

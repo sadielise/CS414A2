@@ -17,7 +17,6 @@ public class MonopolyGame implements IMonopolyGame {
 	private List<Die> dice;
 	private Bank bank;
 	private List<Property> properties;
-	private Date endTime;
 	private int houseCount;
 	private int hotelCount;
 	private Player currentPlayer;
@@ -57,8 +56,9 @@ public class MonopolyGame implements IMonopolyGame {
 		dice.add(new Die(6));
 		dice.add(new Die(6));
 		bank = new Bank(initialBankBalance);
-		endTime = new Date(time * 1000 * 60);
 		bank.setBalance(initialBankBalance);
+		houseCount = 32;
+		hotelCount = 5;
 
 		for (String name : names) {
 			Player newPlayer = new Player(name, 0, 0);
@@ -143,8 +143,10 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void roll(int pastNumberOfDoubles) {
-		int value1 = dice.get(0).roll();
-		int value2 = dice.get(1).roll();
+		// int value1 = dice.get(0).roll();
+		// int value2 = dice.get(1).roll();
+		int value1 = 0;
+		int value2 = 1;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -173,7 +175,7 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
 			model.landedOnNonProperty("Income Tax");
-			if (!transferMoney(currentPlayer, bank, 100)) {
+			if (!transferMoney(currentPlayer, bank, 10000)) {
 				model.unableToPayTax(100);
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
@@ -187,7 +189,6 @@ public class MonopolyGame implements IMonopolyGame {
 				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 				if (!currentProperty.getIsMortgaged()) {
 					int rent = currentProperty.getRent();
-					System.out.println(currentProperty.getName() + "\t" + rent);
 					if (currentProperty instanceof Utility) {
 						rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
 					}
@@ -410,19 +411,18 @@ public class MonopolyGame implements IMonopolyGame {
 		return true;
 	}
 
-	public int buyHouse(Street property) {
-		if (property instanceof Street) {
-			Street tempStreet = (Street) property;
-			if (houseCount != 0 && property.getIsMortgaged() == false) {
-				boolean houseBought = tempStreet.getNeighborhood().addHouse(tempStreet);
-				if (houseBought) {
-					if (tempStreet.getHotelCount() == 1) {
-						hotelCount--;
-						houseCount += 4;
-					}
-					transferMoney(property.getOwner(), bank, tempStreet.getNeighborhood().getHouseValue());
-					return tempStreet.getHouseCount();
+	public int buyHouse(Street street) {
+		// System.out.println("Entered buy house");
+		if (houseCount != 0 && street.getIsMortgaged() == false) {
+			// System.out.println("Enough houses and not mortgaged");
+			boolean houseBought = street.getNeighborhood().addHouse(street);
+			if (houseBought) {
+				if (street.getHotelCount() == 1) {
+					hotelCount--;
+					houseCount += 4;
 				}
+				transferMoney(street.getOwner(), bank, street.getNeighborhood().getHouseValue());
+				return street.getHouseCount();
 			}
 		}
 		return -1;
@@ -506,7 +506,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	@Override
-	public String getProperty(int location) { 
+	public String getProperty(int location) {
 		BoardSpace space = board.getSpaces().get(location);
 		if (space instanceof PropertySpace) {
 			PropertySpace temp = (PropertySpace) space;
@@ -518,27 +518,34 @@ public class MonopolyGame implements IMonopolyGame {
 	@Override
 	public void developProperty(String property) {
 		Property currentProperty = findProperty(property);
-		if (currentProperty == null) { // property cannot be found
+		if (currentProperty == null) {
 			System.err.println("Error: null property : " + property);
-		} else if (currentProperty.getOwner() == null) { // property does not
-			// have an owner
+		} else if (currentProperty.getOwner() == null) {
+			// System.out.println("Property has no owner");
 			model.propertyCannotBeDeveloped(property);
-		} else if (currentProperty.getIsMortgaged()) { // property is mortgaged
+		} else if (currentProperty.getIsMortgaged()) {
+			// System.out.println("Property is mortgaged");
 			int value = unmortgageProperty(currentProperty);
 			if (value != -1) {
+				// System.out.println("Property was unmortgaged");
 				model.propertyWasUnmortgagedFor(property, value);
 			} else {
+				// System.out.println("Property could not be unmortgaged");
 				model.propertyCannotBeDeveloped(property);
 			}
 		} else if (currentProperty instanceof Street) {
+			// System.out.println("Property is a street");
 			Street currentStreet = (Street) currentProperty;
 			int success = buyHouse(currentStreet);
 			if (success == -1) {
+				// System.out.println("Failed to buy house");
 				model.propertyCannotBeDeveloped(property);
 			} else {
+				// System.out.println("Succeeded to buy house");
 				model.propertyWasDeveloped(currentStreet.toString(), currentStreet.getHouseCount());
 			}
 		} else {
+			// System.out.println("property is not of correct type to develop");
 			model.propertyCannotBeDeveloped(property);
 		}
 	}
@@ -551,7 +558,7 @@ public class MonopolyGame implements IMonopolyGame {
 		bank = null;
 		properties = null;
 		currentPlayer = null;
-		endTime = null;
+		// endTime = null;
 		BoardSpace.restartCounter();
 		boolean success = setupGame(playerNames, timeInMinutes);
 		if (success) {
@@ -608,16 +615,20 @@ public class MonopolyGame implements IMonopolyGame {
 	public void undevelop(String property) {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
+			System.out.println("null property");
 			model.couldNotUndevelopProperty(property);
 		} else {
 			if (currentProperty instanceof Street) {
 				Street street = (Street) currentProperty;
-				if (street.getHouseCount() > 0) {
-					sellHouse(street);
+				int streetCount = sellHouse(street);
+				if (streetCount != -1) {
+					model.propertyWasUnDevelopedFor(property, street.getNeighborhood().getHouseValue());
 				}
+			} else {
+				int mortgagingValue = mortgageProperty(currentProperty);
+				model.propertyWasUnDevelopedFor(property, mortgagingValue);
 			}
 		}
-
 	}
 
 	public void goToJail() {
@@ -654,8 +665,8 @@ public class MonopolyGame implements IMonopolyGame {
 					if (curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
 					} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
-						if(((Street) curr).getNeighborhood().isOwnedByOnePlayer()){
-							if(((Street) curr).getNeighborhood().belongsTo().toString().equals(player)){
+						if (((Street) curr).getNeighborhood().isOwnedByOnePlayer()) {
+							if (((Street) curr).getNeighborhood().belongsTo().toString().equals(player)) {
 								propertyList.add(curr.toString());
 							}
 						}
@@ -742,8 +753,7 @@ public class MonopolyGame implements IMonopolyGame {
 		} else {
 			player.setInJail(false);
 			jail.removePlayer(player);
-			model.paidRentTo("Jail", 50);
-			// model.paidFine(50);
+			model.paidJailFine();
 			return true;
 		}
 	}

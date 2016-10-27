@@ -27,5 +27,7 @@ public interface IModel {
 	public void landedOnOwnedProperty(String string, String string2);
 	public void rolled(int value, boolean isDoubles);
 	public void endGame(String string);
+	public void propertyWasUnDevelopedFor(String property, int houseValue);
+	public void paidJailFine();
 
 }

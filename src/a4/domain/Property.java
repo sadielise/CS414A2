@@ -44,7 +44,7 @@ public class Property {
 	}
 
 	public String toString() {
-		return name;
+		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
 	}
 
 	public int getRent() {

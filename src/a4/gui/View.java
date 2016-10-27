@@ -64,7 +64,9 @@ public class View extends JFrame{
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");
-		contentPane.add(playingBoard,"Center");
+
+		//contentPane.add(playingBoard,"Center");
+
 
 		pack();
 

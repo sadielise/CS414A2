@@ -628,15 +628,14 @@ public class MonopolyGame implements IMonopolyGame {
 				board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 				board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
 				playerMoved();
-				model.succeededInLeavingJail();
+				return true;
 			} else {
 				jail.incrementAttempts(currentPlayer);
 				if (jail.getAttempts(currentPlayer) > 3) {
-					payFineToLeaveJail();
+					return payFineToLeaveJail();
 
-				} else {
-					model.failedToLeaveJail();
-				}
+				} 
+				return false;
 			}
 		}
 	}
@@ -646,16 +645,16 @@ public class MonopolyGame implements IMonopolyGame {
 
 	}
 
-	public void payFineToLeaveJail() {
+	public boolean payFineToLeaveJail() {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
 		if (currentPlayer.getInJail() == false) {
-			model.failedToLeaveJail();
+			return false;
 		} else if (transferMoney(currentPlayer, bank, 50) == false) {
-			model.unableToPayFine(50);
+			return false;
 		} else {
 			currentPlayer.setInJail(false);
 			jail.removePlayer(currentPlayer);
-			model.succeededInLeavingJail();
+			return true;
 		}
 	}
 

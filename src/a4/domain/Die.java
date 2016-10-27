@@ -3,6 +3,7 @@ package a4.domain;
 public class Die {
 
 	private int numSides;
+	private int state;
 
 	public Die(int numSides) {
 		this.numSides = numSides;
@@ -14,7 +15,11 @@ public class Die {
 	 * Returns: a random number from 1 to numSides
 	 */
 	public int roll() {
-		int result = (int) (Math.random() * numSides) + 1;
-		return result;
+		state = (int) (Math.random() * numSides) + 1;
+		return state;
+	}
+	
+	public int getState(){
+		return state;
 	}
 }

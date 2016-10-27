@@ -212,20 +212,18 @@ public class Model implements IModel {
 
 	@Override
 	public void failedToLeaveJail() {
-		// TODO Auto-generated method stub
+		view.failedToLeaveJailDialog();
 		
 	}
 
 	@Override
 	public void succeededInLeavingJail() {
-		// TODO Auto-generated method stub
-		
+		view.succeededInLeavingJailDialog();
 	}
 
 	@Override
 	public void unableToPayFine(int amount) {
-		// TODO Auto-generated method stub
-		
+		view.unableToPayDialog("Jail", amount);
 	}
 
 	@Override
@@ -241,5 +239,17 @@ public class Model implements IModel {
 	public void auctionFailed(String property){
 		view.auctionFailedDialog(property);
 		view.update();		
+	}
+
+	@Override
+	public void landedOnNonProperty(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void landedOnOwnedProperty(String string, String string2) {
+		// TODO Auto-generated method stub
+		
 	}
 }

@@ -23,5 +23,7 @@ public interface IModel {
 	public void tradeFailed(String currProperty, String otherProperty);
 	public void tradeSucceeded(String currProperty, String otherProperty);
 	public void auctionFailed(String property);
+	public void landedOnNonProperty(String string);
+	public void landedOnOwnedProperty(String string, String string2);
 
 }

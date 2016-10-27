@@ -180,4 +180,11 @@ public class Controller {
 		JOptionPane.showMessageDialog(view, "Auction for " + property + " failed. Restarting Auction.");
 		createAuctionDialog(property);
 	}
+	public void createFailedToLeaveJailDialog() {
+		JOptionPane.showMessageDialog(view, model.getPlayer() +" failed to leave jail!");
+	}
+	public void createSucceededInLeavingJailDialog() {
+		JOptionPane.showMessageDialog(view, model.getPlayer() +" succeeded in leaving jail! Your token will be moved!");
+	
+	}
 }

@@ -20,7 +20,12 @@ public class PlayingBoard extends JLayeredPane{
 	
 	private Model model;
 	private ArrayList<ImageIcon> tokens;
+	private ArrayList<ImageIcon> houses;
+	private ArrayList<ImageIcon> hotels;
 	private int[][] playerPositions;
+	private int[][] housePositions;
+	private int[][] hotelPositions;
+	private int[] propertyLocations;
 	private int paintCount;
 	
 	public PlayingBoard(Model m){
@@ -29,20 +34,69 @@ public class PlayingBoard extends JLayeredPane{
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		setLayout(null);
 		readTokens();
-		readPositions();
+		readPlayerPositions();
 		paintCount = 0;
 	}
 	
-	private void readPositions(){
+	private void readPlayerPositions(){
 		
 		playerPositions = new int[40][2];
 		int i = 0;
 		try {
-			
-			Scanner scanner = new Scanner(new File("player1positions.txt"));
+			Scanner scanner = new Scanner(new File("playerpositions.txt"));
 			while(scanner.hasNextInt()){
 				playerPositions[i][0] = scanner.nextInt();
 				playerPositions[i][1] = scanner.nextInt();
+				i++;
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			
+		}
+	}
+	
+	private void readHousePositions(){
+		
+		housePositions = new int[22][2];
+		int i = 0;
+		try {
+			Scanner scanner = new Scanner(new File("housepositions.txt"));
+			while(scanner.hasNextInt()){
+				housePositions[i][0] = scanner.nextInt();
+				housePositions[i][1] = scanner.nextInt();
+				i++;
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			
+		}
+	}
+	
+	private void readHotelPositions(){
+		
+		hotelPositions = new int[22][2];
+		int i = 0;
+		try {
+			Scanner scanner = new Scanner(new File("hotelpositions.txt"));
+			while(scanner.hasNextInt()){
+				hotelPositions[i][0] = scanner.nextInt();
+				hotelPositions[i][1] = scanner.nextInt();
+				i++;
+			}
+			scanner.close();
+		} catch (FileNotFoundException e) {
+			
+		}
+	}
+	
+	private void readPropertyLocations(){
+		
+		propertyLocations = new int[22];
+		int i = 0;
+		try {
+			Scanner scanner = new Scanner(new File("propertylocations.txt"));
+			while(scanner.hasNextInt()){
+				propertyLocations[i] = scanner.nextInt();
 				i++;
 			}
 			scanner.close();
@@ -62,8 +116,29 @@ public class PlayingBoard extends JLayeredPane{
 		ImageIcon wheelbarrow = new ImageIcon("wheelbarrow.png");
 		tokens.add(wheelbarrow);
 	}
-
 	
+	private void readHouses(){
+		houses = new ArrayList<ImageIcon>();
+		ImageIcon house0 = new ImageIcon("house0.png");
+		houses.add(house0);
+		ImageIcon house1 = new ImageIcon("house1.png");
+		houses.add(house1);
+		ImageIcon house2 = new ImageIcon("house2.png");
+		houses.add(house2);
+		ImageIcon house3 = new ImageIcon("house3.png");
+		houses.add(house3);
+		ImageIcon house4 = new ImageIcon("house4.png");
+		houses.add(house4);
+	}
+	
+	private void readHotels(){
+		hotels = new ArrayList<ImageIcon>();
+		ImageIcon hotel0 = new ImageIcon("hotel0.png");
+		houses.add(hotel0);
+		ImageIcon hotel1 = new ImageIcon("hotel1.png");
+		houses.add(hotel1);
+	}
+
 	@Override
 	protected void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -90,6 +165,18 @@ public class PlayingBoard extends JLayeredPane{
 				icon.setLocation(x, y);
 				icon.setIcon(tokens.get(i));
 				add(icon);
+			}
+			
+			for(int j = 0; j < propertyLocations.length; j++){
+				int location = propertyLocations[j];
+				JLabel houseIcon = new JLabel();
+				houseIcon.setSize(20,20);
+				houseIcon.setLocation(housePositions[location][0], housePositions[location][1]);
+				houseIcon.setIcon(houses.get(model.getNumberHouses(location)));
+				JLabel hotelIcon = new JLabel();
+				hotelIcon.setSize(20, 20);
+				hotelIcon.setLocation(hotelPositions[location][0], hotelPositions[location][1]);
+				hotelIcon.setIcon(hotels.get(model.getNumberHotels(location)));
 			}
 		}
 		

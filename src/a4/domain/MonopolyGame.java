@@ -213,5 +213,11 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int getNumberHouses(int location) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

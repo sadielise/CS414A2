@@ -146,20 +146,24 @@ public class MonopolyGame implements IMonopolyGame {
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
 		if (spaceOfPlayer instanceof LuxuryTaxSpace) {
+			model.landedOnNonProperty("Luxury Tax");
 			if (!transferMoney(currentPlayer, bank, 200)) {
 				model.unableToPayTax(200);
 			}
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
+			model.landedOnNonProperty("Income Tax");
 			if (!transferMoney(currentPlayer, bank, 100)) {
 				model.unableToPayTax(100);
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
+			model.landedOnNonProperty(((OpenSpace)spaceOfPlayer).getName());
 
 		} else if (spaceOfPlayer instanceof PropertySpace) {
 			Property currentProperty = ((PropertySpace) spaceOfPlayer).getProperty();
 			if (currentProperty.getOwner() == null) {
 				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
 			} else if (!currentProperty.getOwner().equals(currentPlayer)) {
+				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 				if (!currentProperty.getIsMortgaged()) {
 					if (!transferMoney(currentPlayer, currentProperty.getOwner(), currentProperty.getRent())) {
 						model.unableToPayRentTo(currentProperty.getOwner().toString(), currentProperty.getRent());
@@ -167,10 +171,11 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 		} else if (spaceOfPlayer instanceof GoToJailSpace) {
+			model.landedOnNonProperty("Go To Jail");
 			goToJail();
 			model.playerSentToJail(currentPlayer.toString());
 		} else if (spaceOfPlayer instanceof JailSpace) {
-
+			model.landedOnNonProperty("Jail");
 		} else {
 			System.err.println("You done messed A-ARon!");
 		}
@@ -526,7 +531,7 @@ public class MonopolyGame implements IMonopolyGame {
 	@Override
 	public void endTurn() {
 		int currentPlayerNumber = players.indexOf(currentPlayer);
-		int nextPlayerNumber = currentPlayerNumber % players.size();
+		int nextPlayerNumber = (currentPlayerNumber + 1) % players.size();
 		currentPlayer = players.get(nextPlayerNumber);
 		if (currentPlayer.getInJail()) {
 			model.startJailTurn(currentPlayer.toString());

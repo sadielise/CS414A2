@@ -464,6 +464,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
+			if(curr.getOwner()  != null)
 			if (curr.getOwner().toString().equals(player)) {
 				// System.out.println(curr.toString());
 				propertyList.add(curr.toString());

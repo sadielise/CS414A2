@@ -40,7 +40,7 @@ public class Model implements IModel {
 	}
 
 	public List<String> getPlayersProperties(String player){
-		return game.getProperties(game.getCurrentPlayer());
+		return game.getProperties(player);
 	}
 	
 	public List<String> getPlayersDevelopableProperties(String player){

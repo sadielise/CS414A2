@@ -140,7 +140,7 @@ public class Controller {
 
 	}
 	public void createStartJailTurnDialog(String player) {
-		int choice = JOptionPane.showConfirmDialog(view, "It is " +player + "'s turn, but you are in jail! Do you want to pay the fine?", "In Jail Dialog", JOptionPane.YES_NO_OPTION);
+		int choice = JOptionPane.showConfirmDialog(view, "It is " +player + "'s turn, but you are in jail! Do you want to pay the fine? If not, the system will roll for you.", "In Jail Dialog", JOptionPane.YES_NO_OPTION);
 		if (choice == JOptionPane.YES_OPTION){
 			model.payJailFine(player, true);
 		}

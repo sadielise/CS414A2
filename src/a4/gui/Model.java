@@ -233,20 +233,19 @@ public class Model implements IModel {
 	}
 
 	@Override
-	public void landedOnNonProperty(String string) {
-		// TODO Auto-generated method stub
-		
+	public void landedOnNonProperty(String property) {
+		view.landedOnNonPropertyDialog(property);
 	}
 
 	@Override
-	public void landedOnOwnedProperty(String string, String string2) {
-		// TODO Auto-generated method stub
-		
+	public void landedOnOwnedProperty(String property, String owner) {
+		update();
+		view.landedOnOwnedPropertyDialog(property, owner);
 	}
 
 	@Override
 	public void rolled(int value, boolean isDoubles) {
-		// TODO Auto-generated method stub
-		
+		update();
+		view.rolledDialog(value, isDoubles);
 	}
 }

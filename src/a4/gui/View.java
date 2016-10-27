@@ -158,4 +158,12 @@ public class View extends JFrame{
 	public void succeededInLeavingJailDialog() {
 		controller.createSucceededInLeavingJailDialog();
 	}
+
+	public void tradeFailedDialog(String currProperty, String otherProperty) {
+		controller.createTradeFailedDialog(currProperty, otherProperty);
+	}
+
+	public void tradeSucceededDialog(String currProperty, String otherProperty) {
+		controller.createTradeSucceededDialog(currProperty, otherProperty);		
+	}
 }

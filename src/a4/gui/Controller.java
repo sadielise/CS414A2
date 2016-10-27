@@ -187,4 +187,10 @@ public class Controller {
 		JOptionPane.showMessageDialog(view, model.getPlayer() +" succeeded in leaving jail! Your token will be moved!");
 	
 	}
+	public void createTradeFailedDialog(String currProperty, String otherProperty) {
+		JOptionPane.showMessageDialog(view, currProperty +" was unable to be traded for " +otherProperty);
+	}
+	public void createTradeSucceededDialog(String currProperty, String otherProperty) {
+		JOptionPane.showMessageDialog(view, currProperty +" was traded for " +otherProperty);		
+	}
 }

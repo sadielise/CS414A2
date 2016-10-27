@@ -13,7 +13,7 @@ public class MockModel implements IModel{
 	
 	@Override
 	public void propertyIsUnowned(String propertyName, int propertyValue) {
-		
+		game.purchaseProperty("testPlayer", propertyName);
 	}
 
 	@Override

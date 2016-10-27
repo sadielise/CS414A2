@@ -177,63 +177,52 @@ public class Model implements IModel {
 		game.payJailFine(player,isPayingFine);
 	}
 
-	@Override
 	public void unableToPayTax(int amount) {
 		unableToPayRentTo("Tax", amount);
 	}
 
-	@Override
 	public void propertyWasMortgagedFor(String property, int amount) {
 		view.update();
 		view.propertyWasMortgagedDialog(property, amount);
 	}
 
-	@Override
 	public void couldNotUndevelopProperty(String property) {
 		view.couldNotUndevelopProperty(property);
 	}
 
-	@Override
 	public void propertyWasUnmortgagedFor(String property, int value) {
 		view.propertyUnmortgagedDialog(property);
 	}
 
-	@Override
 	public void couldNotPurchaseProperty(String player, String property) {
 		view.unableToPurchasePropertyDialog(player, property);
 		view.update();		
 	}
 
-	@Override
 	public void purchasedProperty(String player, String property) {
 		view.purchasedPropertyDialog(player, property);
 		view.update();
 	}
 
-	@Override
 	public void failedToLeaveJail() {
 		view.failedToLeaveJailDialog();
 		
 	}
 
-	@Override
 	public void succeededInLeavingJail() {
 		view.succeededInLeavingJailDialog();
 	}
 
-	@Override
 	public void unableToPayFine(int amount) {
 		view.unableToPayDialog("Jail", amount);
 	}
 
-	@Override
 	public void tradeFailed(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub		
+		view.tradeFailedDialog(currProperty, otherProperty);
 	}
 
-	@Override
 	public void tradeSucceeded(String currProperty, String otherProperty) {
-		// TODO Auto-generated method stub
+		view.tradeSucceededDialog(currProperty, otherProperty);
 	}
 	
 	public void auctionFailed(String property){

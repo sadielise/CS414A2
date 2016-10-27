@@ -234,6 +234,7 @@ public class Model implements IModel {
 
 	@Override
 	public void landedOnNonProperty(String property) {
+		update();
 		view.landedOnNonPropertyDialog(property);
 	}
 
@@ -251,6 +252,7 @@ public class Model implements IModel {
 
 	@Override
 	public void endGame(String player) {
+		update();
 		isStarted = false;
 		view.endGameDialog(player);
 	}

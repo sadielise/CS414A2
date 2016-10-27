@@ -656,25 +656,26 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
-	public boolean rollToGetOutOfJail() {
+	public boolean rollToGetOutOfJail(Player player) {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
-		if (currentPlayer.getInJail() == false) {
+		if (player.getInJail() == false) {
 			return false;
-		} else if (jail.getAttempts(currentPlayer) > 3) {
+		} else if (jail.getAttempts(player) > 3) {
 			return false;
 		} else {
 			int value1 = dice.get(0).roll();
 			int value2 = dice.get(1).roll();
+			model.rolled(value1 + value2, true);
 			if (value1 == value2) {
-				board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
-				board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
+				model.succeededInLeavingJail();
+				board.getSpaces().get(player.getLocation()).removePlayer(player);
+				board.getSpaces().get(player.getLocation()).addPlayer(player);
 				playerMoved();
 				return true;
 			} else {
-				jail.incrementAttempts(currentPlayer);
-				if (jail.getAttempts(currentPlayer) > 3) {
-					return payFineToLeaveJail();
-
+				jail.incrementAttempts(player);
+				if (jail.getAttempts(player) > 3) {
+					return payFineToLeaveJail(player);
 				}
 				return false;
 			}
@@ -683,18 +684,31 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public void payJailFine(String player, boolean isPayingFine) {
-
+		Player playerPayingFine = findPlayer(player);
+		if(isPayingFine == true){
+			if(payFineToLeaveJail(playerPayingFine)){
+				model.succeededInLeavingJail();
+			}else{
+				model.failedToLeaveJail();
+			}
+		}else{
+			if(rollToGetOutOfJail(playerPayingFine) == false){
+				model.failedToLeaveJail();
+			}
+		}
+		
 	}
 
-	public boolean payFineToLeaveJail() {
+	public boolean payFineToLeaveJail(Player player) {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
-		if (currentPlayer.getInJail() == false) {
+		if (player.getInJail() == false) {
 			return false;
-		} else if (transferMoney(currentPlayer, bank, 50) == false) {
+		} else if (transferMoney(player, bank, 50) == false) {
+			model.unableToPayFine(50);
 			return false;
 		} else {
-			currentPlayer.setInJail(false);
-			jail.removePlayer(currentPlayer);
+			player.setInJail(false);
+			jail.removePlayer(player);
 			return true;
 		}
 	}

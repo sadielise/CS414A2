@@ -11,11 +11,11 @@ import a4.gui.Model;
 
 
 public class MonopolyGame implements IMonopolyGame {
-	List<Player> players;
+	public List<Player> players;
 	Board board;
 	List<Die> dice;
 	Bank bank;
-	List<Property> properties;
+	public List<Property> properties;
 	Date endTime;
 	int houseCount;
 	int hotelCount;
@@ -547,5 +547,34 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public void setModel(Model newModel){
 		model = newModel;
+	}
+	
+	public List<String> getDevelopableProperties(String player){
+		List<String> propertyList = new ArrayList<String>();
+		for(Property curr: properties){
+			if(curr.getOwner().toString().equals(player)){
+				if(curr.getIsMortgaged()){
+					propertyList.add(curr.toString());
+				}else if(curr instanceof Street && ((Street)curr).getHotelCount() < 1){
+					propertyList.add(curr.toString());
+				}
+			}
+		}
+		return propertyList;
+	}
+
+	public List<String> getPlayersUndevelopableProperties(String player){
+		List<String> propertyList = new ArrayList<String>();
+		for(Property curr: properties){
+			if(curr.getOwner().toString().equals(player)){
+				if(!curr.getIsMortgaged()){
+					propertyList.add(curr.toString());
+				}else if(curr instanceof Street && 
+						(((Street)curr).getHouseCount() > 0 || ((Street)curr).getHotelCount() > 0)){
+					propertyList.add(curr.toString());
+				}
+			}
+		}
+		return propertyList;
 	}
 }

@@ -129,9 +129,10 @@ public class Board {
 	public void addToNeighborhood(BoardSpace space) {
 		Street s = (Street) ((PropertySpace) space).getProperty();
 		for (Neighborhood n : neighborhoods) {
-			if (n.getColor() == s.getColor())
+			if (n.getColor() == s.getColor()){
 				n.addStreetToNeighborhood(s);
-			s.addToNeighborhood(n);
+				s.addToNeighborhood(n);
+			}
 		}
 	}
 }

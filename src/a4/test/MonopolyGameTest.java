@@ -8,16 +8,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
-import a4.domain.Bank;
-import a4.domain.BoardSpace;
-import a4.domain.GoToJailSpace;
-import a4.domain.IncomeTaxSpace;
-import a4.domain.JailSpace;
-import a4.domain.LuxuryTaxSpace;
-import a4.domain.MonopolyGame;
-import a4.domain.Player;
-import a4.domain.Property;
-import a4.domain.PropertySpace;
+import a4.domain.*;
 import a4.gui.Model;
 
 public class MonopolyGameTest {
@@ -113,7 +104,7 @@ public class MonopolyGameTest {
 		assertEquals(ownerBalance + rent, tempPlayer.getBalance());
 	}
 
-	@Test
+	/*@Test
 	public void testPlayerMovedToOwnedPropertyAndCannotPayRent(){
 		Player tempPlayer = testGame.getPlayerList().get(testGame.getPlayerList().size()-1);
 		assertNotNull(tempPlayer);
@@ -126,7 +117,7 @@ public class MonopolyGameTest {
 		assertEquals(0, testGame.getCurrentPlayerReference().getBalance());
 		assertEquals(ownerBalance, tempPlayer.getBalance());
 	}
-
+*/
 	@Test
 	public void testPlayerMovedToGoToJail(){
 		Player currentPlayer = testGame.getCurrentPlayerReference();
@@ -480,8 +471,109 @@ public class MonopolyGameTest {
 		assertTrue(tempJail.isInPrison(testGame.getCurrentPlayerReference()));
 		assertTrue(tempJail.getPlayers().contains(testGame.getCurrentPlayerReference()));
 	}
+
+	@Test
+	public void testGetDevelopableProperties(){
+		int[] array = {1, 2, 3, 4};
+		MonopolyGame game = new MonopolyGame();
+		game.players = new ArrayList<Player>();
+		game.properties = new ArrayList<Property>();
+		Player p1 = new Player("Gabby", 200, 3);
+		game.addPlayer(p1);
+		Player p2 = new Player("Sadie", 200, 4);
+		game.addPlayer(p2);
+		
+		//Yes
+		Utility u = new Utility("u1", 100);
+		u.setOwner(p1);
+		u.setIsMortgaged(true);
+		game.properties.add(u);
+		
+		//No
+		Property p = new Property("p1", 20);
+		game.properties.add(p);
+		p.setIsMortgaged(false);
+		p.setOwner(p1);
+		
+		//Yes
+		Street s = new Street("s1", 20, array, "color");
+		game.properties.add(s);
+		s.setHouseCount(2);
+		s.setIsMortgaged(false);
+		s.setOwner(p1);
+		
+		//No
+		Street s2 = new Street("s2", 20, array, "color");
+		game.properties.add(s2);
+		s2.setHotelCount(1);
+		s2.setIsMortgaged(false);
+		s2.setOwner(p1);
+		
+		//No
+		Street s3 = new Street("s3", 20, array, "color");
+		game.properties.add(s3);
+		s3.setHouseCount(1);
+		s3.setIsMortgaged(false);
+		s3.setOwner(p2);
+		
+		java.util.List<String> actual = game.getDevelopableProperties(p1.toString());
+		assertTrue(actual.size() == 2);
+		assertTrue(actual.contains(u.toString()));
+		assertTrue(actual.contains(s.toString()));
+		
+	}
 	
 	@Test
-	public void testMor
-
+	public void testGetPlayersUndevelopableProperties(){
+		int[] array = {1, 2, 3, 4};
+		MonopolyGame game = new MonopolyGame();
+		game.players = new ArrayList<Player>();
+		game.properties = new ArrayList<Property>();
+		Player p1 = new Player("Gabby", 200, 3);
+		game.addPlayer(p1);
+		Player p2 = new Player("Sadie", 200, 4);
+		game.addPlayer(p2);
+		
+		//No
+		Utility u = new Utility("u1", 100);
+		u.setOwner(p1);
+		u.setIsMortgaged(true);
+		game.properties.add(u);
+		
+		//Yes
+		Property p = new Property("p1", 20);
+		game.properties.add(p);
+		p.setIsMortgaged(false);
+		p.setOwner(p1);
+		
+		//Yes
+		Street s = new Street("s1", 20, array, "color");
+		game.properties.add(s);
+		s.setHouseCount(2);
+		s.setIsMortgaged(false);
+		s.setOwner(p1);
+		
+		//Yes
+		Street s2 = new Street("s2", 20, array, "color");
+		game.properties.add(s2);
+		s2.setHotelCount(1);
+		s2.setIsMortgaged(false);
+		s2.setOwner(p1);
+		
+		//Yes
+		Street s3 = new Street("s3", 20, array, "color");
+		game.properties.add(s3);
+		s3.setHouseCount(1);
+		s3.setIsMortgaged(false);
+		s3.setOwner(p2);
+		
+		java.util.List<String> actual = game.getPlayersUndevelopableProperties(p1.toString());
+		assertTrue(actual.size() == 4);
+		assertTrue(actual.contains(p.toString()));
+		assertTrue(actual.contains(s.toString()));
+		assertTrue(actual.contains(s2.toString()));
+		assertTrue(actual.contains(s3.toString()));
+	}
+	
+	
 }

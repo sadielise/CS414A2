@@ -78,6 +78,16 @@ public class Neighborhood {
 		int streetHouses = tempStreet.getHouseCount();
 		int streetHotel = tempStreet.getHotelCount();
 		if(streetHotel == 1){
+			streetHouses += 5;
+		}
+		if(null == ownedBy){
+			return false;
+		}
+		else if(null == tempStreet.getOwner()){
+			return false;
+		}
+		
+		if(streetHotel == 1){
 			return false;
 		}
 		else if(streetHouses == maxNumHouses){
@@ -86,7 +96,7 @@ public class Neighborhood {
 		else if(streetHouses < maxNumHouses && streetHouses >= minNumHouses){
 			if(tempStreet.getOwner().getBalance() >= houseValue){
 				//player can afford house
-				if(numHousesEqual()){
+				if(numHousesEqual() && streetHouses != 0){
 					//all of the houses have the same number of houses
 					tempStreet.addHouse();
 					minNumHouses++;
@@ -113,6 +123,13 @@ public class Neighborhood {
 
 	public boolean removeHouse(Street tempStreet) {
 		int streetHouses = tempStreet.getHouseCount();
+		int streetHotel = tempStreet.getHotelCount();
+		if(streetHotel == 1){
+			streetHouses += 5;
+		}
+		if(null == tempStreet.getOwner()){
+			return false;
+		}
 		if(streetHouses == minNumHouses){
 			return false;
 		}

@@ -28,7 +28,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public MonopolyGame() {
 
 	}
-	
+
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -472,7 +472,7 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public String getProperty(int location) { // unfinished: figure out what he
-												// means
+		// means
 		BoardSpace space = board.getSpaces().get(location);
 		if (space instanceof PropertySpace) {
 			PropertySpace temp = (PropertySpace) space;
@@ -488,7 +488,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) { // property cannot be found
 			System.err.println("Error: null property : " + property);
 		} else if (currentProperty.getOwner() == null) { // property does not
-															// have an owner
+			// have an owner
 			model.propertyCannotBeDeveloped(property);
 		} else if (currentProperty.getIsMortgaged()) { // property is mortgaged
 			int value = unmortgageProperty(currentProperty);
@@ -616,11 +616,13 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getDevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
-			if (curr.getOwner().toString().equals(player)) {
-				if (curr.getIsMortgaged()) {
-					propertyList.add(curr.toString());
-				} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
-					propertyList.add(curr.toString());
+			if(curr.getOwner() != null){
+				if (curr.getOwner().toString().equals(player)) {
+					if (curr.getIsMortgaged()) {
+						propertyList.add(curr.toString());
+					} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
+						propertyList.add(curr.toString());
+					}
 				}
 			}
 		}
@@ -630,13 +632,15 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getPlayersUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
-			if (curr.getOwner().toString().equals(player)) {
-				if (curr instanceof Street) {
-					if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+			if(curr.getOwner() != null){
+				if (curr.getOwner().toString().equals(player)) {
+					if (curr instanceof Street) {
+						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+							propertyList.add(curr.toString());
+						}
+					}else if (!curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
 					}
-				}else if (!curr.getIsMortgaged()) {
-					propertyList.add(curr.toString());
 				}
 			}
 		}

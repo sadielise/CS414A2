@@ -58,8 +58,29 @@ public class Model implements IModel {
 	public int getPlayerLocation(String player){
 		return game.getLocation(player);
 	}
+	
 	public String getProperty(int location){
 		return game.getProperty(location);
+	}
+	
+	public int getNumberHouses(int location){
+		int numHouses = game.getNumberHouses(location);
+		if(numHouses > 4){
+			return 0;
+		}
+		else{
+			return numHouses;
+		}
+	}
+	
+	public int getNumberHotels(int location){
+		int numHouses = game.getNumberHouses(location);
+		if(numHouses > 4){
+			return 1;
+		}
+		else{
+			return 0;
+		}
 	}
 
 	public void develop(String property){

@@ -16,6 +16,8 @@ public interface IMonopolyGame {
 	
 	public String getProperty(int location);
 	
+	public int getNumberHouses(int location);
+	
 	public void roll();
 	
 	public void developProperty(String property);

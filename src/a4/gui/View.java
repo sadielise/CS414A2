@@ -59,14 +59,16 @@ public class View extends JFrame{
 		JLabel guiBuffer = new JLabel("                              ");	
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
+
+
 		playerOptionsAndInfo.add(guiBuffer);
 		playingBoard = new PlayingBoard(model);
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");
 
-		//contentPane.add(playingBoard,"Center");
 
+		contentPane.add(playingBoard,"Center");
 
 		pack();
 

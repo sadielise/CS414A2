@@ -60,14 +60,12 @@ public class View extends JFrame{
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
 
-
+		playerOptionsAndInfo.add(guiBuffer);
 		playerOptionsAndInfo.add(guiBuffer);
 		playingBoard = new PlayingBoard(model);
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");
-
-
 		contentPane.add(playingBoard,"Center");
 
 		pack();
@@ -77,7 +75,7 @@ public class View extends JFrame{
 	public void update(){
 		currentPlayer.setText(" Current Player: " + model.getPlayer()+"     ");
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
-		//playingBoard.update();
+		playingBoard.update();
 	}
 
 	public void unownedPropertyDialog(String property, int cost){

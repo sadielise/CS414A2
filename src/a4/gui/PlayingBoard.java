@@ -13,10 +13,10 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-public class PlayingBoard extends JLayeredPane{
+public class PlayingBoard extends JPanel{
 	
 	private Model model;
 	private ArrayList<ImageIcon> tokens;
@@ -139,9 +139,9 @@ public class PlayingBoard extends JLayeredPane{
 	private void readHotels(){
 		hotels = new ArrayList<ImageIcon>();
 		ImageIcon hotel0 = new ImageIcon("hotel0.png");
-		houses.add(hotel0);
+		hotels.add(hotel0);
 		ImageIcon hotel1 = new ImageIcon("hotel1.png");
-		houses.add(hotel1);
+		hotels.add(hotel1);
 	}
 
 	@Override
@@ -155,7 +155,7 @@ public class PlayingBoard extends JLayeredPane{
 		} catch (IOException e) {
 
 		}
-		
+
 		if(paintCount != 0){
 			List<String> players = model.getPlayers();
 			for(int i = 0; i < players.size(); i++){ 
@@ -178,18 +178,20 @@ public class PlayingBoard extends JLayeredPane{
 				houseIcon.setSize(20,20);
 				houseIcon.setLocation(housePositions[location][0], housePositions[location][1]);
 				houseIcon.setIcon(houses.get(model.getNumberHouses(location)));
+				add(houseIcon);
 				JLabel hotelIcon = new JLabel();
 				hotelIcon.setSize(20, 20);
 				hotelIcon.setLocation(hotelPositions[location][0], hotelPositions[location][1]);
 				hotelIcon.setIcon(hotels.get(model.getNumberHotels(location)));
+				add(hotelIcon);
 			}
 		}
 		
 		paintCount++;
-		
 	}
 	
 	public void update(){
+		removeAll();
 		repaint();
 	}
 

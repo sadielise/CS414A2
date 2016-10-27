@@ -587,8 +587,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return board;
 	}
 
-	public void setModel(Model newModel) {
-		model = newModel;
+	public void setModel(IModel model2) {
+		model = model2;
 	}
 
 	public List<String> getDevelopableProperties(String player) {
@@ -668,5 +668,6 @@ public class MonopolyGame implements IMonopolyGame {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 }

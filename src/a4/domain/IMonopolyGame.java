@@ -2,7 +2,7 @@ package a4.domain;
 
 import java.util.List;
 
-import a4.gui.Model;
+import a4.gui.IModel;
 
 public interface IMonopolyGame {
 
@@ -36,7 +36,7 @@ public interface IMonopolyGame {
 
 	public void purchaseProperty(String player, String property);
 
-	public void setModel(Model model);
+	public void setModel(IModel model);
 
 	public void purchaseAuctionedProperty(List<Integer> offers);
 

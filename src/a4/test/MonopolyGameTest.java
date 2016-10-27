@@ -20,7 +20,7 @@ public class MonopolyGameTest {
 		names.add("Chancey");
 		names.add("David");
 		testGame.newGame(names, 30);
-		Model model = new Model();
+		IModel model = new testModel();
 		testGame.setModel(model);
 	}
 

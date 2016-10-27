@@ -98,10 +98,11 @@ public class MonopolyGame implements IMonopolyGame {
 	public boolean removePlayer(Player player) {
 		if (players.contains(player)) {
 			for (Property property : properties) {
-				if (property.getOwner() != null)
+				if (property.getOwner() != null) {
 					if (property.getOwner().equals(player)) {
 						property.setOwner(null);
 					}
+				}
 			}
 			players.remove(player);
 			// if(players.size() == 1){
@@ -122,6 +123,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void roll(int pastNumberOfDoubles) {
+		System.out.println("Roll was called!!!");
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
 		if (value1 == value2 && pastNumberOfDoubles == 3) {
@@ -225,8 +227,10 @@ public class MonopolyGame implements IMonopolyGame {
 			Neighborhood neighborhood = ((Street) property).getNeighborhood();
 			int housesInNeighborhoodOwnedByPlayer = 0;
 			for (Street curr : neighborhood.getStreets()) {
-				if (curr.getOwner().equals(player)) {
-					housesInNeighborhoodOwnedByPlayer++;
+				if (curr.getOwner() != null) {
+					if (curr.getOwner().equals(player)) {
+						housesInNeighborhoodOwnedByPlayer++;
+					}
 				}
 			}
 			if (housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()) {
@@ -492,7 +496,6 @@ public class MonopolyGame implements IMonopolyGame {
 		boolean success = setupGame(playerNames, timeInMinutes);
 		if (success) {
 			model.newGameCreated();
-			model.startNormalTurn(currentPlayer.toString());
 		} else {
 			model.newGameFailedToCreate();
 		}
@@ -612,12 +615,12 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
-	public void rollToGetOutOfJail() {
+	public boolean rollToGetOutOfJail() {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
 		if (currentPlayer.getInJail() == false) {
-			model.failedToLeaveJail();
+			return false;
 		} else if (jail.getAttempts(currentPlayer) > 3) {
-			model.failedToLeaveJail();
+			return false;
 		} else {
 			int value1 = dice.get(0).roll();
 			int value2 = dice.get(1).roll();

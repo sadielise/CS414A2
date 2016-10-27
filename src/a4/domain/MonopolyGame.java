@@ -28,7 +28,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public MonopolyGame() {
 
 	}
-	
+
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -72,32 +72,36 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		determinePlayOrder();
 		currentPlayer = players.get(0);
+		startTimer(time);
 		return true;
 	}
 
 	// returns the player that wins the game
-	public Player endGame() {
+	public void endGame() {
 		Player winner = players.get(0);
 		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
-		for (Player p : players)
+		for (Player p : players) {
 			liquidatedFunds.put(p, p.getBalance());
+		}
 		for (Property p : properties) {
-			int housesValue = 0;
-			int hotelValue = 0;
-			if (p instanceof Street) {
-				Street s = (Street) p;
-				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
-				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			if (p.getOwner() != null) {
+				int housesValue = 0;
+				int hotelValue = 0;
+				if (p instanceof Street) {
+					Street s = (Street) p;
+					housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+					hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+				}
+				int propertyValue = p.getValue();
+				int oldValue = liquidatedFunds.get(p.getOwner());
+				liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
 			}
-			int propertyValue = p.getValue();
-			int oldValue = liquidatedFunds.get(p.getOwner());
-			liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
 		}
 		for (Player p : players) {
 			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
 				winner = p;
 		}
-		return winner;
+		model.endGame(winner.toString());
 	}
 
 	// returns true if the player is added
@@ -173,7 +177,7 @@ public class MonopolyGame implements IMonopolyGame {
 				model.unableToPayTax(100);
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
-			model.landedOnNonProperty(((OpenSpace)spaceOfPlayer).getName());
+			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());
 
 		} else if (spaceOfPlayer instanceof PropertySpace) {
 			Property currentProperty = ((PropertySpace) spaceOfPlayer).getProperty();
@@ -341,9 +345,9 @@ public class MonopolyGame implements IMonopolyGame {
 			if (bids[i] > highestBid) {
 				highestBid = bids[i];
 				winningPlayer = i;
-			}else if(bids[i] == highestBid){
-				int rnd = (int)(Math.random() * 2) + 1;
-				if(rnd == 2){
+			} else if (bids[i] == highestBid) {
+				int rnd = (int) (Math.random() * 2) + 1;
+				if (rnd == 2) {
 					winningPlayer = i;
 				}
 			}
@@ -462,9 +466,10 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
-			if (curr.getOwner().toString().equals(player)) {
-				// System.out.println(curr.toString());
-				propertyList.add(curr.toString());
+			if (curr.getOwner() != null) {
+				if (curr.getOwner().toString().equals(player)) {
+					propertyList.add(curr.toString());
+				}
 			}
 		}
 		return propertyList;
@@ -472,7 +477,7 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public String getProperty(int location) { // unfinished: figure out what he
-												// means
+		// means
 		BoardSpace space = board.getSpaces().get(location);
 		if (space instanceof PropertySpace) {
 			PropertySpace temp = (PropertySpace) space;
@@ -488,7 +493,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) { // property cannot be found
 			System.err.println("Error: null property : " + property);
 		} else if (currentProperty.getOwner() == null) { // property does not
-															// have an owner
+			// have an owner
 			model.propertyCannotBeDeveloped(property);
 		} else if (currentProperty.getIsMortgaged()) { // property is mortgaged
 			int value = unmortgageProperty(currentProperty);
@@ -616,11 +621,13 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getDevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
-			if (curr.getOwner().toString().equals(player)) {
-				if (curr.getIsMortgaged()) {
-					propertyList.add(curr.toString());
-				} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
-					propertyList.add(curr.toString());
+			if (curr.getOwner() != null) {
+				if (curr.getOwner().toString().equals(player)) {
+					if (curr.getIsMortgaged()) {
+						propertyList.add(curr.toString());
+					} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
+						propertyList.add(curr.toString());
+					}
 				}
 			}
 		}
@@ -630,13 +637,15 @@ public class MonopolyGame implements IMonopolyGame {
 	public List<String> getPlayersUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
-			if (curr.getOwner().toString().equals(player)) {
-				if (curr instanceof Street) {
-					if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+			if(curr.getOwner() != null){
+				if (curr.getOwner().toString().equals(player)) {
+					if (curr instanceof Street) {
+						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+							propertyList.add(curr.toString());
+						}
+					}else if (!curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
 					}
-				}else if (!curr.getIsMortgaged()) {
-					propertyList.add(curr.toString());
 				}
 			}
 		}
@@ -662,7 +671,7 @@ public class MonopolyGame implements IMonopolyGame {
 				if (jail.getAttempts(currentPlayer) > 3) {
 					return payFineToLeaveJail();
 
-				} 
+				}
 				return false;
 			}
 		}
@@ -690,12 +699,12 @@ public class MonopolyGame implements IMonopolyGame {
 	public int getNumberHouses(int location) {
 		int numHouses = 0;
 		BoardSpace space = board.getSpaces().get(location);
-		if(space instanceof PropertySpace){
+		if (space instanceof PropertySpace) {
 			Property p = ((PropertySpace) space).getProperty();
-			if(p instanceof Street){
+			if (p instanceof Street) {
 				Street s = (Street) p;
 				numHouses += s.getHouseCount();
-				if(s.getHotelCount() > 0){
+				if (s.getHotelCount() > 0) {
 					numHouses += 5;
 				}
 			}
@@ -703,5 +712,13 @@ public class MonopolyGame implements IMonopolyGame {
 		return numHouses;
 	}
 
-
+	public void startTimer(int timeInMinutes){
+		gameTime = new Timer();
+		long timeInMilliseconds = timeInMinutes*60000;
+		gameTime.schedule(new TimerTask() {
+			public void run() {
+				endGame();
+			}
+		}, timeInMilliseconds);
+	}
 }

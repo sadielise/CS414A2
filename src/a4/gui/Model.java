@@ -40,7 +40,7 @@ public class Model implements IModel {
 	}
 
 	public List<String> getPlayersProperties(String player){
-		return game.getProperties(game.getCurrentPlayer());
+		return game.getProperties(player);
 	}
 	
 	public List<String> getPlayersDevelopableProperties(String player){
@@ -247,5 +247,11 @@ public class Model implements IModel {
 	public void rolled(int value, boolean isDoubles) {
 		update();
 		view.rolledDialog(value, isDoubles);
+	}
+
+	@Override
+	public void endGame(String player) {
+		isStarted = false;
+		view.endGameDialog(player);
 	}
 }

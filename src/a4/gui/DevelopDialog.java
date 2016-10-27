@@ -25,7 +25,7 @@ public class DevelopDialog extends JPanel{
 	String developDesc = null;
 	boolean isUndevelop;
 
-	public DevelopDialog(JFrame frame, Model m, String description, boolean isUndevelop) {
+	public DevelopDialog(JFrame frame, Model m, String description, boolean isUndevelop) throws Exception {
 		super(new BorderLayout());
 		developDesc = description;
 		model = m;
@@ -35,6 +35,10 @@ public class DevelopDialog extends JPanel{
 
 		//Create the components.
 		JPanel choicePanel = createDialogBox();
+
+		if (choicePanel == null){
+			throw new Exception();
+		}
 
 		if(!isUndevelop){
 			title = new JLabel("Click the \"Develop\" button"
@@ -70,6 +74,9 @@ public class DevelopDialog extends JPanel{
 		else{
 			properties = model.getPlayersDevelopableProperties(model.getPlayer());
 		}
+		if (properties.size() ==0){
+			return null;
+		}
 		int numberOfButtons = properties.size();
 		ButtonGroup group = new ButtonGroup();
 		JRadioButton[] propertyButtons = new JRadioButton[numberOfButtons];
@@ -80,7 +87,9 @@ public class DevelopDialog extends JPanel{
 			group.add(propertyButtons[i]);
 		}
 
-		propertyButtons[0].setSelected(true);
+		if(propertyButtons.length > 0){
+			propertyButtons[0].setSelected(true);
+		}
 
 		JButton developButton;
 		if(isUndevelop){
@@ -145,26 +154,36 @@ public class DevelopDialog extends JPanel{
 		return pane;
 	}
 
-	public static void createAndShowDevelopDialog(Model m, boolean isUndevelop) {
-		//Make sure we have nice window decorations.
-		JFrame.setDefaultLookAndFeelDecorated(true);
-		JDialog.setDefaultLookAndFeelDecorated(true);
+	public static void createAndShowDevelopDialog(Model m, View v, boolean isUndevelop) {
+		try{
+			//Make sure we have nice window decorations.
+			JFrame.setDefaultLookAndFeelDecorated(true);
+			JDialog.setDefaultLookAndFeelDecorated(true);
 
-		//Create and set up the window.
-		JFrame frame = new JFrame("DevlopDialog");
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+			//Create and set up the window.
+			JFrame frame = new JFrame("DevlopDialog");
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 
-		//Set up the content pane.
-		Container contentPane = frame.getContentPane();
-		contentPane.setLayout(new GridLayout(1,1));
-		if(isUndevelop){
-			contentPane.add(new DevelopDialog(frame, m, "Undevelop", true));
+			//Set up the content pane.
+			Container contentPane = frame.getContentPane();
+			contentPane.setLayout(new GridLayout(1,1));
+
+			if(isUndevelop){
+				contentPane.add(new DevelopDialog(frame, m, "Undevelop", true));
+			}
+			else{
+				contentPane.add(new DevelopDialog(frame, m, "Develop", false));	
+			}
+			//Display the window.
+			frame.pack();
+			frame.setVisible(true);
+		}catch(Exception e){
+			String develop = "develop";
+			if(isUndevelop){
+				develop = "undevelop";
+			}
+			JOptionPane.showMessageDialog(v, "You have no properties to " + develop + ".");
 		}
-		else{
-			contentPane.add(new DevelopDialog(frame, m, "Develop", false));	
-		}
-		//Display the window.
-		frame.pack();
-		frame.setVisible(true);
 	}
 }
+

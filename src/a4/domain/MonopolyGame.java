@@ -492,7 +492,6 @@ public class MonopolyGame implements IMonopolyGame {
 		boolean success = setupGame(playerNames, timeInMinutes);
 		if (success) {
 			model.newGameCreated();
-			model.startNormalTurn(currentPlayer.toString());
 		} else {
 			model.newGameFailedToCreate();
 		}

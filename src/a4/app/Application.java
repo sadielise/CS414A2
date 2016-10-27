@@ -23,7 +23,6 @@ public class Application {
 		game.setModel(model);
 
 		view.build();
-		
-		view.setVisible(true);
+		view.show();
 	}
 }

@@ -61,62 +61,56 @@ public class Neighborhood {
 		ownedBy = null;
 	}
 
-	public boolean numHousesEqual(){
+	public boolean numHousesEqual() {
 		int houseCount = streets.get(0).getHouseCount();
 		int hotelCount = streets.get(0).getHotelCount();
-		for(Street s : streets){
-			if(s.getHouseCount() != houseCount){
+		for (Street s : streets) {
+			if (s.getHouseCount() != houseCount) {
 				return false;
-			}else if(s.getHotelCount() != hotelCount){
+			} else if (s.getHotelCount() != hotelCount) {
 				return false;
 			}
 		}
 		return true;
 	}
-	
+
 	public boolean addHouse(Street tempStreet) {
 		int streetHouses = tempStreet.getHouseCount();
 		int streetHotel = tempStreet.getHotelCount();
-		if(streetHotel == 1){
+		if (streetHotel == 1) {
 			streetHouses += 5;
 		}
-		if(null == ownedBy){
+		if (null == ownedBy) {
+			return false;
+		} else if (null == tempStreet.getOwner()) {
 			return false;
 		}
-		else if(null == tempStreet.getOwner()){
+
+		if (streetHotel == 1) {
 			return false;
-		}
-		
-		if(streetHotel == 1){
+		} else if (streetHouses == maxNumHouses) {
 			return false;
-		}
-		else if(streetHouses == maxNumHouses){
-			return false;
-		}
-		else if(streetHouses < maxNumHouses && streetHouses >= minNumHouses){
-			if(tempStreet.getOwner().getBalance() >= houseValue){
-				//player can afford house
-				if(numHousesEqual() && streetHouses != 0){
-					//all of the houses have the same number of houses
+		} else if (streetHouses < maxNumHouses && streetHouses >= minNumHouses) {
+			if (tempStreet.getOwner().getBalance() >= houseValue) {
+				// player can afford house
+				if (numHousesEqual() && streetHouses != 0) {
+					// all of the houses have the same number of houses
 					tempStreet.addHouse();
 					minNumHouses++;
 					return true;
-				}
-				else{
+				} else {
 					tempStreet.addHouse();
-					if(numHousesEqual()){
+					if (numHousesEqual()) {
 						maxNumHouses++;
 					}
 					return true;
 				}
-			}
-			else{
-				//player cannot afford house
+			} else {
+				// player cannot afford house
 				return false;
 			}
-		}
-		else{
-			//something went wrong
+		} else {
+			// something went wrong
 			return false;
 		}
 	}
@@ -124,32 +118,29 @@ public class Neighborhood {
 	public boolean removeHouse(Street tempStreet) {
 		int streetHouses = tempStreet.getHouseCount();
 		int streetHotel = tempStreet.getHotelCount();
-		if(streetHotel == 1){
+		if (streetHotel == 1) {
 			streetHouses += 5;
 		}
-		if(null == tempStreet.getOwner()){
+		if (null == tempStreet.getOwner()) {
 			return false;
 		}
-		if(streetHouses == minNumHouses){
+		if (streetHouses == minNumHouses) {
 			return false;
-		}
-		else if(streetHouses <= maxNumHouses && streetHouses > minNumHouses){
-			if(numHousesEqual()){
-				//all of the houses have the same number of houses
+		} else if (streetHouses <= maxNumHouses && streetHouses > minNumHouses) {
+			if (numHousesEqual()) {
+				// all of the houses have the same number of houses
 				tempStreet.removeHouse();
 				maxNumHouses--;
 				return true;
-			}
-			else{
+			} else {
 				tempStreet.removeHouse();
-				if(numHousesEqual()){
+				if (numHousesEqual()) {
 					minNumHouses--;
 				}
 				return true;
 			}
-		}
-		else{
-			//something went wrong
+		} else {
+			// something went wrong
 			return false;
 		}
 	}

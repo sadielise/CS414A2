@@ -1,11 +1,11 @@
 package a4.domain;
 
-public class Property{
+public class Property {
 	int value;
 	Player owner = null;
 	String name;
 	private boolean isMortgaged;
-	
+
 	public Property(String name, int value) {
 		this.name = name;
 		this.value = value;
@@ -34,16 +34,16 @@ public class Property{
 	public void setName(String new_name) {
 		name = new_name;
 	}
-	
-	public boolean getIsMortgaged(){
+
+	public boolean getIsMortgaged() {
 		return isMortgaged;
 	}
-	
-	public void setIsMortgaged(boolean state){
+
+	public void setIsMortgaged(boolean state) {
 		isMortgaged = state;
 	}
-	
-	public String toString(){
+
+	public String toString() {
 		return name + ": Currently Mortgaged: " + isMortgaged;
 	}
 

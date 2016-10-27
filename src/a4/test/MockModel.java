@@ -144,4 +144,10 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void endGame(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

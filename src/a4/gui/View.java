@@ -54,24 +54,24 @@ public class View extends JFrame{
 		buttonSetup(playerOptionsAndInfo,controller.getTradeButton(), "Trade");
 		buttonSetup(playerOptionsAndInfo,controller.getEndTurnButton(), "End Turn");
 
-		currentPlayer = new JLabel(" Current Player:    ");
-		currentBankroll = new JLabel(" Current Bankroll:    ");
-		
+		currentPlayer = new JLabel(" Current Player: <noplayer>     ");
+		currentBankroll = new JLabel(" Current Bankroll:  $<nomoney>");
+		JLabel guiBuffer = new JLabel("                              ");	
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
-		
-		//playingBoard = new PlayingBoard(model);
+		playerOptionsAndInfo.add(guiBuffer);
+		playingBoard = new PlayingBoard(model);
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");
-		//	contentPane.add(playingBoard,"Center");
+		contentPane.add(playingBoard,"Center");
 
 		pack();
 
 	}
 
 	public void update(){
-		currentPlayer.setText(" Current Player: " + model.getPlayer());
+		currentPlayer.setText(" Current Player: " + model.getPlayer()+"     ");
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
 		//playingBoard.update();
 	}
@@ -176,5 +176,9 @@ public class View extends JFrame{
 
 	public void landedOnOwnedPropertyDialog(String property, String owner) {
 		controller.createLandedOnOwnedPropertyDialog(property, owner);
+	}
+
+	public void endGameDialog(String player) {
+		controller.createEndGameDialog(player);
 	}
 }

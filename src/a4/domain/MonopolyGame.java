@@ -28,7 +28,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public MonopolyGame() {
 
 	}
-	
+
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -72,11 +72,12 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		determinePlayOrder();
 		currentPlayer = players.get(0);
+		startTimer(time);
 		return true;
 	}
 
 	// returns the player that wins the game
-	public Player endGame() {
+	public void endGame() {
 		Player winner = players.get(0);
 		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
 		for (Player p : players)
@@ -97,7 +98,7 @@ public class MonopolyGame implements IMonopolyGame {
 			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
 				winner = p;
 		}
-		return winner;
+		model.endGame(winner.toString());
 	}
 
 	// returns true if the player is added
@@ -472,7 +473,7 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public String getProperty(int location) { // unfinished: figure out what he
-												// means
+		// means
 		BoardSpace space = board.getSpaces().get(location);
 		if (space instanceof PropertySpace) {
 			PropertySpace temp = (PropertySpace) space;
@@ -488,7 +489,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) { // property cannot be found
 			System.err.println("Error: null property : " + property);
 		} else if (currentProperty.getOwner() == null) { // property does not
-															// have an owner
+			// have an owner
 			model.propertyCannotBeDeveloped(property);
 		} else if (currentProperty.getIsMortgaged()) { // property is mortgaged
 			int value = unmortgageProperty(currentProperty);
@@ -703,5 +704,13 @@ public class MonopolyGame implements IMonopolyGame {
 		return numHouses;
 	}
 
-
+	public void startTimer(int timeInMinutes){
+		gameTime = new Timer();
+		long timeInMilliseconds = timeInMinutes*60000;
+		gameTime.schedule(new TimerTask() {
+			public void run() {
+				endGame();
+			}
+		}, timeInMilliseconds);
+	}
 }

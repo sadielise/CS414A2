@@ -207,4 +207,7 @@ public class Controller {
 	public void createLandedOnOwnedPropertyDialog(String property, String owner) {
 		JOptionPane.showMessageDialog(view, "You landed on " + property + " which is owned by " + owner);
 	}
+	public void createEndGameDialog(String player) {
+		JOptionPane.showMessageDialog(view, "The game is over! "+player+" is the winner!\nYou can start a new game by clicking \'New Game!\'");
+	}
 }

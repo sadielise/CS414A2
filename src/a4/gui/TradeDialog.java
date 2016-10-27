@@ -47,10 +47,10 @@ public class TradeDialog extends JPanel{
 		add(label, BorderLayout.SOUTH);        
 		add(choicePanel, BorderLayout.CENTER);
 	}
-	
-	  void setLabel(String newText) {
-	        label.setText(newText);
-	    }
+
+	void setLabel(String newText) {
+		label.setText(newText);
+	}
 
 	private JPanel createDialogBox(){
 		List<String> players = model.getPlayers(); 
@@ -61,13 +61,13 @@ public class TradeDialog extends JPanel{
 		JRadioButton[] playerButtons = new JRadioButton[numberOfButtons];
 
 		for(int i = 0; i < numberOfButtons; i++){
-		
-				playerButtons[i] = new JRadioButton(players.get(i));
-				playerButtons[i].setActionCommand(players.get(i));
-				playerGroup.add(playerButtons[i]);
-		
+
+			playerButtons[i] = new JRadioButton(players.get(i));
+			playerButtons[i].setActionCommand(players.get(i));
+			playerGroup.add(playerButtons[i]);
+
 		}
-		
+
 		playerButtons[0].setSelected(true);
 
 		JButton tradeButton = new JButton("Trade!");
@@ -76,49 +76,57 @@ public class TradeDialog extends JPanel{
 			public void actionPerformed(ActionEvent e){
 				String otherPlayer = playerGroup.getSelection().getActionCommand();
 				List<String> properties = model.getCurrentPlayersProperties();
-				List<String> otherPlayersProperties = model.getPlayersProperties(player);
-				ButtonGroup currentGroup = new ButtonGroup();
-				ButtonGroup otherGroup = new ButtonGroup();
-				
-				JPanel propertiesPanel = new JPanel(new GridLayout(2,0));
-			
-				JRadioButton[] currentPropertiesButtons = new JRadioButton[properties.size()];
-				JRadioButton[] otherPropertiesButtons = new JRadioButton[otherPlayersProperties.size()];
-				propertiesPanel.add(new JLabel("Select one property to trade: "));
-				for(int i = 0; i < properties.size(); i++){
-					currentPropertiesButtons[i] = new JRadioButton(properties.get(i));
-					currentPropertiesButtons[i].setActionCommand(properties.get(i));
-					currentGroup.add(currentPropertiesButtons[i]);
-					propertiesPanel.add(currentPropertiesButtons[i]);
+				List<String> otherPlayersProperties = model.getPlayersProperties(otherPlayer);
+				if(properties.size() == 0){
+					JOptionPane.showMessageDialog(frame, "You do not own any properties to trade");
 				}
-				
-				propertiesPanel.add(new JLabel("Select one property to recieve: "));
-				for(int i = 0; i < otherPlayersProperties.size(); i++){
-					otherPropertiesButtons[i] = new JRadioButton(otherPlayersProperties.get(i));
-					otherPropertiesButtons[i].setActionCommand(otherPlayersProperties.get(i));
-					otherGroup.add(otherPropertiesButtons[i]);
-					propertiesPanel.add(otherPropertiesButtons[i]);
-
-				}
-				
-				currentPropertiesButtons[0].setSelected(true);
-				otherPropertiesButtons[0].setSelected(true);
-				
-				// ** POTENTIALLY NEED TO FORMAT HOW THIS WORKS ** //
-				int choice = JOptionPane.showConfirmDialog(frame, propertiesPanel, "Trading property", JOptionPane.YES_NO_CANCEL_OPTION);
-				
-				if(choice == JOptionPane.YES_OPTION){
-					model.trade(currentGroup.getSelection().getActionCommand(), otherGroup.getSelection().getActionCommand());
-					setLabel("Traded " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
-				}
-				else if(choice == JOptionPane.NO_OPTION){
-					setLabel("Did not trade " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
+				else if(otherPlayersProperties.size() == 0){
+					JOptionPane.showMessageDialog(frame, otherPlayer + " does not own any properties to trade");
 				}
 				else{
-					setLabel("Trade canceled!");
+					ButtonGroup currentGroup = new ButtonGroup();
+					ButtonGroup otherGroup = new ButtonGroup();
+
+					JPanel propertiesPanel = new JPanel(new GridLayout(2,0));
+
+					JRadioButton[] currentPropertiesButtons = new JRadioButton[properties.size()];
+					JRadioButton[] otherPropertiesButtons = new JRadioButton[otherPlayersProperties.size()];
+					propertiesPanel.add(new JLabel("Select one property to trade: "));
+					for(int i = 0; i < properties.size(); i++){
+						currentPropertiesButtons[i] = new JRadioButton(properties.get(i));
+						currentPropertiesButtons[i].setActionCommand(properties.get(i));
+						currentGroup.add(currentPropertiesButtons[i]);
+						propertiesPanel.add(currentPropertiesButtons[i]);
+					}
+
+					propertiesPanel.add(new JLabel("Select one property to recieve: "));
+					for(int i = 0; i < otherPlayersProperties.size(); i++){
+						otherPropertiesButtons[i] = new JRadioButton(otherPlayersProperties.get(i));
+						otherPropertiesButtons[i].setActionCommand(otherPlayersProperties.get(i));
+						otherGroup.add(otherPropertiesButtons[i]);
+						propertiesPanel.add(otherPropertiesButtons[i]);
+
+					}
+
+					currentPropertiesButtons[0].setSelected(true);
+					otherPropertiesButtons[0].setSelected(true);
+
+					// ** POTENTIALLY NEED TO FORMAT HOW THIS WORKS ** //
+					int choice = JOptionPane.showConfirmDialog(frame, propertiesPanel, "Trading property", JOptionPane.YES_NO_CANCEL_OPTION);
+
+					if(choice == JOptionPane.YES_OPTION){
+						model.trade(currentGroup.getSelection().getActionCommand(), otherGroup.getSelection().getActionCommand());
+						setLabel("Traded " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
+					}
+					else if(choice == JOptionPane.NO_OPTION){
+						setLabel("Did not trade " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
+					}
+					else{
+						setLabel("Trade canceled!");
+					}
+
+					return;
 				}
-				
-				return;
 			}
 		});
 
@@ -142,26 +150,26 @@ public class TradeDialog extends JPanel{
 		JPanel pane = new JPanel(new BorderLayout());
 		pane.add(box, BorderLayout.NORTH);
 		pane.add(showButton, BorderLayout.SOUTH);
-		
+
 		return pane;
 	}
 
-    public static void createAndShowTradeDialog(Model m) {
-        //Make sure we have nice window decorations.
-        JFrame.setDefaultLookAndFeelDecorated(true);
-        JDialog.setDefaultLookAndFeelDecorated(true);
-       
-        //Create and set up the window.
-        JFrame frame = new JFrame("TradeDialog");
-        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+	public static void createAndShowTradeDialog(Model m) {
+		//Make sure we have nice window decorations.
+		JFrame.setDefaultLookAndFeelDecorated(true);
+		JDialog.setDefaultLookAndFeelDecorated(true);
 
-        //Set up the content pane.
-        Container contentPane = frame.getContentPane();
-        contentPane.setLayout(new GridLayout(1,1));
-        contentPane.add(new TradeDialog(frame, m));
+		//Create and set up the window.
+		JFrame frame = new JFrame("TradeDialog");
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
 
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-    }
+		//Set up the content pane.
+		Container contentPane = frame.getContentPane();
+		contentPane.setLayout(new GridLayout(1,1));
+		contentPane.add(new TradeDialog(frame, m));
+
+		//Display the window.
+		frame.pack();
+		frame.setVisible(true);
+	}
 }

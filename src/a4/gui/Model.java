@@ -243,4 +243,10 @@ public class Model implements IModel {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void rolled(int value, boolean isDoubles) {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -139,10 +139,11 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void roll(int pastNumberOfDoubles) {
-		System.out.println("Roll was called!!!");
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
-		if (value1 == value2 && pastNumberOfDoubles == 3) {
+		boolean doubles = (value1 == value2);
+		model.rolled(value1 + value2, doubles);
+		if (doubles && pastNumberOfDoubles == 3) {
 			goToJail();
 			model.playerSentToJail(currentPlayer.toString());
 		} else {
@@ -340,6 +341,11 @@ public class MonopolyGame implements IMonopolyGame {
 			if (bids[i] > highestBid) {
 				highestBid = bids[i];
 				winningPlayer = i;
+			}else if(bids[i] == highestBid){
+				int rnd = (int)(Math.random() * 2) + 1;
+				if(rnd == 2){
+					winningPlayer = i;
+				}
 			}
 		}
 		return purchaseProperty(players.get(winningPlayer), property, highestBid);

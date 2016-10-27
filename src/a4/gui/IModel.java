@@ -25,5 +25,6 @@ public interface IModel {
 	public void auctionFailed(String property);
 	public void landedOnNonProperty(String string);
 	public void landedOnOwnedProperty(String string, String string2);
+	public void rolled(int value, boolean isDoubles);
 
 }

@@ -12,14 +12,14 @@ import a4.gui.IModel;
 import a4.gui.Model;
 
 public class MonopolyGame implements IMonopolyGame {
-	public List<Player> players;
-	public Board board;
-	List<Die> dice;
-	Bank bank;
-	public List<Property> properties;
-	Date endTime;
-	int houseCount;
-	int hotelCount;
+	private List<Player> players;
+	private Board board;
+	private List<Die> dice;
+	private Bank bank;
+	private List<Property> properties;
+	private Date endTime;
+	private int houseCount;
+	private int hotelCount;
 	private Player currentPlayer;
 	private IModel model;
 	private int initialBankBalance = 20580;
@@ -27,6 +27,22 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public MonopolyGame() {
 
+	}
+	
+	public List<Property> getProperties() {
+		return properties;
+	}
+
+	public void setProperties(List<Property> properties) {
+		this.properties = properties;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
+	public void setPlayers(List<Player> players) {
+		this.players = players;
 	}
 
 	public boolean setupGame(List<String> names, int time) {

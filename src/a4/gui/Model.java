@@ -248,4 +248,10 @@ public class Model implements IModel {
 		update();
 		view.rolledDialog(value, isDoubles);
 	}
+
+	@Override
+	public void endGame(String player) {
+		isStarted = false;
+		view.endGameDialog(player);
+	}
 }

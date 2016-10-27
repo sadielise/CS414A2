@@ -1,15 +1,30 @@
 package a4.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import a4.domain.*;
-import a4.gui.Model;
+import a4.domain.Bank;
+import a4.domain.BoardSpace;
+import a4.domain.GoToJailSpace;
+import a4.domain.IncomeTaxSpace;
+import a4.domain.JailSpace;
+import a4.domain.LuxuryTaxSpace;
+import a4.domain.MonopolyGame;
+import a4.domain.Player;
+import a4.domain.Property;
+import a4.domain.PropertySpace;
+import a4.domain.Street;
+import a4.domain.Utility;
+import a4.gui.IModel;
 
 public class MonopolyGameTest {
 	private MonopolyGame testGame;
@@ -20,7 +35,7 @@ public class MonopolyGameTest {
 		names.add("Chancey");
 		names.add("David");
 		testGame.newGame(names, 30);
-		Model model = new Model();
+		IModel model = new MockModel(testGame);
 		testGame.setModel(model);
 	}*/
 

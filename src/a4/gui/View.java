@@ -20,7 +20,6 @@ public class View extends JFrame{
 	private PlayingBoard playingBoard;
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
-	private JLabel currentLocation;
 	
 	public void setModel(Model m){
 		model = m;
@@ -58,11 +57,9 @@ public class View extends JFrame{
 
 		currentPlayer = new JLabel(" Current Player:    ");
 		currentBankroll = new JLabel(" Current Bankroll:    ");
-		currentLocation = new JLabel(" Current Location:    ");
 		
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
-		playerOptionsAndInfo.add(currentLocation);
 		
 		playingBoard = new PlayingBoard(model);
 
@@ -77,7 +74,6 @@ public class View extends JFrame{
 	public void update(){
 		currentPlayer.setText(" Current Player: " + model.getPlayer());
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
-		currentLocation.setText(" Current Location: " + model.getLocation(model.getPlayer()));
 		//playingBoard.update();
 	}
 
@@ -153,5 +149,13 @@ public class View extends JFrame{
 
 	Dimension getEnclosingBox(){
 		return playingBoard.getSize();
+	}
+
+	public void failedToLeaveJailDialog() {
+		controller.createFailedToLeaveJailDialog();
+	}
+
+	public void succeededInLeavingJailDialog() {
+		controller.createSucceededInLeavingJailDialog();
 	}
 }

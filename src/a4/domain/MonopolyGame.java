@@ -72,15 +72,17 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		determinePlayOrder();
 		currentPlayer = players.get(0);
+		startTimer(time);
 		return true;
 	}
 
 	// returns the player that wins the game
-	public Player endGame() {
+	public void endGame() {
 		Player winner = players.get(0);
 		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
-		for (Player p : players)
+		for (Player p : players) {
 			liquidatedFunds.put(p, p.getBalance());
+		}
 		for (Property p : properties) {
 			int housesValue = 0;
 			int hotelValue = 0;
@@ -97,7 +99,7 @@ public class MonopolyGame implements IMonopolyGame {
 			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
 				winner = p;
 		}
-		return winner;
+		model.endGame(winner.toString());
 	}
 
 	// returns true if the player is added
@@ -707,5 +709,13 @@ public class MonopolyGame implements IMonopolyGame {
 		return numHouses;
 	}
 
-
+	public void startTimer(int timeInMinutes){
+		gameTime = new Timer();
+		long timeInMilliseconds = timeInMinutes*60000;
+		gameTime.schedule(new TimerTask() {
+			public void run() {
+				endGame();
+			}
+		}, timeInMilliseconds);
+	}
 }

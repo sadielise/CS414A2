@@ -34,7 +34,12 @@ public class PlayingBoard extends JLayeredPane{
 		setBorder(BorderFactory.createBevelBorder(BevelBorder.LOWERED));
 		setLayout(null);
 		readTokens();
+		readHouses();
+		readHotels();
 		readPlayerPositions();
+		readHousePositions();
+		readHotelPositions();
+		readPropertyLocations();
 		paintCount = 0;
 	}
 	

@@ -196,4 +196,34 @@ public class Model implements IModel {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void failedToLeaveJail() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void succeededInLeavingJail() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void unableToPayFine(int amount) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tradeFailed(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void tradeSucceeded(String currProperty, String otherProperty) {
+		// TODO Auto-generated method stub
+		
+	}
 }

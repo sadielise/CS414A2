@@ -575,5 +575,20 @@ public class MonopolyGameTest {
 		assertTrue(actual.contains(s3.toString()));
 	}
 	
-	
+	public void testMortgage(){
+		Player currentPlayer = testGame.getCurrentPlayerReference();
+		Property p1 = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
+		assertTrue(testGame.purchaseProperty(currentPlayer, p1, p1.getValue()));
+	}
+//	@Test
+//	public void testMeh(){
+//		BoardSpace bs = testGame.getBoard().getSpaces().get(1);
+//		Property p = ((PropertySpace)bs).getProperty();
+//		Street s = (Street)p;
+//		System.out.println(s.toString());
+////		System.out.println(s.getNeighborhood().getStreets().size());
+//		for(Street street: s.getNeighborhood().getStreets()){
+//			System.out.println(street.toString());
+//		}
+//	}
 }

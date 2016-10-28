@@ -40,7 +40,7 @@ public class Controller {
 			public void actionPerformed(ActionEvent e)
 			{
 				if(model.isStarted){
-					DevelopDialog.createAndShowDevelopDialog(model, view, false);
+					DevelopDialog.createAndShowDevelopDialog(model, view, false, "",0);
 				}
 			}
 		});
@@ -121,9 +121,9 @@ public class Controller {
 
 	}
 
-	public void createUnableToPayDialog(String player, int rentDue) {
+	public void createUnableToPayDialog(String playerOwed, int amountDue) {
 		JOptionPane.showMessageDialog(view, "You were unable to pay, and must undevelop!");
-		DevelopDialog.createAndShowDevelopDialog(model,view, true);	
+		DevelopDialog.createAndShowDevelopDialog(model,view, true, playerOwed, amountDue);	
 	}
 	public void createPaidRentDialog(String playerName, int rentAmount) {
 		JOptionPane.showMessageDialog(view, "You paid $" + rentAmount +" to " + playerName + " for landing on owned property");

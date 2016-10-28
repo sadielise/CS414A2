@@ -26,7 +26,7 @@ public interface IMonopolyGame {
 
 	public void endTurn();
 
-	public void undevelop(String property, int rentAmount, String playerWhoIsOwed);
+	public void undevelop(String property, String playerOwed, int amountOwed);
 
 	public int getPlayerNumber(String player);
 

@@ -146,7 +146,6 @@ public class MonopolyGame implements IMonopolyGame {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
 		boolean doubles = (value1 == value2);
-		doubles = true;
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
 			goToJail();

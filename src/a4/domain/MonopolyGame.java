@@ -707,7 +707,14 @@ public class MonopolyGame implements IMonopolyGame {
 			} else {
 				jail.incrementAttempts(player);
 				if (jail.getAttempts(player) > 2) {
-					return payFineToLeaveJail(player);
+					if (payFineToLeaveJail(player)){
+						model.succeededInLeavingJail();
+						board.getSpaces().get(player.getLocation()).removePlayer(player);
+						currentPlayer.move(value1 + value2, board.getSpaces().size());
+						board.getSpaces().get(player.getLocation()).addPlayer(player);
+						playerMoved();
+						return true;
+					}
 				}
 				return false;
 			}

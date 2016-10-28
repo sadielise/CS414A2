@@ -210,4 +210,10 @@ public class Controller {
 	public void createEndGameDialog(String player) {
 		JOptionPane.showMessageDialog(view, "The game is over! "+player+" is the winner!\nYou can start a new game by clicking \'New Game!\'");
 	}
+	public void createPropertyWasUndevelopedDialog(String property, int houseValue) {
+		JOptionPane.showMessageDialog(view, property +" was undeveloped for $"+houseValue +".");
+	}
+	public void createPaidJailFineDialog() {
+		JOptionPane.showMessageDialog(view, "You paid the jail fine.");
+	}
 }

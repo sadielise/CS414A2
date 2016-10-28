@@ -140,7 +140,6 @@ public class Model implements IModel {
 		view.propertyCannotBeDevelopedDialog(propertyName);
 	}
 
-	// not sure what this is for yet :(
 	private void update(){
 		view.update();
 	}
@@ -232,25 +231,21 @@ public class Model implements IModel {
 		update();		
 	}
 
-	@Override
 	public void landedOnNonProperty(String property) {
 		update();
 		view.landedOnNonPropertyDialog(property);
 	}
 
-	@Override
 	public void landedOnOwnedProperty(String property, String owner) {
 		update();
 		view.landedOnOwnedPropertyDialog(property, owner);
 	}
 
-	@Override
 	public void rolled(int value, boolean isDoubles) {
 		update();
 		view.rolledDialog(value, isDoubles);
 	}
 
-	@Override
 	public void endGame(String player) {
 		update();
 		isStarted = false;
@@ -260,5 +255,15 @@ public class Model implements IModel {
 	public void unableToPay(String playerOwed, int amountOwed){
 		update();
 		view.unableToPayDialog(playerOwed, amountOwed);
+	}
+
+	public void propertyWasUnDevelopedFor(String property, int houseValue) {
+		update();
+		view.propertyWasUndevelopedDialog(property,houseValue);
+	}
+
+	public void paidJailFine() {
+		update();
+		view.paidJailFineDialog();
 	}
 }

@@ -183,4 +183,12 @@ public class View extends JFrame{
 	public void endGameDialog(String player) {
 		controller.createEndGameDialog(player);
 	}
+
+	public void propertyWasUndevelopedDialog(String property, int houseValue) {
+		controller.createPropertyWasUndevelopedDialog(property,houseValue);
+	}
+
+	public void paidJailFineDialog() {
+		controller.createPaidJailFineDialog();
+	}
 }

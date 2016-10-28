@@ -176,7 +176,10 @@ public class MonopolyGame implements IMonopolyGame {
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
 			model.landedOnNonProperty("Income Tax");
 			if (!transferMoney(currentPlayer, bank, 10000)) {
-				model.unableToPayTax(100);
+				model.unableToPayTax(10000);
+				if(!transferMoney(currentPlayer, bank, 10000)){
+					transferMoney(currentPlayer, bank, currentPlayer.getBalance());
+				}
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
 			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());
@@ -617,16 +620,19 @@ public class MonopolyGame implements IMonopolyGame {
 	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
-			System.out.println("null property");
 			model.couldNotUndevelopProperty(property);
 		} else {
 			if (currentProperty instanceof Street) {
 				Street street = (Street) currentProperty;
-				int streetCount = sellHouse(street);
-				if (streetCount != -1) {
+				int streetCount = -2;
+				if(street.getHouseCount() == 0 && street.getHotelCount() == 0){
+					int mortgagingValue = mortgageProperty(currentProperty);
+					model.propertyWasUnDevelopedFor(property, mortgagingValue);
+				}
+				else if ((streetCount = sellHouse(street)) != -1) {
 					model.propertyWasUnDevelopedFor(property, street.getNeighborhood().getHouseValue());
 					if(currentPlayer.getBalance() < amountOwed){
-						model.unableToPayRentTo(playerOwed, amountOwed);
+						model.unableToPay(playerOwed, amountOwed);
 					}
 				}
 			} else {
@@ -690,6 +696,10 @@ public class MonopolyGame implements IMonopolyGame {
 					if (curr instanceof Street) {
 						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
 							propertyList.add(curr.toString());
+						}else{
+							if(!curr.getIsMortgaged()){
+								propertyList.add(curr.toString());
+							}
 						}
 					} else if (!curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
@@ -765,7 +775,8 @@ public class MonopolyGame implements IMonopolyGame {
 		} else {
 			player.setInJail(false);
 			jail.removePlayer(player);
-			model.paidJailFine();
+			model.paidRentTo("Jail", 50);
+//			model.paidJailFine();
 			return true;
 		}
 	}

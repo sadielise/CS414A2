@@ -111,8 +111,8 @@ public class Model implements IModel {
 	}
 
 
-	public void undevelop(String property){
-		game.undevelop(property);
+	public void undevelop(String property, String playerOwed, int amountOwed){
+		game.undevelop(property, playerOwed, amountOwed);
 		update();
 	}
 
@@ -123,7 +123,7 @@ public class Model implements IModel {
 
 	public void unableToPayRentTo(String playerName, int rentAmount) {
 		update();
-		view.unableToPayDialog(playerName, rentAmount);
+		unableToPay(playerName, rentAmount);
 	}
 
 	public void paidRentTo(String playerName, int rentAmount) {
@@ -178,7 +178,7 @@ public class Model implements IModel {
 	}
 
 	public void unableToPayTax(int amount) {
-		unableToPayRentTo("Tax", amount);
+		unableToPay("Tax", amount);
 	}
 
 	public void propertyWasMortgagedFor(String property, int amount) {
@@ -215,7 +215,7 @@ public class Model implements IModel {
 	}
 
 	public void unableToPayFine(int amount) {
-		view.unableToPayDialog("Jail", amount);
+		unableToPay("Jail", amount);
 	}
 
 	public void tradeFailed(String currProperty, String otherProperty) {
@@ -255,5 +255,10 @@ public class Model implements IModel {
 		update();
 		isStarted = false;
 		view.endGameDialog(player);
+	}
+	
+	public void unableToPay(String playerOwed, int amountOwed){
+		update();
+		view.unableToPayDialog(playerOwed, amountOwed);
 	}
 }

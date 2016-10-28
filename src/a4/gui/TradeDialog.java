@@ -121,10 +121,10 @@ public class TradeDialog extends JPanel{
 
 					if(choice == JOptionPane.YES_OPTION){
 						model.trade(currentGroup.getSelection().getActionCommand(), otherGroup.getSelection().getActionCommand());
-						setLabel("Traded " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
+						frame.dispose();
 					}
 					else if(choice == JOptionPane.NO_OPTION){
-						setLabel("Did not trade " + currentGroup.getSelection().getActionCommand() + " for " + otherGroup.getSelection().getActionCommand()+"!");
+						frame.dispose();
 					}
 					else{
 						setLabel("Trade canceled!");

@@ -23,6 +23,7 @@ public class DevelopDialog extends JPanel{
 	JFrame frame;
 	Model model;
 	String developDesc = null;
+	JPanel choicePanel;
 	boolean isUndevelop;
 
 	public DevelopDialog(JFrame frame, Model m, String description, boolean isUndevelop) throws Exception {
@@ -34,7 +35,7 @@ public class DevelopDialog extends JPanel{
 		this.isUndevelop = isUndevelop;
 
 		//Create the components.
-		JPanel choicePanel = createDialogBox();
+		choicePanel = createDialogBox();
 
 		if (choicePanel == null){
 			throw new Exception();
@@ -85,6 +86,7 @@ public class DevelopDialog extends JPanel{
 			propertyButtons[i] = new JRadioButton(properties.get(i));
 			propertyButtons[i].setActionCommand(properties.get(i));
 			group.add(propertyButtons[i]);
+			System.out.println(properties.get(i));
 		}
 
 		if(propertyButtons.length > 0){
@@ -111,6 +113,7 @@ public class DevelopDialog extends JPanel{
 					if(choice == JOptionPane.YES_OPTION){
 						model.undevelop(property);
 						setLabel("Attempted to undevelop: " + property);
+						frame.dispose();
 					}
 					else{
 						setLabel("Did not attempt to undevelop: " + property);
@@ -120,7 +123,7 @@ public class DevelopDialog extends JPanel{
 					choice = JOptionPane.showConfirmDialog(frame, "Are you sure you want to develop this property?","Develop property: "+property, JOptionPane.YES_NO_OPTION);
 					if(choice == JOptionPane.YES_OPTION){
 						model.develop(property);
-						setLabel("Attempted to develop: " + property);
+						frame.dispose();
 					}
 					else{
 						setLabel("Did not attempt to develop: " + property);

@@ -605,7 +605,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	@Override
-	public void undevelop(String property) {
+	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);

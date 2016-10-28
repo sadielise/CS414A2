@@ -196,6 +196,7 @@ public class MonopolyGame implements IMonopolyGame {
 						model.paidRentTo(currentProperty.getOwner().toString(), rent);
 					} else {
 						model.unableToPayRentTo(currentProperty.getOwner().toString(), rent);
+						transferMoney(currentPlayer, currentProperty.getOwner(), rent);
 					}
 				}
 			}
@@ -612,7 +613,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	@Override
-	public void undevelop(String property) {
+	public void undevelop(String property, int rentAmount, String playerWhoIsOwed) {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
 			System.out.println("null property");
@@ -623,6 +624,9 @@ public class MonopolyGame implements IMonopolyGame {
 				int streetCount = sellHouse(street);
 				if (streetCount != -1) {
 					model.propertyWasUnDevelopedFor(property, street.getNeighborhood().getHouseValue());
+					if(currentPlayer.getBalance() < rentAmount){
+						model.unableToPayRentTo(playerWhoIsOwed, rentAmount);
+					}
 				}
 			} else {
 				int mortgagingValue = mortgageProperty(currentProperty);

@@ -155,7 +155,7 @@ public class PlayingBoard extends JPanel{
 		} catch (IOException e) {
 
 		}
-
+		if(model.isStarted){
 		if(paintCount != 0){
 			List<String> players = model.getPlayers();
 			for(int i = 0; i < players.size(); i++){ 
@@ -171,6 +171,7 @@ public class PlayingBoard extends JPanel{
 				icon.setIcon(tokens.get(i));
 				add(icon);
 			}
+		}
 			
 			for(int j = 0; j < propertyLocations.length; j++){
 				int location = propertyLocations[j];

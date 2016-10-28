@@ -476,7 +476,7 @@ public class MonopolyGameTest {
 		assertTrue(tempJail.isInPrison(testGame.getCurrentPlayerReference()));
 		assertTrue(tempJail.getPlayers().contains(testGame.getCurrentPlayerReference()));
 	}
-
+/*
 	@Test
 	public void testGetDevelopableProperties(){
 		int[] array = {1, 2, 3, 4};
@@ -529,6 +529,7 @@ public class MonopolyGameTest {
 		assertTrue(actual.contains(s.toString()));
 		
 	}
+	
 	
 	@Test
 	public void testGetPlayersUndevelopableProperties(){
@@ -590,7 +591,7 @@ public class MonopolyGameTest {
 		assertTrue(actual.contains(s2.toString()));
 		assertTrue(actual.contains(s4.toString()));
 	}
-	
+	*/
 	public void testMortgage(){
 		Player currentPlayer = testGame.getCurrentPlayerReference();
 		Property p1 = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();

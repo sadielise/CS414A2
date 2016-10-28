@@ -29,5 +29,7 @@ public interface IModel {
 	public void endGame(String string);
 	public void propertyWasUnDevelopedFor(String property, int houseValue);
 	public void paidJailFine();
+	public void unableToPay(String playerOwed, int amountOwed);
+
 
 }

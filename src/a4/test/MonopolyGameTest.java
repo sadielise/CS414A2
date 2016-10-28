@@ -523,6 +523,7 @@ public class MonopolyGameTest {
 		
 		game.setProperties(properties);
 		java.util.List<String> actual = game.getDevelopableProperties(p1.toString());
+		System.out.println(actual);
 		assertTrue(actual.size() == 2);
 		assertTrue(actual.contains(u.toString()));
 		assertTrue(actual.contains(s.toString()));

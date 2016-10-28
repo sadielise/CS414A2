@@ -170,10 +170,16 @@ public class MonopolyGame implements IMonopolyGame {
 			if (!transferMoney(currentPlayer, bank, 200)) {
 				model.unableToPayTax(200);
 			}
+			else{
+				model.paidRentTo("Luxury Tax", 200);
+			}
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
 			model.landedOnNonProperty("Income Tax");
 			if (!transferMoney(currentPlayer, bank, 100)) {
 				model.unableToPayTax(100);
+			}
+			else{
+				model.paidRentTo("Income Tax", 100);
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
 			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());

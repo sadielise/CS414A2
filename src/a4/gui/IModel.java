@@ -31,4 +31,5 @@ public interface IModel {
 	public void paidJailFine();
 	public void unableToPay(String playerOwed, int amountOwed);
 
+
 }

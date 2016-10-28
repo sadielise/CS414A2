@@ -90,7 +90,7 @@ public class DevelopDialog extends JPanel{
 			propertyButtons[i] = new JRadioButton(properties.get(i));
 			propertyButtons[i].setActionCommand(properties.get(i));
 			group.add(propertyButtons[i]);
-			System.out.println(properties.get(i));
+//			System.out.println(properties.get(i));
 		}
 
 		if(propertyButtons.length > 0){

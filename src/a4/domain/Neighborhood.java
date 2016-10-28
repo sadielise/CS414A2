@@ -81,32 +81,24 @@ public class Neighborhood {
 			streetHouses += 5;
 		}
 		if (null == ownedBy) {
-//			System.out.println("No neighborhood owner");
 			return false;
 		} else if (null == tempStreet.getOwner()) {
-//			System.out.println("No street owner");
 			return false;
 		}
 
 		if (streetHotel == 1) {
-//			System.out.println("Has hotel, max developement");
 			return false;
 		} else if (streetHouses == maxNumHouses) {
-//			System.out.println("Would cause uneven house distribution");
 			return false;
 		} else if (streetHouses < maxNumHouses && streetHouses >= minNumHouses) {
-//			System.out.println("house can be placed here");
 			if (tempStreet.getOwner().getBalance() >= houseValue) {
 				// player can afford house
-//				System.out.println("Player can afford to buy house");
 				if (numHousesEqual() && streetHouses != 0) {
 					// all of the houses have the same number of houses
-//					System.out.println("house was added 1");
 					tempStreet.addHouse();
 					minNumHouses++;
 					return true;
 				} else {
-//					System.out.println("house was added 2");
 					tempStreet.addHouse();
 					if (numHousesEqual()) {
 						maxNumHouses++;
@@ -115,12 +107,10 @@ public class Neighborhood {
 				}
 			} else {
 				// player cannot afford house
-//				System.out.println("Player cannont afford house");
 				return false;
 			}
 		} else {
 			// something went wrong
-//			System.out.println("Something wrong with gabby's logic");
 			return false;
 		}
 	}

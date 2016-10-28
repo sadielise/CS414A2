@@ -2,7 +2,6 @@ package a4.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
@@ -143,10 +142,8 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public void roll(int pastNumberOfDoubles) {
-		// int value1 = dice.get(0).roll();
-		// int value2 = dice.get(1).roll();
-		int value1 = 0;
-		int value2 = 1;
+		int value1 = dice.get(0).roll();
+		int value2 = dice.get(1).roll();
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -175,11 +172,8 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
 			model.landedOnNonProperty("Income Tax");
-			if (!transferMoney(currentPlayer, bank, 10000)) {
-				model.unableToPayTax(10000);
-				if(!transferMoney(currentPlayer, bank, 10000)){
-					transferMoney(currentPlayer, bank, currentPlayer.getBalance());
-				}
+			if (!transferMoney(currentPlayer, bank, 1500)) {
+				model.unableToPayTax(1500);
 			}
 		} else if (spaceOfPlayer instanceof OpenSpace) {
 			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());
@@ -199,7 +193,6 @@ public class MonopolyGame implements IMonopolyGame {
 						model.paidRentTo(currentProperty.getOwner().toString(), rent);
 					} else {
 						model.unableToPayRentTo(currentProperty.getOwner().toString(), rent);
-						transferMoney(currentPlayer, currentProperty.getOwner(), rent);
 					}
 				}
 			}
@@ -416,9 +409,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public int buyHouse(Street street) {
-		// System.out.println("Entered buy house");
 		if (houseCount != 0 && street.getIsMortgaged() == false) {
-			// System.out.println("Enough houses and not mortgaged");
 			boolean houseBought = street.getNeighborhood().addHouse(street);
 			if (houseBought) {
 				if (street.getHotelCount() == 1) {
@@ -525,31 +516,23 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) {
 			System.err.println("Error: null property : " + property);
 		} else if (currentProperty.getOwner() == null) {
-			// System.out.println("Property has no owner");
 			model.propertyCannotBeDeveloped(property);
 		} else if (currentProperty.getIsMortgaged()) {
-			// System.out.println("Property is mortgaged");
 			int value = unmortgageProperty(currentProperty);
 			if (value != -1) {
-				// System.out.println("Property was unmortgaged");
 				model.propertyWasUnmortgagedFor(property, value);
 			} else {
-				// System.out.println("Property could not be unmortgaged");
 				model.propertyCannotBeDeveloped(property);
 			}
 		} else if (currentProperty instanceof Street) {
-			// System.out.println("Property is a street");
 			Street currentStreet = (Street) currentProperty;
 			int success = buyHouse(currentStreet);
 			if (success == -1) {
-				// System.out.println("Failed to buy house");
 				model.propertyCannotBeDeveloped(property);
 			} else {
-				// System.out.println("Succeeded to buy house");
 				model.propertyWasDeveloped(currentStreet.toString(), currentStreet.getHouseCount());
 			}
 		} else {
-			// System.out.println("property is not of correct type to develop");
 			model.propertyCannotBeDeveloped(property);
 		}
 	}
@@ -631,13 +614,17 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 				else if ((streetCount = sellHouse(street)) != -1) {
 					model.propertyWasUnDevelopedFor(property, street.getNeighborhood().getHouseValue());
-					if(currentPlayer.getBalance() < amountOwed){
-						model.unableToPay(playerOwed, amountOwed);
-					}
 				}
 			} else {
 				int mortgagingValue = mortgageProperty(currentProperty);
 				model.propertyWasUnDevelopedFor(property, mortgagingValue);
+			}
+			if(currentPlayer.getBalance() < amountOwed){
+				amountOwed -= currentPlayer.getBalance();
+				transferMoney(currentPlayer, bank, currentPlayer.getBalance());
+				model.unableToPay(playerOwed, amountOwed);
+			}else{
+				transferMoney(currentPlayer, bank, amountOwed);
 			}
 		}
 	}

@@ -156,7 +156,7 @@ public class Controller {
 
 	}
 	public void createPropertyWasDevelopedDialog(String property, int numberOfHouses) {
-		JOptionPane.showMessageDialog(view, property + "was developed, and now has " + numberOfHouses + " houses!");
+		JOptionPane.showMessageDialog(view, property + " was developed, and now has " + numberOfHouses + " houses!");
 
 	}
 	public void createPropertyWasMortgagedDialog(String property, int amount) {

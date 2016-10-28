@@ -104,6 +104,7 @@ public class Model implements IModel {
 	public void startNewGame(List<String> playerNames, int timeInMinutes){
 		game.newGame(playerNames,timeInMinutes);
 		isStarted = true;
+		update();
 	}
 
 	public void endTurn(){

@@ -256,4 +256,16 @@ public class Model implements IModel {
 		isStarted = false;
 		view.endGameDialog(player);
 	}
+
+	@Override
+	public void propertyWasUnDevelopedFor(String property, int houseValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void paidJailFine() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -126,7 +126,7 @@ public class Controller {
 		DevelopDialog.createAndShowDevelopDialog(model,view, true, playerOwed, amountDue);	
 	}
 	public void createPaidRentDialog(String playerName, int rentAmount) {
-		JOptionPane.showMessageDialog(view, "You paid $" + rentAmount +" to " + playerName + " for landing on owned property");
+		JOptionPane.showMessageDialog(view, "You paid $" + rentAmount +" to " + playerName + ".");
 
 	}
 	public void createSentToJailDialog(String playerName) {

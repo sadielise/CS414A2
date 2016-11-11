@@ -224,77 +224,9 @@ public class MonopolyGameTest {
 	public void testPlayerMovedToJailSpace(){
 
 	}
-	@Test
-	public void testTransferMoneyPlayerToPlayer(){
-		Player testPlayer1 = testGame.getPlayerList().get(0);
-		Player testPlayer2 = testGame.getPlayerList().get(1);
-		int balance1 = testPlayer1.getBalance();
-		int balance2 = testPlayer2.getBalance();
-		boolean success = testGame.transferMoney(testPlayer1, testPlayer2, balance1);
-		assertTrue(success);
-		assertEquals(0, testPlayer1.getBalance());
-		assertEquals(balance2 + balance1, testPlayer2.getBalance());
-	}
 
-	@Test
-	public void testTransferMoneyPlayerToPlayerOverdraft(){
-		Player testPlayer1 = testGame.getPlayerList().get(0);
-		Player testPlayer2 = testGame.getPlayerList().get(1);
-		int balance1 = testPlayer1.getBalance();
-		int balance2 = testPlayer2.getBalance();
-		boolean success = testGame.transferMoney(testPlayer1, testPlayer2, balance1 +100);
-		assertFalse(success);
-		assertEquals(balance1, testPlayer1.getBalance());
-		assertEquals(balance2 , testPlayer2.getBalance());
-	}
 
-	@Test
-	public void testTransferMoneyPlayerToBank(){
-		Player testPlayer = testGame.getCurrentPlayerReference();
-		Bank testBank = testGame.getBank();
-		int playerBalance = testPlayer.getBalance();
-		int bankBalance = testBank.getBalance();
-		boolean success = testGame.transferMoney(testPlayer, testBank, playerBalance);
-		assertTrue(success);
-		assertEquals(0, testPlayer.getBalance());
-		assertEquals(playerBalance + bankBalance, testBank.getBalance());	
-	}
 
-	@Test
-	public void testTransferMoneyPlayerToBankOverdraft(){
-		Player testPlayer = testGame.getCurrentPlayerReference();
-		Bank testBank = testGame.getBank();
-		int playerBalance = testPlayer.getBalance();
-		int bankBalance = testBank.getBalance();
-		boolean success = testGame.transferMoney(testPlayer, testBank, playerBalance + 100);
-		assertFalse(success);
-		assertEquals(playerBalance, testPlayer.getBalance());
-		assertEquals(bankBalance, testBank.getBalance());	
-	}
-
-	@Test
-	public void testTranferMoneyBankToPlayer(){
-		Player testPlayer = testGame.getCurrentPlayerReference();
-		Bank testBank = testGame.getBank();
-		int playerBalance = testPlayer.getBalance();
-		int bankBalance = testBank.getBalance();
-		boolean success = testGame.transferMoney(testBank, testPlayer, bankBalance);
-		assertTrue(success);
-		assertEquals(playerBalance + bankBalance, testPlayer.getBalance());
-		assertEquals(0, testBank.getBalance());
-	}
-
-	@Test
-	public void testTransferMoneyBankToPlayerOverdraft(){
-		Player testPlayer = testGame.getCurrentPlayerReference();
-		Bank testBank = testGame.getBank();
-		int playerBalance = testPlayer.getBalance();
-		int bankBalance = testBank.getBalance();
-		boolean success = testGame.transferMoney(testBank, testPlayer, bankBalance + 100);
-		assertFalse(success);
-		assertEquals(playerBalance, testPlayer.getBalance());
-		assertEquals(bankBalance, testBank.getBalance());
-	}
 
 	@Test 
 	public void testGetHouseCount(){
@@ -450,7 +382,7 @@ public class MonopolyGameTest {
 	@Test
 	public void testBuyHouse(){ //finish when neighborhood updated
 		Player testPlayer = testGame.getCurrentPlayerReference();
-		testGame.transferMoney(testGame.getBank(), testPlayer, 10000);
+		testGame.getBank().transferMoney(testPlayer, 10000);
 		testPlayer.setLocation(1);
 		BoardSpace space = testGame.getBoard().getSpaces().get(testPlayer.getLocation()); 
 		Property property1 = ((PropertySpace)space).getProperty();

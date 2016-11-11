@@ -6,6 +6,7 @@ import java.util.List;
 public class Board {
 	List<BoardSpace> spaces = new ArrayList<BoardSpace>();
 	ArrayList<Neighborhood> neighborhoods;
+	private int jailLocation;
 
 	public Board() {
 		createNeighborhoods();
@@ -78,6 +79,7 @@ public class Board {
 		
 		JailSpace space11 = (JailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		spaces.add(space11);
+		jailLocation = spaces.size()-1;
 		
 		PropertySpace space12 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
 		space12.setPropertyInfo("Street", "St. Charles Place", 140,	new int[] { 10, 50, 150, 450, 625, 750 }, "Pink");
@@ -173,7 +175,7 @@ public class Board {
 	
 	public void createBoardRight(){
 		
-		GoToJailSpace space31 = (GoToJailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);	
+		GoToJailSpace space31 = (GoToJailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
 		spaces.add(space31);
 
 		PropertySpace space32 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);	
@@ -227,6 +229,10 @@ public class Board {
 
 	public void removeSpace(BoardSpace space_to_remove) {
 		spaces.remove(space_to_remove);
+	}
+	
+	public int getJailLocation(){
+		return jailLocation;
 	}
 
 	// Precondition: the boardspace is a street property space

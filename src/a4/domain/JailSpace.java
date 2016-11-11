@@ -1,6 +1,9 @@
 package a4.domain;
 
 import java.util.HashMap;
+import java.util.List;
+
+import a4.gui.IModel;
 
 public class JailSpace extends BoardSpace {
 	public JailSpace() {
@@ -32,5 +35,17 @@ public class JailSpace extends BoardSpace {
 
 	public boolean isInJail(Player player_in_question) {
 		return playersInJail.containsKey(player_in_question);
+	}
+
+	public void sendToJail(Player currentPlayer) {
+		currentPlayer.setLocation(location);
+		currentPlayer.setInJail(true);
+		addPlayer(currentPlayer);
+		putPlayerInJail(currentPlayer);
+	}
+	
+	@Override
+	public void landedOnAction(IModel model, Player toPlayer, Bank bank, List<Die> dice) {
+		model.landedOnNonProperty("Jail");
 	}
 }

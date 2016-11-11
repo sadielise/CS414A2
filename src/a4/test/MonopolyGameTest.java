@@ -79,8 +79,9 @@ public class MonopolyGameTest {
 		int pastBalance = player.getBalance();
 		testGame.roll();
 		if(testGame.getBoard().getSpaces().get(player.getLocation()) instanceof IncomeTaxSpace){
-			assertEquals(pastBalance + 100, player.getBalance());
-		}else{
+			assertEquals(pastBalance, player.getBalance());
+		}
+		else{
 			assertEquals(pastBalance + 200, player.getBalance());
 		}
 	}
@@ -157,8 +158,8 @@ public class MonopolyGameTest {
 		int playerBalance = currentPlayer.getBalance();
 		int bankBalance = testGame.getBank().getBalance();
 		testGame.playerMoved();
-		assertEquals(playerBalance - 200, currentPlayer.getBalance());
-		assertEquals(bankBalance + 200, testGame.getBank().getBalance());
+		assertEquals(playerBalance - 100, currentPlayer.getBalance());
+		assertEquals(bankBalance + 100, testGame.getBank().getBalance());
 	}
 
 	@Test
@@ -193,8 +194,8 @@ public class MonopolyGameTest {
 		int playerBalance = currentPlayer.getBalance();
 		int bankBalance = testGame.getBank().getBalance();
 		testGame.playerMoved();
-		assertEquals(playerBalance - 100, currentPlayer.getBalance());
-		assertEquals(bankBalance + 100, testGame.getBank().getBalance());
+		assertEquals(playerBalance - 200, currentPlayer.getBalance());
+		assertEquals(bankBalance + 200, testGame.getBank().getBalance());
 	}
 
 	@Test
@@ -396,13 +397,9 @@ public class MonopolyGameTest {
 
 	@Test
 	public void testGoToJail(){
-		testGame.goToJail();
-		JailSpace tempJail = null;
-		for(BoardSpace space: testGame.getBoard().getSpaces()){
-			if(space instanceof JailSpace){
-				tempJail = (JailSpace)space;
-			}
-		}
+		Board board = testGame.getBoard();
+		JailSpace tempJail = (JailSpace)board.getSpaces().get(board.getJailLocation());
+		tempJail.sendToJail(testGame.getCurrentPlayerReference());
 		assertNotNull(tempJail);
 		assertEquals(tempJail.getLocation(), testGame.getCurrentPlayerReference().getLocation());
 		assertTrue(tempJail.isInJail(testGame.getCurrentPlayerReference()));

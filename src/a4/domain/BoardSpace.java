@@ -1,6 +1,9 @@
 package a4.domain;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import a4.gui.IModel;
 
 public abstract class BoardSpace {
 	int location;
@@ -46,4 +49,6 @@ public abstract class BoardSpace {
 	public static void restartCounter() {
 		counter = 0;
 	}
+	
+	abstract public void landedOnAction(IModel model, Player currentPlayer, Bank bank, List<Die> dice);
 }

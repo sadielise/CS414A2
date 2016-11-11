@@ -1,11 +1,17 @@
 package a4.domain;
 
+import java.util.List;
+
+import a4.gui.IModel;
+
 public class GoToJailSpace extends BoardSpace {
+	
 	public GoToJailSpace() {
 		super(BoardSpaceType.GOTOJAIL);
 	}
 
-	void sendToJail(Player player_going_to_jail) {
-		// player_going_to_jail.setLocation("Jail");
+	@Override
+	public void landedOnAction(IModel model, Player currentPlayer, Bank bank, List<Die> dice) {
+		model.landedOnNonProperty("Go To Jail");
 	}
 }

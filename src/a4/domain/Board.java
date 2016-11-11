@@ -8,8 +8,14 @@ public class Board {
 	ArrayList<Neighborhood> neighborhoods;
 
 	public Board() {
-		BoardSpace space = null;
-		OpenSpace openSpace = null;
+		createNeighborhoods();
+		createBoardBottom();
+		createBoardLeft();
+		createBoardTop();
+		createBoardRight();
+	}
+	
+	public void createNeighborhoods(){
 		neighborhoods = new ArrayList<Neighborhood>();
 		neighborhoods.add(new Neighborhood("Brown", 50));
 		neighborhoods.add(new Neighborhood("SkyBlue", 50));
@@ -19,45 +25,60 @@ public class Board {
 		neighborhoods.add(new Neighborhood("Yellow", 150));
 		neighborhoods.add(new Neighborhood("Green", 200));
 		neighborhoods.add(new Neighborhood("Blue", 200));
+	}
+	
+	public void createBoardBottom(){
+		
 		BoardSpaceFactory space_factory = new BoardSpaceFactory();
-
-		// Bottom
+		BoardSpace space = null;
+		OpenSpace openSpace = null;
+		
 		space = space_factory.getBoardSpace("Open");
 		openSpace = (OpenSpace) space;
 		openSpace.setName("Go");
 		spaces.add(space);
-		space = space_factory.getPropertySpace("Street", "Mediterranean Avenue", 60,
-				new int[] { 2, 10, 30, 90, 160, 250 }, "Brown");
+		
+		space = space_factory.getPropertySpace("Street", "Mediterranean Avenue", 60, new int[] { 2, 10, 30, 90, 160, 250 }, "Brown");
 		this.addToNeighborhood(space);
 		spaces.add(space);
+		
 		space = space_factory.getBoardSpace("Open");
 		openSpace = (OpenSpace) space;
 		openSpace.setName("Community Chest");
 		spaces.add(space);
-		space = space_factory.getPropertySpace("Street", "Baltic Avenue", 60, new int[] { 4, 20, 60, 180, 320, 450 },
-				"Brown");
+		
+		space = space_factory.getPropertySpace("Street", "Baltic Avenue", 60, new int[] { 4, 20, 60, 180, 320, 450 }, "Brown");
 		this.addToNeighborhood(space);
 		spaces.add(space);
+		
 		spaces.add(space_factory.getBoardSpace("IncomeTax"));
+		
 		spaces.add(space_factory.getPropertySpace("Railroad", "Reading Railroad", 200, new int[] {}, ""));
-		space = space_factory.getPropertySpace("Street", "Oriental Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 },
-				"SkyBlue");
+		
+		space = space_factory.getPropertySpace("Street", "Oriental Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 }, "SkyBlue");
 		this.addToNeighborhood(space);
 		spaces.add(space);
+		
 		space = space_factory.getBoardSpace("Open");
 		openSpace = (OpenSpace) space;
 		openSpace.setName("Chance");
 		spaces.add(space);
-		space = space_factory.getPropertySpace("Street", "Vermont Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 },
-				"SkyBlue");
+		
+		space = space_factory.getPropertySpace("Street", "Vermont Avenue", 100, new int[] { 6, 30, 90, 270, 400, 550 }, "SkyBlue");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-		space = space_factory.getPropertySpace("Street", "Connecticut Avenue", 120, new int[] { 8, 40, 100, 300, 450 },
-				"SkyBlue");
+		
+		space = space_factory.getPropertySpace("Street", "Connecticut Avenue", 120, new int[] { 8, 40, 100, 300, 450 }, "SkyBlue");
 		this.addToNeighborhood(space);
 		spaces.add(space);
+	}
 
-		// Left
+	public void createBoardLeft(){
+		
+		BoardSpaceFactory space_factory = new BoardSpaceFactory();
+		BoardSpace space = null;
+		OpenSpace openSpace = null;
+		
 		spaces.add(space_factory.getBoardSpace("Jail"));
 		space = space_factory.getPropertySpace("Street", "St. Charles Place", 140,
 				new int[] { 10, 50, 150, 450, 625, 750 }, "Pink");
@@ -89,8 +110,14 @@ public class Board {
 				new int[] { 16, 80, 220, 600, 800, 1000 }, "Orange");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-
-		// Top
+	}
+	
+	public void createBoardTop(){
+		
+		BoardSpaceFactory space_factory = new BoardSpaceFactory();
+		BoardSpace space = null;
+		OpenSpace openSpace = null;
+		
 		space = space_factory.getBoardSpace("Open");
 		openSpace = (OpenSpace) space;
 		openSpace.setName("Free Parking");
@@ -125,8 +152,14 @@ public class Board {
 				new int[] { 24, 120, 360, 850, 1025, 1200 }, "Yellow");
 		this.addToNeighborhood(space);
 		spaces.add(space);
-
-		// Right
+	}
+	
+	public void createBoardRight(){
+		
+		BoardSpaceFactory space_factory = new BoardSpaceFactory();
+		BoardSpace space = null;
+		OpenSpace openSpace = null;
+		
 		spaces.add(space_factory.getBoardSpace("GoToJail"));
 		space = space_factory.getPropertySpace("Street", "Pacific Avenue", 300,
 				new int[] { 26, 130, 390, 900, 1100, 1275 }, "Green");
@@ -159,7 +192,7 @@ public class Board {
 		this.addToNeighborhood(space);
 		spaces.add(space);
 	}
-
+	
 	public List<BoardSpace> getSpaces() {
 		return spaces;
 	}

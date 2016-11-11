@@ -180,4 +180,23 @@ public class Player {
 		}
 	}
 
+	//transfers money from current player (this) to toPlayer
+	public boolean transferMoney(Player toPlayer, int amount) {
+		if (balance < amount) {
+			return false;
+		}
+		removeBalance(amount);
+		toPlayer.addBalance(amount);
+		return true;
+	}
+	
+	//transfers money from current player (this) to the bank
+	public boolean transferMoney(Bank toBank, int amount) {
+		if (balance < amount) {
+			return false;
+		}
+		removeBalance(amount);
+		toBank.addBalance(amount);
+		return true;
+	}
 }

@@ -30,7 +30,7 @@ public class JailSpace extends BoardSpace {
 			return playersInJail.get(player_in_jail);
 	}
 
-	public boolean isInPrison(Player player_in_question) {
+	public boolean isInJail(Player player_in_question) {
 		return playersInJail.containsKey(player_in_question);
 	}
 }

@@ -2,6 +2,7 @@ package a4.domain;
 
 public class LuxuryTaxSpace extends BoardSpace {
 	public LuxuryTaxSpace() {
+		super(BoardSpaceType.LUXURYTAX);
 	}
 
 	int value = 100;

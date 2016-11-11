@@ -4,7 +4,11 @@ public class PropertySpace extends BoardSpace {
 
 	Property property;
 
-	public PropertySpace(String type, String name, int value, int[] rent, String color) {
+	public PropertySpace(){
+		super(BoardSpaceType.PROPERTY);
+	}
+	
+	public void setPropertyInfo(String type, String name, int value, int[] rent, String color){
 		if (type.toLowerCase().equals("railroad")) {
 			property = new Railroad(name, value);
 		} else if (type.toLowerCase().equals("utility")) {

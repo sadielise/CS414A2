@@ -2,14 +2,24 @@ package a4.domain;
 
 import java.util.ArrayList;
 
-public class BoardSpace {
+public abstract class BoardSpace {
 	int location;
 	static int counter = 0;
 	ArrayList<Player> players = new ArrayList<Player>();
+	BoardSpaceType type;
 
-	public BoardSpace() {
+	public BoardSpace(BoardSpaceType type) {
+		this.type = type;
 		location = counter;
 		counter++;
+	}
+	
+	public void setType(BoardSpaceType type){
+		this.type = type;
+	}
+	
+	public BoardSpaceType getType(){
+		return type;
 	}
 
 	public int getLocation() {

@@ -9,12 +9,7 @@ import org.junit.Test;
 import a4.domain.*;
 
 public class BoardSpaceFactoryTest {
-	BoardSpaceFactory test_factory;
-
-	@Before
-	public void initialize() {
-		test_factory = new BoardSpaceFactory();
-	}
+	BoardSpaceFactory BoardSpaceFactory;
 	
 	@After
 	public void reset() {
@@ -22,39 +17,33 @@ public class BoardSpaceFactoryTest {
 	}
 
 	@Test
-	public void testConstructor() {
-		test_factory = new BoardSpaceFactory();
-		assertEquals(BoardSpaceFactory.class, test_factory.getClass());
-	}
-
-	@Test
 	public void testGetIncomeTax() {
-		IncomeTaxSpace its = (IncomeTaxSpace) test_factory.getBoardSpace("IncomeTax");
+		IncomeTaxSpace its = (IncomeTaxSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.INCOMETAX);
 		assertEquals(200, its.getValue());
 	}
 
 	@Test
 	public void testGetLuxaryTax() {
-		LuxuryTaxSpace lts = (LuxuryTaxSpace) test_factory.getBoardSpace("LuxuryTax");
+		LuxuryTaxSpace lts = (LuxuryTaxSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.LUXURYTAX);
 		assertEquals(100, lts.getValue());
 	}
 
 	@Test
 	public void testGetOpen() {
-		OpenSpace os = (OpenSpace) test_factory.getBoardSpace("Open");
+		OpenSpace os = (OpenSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		os.setName("Test Name");
 		assertEquals("Test Name", os.getName());
 	}
 
 	@Test
 	public void testGetGoToJail() {
-		GoToJailSpace gtjs = (GoToJailSpace) test_factory.getBoardSpace("GoToJail");
+		GoToJailSpace gtjs = (GoToJailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
 		assertEquals(0, gtjs.getLocation());
 	}
 
 	@Test
 	public void testGetJailAndAttemptToEscape() {
-		JailSpace js = (JailSpace) test_factory.getBoardSpace("Jail");
+		JailSpace js = (JailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		Player test_player = new Player("Test Player", 1500, 0);
 		js.putPlayerInJail(test_player);
 		assertEquals(0, js.getAttempts(test_player));
@@ -64,7 +53,7 @@ public class BoardSpaceFactoryTest {
 
 	@Test
 	public void testGetOutOfJail() {
-		JailSpace js = (JailSpace) test_factory.getBoardSpace("Jail");
+		JailSpace js = (JailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		Player test_player = new Player("Test Player", 1500, 0);
 		js.putPlayerInJail(test_player);
 		js.getOutOfJail(test_player);
@@ -73,11 +62,11 @@ public class BoardSpaceFactoryTest {
 
 	@Test
 	public void BoardSpaceLocationIncrements() {
-		IncomeTaxSpace its = (IncomeTaxSpace) test_factory.getBoardSpace("IncomeTax");
-		LuxuryTaxSpace lts = (LuxuryTaxSpace) test_factory.getBoardSpace("LuxuryTax");
-		OpenSpace os = (OpenSpace) test_factory.getBoardSpace("Open");
-		GoToJailSpace gtjs = (GoToJailSpace) test_factory.getBoardSpace("GoToJail");
-		JailSpace js = (JailSpace) test_factory.getBoardSpace("Jail");
+		IncomeTaxSpace its = (IncomeTaxSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.INCOMETAX);
+		LuxuryTaxSpace lts = (LuxuryTaxSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.LUXURYTAX);
+		OpenSpace os = (OpenSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
+		GoToJailSpace gtjs = (GoToJailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
+		JailSpace js = (JailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		assertEquals(0, its.getLocation());
 		assertEquals(1, lts.getLocation());
 		assertEquals(2, os.getLocation());
@@ -89,7 +78,8 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetStreet() {
 		Player test_player = new Player("Test Player", 1500, 0);
-		BoardSpace street = test_factory.getPropertySpace("Street", "Street Name", 150, new int[]{1, 2, 3, 4, 5, 6}, "Blue");
+		PropertySpace street = (PropertySpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
+		street.setPropertyInfo("Street", "Street Name", 150, new int[]{1, 2, 3, 4, 5, 6}, "Blue");
 		street.addPlayer(test_player);
 	}
 

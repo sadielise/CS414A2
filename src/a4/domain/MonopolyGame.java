@@ -60,7 +60,7 @@ public class MonopolyGame implements IMonopolyGame {
 
 		for (String name : names) {
 			Player newPlayer = new Player(name, 0, 0);
-			transferMoney(bank, newPlayer, 1500);
+			bank.transferMoney(newPlayer, 1500);
 			players.add(new Player(name, 1500, 0));
 		}
 		for (BoardSpace space : board.getSpaces()) {
@@ -151,7 +151,7 @@ public class MonopolyGame implements IMonopolyGame {
 		} else {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			if (currentPlayer.move(value1 + value2, board.getSpaces().size())) {
-				transferMoney(bank, currentPlayer, 200);
+				bank.transferMoney(currentPlayer, 200);
 			}
 			board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
 			playerMoved();
@@ -166,7 +166,7 @@ public class MonopolyGame implements IMonopolyGame {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
 		if (spaceOfPlayer instanceof LuxuryTaxSpace) {
 			model.landedOnNonProperty("Luxury Tax");
-			if (!transferMoney(currentPlayer, bank, 200)) {
+			if (!currentPlayer.transferMoney(bank, 200)) {
 				model.unableToPayTax(200);
 			}
 			else{
@@ -174,7 +174,7 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		} else if (spaceOfPlayer instanceof IncomeTaxSpace) {
 			model.landedOnNonProperty("Income Tax");
-			if (!transferMoney(currentPlayer, bank, 100)) {
+			if (!currentPlayer.transferMoney(bank, 100)) {
 				model.unableToPayTax(100);
 			}
 			else{
@@ -194,7 +194,7 @@ public class MonopolyGame implements IMonopolyGame {
 					if (currentProperty instanceof Utility) {
 						rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
 					}
-					if (transferMoney(currentPlayer, currentProperty.getOwner(), rent)) {
+					if (currentPlayer.transferMoney(currentProperty.getOwner(), rent)) {
 						model.paidRentTo(currentProperty.getOwner().toString(), rent);
 					} else {
 						model.unableToPayRentTo(currentProperty.getOwner().toString(), rent);
@@ -249,7 +249,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (property.getOwner() != null) {
 			return false;
 		} else {
-			if (transferMoney(player, bank, price)) {
+			if (player.transferMoney(bank, price)) {
 				if (property instanceof Railroad) {
 					player.setRailroadCount(player.getRailroadCount() + 1);
 				} else if (property instanceof Utility) {
@@ -289,8 +289,8 @@ public class MonopolyGame implements IMonopolyGame {
 			return -1;
 		} else {
 			propertyToMortgage.setIsMortgaged(true);
-			if (!transferMoney(bank, propertyToMortgage.getOwner(), propertyToMortgage.getValue() / 2)) {
-				transferMoney(bank, propertyToMortgage.getOwner(), bank.getBalance());
+			if (!bank.transferMoney(propertyToMortgage.getOwner(), propertyToMortgage.getValue() / 2)) {
+				bank.transferMoney(propertyToMortgage.getOwner(), bank.getBalance());
 				return bank.getBalance();
 			}
 			return propertyToMortgage.getValue() / 2;
@@ -302,7 +302,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (!propertyToUnmortgage.getIsMortgaged()) {
 			return -1;
 		} else {
-			if (!transferMoney(propertyToUnmortgage.getOwner(), bank, unmortgageCost)) {
+			if (!propertyToUnmortgage.getOwner().transferMoney(bank, unmortgageCost)) {
 				return -1;
 			}
 			propertyToUnmortgage.setIsMortgaged(false);
@@ -386,33 +386,6 @@ public class MonopolyGame implements IMonopolyGame {
 		return purchaseProperty(players.get(winningPlayer), property, highestBid);
 	}
 
-	public boolean transferMoney(Player fromPlayer, Player toPlayer, int amount) {
-		if (fromPlayer.getBalance() < amount) {
-			return false;
-		}
-		fromPlayer.removeBalance(amount);
-		toPlayer.addBalance(amount);
-		return true;
-	}
-
-	public boolean transferMoney(Player fromPlayer, Bank toBank, int amount) {
-		if (fromPlayer.getBalance() < amount) {
-			return false;
-		}
-		fromPlayer.removeBalance(amount);
-		toBank.addBalance(amount);
-		return true;
-	}
-
-	public boolean transferMoney(Bank fromBank, Player toPlayer, int amount) {
-		if (fromBank.getBalance() < amount) {
-			return false;
-		}
-		fromBank.removeBalance(amount);
-		toPlayer.addBalance(amount);
-		return true;
-	}
-
 	public int buyHouse(Street street) {
 		if (houseCount != 0 && street.getIsMortgaged() == false) {
 			boolean houseBought = street.getNeighborhood().addHouse(street);
@@ -421,7 +394,7 @@ public class MonopolyGame implements IMonopolyGame {
 					hotelCount--;
 					houseCount += 4;
 				}
-				transferMoney(street.getOwner(), bank, street.getNeighborhood().getHouseValue());
+				street.getOwner().transferMoney(bank, street.getNeighborhood().getHouseValue());
 				return street.getHouseCount();
 			}
 		}
@@ -438,7 +411,7 @@ public class MonopolyGame implements IMonopolyGame {
 					hotelCount++;
 					houseCount -= 4;
 				}
-				transferMoney(bank, property.getOwner(), tempStreet.getNeighborhood().getHouseValue() / 2);
+				bank.transferMoney(property.getOwner(), tempStreet.getNeighborhood().getHouseValue() / 2);
 				return tempStreet.getHouseCount();
 			}
 		}
@@ -626,10 +599,10 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 			if(currentPlayer.getBalance() < amountOwed){
 				amountOwed -= currentPlayer.getBalance();
-				transferMoney(currentPlayer, bank, currentPlayer.getBalance());
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
 				model.unableToPay(playerOwed, amountOwed);
 			}else{
-				transferMoney(currentPlayer, bank, amountOwed);
+				currentPlayer.transferMoney(bank, amountOwed);
 			}
 		}
 	}
@@ -761,7 +734,7 @@ public class MonopolyGame implements IMonopolyGame {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
 		if (player.getInJail() == false) {
 			return false;
-		} else if (transferMoney(player, bank, 50) == false) {
+		} else if (player.transferMoney(bank, 50) == false) {
 			model.unableToPayFine(50);
 			return false;
 		} else {

@@ -2,10 +2,13 @@ package a4.test;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import a4.domain.*;
+import a4.gui.IModel;
 
 public class PlayerTest {
 
@@ -13,10 +16,18 @@ public class PlayerTest {
 	String name = "Gabby";
 	int balance = 15000;
 	int location = 0;
+	MonopolyGame testGame;
 
 	@Before
 	public void setUp() throws Exception {
 		player = new Player(name, balance, location);
+			testGame = new MonopolyGame();
+			IModel model = new MockModel(testGame);
+			testGame.setModel(model);
+			ArrayList<String> names = new ArrayList<String>();
+			names.add("Chancey");
+			names.add("David");
+			testGame.newGame(names, 30);
 	}
 
 	@After
@@ -455,5 +466,53 @@ public class PlayerTest {
 		assertTrue(0 == player.removeUtility());
 		assertTrue(-1 == player.removeUtility());
 		assertTrue(0 == player.getUtilityCount());
+	}
+	
+	@Test
+	public void testTransferMoneyPlayerToPlayer(){
+		Player testPlayer1 = testGame.getPlayerList().get(0);
+		Player testPlayer2 = testGame.getPlayerList().get(1);
+		int balance1 = testPlayer1.getBalance();
+		int balance2 = testPlayer2.getBalance();
+		boolean success = testPlayer1.transferMoney(testPlayer2, balance1);
+		assertTrue(success);
+		assertEquals(0, testPlayer1.getBalance());
+		assertEquals(balance2 + balance1, testPlayer2.getBalance());
+	}
+	
+	@Test
+	public void testTransferMoneyPlayerToPlayerOverdraft(){
+		Player testPlayer1 = testGame.getPlayerList().get(0);
+		Player testPlayer2 = testGame.getPlayerList().get(1);
+		int balance1 = testPlayer1.getBalance();
+		int balance2 = testPlayer2.getBalance();
+		boolean success = testPlayer1.transferMoney(testPlayer2, balance1 +100);
+		assertFalse(success);
+		assertEquals(balance1, testPlayer1.getBalance());
+		assertEquals(balance2 , testPlayer2.getBalance());
+	}
+
+	@Test
+	public void testTransferMoneyPlayerToBank(){
+		Player testPlayer = testGame.getCurrentPlayerReference();
+		Bank testBank = testGame.getBank();
+		int playerBalance = testPlayer.getBalance();
+		int bankBalance = testBank.getBalance();
+		boolean success = testPlayer.transferMoney(testBank, playerBalance);
+		assertTrue(success);
+		assertEquals(0, testPlayer.getBalance());
+		assertEquals(playerBalance + bankBalance, testBank.getBalance());	
+	}
+
+	@Test
+	public void testTransferMoneyPlayerToBankOverdraft(){
+		Player testPlayer = testGame.getCurrentPlayerReference();
+		Bank testBank = testGame.getBank();
+		int playerBalance = testPlayer.getBalance();
+		int bankBalance = testBank.getBalance();
+		boolean success = testPlayer.transferMoney(testBank, playerBalance + 100);
+		assertFalse(success);
+		assertEquals(playerBalance, testPlayer.getBalance());
+		assertEquals(bankBalance, testBank.getBalance());	
 	}
 }

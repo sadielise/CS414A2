@@ -46,4 +46,14 @@ public class Bank {
 		balance += amountToAdd;
 		return balance;
 	}
+	
+	//transfer money from the bank to toPlayer
+	public boolean transferMoney(Player toPlayer, int amount) {
+		if (balance < amount) {
+			return false;
+		}
+		removeBalance(amount);
+		toPlayer.addBalance(amount);
+		return true;
+	}
 }

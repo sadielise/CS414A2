@@ -6,8 +6,7 @@ import java.util.List;
 public class Neighborhood {
 	private List<Street> streets = new ArrayList<Street>();
 	private String color;
-	private boolean isOwnedByOnePlayer = false;
-	private Player ownedBy = null;
+	private Player owner = null;
 	private int houseValue;
 	private int maxNumHouses;
 	private int minNumHouses;
@@ -43,22 +42,22 @@ public class Neighborhood {
 		houseValue = newHouseValue;
 	}
 
-	public boolean isOwnedByOnePlayer() {
-		return isOwnedByOnePlayer;
+	//returns true if the neighborhood is owned by one player
+	//returns false otherwise
+	public boolean hasOwner() {
+		return (null != owner);
 	}
 
 	public Player belongsTo() {
-		return ownedBy;
+		return owner;
 	}
 
-	public void assignToOnePlayer(Player p) {
-		isOwnedByOnePlayer = true;
-		ownedBy = p;
+	public void setOwner(Player p) {
+		owner = p;
 	}
 
-	public void removeFromOnePlayer() {
-		isOwnedByOnePlayer = false;
-		ownedBy = null;
+	public void removeOwner() {
+		owner = null;
 	}
 
 	public boolean numHousesEqual() {
@@ -80,7 +79,7 @@ public class Neighborhood {
 		if (streetHotel == 1) {
 			streetHouses += 5;
 		}
-		if (null == ownedBy) {
+		if (null == owner) {
 			return false;
 		} else if (null == tempStreet.getOwner()) {
 			return false;

@@ -275,7 +275,7 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 			if (housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()) {
-				neighborhood.assignToOnePlayer(player);
+				neighborhood.setOwner(player);
 			}
 		}
 
@@ -668,7 +668,7 @@ public class MonopolyGame implements IMonopolyGame {
 					if (curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
 					} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
-						if (((Street) curr).getNeighborhood().isOwnedByOnePlayer()) {
+						if (((Street) curr).getNeighborhood().hasOwner()) {
 							if (((Street) curr).getNeighborhood().belongsTo().toString().equals(player)) {
 								propertyList.add(curr.toString());
 							}

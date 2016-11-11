@@ -52,21 +52,21 @@ public class NeighborhoodTest {
 	
 	@Test
 	public void testIsOwnedByPlayer() {
-		assertFalse(test_neighborhood.isOwnedByOnePlayer());
+		assertFalse(test_neighborhood.hasOwner());
 	}
 	
 	@Test
 	public void testAssignToOnePlayer() {
-		test_neighborhood.assignToOnePlayer(test_player);
-		assertTrue(test_neighborhood.isOwnedByOnePlayer());
+		test_neighborhood.setOwner(test_player);
+		assertTrue(test_neighborhood.hasOwner());
 		assertEquals(test_player, test_neighborhood.belongsTo());
 	}
 	
 	@Test
 	public void testRemoveOwnerFromNeighborhood() {
-		test_neighborhood.assignToOnePlayer(test_player);
-		test_neighborhood.removeFromOnePlayer();
-		assertFalse(test_neighborhood.isOwnedByOnePlayer());
+		test_neighborhood.setOwner(test_player);
+		test_neighborhood.removeOwner();
+		assertFalse(test_neighborhood.hasOwner());
 		assertEquals(null, test_neighborhood.belongsTo());
 	}
 	
@@ -143,7 +143,7 @@ public class NeighborhoodTest {
 	public void testRemoveHouse_noStreetOwner(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		assertFalse(test_neighborhood.removeHouse(test_street));
 	}
 	
@@ -151,7 +151,7 @@ public class NeighborhoodTest {
 	public void testRemoveHouse_HasNoHouses(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		assertFalse(test_neighborhood.removeHouse(test_street));
 	}
@@ -162,7 +162,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		test_neighborhood.addStreetToNeighborhood(s2);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		test_neighborhood.addHouse(test_street);
@@ -176,7 +176,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		test_neighborhood.addStreetToNeighborhood(s2);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		test_neighborhood.addHouse(test_street);
@@ -199,7 +199,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -219,7 +219,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -242,7 +242,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -263,7 +263,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -298,7 +298,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -324,7 +324,7 @@ public class NeighborhoodTest {
 	public void testAddHouse_noStreetOwner(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		assertFalse(test_neighborhood.addHouse(test_street));
 	}
 	
@@ -332,7 +332,7 @@ public class NeighborhoodTest {
 	public void testAddHouse_HasHotel(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		test_street.addHouse();
 		test_street.addHouse();
@@ -346,7 +346,7 @@ public class NeighborhoodTest {
 	public void testAddHouse_StreetHasMaxHouses(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		test_street.addHouse();
 		assertFalse(test_neighborhood.addHouse(test_street));
@@ -358,7 +358,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		test_neighborhood.addStreetToNeighborhood(s2);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		assertTrue(test_neighborhood.addHouse(test_street));
@@ -371,7 +371,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		test_neighborhood.addStreetToNeighborhood(s2);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		assertTrue(test_neighborhood.addHouse(test_street));
@@ -387,7 +387,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -405,7 +405,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -425,7 +425,7 @@ public class NeighborhoodTest {
 		test_neighborhood.addStreetToNeighborhood(s2);
 		test_neighborhood.addStreetToNeighborhood(s3);
 		Player p1 = new Player("name", 400, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		s2.setOwner(p1);
 		s3.setOwner(p1);
@@ -442,7 +442,7 @@ public class NeighborhoodTest {
 	public void testAddHouse_OwnerCannotAfford(){
 		test_neighborhood.addStreetToNeighborhood(test_street);
 		Player p1 = new Player("name", 1, 0);
-		test_neighborhood.assignToOnePlayer(p1);
+		test_neighborhood.setOwner(p1);
 		test_street.setOwner(p1);
 		assertFalse(test_neighborhood.addHouse(test_street));
 	}

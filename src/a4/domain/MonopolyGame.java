@@ -8,7 +8,6 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import a4.gui.IModel;
-import a4.gui.Model;
 
 public class MonopolyGame implements IMonopolyGame {
 	private List<Player> players;

@@ -4,6 +4,7 @@ public class OpenSpace extends BoardSpace {
 	String name;
 
 	public OpenSpace() {
+		super(BoardSpaceType.OPEN);
 		name = "";
 	}
 

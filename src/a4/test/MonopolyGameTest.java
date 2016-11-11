@@ -614,7 +614,8 @@ public class MonopolyGameTest {
 		MonopolyGame game = new MonopolyGame();
 		Board board = new Board();
 		int[] values = {1,2,3,4};
-		PropertySpace space = new PropertySpace("street", "name", 20, values, "pink");
+		PropertySpace space = new PropertySpace();
+		space.setPropertyInfo("street", "name", 20, values, "pink");
 		board.addSpace(space);
 		Street s = (Street)space.getProperty();
 		s.setHouseCount(2);
@@ -627,7 +628,8 @@ public class MonopolyGameTest {
 		MonopolyGame game = new MonopolyGame();
 		Board board = new Board();
 		int[] values = {1,2,3,4};
-		PropertySpace space = new PropertySpace("street", "name", 20, values, "pink");
+		PropertySpace space = new PropertySpace();
+		space.setPropertyInfo("street", "name", 20, values, "pink");
 		board.addSpace(space);
 		Street s = (Street)space.getProperty();
 		s.setHotelCount(1);
@@ -639,7 +641,7 @@ public class MonopolyGameTest {
 	public void testGetNumberHouses_NotPropertySpace(){
 		MonopolyGame game = new MonopolyGame();
 		Board board = new Board();
-		BoardSpace space = new BoardSpace();
+		OpenSpace space = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		board.addSpace(space);
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));
@@ -650,7 +652,8 @@ public class MonopolyGameTest {
 		MonopolyGame game = new MonopolyGame();
 		Board board = new Board();
 		int[] values = {1,2,3,4};
-		PropertySpace space = new PropertySpace("utility", "name", 20, values, "pink");
+		PropertySpace space = new PropertySpace();
+		space.setPropertyInfo("utility", "name", 20, values, "pink");
 		board.addSpace(space);
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));

@@ -11,7 +11,7 @@ import org.junit.Test;
 
 public class BoardSpaceTest {
 	BoardSpaceFactory test_factory;
-	BoardSpace test_space;
+	OpenSpace test_space;
 	ArrayList<Player> test_players = new ArrayList<Player>();
 	Player player1 = new Player("Test Player 1", 1500, 0);
 	Player player2 = new Player("Test Player 2", 1500, 0);
@@ -20,8 +20,7 @@ public class BoardSpaceTest {
 
 	@Before
 	public void initialize() {
-		test_factory = new BoardSpaceFactory();
-		test_space = test_factory.getBoardSpace("Open");
+		test_space =(OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 	}
 
 	// Construct

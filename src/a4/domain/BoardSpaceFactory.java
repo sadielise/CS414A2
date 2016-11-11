@@ -2,29 +2,32 @@ package a4.domain;
 
 public class BoardSpaceFactory {
 
-	public BoardSpaceFactory() {
-	}
-
-	public BoardSpace getBoardSpace(String type) {
+	public static BoardSpace getBoardSpace(BoardSpaceType type) {
+		BoardSpace space = null;
 		switch (type) {
-		case ("IncomeTax"):
-			return new IncomeTaxSpace();
-		case ("LuxuryTax"):
-			return new LuxuryTaxSpace();
-		case ("Open"):
-			return new OpenSpace();
-		case ("GoToJail"):
-			return new GoToJailSpace();
-		case ("Jail"):
-			return new JailSpace();
+		case INCOMETAX:
+			space = new IncomeTaxSpace();
+			break;
+		case LUXURYTAX:
+			space = new LuxuryTaxSpace();
+			break;
+		case OPEN:
+			space = new OpenSpace();
+			break;
+		case GOTOJAIL:
+			space = new GoToJailSpace();
+			break;
+		case JAIL:
+			space = new JailSpace();
+			break;
+		case PROPERTY:
+			space = new PropertySpace();
+			break;
 		default:
-			return null;
+			space = null;
+			break;
 		}
+		
+		return space;
 	}
-
-	public BoardSpace getPropertySpace(String type, String name, int value, int[] rent, String color) {
-		PropertySpace propertySpace = new PropertySpace(type, name, value, rent, color);
-		return propertySpace;
-	}
-
 }

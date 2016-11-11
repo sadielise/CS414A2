@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 public class JailSpace extends BoardSpace {
 	public JailSpace() {
+		super(BoardSpaceType.JAIL);
 	}
 
 	HashMap<Player, Integer> playersInJail = new HashMap<Player, Integer>();

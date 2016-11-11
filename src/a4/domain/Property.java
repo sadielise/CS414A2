@@ -1,14 +1,24 @@
 package a4.domain;
 
-public class Property {
+public abstract class Property {
 	int value;
 	Player owner = null;
 	String name;
 	private boolean isMortgaged;
+	PropertyType type;
 
-	public Property(String name, int value) {
+	public Property(String name, int value, PropertyType type) {
 		this.name = name;
 		this.value = value;
+		this.type = type;
+	}
+	
+	public PropertyType getType(){
+		return type;
+	}
+	
+	public void setType(PropertyType type){
+		this.type = type;
 	}
 
 	public int getValue() {

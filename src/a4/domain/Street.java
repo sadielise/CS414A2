@@ -9,7 +9,7 @@ public class Street extends Property {
 	boolean isMortgaged = false;
 
 	public Street(String name, int value, int[] rent, String color) {
-		super(name, value);
+		super(name, value, PropertyType.STREET);
 		this.color = color;
 		this.rent = rent;
 	}

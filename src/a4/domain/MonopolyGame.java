@@ -64,7 +64,7 @@ public class MonopolyGame implements IMonopolyGame {
 			players.add(new Player(name, 1500, 0));
 		}
 		for (BoardSpace space : board.getSpaces()) {
-			if (space instanceof PropertySpace) {
+			if (space.getType() == BoardSpaceType.PROPERTY) {
 				properties.add(((PropertySpace) space).getProperty());
 			}
 		}
@@ -85,7 +85,7 @@ public class MonopolyGame implements IMonopolyGame {
 			if (p.getOwner() != null) {
 				int housesValue = 0;
 				int hotelValue = 0;
-				if (p instanceof Street) {
+				if (p.getType() == PropertyType.STREET) {
 					Street s = (Street) p;
 					housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
 					hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
@@ -212,9 +212,9 @@ public class MonopolyGame implements IMonopolyGame {
 			return false;
 		} else {
 			if (player.transferMoney(bank, price)) {
-				if (property instanceof Railroad) {
+				if (property.getType() == PropertyType.RAILROAD) {
 					player.setRailroadCount(player.getRailroadCount() + 1);
-				} else if (property instanceof Utility) {
+				} else if (property.getType() == PropertyType.UTILITY) {
 					player.setUtilityCount(player.getUtilityCount() + 1);
 				}
 				property.setOwner(player);
@@ -226,7 +226,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	private void checkIfNeighborhoodIsOwnedBy(Player player, Property property) {
-		if (property instanceof Street) {
+		if (property.getType() == PropertyType.STREET) {
 			Neighborhood neighborhood = ((Street) property).getNeighborhood();
 			int housesInNeighborhoodOwnedByPlayer = 0;
 			for (Street curr : neighborhood.getStreets()) {
@@ -288,19 +288,19 @@ public class MonopolyGame implements IMonopolyGame {
 	public void tradeProperty(Property property1, Property property2) {
 		Player player1 = property1.getOwner();
 		Player player2 = property2.getOwner();
-		if (property1 instanceof Railroad) {
+		if (property1.getType() == PropertyType.RAILROAD) {
 			player1.setRailroadCount(player1.getRailroadCount() - 1);
 			player2.setRailroadCount(player2.getRailroadCount() + 1);
 		}
-		if (property2 instanceof Railroad) {
+		if (property2.getType() == PropertyType.RAILROAD) {
 			player2.setRailroadCount(player2.getRailroadCount() - 1);
 			player1.setRailroadCount(player1.getRailroadCount() + 1);
 		}
-		if (property1 instanceof Utility) {
+		if (property1.getType() == PropertyType.UTILITY) {
 			player1.setUtilityCount(player1.getUtilityCount() - 1);
 			player2.setUtilityCount(player2.getUtilityCount() + 1);
 		}
-		if (property2 instanceof Utility) {
+		if (property2.getType() == PropertyType.UTILITY) {
 			player2.setUtilityCount(player2.getUtilityCount() - 1);
 			player1.setUtilityCount(player1.getUtilityCount() + 1);
 		}
@@ -314,7 +314,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;
 		BoardSpace space = board.getSpaces().get(currentPlayer.getLocation());
-		if (space instanceof PropertySpace) {
+		if (space.getType() == BoardSpaceType.PROPERTY) {
 			propertyToAuction = ((PropertySpace) space).getProperty();
 			int[] bids = new int[offers.size()];
 			for (int i = 0; i < offers.size(); i++) {
@@ -364,7 +364,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public int sellHouse(Street property) { // Write tests
-		if (property instanceof Street) {
+		if (property.getType() == PropertyType.STREET) {
 			Street tempStreet = (Street) property;
 			int propertyHotelCount = tempStreet.getHotelCount();
 			boolean houseRemoved = tempStreet.getNeighborhood().removeHouse(tempStreet);
@@ -443,7 +443,7 @@ public class MonopolyGame implements IMonopolyGame {
 	@Override
 	public String getProperty(int location) {
 		BoardSpace space = board.getSpaces().get(location);
-		if (space instanceof PropertySpace) {
+		if (space.getType() == BoardSpaceType.PROPERTY) {
 			PropertySpace temp = (PropertySpace) space;
 			return temp.getProperty().toString();
 		}
@@ -464,7 +464,7 @@ public class MonopolyGame implements IMonopolyGame {
 			} else {
 				model.propertyCannotBeDeveloped(property);
 			}
-		} else if (currentProperty instanceof Street) {
+		} else if (currentProperty.getType() == PropertyType.STREET) {
 			Street currentStreet = (Street) currentProperty;
 			int success = buyHouse(currentStreet);
 			if (success == -1) {
@@ -545,7 +545,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);
 		} else {
-			if (currentProperty instanceof Street) {
+			if (currentProperty.getType() == PropertyType.STREET) {
 				Street street = (Street) currentProperty;
 				int streetCount = -2;
 				if(street.getHouseCount() == 0 && street.getHotelCount() == 0){
@@ -588,7 +588,7 @@ public class MonopolyGame implements IMonopolyGame {
 				if (curr.getOwner().toString().equals(player)) {
 					if (curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
-					} else if (curr instanceof Street && ((Street) curr).getHotelCount() < 1) {
+					} else if (curr.getType() == PropertyType.STREET && ((Street) curr).getHotelCount() < 1) {
 						if (((Street) curr).getNeighborhood().hasOwner()) {
 							if (((Street) curr).getNeighborhood().belongsTo().toString().equals(player)) {
 								propertyList.add(curr.toString());
@@ -606,7 +606,7 @@ public class MonopolyGame implements IMonopolyGame {
 		for (Property curr : properties) {
 			if (curr.getOwner() != null) {
 				if (curr.getOwner().toString().equals(player)) {
-					if (curr instanceof Street) {
+					if (curr.getType() == PropertyType.STREET) {
 						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
 							propertyList.add(curr.toString());
 						}else{
@@ -698,9 +698,9 @@ public class MonopolyGame implements IMonopolyGame {
 	public int getNumberHouses(int location) {
 		int numHouses = 0;
 		BoardSpace space = board.getSpaces().get(location);
-		if (space instanceof PropertySpace) {
+		if (space.getType() == BoardSpaceType.PROPERTY) {
 			Property p = ((PropertySpace) space).getProperty();
-			if (p instanceof Street) {
+			if (p.getType() == PropertyType.STREET) {
 				Street s = (Street) p;
 				numHouses += s.getHouseCount();
 				if (s.getHotelCount() > 0) {

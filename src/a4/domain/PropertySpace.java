@@ -19,8 +19,6 @@ public class PropertySpace extends BoardSpace {
 			property = new Utility(name, value);
 		} else if (type.toLowerCase().equals("street")) {
 			property = new Street(name, value, rent, color);
-		} else {
-			property = new Property(name, value);
 		}
 	}
 

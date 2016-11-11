@@ -269,7 +269,7 @@ public class MonopolyGameTest {
 		Player player = new Player("Gabby", 200, 0);
 		int propertyValue = 100;
 		int bankBalance = testGame.getBank().getBalance();
-		Property property = new Property("Super cool property", propertyValue);
+		Railroad property = new Railroad("Super cool property", propertyValue);
 		assertTrue(testGame.purchaseProperty(player, property, propertyValue));
 		assertEquals(100, player.getBalance());
 		assertEquals(player, property.getOwner());
@@ -281,7 +281,7 @@ public class MonopolyGameTest {
 		Player player = new Player("Gabby", 200, 0);
 		int propertyValue = 300;
 		int bankBalance = testGame.getBank().getBalance();
-		Property property = new Property("Super cool property", propertyValue);
+		Railroad property = new Railroad("Super cool property", propertyValue);
 		assertFalse(testGame.purchaseProperty(player, property, propertyValue));
 		assertEquals(200, player.getBalance());
 		assertNotEquals(player, property.getOwner());
@@ -300,7 +300,7 @@ public class MonopolyGameTest {
 		Player player = new Player("Gabby", 200, 0);
 		Player player2 = new Player("Chancey", 200, 0);
 		int propertyValue = 100;
-		Property property = new Property("Super cool property", propertyValue);
+		Railroad property = new Railroad("Super cool property", propertyValue);
 		property.setOwner(player2);
 		assertFalse(testGame.purchaseProperty(player, property, propertyValue));
 		assertEquals(player2, property.getOwner());
@@ -402,7 +402,7 @@ public class MonopolyGameTest {
 		tempJail.sendToJail(testGame.getCurrentPlayerReference());
 		assertNotNull(tempJail);
 		assertEquals(tempJail.getLocation(), testGame.getCurrentPlayerReference().getLocation());
-		assertTrue(tempJail.isInPrison(testGame.getCurrentPlayerReference()));
+		assertTrue(tempJail.isInJail(testGame.getCurrentPlayerReference()));
 		assertTrue(tempJail.getPlayers().contains(testGame.getCurrentPlayerReference()));
 	}
 /*

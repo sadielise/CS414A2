@@ -16,6 +16,19 @@ public class Board {
 		createBoardRight();
 	}
 	
+	public List<BoardSpace> getSpaces() {
+		return spaces;
+	}
+
+	public void addSpace(BoardSpace space_to_add) {
+		spaces.add(space_to_add);
+	}
+	
+	public int getJailLocation(){
+		return jailLocation;
+	}
+	
+	// creates all neighborhoods and adds them to the neighborhoods list
 	private void createNeighborhoods(){
 		neighborhoods = new ArrayList<Neighborhood>();
 		neighborhoods.add(new Neighborhood("Brown", 50));
@@ -28,6 +41,7 @@ public class Board {
 		neighborhoods.add(new Neighborhood("Blue", 200));
 	}
 	
+	// creates bottom row board spaces
 	private void createBoardBottom(){
 
 		OpenSpace space1 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
@@ -75,6 +89,7 @@ public class Board {
 		spaces.add(space10);
 	}
 
+	// creates left row board spaces
 	private void createBoardLeft(){
 		
 		JailSpace space11 = (JailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
@@ -124,6 +139,7 @@ public class Board {
 		spaces.add(space20);
 	}
 	
+	// creates top row board spaces
 	private void createBoardTop(){
 
 		OpenSpace space21 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
@@ -173,6 +189,7 @@ public class Board {
 		this.addToNeighborhood(space30);
 	}
 	
+	// creates right row board spaces
 	private void createBoardRight(){
 		
 		GoToJailSpace space31 = (GoToJailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
@@ -218,20 +235,8 @@ public class Board {
 		spaces.add(space40);
 		this.addToNeighborhood(space40);
 	}
-	
-	public List<BoardSpace> getSpaces() {
-		return spaces;
-	}
 
-	public void addSpace(BoardSpace space_to_add) {
-		spaces.add(space_to_add);
-	}
-	
-	public int getJailLocation(){
-		return jailLocation;
-	}
-
-	// Precondition: the boardspace is a street property space
+	// adds board space (street) to corresponding neighborhood based on property/neighborhood color
 	public void addToNeighborhood(BoardSpace space) {
 		Street s = (Street) ((PropertySpace) space).getProperty();
 		for (Neighborhood n : neighborhoods) {

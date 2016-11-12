@@ -53,7 +53,7 @@ public class NeighborhoodTest {
 	public void testAssignToOnePlayer() {
 		test_neighborhood.setOwner(test_player);
 		assertTrue(test_neighborhood.hasOwner());
-		assertEquals(test_player, test_neighborhood.belongsTo());
+		assertEquals(test_player, test_neighborhood.getOwner());
 	}
 	
 	@Test
@@ -61,7 +61,7 @@ public class NeighborhoodTest {
 		test_neighborhood.setOwner(test_player);
 		test_neighborhood.removeOwner();
 		assertFalse(test_neighborhood.hasOwner());
-		assertEquals(null, test_neighborhood.belongsTo());
+		assertEquals(null, test_neighborhood.getOwner());
 	}
 	
 	@Test

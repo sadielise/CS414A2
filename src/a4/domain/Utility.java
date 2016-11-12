@@ -6,6 +6,7 @@ public class Utility extends Property {
 		super(name, value, PropertyType.UTILITY);
 	}
 
+	// returns rent based on dice_roll value
 	@Override
 	public int getRent(int dice_roll) {
 		if (owner.getUtilityCount() == 1) {

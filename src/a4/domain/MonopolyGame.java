@@ -28,6 +28,11 @@ public class MonopolyGame implements IMonopolyGame {
 	private int minNumPlayers = 2;
 	private int maxNumPlayers = 4;
 
+
+	public List<Player> getPlayerList() {
+		return players;
+	}
+	
 	public Bank getBank() {
 		return bank;
 	}
@@ -68,7 +73,8 @@ public class MonopolyGame implements IMonopolyGame {
 	public Player getCurrentPlayerReference() {
 		return currentPlayer;
 	}
-
+	
+	//return the player object associated with playerName
 	public Player findPlayer(String playerName) {
 		for (Player curr : players) {
 			if (curr.toString().equals(playerName)) {
@@ -78,6 +84,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return null;
 	}
 
+	//return the Property onject associated with propertyName
 	public Property findProperty(String propertyName) {
 		for (Property curr : properties) {
 			if (curr.toString().equals(propertyName)) {
@@ -87,6 +94,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return null;
 	}
 
+	//get the list of players as strings
 	@Override
 	public List<String> getPlayers() {
 		List<String> playerNames = new ArrayList<String>();
@@ -98,6 +106,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return playerNames;
 	}
 
+	//get the Player bankroll associated with the string "player"
 	@Override
 	public int getBankroll(String player) {
 		for (Player curr : players) {
@@ -108,6 +117,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return -1;
 	}
 
+	//get the Player location associated with the string "player"
 	@Override
 	public int getLocation(String player) {
 		Player temp = findPlayer(player);
@@ -117,6 +127,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return temp.getLocation();
 	}
 
+	//return the list of properties that a player owns as strings
 	@Override
 	public List<String> getProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
@@ -130,6 +141,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
+	//return the property located at "location" as a string
 	@Override
 	public String getProperty(int location) {
 		BoardSpace space = board.getSpaces().get(location);
@@ -140,6 +152,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return null;
 	}
 
+	//return the player's order number
 	@Override
 	public int getPlayerNumber(String player) {
 		Player playerToFind = findPlayer(player);
@@ -149,6 +162,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return players.indexOf(playerToFind);
 	}
 
+	//returns the number of houses for the property at "location"
 	@Override
 	public int getNumberHouses(int location) {
 		int numHouses = 0;
@@ -166,8 +180,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return numHouses;
 	}
 
+	//create all of instances of the objects needed to play a monopoly game
 	public boolean setupGame(List<String> names, int time) {
-
 		if (names == null || names.size() < minNumPlayers || names.size() > maxNumPlayers) {
 			return false;
 		}
@@ -200,7 +214,8 @@ public class MonopolyGame implements IMonopolyGame {
 		startTimer(time);
 		return true;
 	}
-
+	
+	//clear the variables from an old game, setup a new game, nd start the timer
 	@Override
 	public void newGame(List<String> playerNames, int timeInMinutes) {
 		players = null;
@@ -217,7 +232,8 @@ public class MonopolyGame implements IMonopolyGame {
 			model.newGameFailedToCreate();
 		}
 	}
-
+	
+	//create and start the timer for the game
 	public void startTimer(int timeInMinutes) {
 		gameTime = new Timer();
 		long timeInMilliseconds = timeInMinutes * 60000;
@@ -228,6 +244,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}, timeInMilliseconds);
 	}
 
+	//end a players Turn and start the turn of the next player
 	@Override
 	public void endTurn() {
 		int currentPlayerNumber = players.indexOf(currentPlayer);
@@ -279,6 +296,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//remove a player from the game
+	//remove player as owner from properties
 	public boolean removePlayer(Player player) {
 		if (players.contains(player)) {
 			for (Property property : properties) {
@@ -306,11 +325,11 @@ public class MonopolyGame implements IMonopolyGame {
 		roll(0);
 	}
 
+	//roll the die and keep track of the number of doubles rolled
+	//send the player to jail if 3 sets of doubles rolled
 	public void roll(int pastNumberOfDoubles) {
-		//		int value1 = dice.get(0).roll();
-		//		int value2 = dice.get(1).roll();
-		int value1 = 0;
-		int value2 = 1;
+		int value1 = dice.get(0).roll();
+		int value2 = dice.get(1).roll();
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -332,6 +351,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//perform the action associated with the boardSpace that the player moved to
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
 		spaceOfPlayer.landedOnAction(model, currentPlayer, bank, dice);
@@ -342,6 +362,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//randomize the list of players to determine the order of play
 	public void determinePlayOrder() {
 		Collections.shuffle(players);
 	}
@@ -370,22 +391,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
-	//	public int mortgageProperty(Property propertyToMortgage) {
-	//		if (!(currentPlayer.equals(propertyToMortgage.getOwner()))) {
-	//			return -1;
-	//		}
-	//		if (propertyToMortgage.getIsMortgaged()) {
-	//			return -1;
-	//		} else {
-	//			propertyToMortgage.setIsMortgaged(true);
-	//			if (!bank.transferMoney(propertyToMortgage.getOwner(), propertyToMortgage.getValue() / 2)) {
-	//				bank.transferMoney(propertyToMortgage.getOwner(), bank.getBalance());
-	//				return bank.getBalance();
-	//			}
-	//			return propertyToMortgage.getValue() / 2;
-	//		}
-	//	}
-
+	//attempts to unmortgage the property
+	//sends result of unmortgage to model
 	private int unmortgageProperty(Property propertyToUnmortgage) {
 		int unmortgageCost = (int) (propertyToUnmortgage.getValue() * 1.1);
 		if (!propertyToUnmortgage.getIsMortgaged()) {
@@ -399,6 +406,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//trade the properties associated with the strings "currProperty" and "otherProperty"
 	@Override
 	public void trade(String currProperty, String otherProperty) {
 		Property property1 = findProperty(currProperty);
@@ -410,7 +418,9 @@ public class MonopolyGame implements IMonopolyGame {
 			model.tradeSucceeded(currProperty, otherProperty);
 		}
 	}
-
+	
+	//purchase a property after an auction
+	//sends result of purchase to model
 	@Override
 	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;
@@ -431,8 +441,9 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//find the highest bid
+	//sell property to player who bid the highest
 	public boolean bid(int[] bids, Property property) {
-		// get values from model
 		int highestBid = 0;
 		int winningPlayer = 0;
 		for (int i = 0; i < bids.length; i++) {
@@ -449,6 +460,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return players.get(winningPlayer).purchaseProperty(bank, property, highestBid);
 	}
 
+	//purchase a house for a street if it is legal
 	public int buyHouse(Street street) {
 		if (houseCount != 0 && street.getIsMortgaged() == false) {
 			boolean houseBought = street.getNeighborhood().addHouse(street);
@@ -464,6 +476,10 @@ public class MonopolyGame implements IMonopolyGame {
 		return -1;
 	}
 
+
+
+	//develop a property (unmortgage, buy house) if legal
+	//sends result of development to model
 	@Override
 	public void developProperty(String property) {
 		Property currentProperty = findProperty(property);
@@ -491,10 +507,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
-	public List<Player> getPlayerList() {
-		return players;
-	}
-
+	//undevelop a property (mortgage, sell houses) if legal, when a player needs more money
+	//sends result of undevelop to model
 	@Override
 	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
@@ -529,6 +543,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//get the list of properties that "player" can develop
 	public List<String> getDevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
@@ -538,7 +553,7 @@ public class MonopolyGame implements IMonopolyGame {
 						propertyList.add(curr.toString());
 					} else if (curr.getType() == PropertyType.STREET && ((Street) curr).getHotelCount() < 1) {
 						if (((Street) curr).getNeighborhood().hasOwner()) {
-							if (((Street) curr).getNeighborhood().belongsTo().toString().equals(player)) {
+							if (((Street) curr).getNeighborhood().getOwner().toString().equals(player)) {
 								propertyList.add(curr.toString());
 							}
 						}
@@ -549,7 +564,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
-	public List<String> getPlayersUndevelopableProperties(String player) {
+	//get the list of properties that "player" can undevelop
+	public List<String> getUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for (Property curr : properties) {
 			if (curr.getOwner() != null) {
@@ -563,6 +579,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
+	//player attempts to toll doubles to get out of jail
+	//player pays the jail fine if they do not have any more chances to roll doubles
 	public boolean rollToGetOutOfJail(Player player) {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
 		if (player.getInJail() == false) {
@@ -600,6 +618,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//player payer the jail fine to get out of jail
 	@Override
 	public void payJailFine(String player, boolean isPayingFine) {
 		Player playerPayingFine = findPlayer(player);
@@ -617,6 +636,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
+	//jail fine is transfered from player to the bank
+	//sends result of payment to model
 	public boolean payFineToLeaveJail(Player player) {
 		JailSpace jail = (JailSpace) board.getSpaces().get(10);
 		if (player.getInJail() == false) {

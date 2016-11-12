@@ -44,6 +44,6 @@ public interface IMonopolyGame {
 
 	public List<String> getDevelopableProperties(String player);
 
-	public List<String> getPlayersUndevelopableProperties(String player);
+	public List<String> getUndevelopableProperties(String player);
 
 }

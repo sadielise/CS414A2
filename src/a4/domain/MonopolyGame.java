@@ -245,37 +245,11 @@ public class MonopolyGame implements IMonopolyGame {
 		if (property1 == null || property2 == null) {
 			model.tradeFailed(currProperty, otherProperty);
 		} else {
-			tradeProperty(property1, property2);
+			property1.tradeProperty(property2);
 			model.tradeSucceeded(currProperty, otherProperty);
 		}
-
 	}
-
-	public void tradeProperty(Property property1, Property property2) {
-		Player player1 = property1.getOwner();
-		Player player2 = property2.getOwner();
-		if (property1.getType() == PropertyType.RAILROAD) {
-			player1.setRailroadCount(player1.getRailroadCount() - 1);
-			player2.setRailroadCount(player2.getRailroadCount() + 1);
-		}
-		if (property2.getType() == PropertyType.RAILROAD) {
-			player2.setRailroadCount(player2.getRailroadCount() - 1);
-			player1.setRailroadCount(player1.getRailroadCount() + 1);
-		}
-		if (property1.getType() == PropertyType.UTILITY) {
-			player1.setUtilityCount(player1.getUtilityCount() - 1);
-			player2.setUtilityCount(player2.getUtilityCount() + 1);
-		}
-		if (property2.getType() == PropertyType.UTILITY) {
-			player2.setUtilityCount(player2.getUtilityCount() - 1);
-			player1.setUtilityCount(player1.getUtilityCount() + 1);
-		}
-		property1.setOwner(player2);
-		property2.setOwner(player1);
-		player1.checkIfNeighborhoodIsOwnedBy(property2);
-		player2.checkIfNeighborhoodIsOwnedBy(property1);
-	}
-
+	
 	@Override
 	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;

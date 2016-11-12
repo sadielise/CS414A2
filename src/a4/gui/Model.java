@@ -48,7 +48,7 @@ public class Model implements IModel {
 	}
 	
 	public List<String> getPlayersUndevelopableProperties(String player){
-		return game.getPlayersUndevelopableProperties(player);
+		return game.getUndevelopableProperties(player);
 	}
 
 	public void purchaseAuctionedProperty(List<Integer> offers){

@@ -149,7 +149,6 @@ public class MonopolyGame implements IMonopolyGame {
 		return players.indexOf(playerToFind);
 	}
 	
-
 	@Override
 	public int getNumberHouses(int location) {
 		int numHouses = 0;
@@ -202,7 +201,6 @@ public class MonopolyGame implements IMonopolyGame {
 		return true;
 	}
 	
-
 	@Override
 	public void newGame(List<String> playerNames, int timeInMinutes) {
 		players = null;
@@ -434,7 +432,6 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public boolean bid(int[] bids, Property property) {
-		// get values from model
 		int highestBid = 0;
 		int winningPlayer = 0;
 		for (int i = 0; i < bids.length; i++) {
@@ -571,7 +568,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return propertyList;
 	}
 
-	public List<String> getPlayersUndevelopableProperties(String player) {
+	public List<String> getUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
 		for(Property curr : properties){
 			if(curr.getOwner() != null){
@@ -582,23 +579,6 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 		}
-//		for (Property curr : properties) {
-//			if (curr.getOwner() != null) {
-//				if (curr.getOwner().toString().equals(player)) {
-//					if (curr.getType() == PropertyType.STREET) {
-//						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
-//							propertyList.add(curr.toString());
-//						} else {
-//							if (!curr.getIsMortgaged()) {
-//								propertyList.add(curr.toString());
-//							}
-//						}
-//					} else if (!curr.getIsMortgaged()) {
-//						propertyList.add(curr.toString());
-//					}
-//				}
-//			}
-//		}
 		return propertyList;
 	}
 

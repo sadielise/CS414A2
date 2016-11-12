@@ -93,6 +93,23 @@ public class Street extends Property {
 			return false;
 		}	
 	}
+	
+	//returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if developing failed.
+	@Override
+	public int develop(Bank bank){
+		if(isMortgaged){
+			if(unmortgage(bank)){
+				return 1;
+			}else{
+				return -1;
+			}
+		}else if(neighborhood.addHouse(this)){
+			this.owner.transferMoney(bank, this.neighborhood.getHouseValue());
+			return 2;
+		}else{
+			return -1;
+		}
+	}
 
 	public String toString() {
 		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;

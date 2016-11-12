@@ -22,10 +22,6 @@ public class Neighborhood {
 		return color;
 	}
 
-	public void setColor(String new_color) {
-		color = new_color;
-	}
-
 	public List<Street> getStreets() {
 		return streets;
 	}
@@ -38,12 +34,8 @@ public class Neighborhood {
 		return houseValue;
 	}
 
-	public void setHouseValue(int newHouseValue) {
-		houseValue = newHouseValue;
-	}
-
-	//returns true if the neighborhood is owned by one player
-	//returns false otherwise
+	// returns true if the neighborhood is owned by one player
+	// returns false otherwise
 	public boolean hasOwner() {
 		return (null != owner);
 	}

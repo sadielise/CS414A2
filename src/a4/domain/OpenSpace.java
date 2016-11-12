@@ -5,7 +5,8 @@ import java.util.List;
 import a4.gui.IModel;
 
 public class OpenSpace extends BoardSpace {
-	String name;
+	
+	private String name;
 
 	public OpenSpace() {
 		super(BoardSpaceType.OPEN);

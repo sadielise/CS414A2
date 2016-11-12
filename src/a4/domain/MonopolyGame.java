@@ -318,7 +318,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (doubles && pastNumberOfDoubles == 2) {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
-			jail.sendToJail(currentPlayer);
+			jail.putPlayerInJail(currentPlayer);
 			model.playerSentToJail(currentPlayer.toString());
 		} else {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
@@ -340,7 +340,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (spaceOfPlayer.getType() == BoardSpaceType.GOTOJAIL) {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
-			jail.sendToJail(currentPlayer);
+			jail.putPlayerInJail(currentPlayer);
 		}
 	}
 
@@ -618,8 +618,8 @@ public class MonopolyGame implements IMonopolyGame {
 				board.getSpaces().get(player.getLocation()).removePlayer(player);
 				currentPlayer.move(value1 + value2, board.getSpaces().size());
 				board.getSpaces().get(player.getLocation()).addPlayer(player);
-				player.setInJail(false);
 				jail.removePlayer(player);
+				jail.getOutOfJail(player);
 				playerMoved();
 				return true;
 			} else {
@@ -664,10 +664,8 @@ public class MonopolyGame implements IMonopolyGame {
 			model.unableToPayFine(50);
 			return false;
 		} else {
-			player.setInJail(false);
-			jail.removePlayer(player);
+			jail.getOutOfJail(player);
 			model.paidRentTo("Jail", 50);
-			// model.paidJailFine();
 			return true;
 		}
 	}

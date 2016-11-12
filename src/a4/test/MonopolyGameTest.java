@@ -526,17 +526,6 @@ public class MonopolyGameTest {
 		Property p1 = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
 		assertTrue(testGame.purchaseProperty(currentPlayer, p1, p1.getValue()));
 	}
-//	@Test
-//	public void testMeh(){
-//		BoardSpace bs = testGame.getBoard().getSpaces().get(1);
-//		Property p = ((PropertySpace)bs).getProperty();
-//		Street s = (Street)p;
-//		System.out.println(s.toString());
-////		System.out.println(s.getNeighborhood().getStreets().size());
-//		for(Street street: s.getNeighborhood().getStreets()){
-//			System.out.println(street.toString());
-//		}
-//	}
 	
 	@Test
 	public void testGetNumberHouses_Success(){
@@ -586,5 +575,96 @@ public class MonopolyGameTest {
 		board.addSpace(space);
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));
+	}
+	
+	@Test
+	public void testSellHouse_Success(){
+		Player testPlayer = new Player("test", 0,0);
+		Board board = new Board();
+		BoardSpace space1 = board.getSpaces().get(1);
+		BoardSpace space2 = board.getSpaces().get(3);
+		Street street1 = (Street)((PropertySpace)space1).getProperty();
+		Street street2 = (Street)((PropertySpace)space2).getProperty();
+		street1.setOwner(testPlayer);
+		street2.setOwner(testPlayer);
+		street1.getNeighborhood().setOwner(testPlayer);
+		street1.addHouse();
+		assertEquals(1, street1.getHouseCount());
+		assertNotEquals(-1, testGame.sellHouse(street1));
+		assertNotEquals(0, testPlayer.getBalance());
+	}
+	
+	@Test
+	public void testSellHouse_Failure_NoHouses(){
+		Player testPlayer = new Player("test", 0,0);
+		Board board = new Board();
+		BoardSpace space1 = board.getSpaces().get(1);
+		BoardSpace space2 = board.getSpaces().get(3);
+		Street street1 = (Street)((PropertySpace)space1).getProperty();
+		Street street2 = (Street)((PropertySpace)space2).getProperty();
+		street1.setOwner(testPlayer);
+		street2.setOwner(testPlayer);
+		street1.getNeighborhood().setOwner(testPlayer);
+		assertEquals(-1, testGame.sellHouse(street1));
+	}
+	@Test
+	public void testSellHouse_Failure_UnbalancedHouses(){
+		Player testPlayer = new Player("test", 10000,0);
+		Board board = new Board();
+		BoardSpace space1 = board.getSpaces().get(1);
+		BoardSpace space2 = board.getSpaces().get(3);
+		Street street1 = (Street)((PropertySpace)space1).getProperty();
+		Street street2 = (Street)((PropertySpace)space2).getProperty();
+		street1.setOwner(testPlayer);
+		street2.setOwner(testPlayer);
+		street1.getNeighborhood().setOwner(testPlayer);
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertEquals(-1, testGame.sellHouse(street2));	
+	}
+	
+	@Test
+	public void testSellHouse_SellingHotel(){
+		Player testPlayer = new Player("test", 10000,0);
+		Board board = new Board();
+		BoardSpace space1 = board.getSpaces().get(1);
+		BoardSpace space2 = board.getSpaces().get(3);
+		Street street1 = (Street)((PropertySpace)space1).getProperty();
+		Street street2 = (Street)((PropertySpace)space2).getProperty();
+		street1.setOwner(testPlayer);
+		street2.setOwner(testPlayer);
+		street1.getNeighborhood().setOwner(testPlayer);
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		assertTrue(street2.getNeighborhood().addHouse(street2));
+		assertNotEquals(-1, testGame.sellHouse(street1));
+		assertEquals(0, street1.getHotelCount());
+		assertEquals(4, street1.getHouseCount());
+	}
+	
+	@Test
+	public void testSellHouse_BankHasLowMoney(){
+		Player testPlayer = new Player("test", 10000,0);
+		Board board = new Board();
+		BoardSpace space1 = board.getSpaces().get(1);
+		BoardSpace space2 = board.getSpaces().get(3);
+		Street street1 = (Street)((PropertySpace)space1).getProperty();
+		Street street2 = (Street)((PropertySpace)space2).getProperty();
+		street1.setOwner(testPlayer);
+		street2.setOwner(testPlayer);
+		street1.getNeighborhood().setOwner(testPlayer);
+		assertTrue(street1.getNeighborhood().addHouse(street1));
+		testGame.getBank().setBalance(1);
+		int playerBalance = testPlayer.getBalance();
+		assertNotEquals(-1, testGame.sellHouse(street1));
+		assertEquals(playerBalance + 1, testPlayer.getBalance());
 	}
 }

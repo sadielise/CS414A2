@@ -40,8 +40,32 @@ public abstract class Property {
 	public String toString() {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
 	}
-
-	public int getRent() {
-		return 0;
+	
+	public void tradeProperty(Property propertyToTrade) {
+		Player player = propertyToTrade.getOwner();
+		if (type == PropertyType.RAILROAD) {
+			owner.setRailroadCount(owner.getRailroadCount() - 1);
+			player.setRailroadCount(player.getRailroadCount() + 1);
+		}
+		if (propertyToTrade.getType() == PropertyType.RAILROAD) {
+			player.setRailroadCount(player.getRailroadCount() - 1);
+			owner.setRailroadCount(owner.getRailroadCount() + 1);
+		}
+		if (type == PropertyType.UTILITY) {
+			owner.setUtilityCount(owner.getUtilityCount() - 1);
+			player.setUtilityCount(player.getUtilityCount() + 1);
+		}
+		if (propertyToTrade.getType() == PropertyType.UTILITY) {
+			player.setUtilityCount(player.getUtilityCount() - 1);
+			owner.setUtilityCount(owner.getUtilityCount() + 1);
+		}
+		
+		Player tempOwner = owner;
+		owner = player;
+		propertyToTrade.setOwner(tempOwner);
+		tempOwner.checkIfNeighborhoodIsOwnedBy(propertyToTrade);
+		owner.checkIfNeighborhoodIsOwnedBy(this);
 	}
+
+	public abstract int getRent(int dice_roll);
 }

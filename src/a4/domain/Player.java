@@ -7,7 +7,7 @@ public class Player {
 	private Token token;
 	private boolean inJail;
 	private int location;
-	// NOTE: location is zero based
+	// NOTE: location is zero-based
 	private int numRailroads;
 	private int numUtilities;
 
@@ -68,10 +68,8 @@ public class Player {
 
 	/*
 	 * Summary: removes ammountToRemove from the balance of the player
-	 * 
 	 * Returns: The remaining balance of the player if ammountToRemove is larger
 	 * than the balance, will return -1
-	 * 
 	 */
 	public int removeBalance(int amountToRemove) {
 		if (balance < amountToRemove) {
@@ -189,5 +187,43 @@ public class Player {
 		removeBalance(amount);
 		toBank.addBalance(amount);
 		return true;
+	}
+	
+	public boolean purchaseProperty(Bank toBank, Property property, int price) {
+		if (property == null) {
+			return false;
+		}
+		if (property.getOwner() != null) {
+			return false;
+		} else {
+			if (transferMoney(toBank, price)) {
+				if (property.getType() == PropertyType.RAILROAD) {
+					setRailroadCount(getRailroadCount() + 1);
+				} else if (property.getType() == PropertyType.UTILITY) {
+					setUtilityCount(getUtilityCount() + 1);
+				}
+				property.setOwner(this);
+				checkIfNeighborhoodIsOwnedBy(property);
+				return true;
+			}
+			return false;
+		}
+	}
+	
+	public void checkIfNeighborhoodIsOwnedBy(Property property) {
+		if (property.getType() == PropertyType.STREET) {
+			Neighborhood neighborhood = ((Street) property).getNeighborhood();
+			int housesInNeighborhoodOwnedByPlayer = 0;
+			for (Street curr : neighborhood.getStreets()) {
+				if (curr.getOwner() != null) {
+					if (curr.getOwner().equals(this)) {
+						housesInNeighborhoodOwnedByPlayer++;
+					}
+				}
+			}
+			if (housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()) {
+				neighborhood.setOwner(this);
+			}
+		}
 	}
 }

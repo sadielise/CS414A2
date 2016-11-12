@@ -34,7 +34,7 @@ public class PropertySpace extends BoardSpace {
 		} else if (!currentProperty.getOwner().equals(currentPlayer)) {
 			model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 			if (!currentProperty.getIsMortgaged()) {
-				int rent = currentProperty.getRent();
+				int rent = currentProperty.getRent(0);
 				if (currentProperty instanceof Utility) {
 					rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
 				}

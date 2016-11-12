@@ -8,7 +8,6 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -104,7 +103,7 @@ public class MonopolyGameTest {
 		testGame.getCurrentPlayerReference().setLocation(1);
 		int currentPlayerBalance = testGame.getCurrentPlayerReference().getBalance();
 		int ownerBalance = tempPlayer.getBalance();
-		int rent = tempProperty.getRent();
+		int rent = tempProperty.getRent(0);
 		testGame.playerMoved();
 		assertEquals(currentPlayerBalance - rent, testGame.getCurrentPlayerReference().getBalance());
 		assertEquals(ownerBalance + rent, tempPlayer.getBalance());
@@ -226,23 +225,6 @@ public class MonopolyGameTest {
 
 	}
 
-
-
-
-	@Test 
-	public void testGetHouseCount(){
-		testGame.setHouseCount(10);
-		assertEquals(10, testGame.getHouseCount());
-	}
-
-	@Test
-	public void testSetHouseCount(){
-		int oldCount = testGame.getHouseCount();
-		int newCount = oldCount +2;
-		testGame.setHouseCount(newCount);
-		assertEquals(testGame.getHouseCount(), newCount);
-	}
-
 	@Test
 	public void testGetCurrentPlayer(){
 		String testString = testGame.getCurrentPlayerReference().toString();
@@ -270,7 +252,7 @@ public class MonopolyGameTest {
 		int propertyValue = 100;
 		int bankBalance = testGame.getBank().getBalance();
 		Railroad property = new Railroad("Super cool property", propertyValue);
-		assertTrue(testGame.purchaseProperty(player, property, propertyValue));
+		assertTrue(player.purchaseProperty(testGame.getBank(), property, propertyValue));
 		assertEquals(100, player.getBalance());
 		assertEquals(player, property.getOwner());
 		assertEquals(bankBalance + 100, testGame.getBank().getBalance());
@@ -282,7 +264,7 @@ public class MonopolyGameTest {
 		int propertyValue = 300;
 		int bankBalance = testGame.getBank().getBalance();
 		Railroad property = new Railroad("Super cool property", propertyValue);
-		assertFalse(testGame.purchaseProperty(player, property, propertyValue));
+		assertFalse(player.purchaseProperty(testGame.getBank(), property, propertyValue));
 		assertEquals(200, player.getBalance());
 		assertNotEquals(player, property.getOwner());
 		assertEquals(bankBalance, testGame.getBank().getBalance());
@@ -291,7 +273,7 @@ public class MonopolyGameTest {
 	@Test
 	public void testPurchaseNullProperty(){
 		Player player = new Player("Gabby", 200, 0);
-		assertFalse(testGame.purchaseProperty(player, null, 100));
+		assertFalse(player.purchaseProperty(testGame.getBank(), null, 100));
 		assertEquals(200, player.getBalance());
 	}
 
@@ -302,7 +284,7 @@ public class MonopolyGameTest {
 		int propertyValue = 100;
 		Railroad property = new Railroad("Super cool property", propertyValue);
 		property.setOwner(player2);
-		assertFalse(testGame.purchaseProperty(player, property, propertyValue));
+		assertFalse(player.purchaseProperty(testGame.getBank(), property, propertyValue));
 		assertEquals(player2, property.getOwner());
 	}
 
@@ -316,7 +298,6 @@ public class MonopolyGameTest {
 			assertEquals(curr.toString(), testList.get(count));
 			count++;
 		}
-
 	}
 
 	@Test
@@ -387,11 +368,11 @@ public class MonopolyGameTest {
 		testPlayer.setLocation(1);
 		BoardSpace space = testGame.getBoard().getSpaces().get(testPlayer.getLocation()); 
 		Property property1 = ((PropertySpace)space).getProperty();
-		assertTrue(testGame.purchaseProperty(testPlayer, property1, property1.getValue()));
+		assertTrue(testPlayer.purchaseProperty(testGame.getBank(), property1, property1.getValue()));
 		testPlayer.setLocation(3);
 		BoardSpace space2 = testGame.getBoard().getSpaces().get(testPlayer.getLocation()); 
 		Property property2 = ((PropertySpace)space2).getProperty(); 
-		assertTrue(testGame.purchaseProperty(testPlayer, property2, property2.getValue()));
+		assertTrue(testPlayer.purchaseProperty(testGame.getBank(), property2, property2.getValue()));
 		//		assertEquals(1, testGame.buyHouse(property));		
 	}
 
@@ -524,7 +505,7 @@ public class MonopolyGameTest {
 	public void testMortgage(){
 		Player currentPlayer = testGame.getCurrentPlayerReference();
 		Property p1 = ((PropertySpace)testGame.getBoard().getSpaces().get(1)).getProperty();
-		assertTrue(testGame.purchaseProperty(currentPlayer, p1, p1.getValue()));
+		assertTrue(currentPlayer.purchaseProperty(testGame.getBank(), p1, p1.getValue()));
 	}
 	
 	@Test

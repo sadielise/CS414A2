@@ -15,8 +15,7 @@ public class IncomeTaxSpace extends BoardSpace {
 		return value;
 	}
 
-	//this method will charge the player the tax
-	//and transfer the money to the bank
+	//this method will charge the player the tax and transfer the money to the bank
 	@Override
 	public void landedOnAction(IModel model, Player currentPlayer, Bank bank, List<Die> dice) {
 		model.landedOnNonProperty("Income Tax");

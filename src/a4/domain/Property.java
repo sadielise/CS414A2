@@ -41,6 +41,7 @@ public abstract class Property {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
 	}
 	
+	// trades properties between this player and owner of propertyToTrade
 	public void tradeProperty(Property propertyToTrade) {
 		Player player = propertyToTrade.getOwner();
 		if (type == PropertyType.RAILROAD) {
@@ -63,8 +64,8 @@ public abstract class Property {
 		Player tempOwner = owner;
 		owner = player;
 		propertyToTrade.setOwner(tempOwner);
-		tempOwner.checkIfNeighborhoodIsOwnedBy(propertyToTrade);
-		owner.checkIfNeighborhoodIsOwnedBy(this);
+		tempOwner.updateNeighborhoodOwner(propertyToTrade);
+		owner.updateNeighborhoodOwner(this);
 	}
 
 	public abstract int getRent(int dice_roll);

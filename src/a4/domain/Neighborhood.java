@@ -34,13 +34,12 @@ public class Neighborhood {
 		return houseValue;
 	}
 
-	// returns true if the neighborhood is owned by one player
-	// returns false otherwise
+	// returns true if the neighborhood is owned by one player, returns false otherwise
 	public boolean hasOwner() {
 		return (null != owner);
 	}
 
-	public Player belongsTo() {
+	public Player getOwner() {
 		return owner;
 	}
 
@@ -52,6 +51,7 @@ public class Neighborhood {
 		owner = null;
 	}
 
+	// returns true if each street has same number of houses, returns false otherwise
 	public boolean numHousesEqual() {
 		int houseCount = streets.get(0).getHouseCount();
 		int hotelCount = streets.get(0).getHotelCount();
@@ -65,6 +65,7 @@ public class Neighborhood {
 		return true;
 	}
 
+	// adds house to street if legal and returns true, returns false if not legal
 	public boolean addHouse(Street tempStreet) {
 		int streetHouses = tempStreet.getHouseCount();
 		int streetHotel = tempStreet.getHotelCount();
@@ -106,6 +107,7 @@ public class Neighborhood {
 		}
 	}
 
+	// removes house from street if legal and returns true, returns false if not legal
 	public boolean removeHouse(Street tempStreet) {
 		int streetHouses = tempStreet.getHouseCount();
 		int streetHotel = tempStreet.getHotelCount();

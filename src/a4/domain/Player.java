@@ -6,45 +6,20 @@ public class Player {
 	private int balance;
 	private Token token;
 	private boolean inJail;
-	private int location;
-	// NOTE: location is zero-based
+	private int location; // NOTE: location is zero-based
 	private int numRailroads;
 	private int numUtilities;
 
 	public Player(String name, int balance, int location) {
 		this.name = name;
 		this.balance = balance;
-		token = null;
-		inJail = false;
+		this.token = null;
+		this.inJail = false;
 		this.location = location;
-		numRailroads = 0;
-		numUtilities = 0;
+		this.numRailroads = 0;
+		this.numUtilities = 0;
 	}
-
-	public String toString() {
-		return name;
-	}
-
-	// Players are equal if the name and token are equal
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Player other = (Player) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (token != other.token)
-			return false;
-		return true;
-	}
-
+	
 	public String getName() {
 		return name;
 	}
@@ -59,25 +34,6 @@ public class Player {
 
 	public void setBalance(int balance) {
 		this.balance = balance;
-	}
-
-	public int addBalance(int amountToAdd) {
-		balance += amountToAdd;
-		return balance;
-	}
-
-	/*
-	 * Summary: removes ammountToRemove from the balance of the player
-	 * Returns: The remaining balance of the player if ammountToRemove is larger
-	 * than the balance, will return -1
-	 */
-	public int removeBalance(int amountToRemove) {
-		if (balance < amountToRemove) {
-			return -1;
-		} else {
-			balance -= amountToRemove;
-			return balance;
-		}
 	}
 
 	public Token getToken() {
@@ -103,47 +59,13 @@ public class Player {
 	public void setLocation(int location) {
 		this.location = location;
 	}
-
-	/*
-	 * Summary: this allows the player to move a certain amount of spaces and
-	 * updates their location accordingly
-	 * 
-	 * Parameters: numSpaces: the number of spaces to move the player maxSpaces:
-	 * the total number of spaces on the board
-	 * 
-	 * Returns: a boolean that indicates if the player passed go
-	 */
-	public boolean move(int numSpaces, int maxSpaces) {
-		boolean passedGo = false;
-		location = location + numSpaces;
-		if (location >= maxSpaces) {
-			location = location % maxSpaces;
-			passedGo = true;
-		}
-		return passedGo;
-	}
-
+	
 	public int getRailroadCount() {
 		return numRailroads;
 	}
 
 	public void setRailroadCount(int numRailroads) {
 		this.numRailroads = numRailroads;
-	}
-
-	public void addRailroad() {
-		numRailroads++;
-	}
-
-	// returns new railroad count
-	// returns -1 if fails
-	public int removeRailroad() {
-		if (numRailroads > 0) {
-			numRailroads--;
-			return numRailroads;
-		} else {
-			return -1;
-		}
 	}
 
 	public int getUtilityCount() {
@@ -154,12 +76,35 @@ public class Player {
 		this.numUtilities = numUtilities;
 	}
 
-	public void addUtility() {
-		numUtilities++;
+	// add amountToAdd to Player's balance, return new balance
+	public int addBalance(int amountToAdd) {
+		balance += amountToAdd;
+		return balance;
+	}
+	
+	// increases Player's railroad count by 1, returnss new railroad count
+	public int addRailroad() {
+		numRailroads++;
+		return numRailroads;
 	}
 
-	// returns new railroad count
-	// returns -1 if fails
+	// decreases Player's railroad count by 1, returns new railroad count, returns -1 if fails
+	public int removeRailroad() {
+		if (numRailroads > 0) {
+			numRailroads--;
+			return numRailroads;
+		} else {
+			return -1;
+		}
+	}
+	
+	// increases Player's utility count by 1, returns new utility count
+	public int addUtility() {
+		numUtilities++;
+		return numUtilities;
+	}
+
+	// decreases Player's utility count by 1, returns new utility count, returns -1 if fails
 	public int removeUtility() {
 		if (numUtilities > 0) {
 			numUtilities--;
@@ -168,8 +113,54 @@ public class Player {
 			return -1;
 		}
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 
-	//transfers money from current player (this) to toPlayer
+	// Players are equal if the name and token are equal
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Player other = (Player) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (token != other.token)
+			return false;
+		return true;
+	}
+
+	// decreases Player's balance by amountToRemove, returns remaining balance if player's balance is positive, -1 otherwise
+	public int removeBalance(int amountToRemove) {
+		if (balance < amountToRemove) {
+			return -1;
+		} else {
+			balance -= amountToRemove;
+			return balance;
+		}
+	}
+
+	// moves Player numSpaces and updates their location, returns true if Player passed GO, false otherwise
+	public boolean move(int numSpaces, int maxSpaces) {
+		boolean passedGo = false;
+		location = location + numSpaces;
+		if (location >= maxSpaces) {
+			location = location % maxSpaces;
+			passedGo = true;
+		}
+		return passedGo;
+	}
+
+	// transfers money from current player (this) to toPlayer
 	public boolean transferMoney(Player toPlayer, int amount) {
 		if (balance < amount) {
 			return false;
@@ -179,7 +170,7 @@ public class Player {
 		return true;
 	}
 	
-	//transfers money from current player (this) to the bank
+	// transfers money from current player (this) to the bank
 	public boolean transferMoney(Bank toBank, int amount) {
 		if (balance < amount) {
 			return false;
@@ -189,6 +180,7 @@ public class Player {
 		return true;
 	}
 	
+	// purchases property for Player, returns true if legal, returns false otherwise
 	public boolean purchaseProperty(Bank toBank, Property property, int price) {
 		if (property == null) {
 			return false;
@@ -203,14 +195,15 @@ public class Player {
 					setUtilityCount(getUtilityCount() + 1);
 				}
 				property.setOwner(this);
-				checkIfNeighborhoodIsOwnedBy(property);
+				updateNeighborhoodOwner(property);
 				return true;
 			}
 			return false;
 		}
 	}
 	
-	public void checkIfNeighborhoodIsOwnedBy(Property property) {
+	// checks if one Player owns every street in a neighborhood and sets them as the neighborhood owner if so
+	public void updateNeighborhoodOwner(Property property) {
 		if (property.getType() == PropertyType.STREET) {
 			Neighborhood neighborhood = ((Street) property).getNeighborhood();
 			int housesInNeighborhoodOwnedByPlayer = 0;

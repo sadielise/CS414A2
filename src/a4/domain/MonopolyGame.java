@@ -560,7 +560,7 @@ public class MonopolyGame implements IMonopolyGame {
 						propertyList.add(curr.toString());
 					} else if (curr.getType() == PropertyType.STREET && ((Street) curr).getHotelCount() < 1) {
 						if (((Street) curr).getNeighborhood().hasOwner()) {
-							if (((Street) curr).getNeighborhood().belongsTo().toString().equals(player)) {
+							if (((Street) curr).getNeighborhood().getOwner().toString().equals(player)) {
 								propertyList.add(curr.toString());
 							}
 						}

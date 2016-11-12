@@ -34,6 +34,10 @@ public class Street extends Property {
 		return neighborhood;
 	}
 
+	public String getColor() {
+		return color;
+	}
+
 	public void addHouse() {
 		if (hotelCount >= 1) {
 		} else if (houseCount < 4)
@@ -44,6 +48,21 @@ public class Street extends Property {
 		}
 	}
 
+	// returns rent based on total house and hotel count
+	@Override
+	public int getRent(int dice_roll) {
+		if (houseCount > 0)
+			return rent[houseCount];
+		else if (hotelCount > 0)
+			return rent[hotelCount * 5];
+		else if (houseCount == 0 && hotelCount == 0 && neighborhood.getOwner() != null
+				&& neighborhood.getOwner().equals(owner))
+			return rent[0] * 2;
+		else
+			return rent[0];
+	}
+
+	// removes house from street
 	public void removeHouse() {
 		if (houseCount > 0)
 			houseCount--;
@@ -53,25 +72,9 @@ public class Street extends Property {
 		}
 	}
 
-	public String getColor() {
-		return color;
-	}
-
+	// sets n as street's neighborhood
 	public void addToNeighborhood(Neighborhood n) {
 		neighborhood = n;
-	}
-
-	@Override
-	public int getRent(int dice_roll) {
-		if (houseCount > 0)
-			return rent[houseCount];
-		else if (hotelCount > 0)
-			return rent[hotelCount * 5];
-		else if (houseCount == 0 && hotelCount == 0 && neighborhood.belongsTo() != null
-				&& neighborhood.belongsTo().equals(owner))
-			return rent[0] * 2;
-		else
-			return rent[0];
 	}
 
 	public String toString() {

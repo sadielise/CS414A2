@@ -12,12 +12,12 @@ public class PropertySpace extends BoardSpace {
 		super(BoardSpaceType.PROPERTY);
 	}
 	
-	public void setPropertyInfo(String type, String name, int value, int[] rent, String color){
-		if (type.toLowerCase().equals("railroad")) {
+	public void setPropertyInfo(PropertyType type, String name, int value, int[] rent, String color){
+		if (type == PropertyType.RAILROAD) {
 			property = new Railroad(name, value);
-		} else if (type.toLowerCase().equals("utility")) {
+		} else if (type == PropertyType.UTILITY) {
 			property = new Utility(name, value);
-		} else if (type.toLowerCase().equals("street")) {
+		} else if (type == PropertyType.STREET) {
 			property = new Street(name, value, rent, color);
 		}
 	}

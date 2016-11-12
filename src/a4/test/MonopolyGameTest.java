@@ -558,7 +558,7 @@ public class MonopolyGameTest {
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));
 	}
-	
+/*	
 	@Test
 	public void testSellHouse_Success(){
 		Player testPlayer = new Player("test", 0,0);
@@ -649,4 +649,5 @@ public class MonopolyGameTest {
 		assertNotEquals(-1, testGame.sellHouse(street1));
 		assertEquals(playerBalance + 1, testPlayer.getBalance());
 	}
+	*/
 }

@@ -74,7 +74,33 @@ public class Street extends Property {
 			return rent[0];
 	}
 
+	@Override
+	public int undevelop(Bank bank) {
+		if (isMortgaged) {
+			return -1;
+		} else if (neighborhood.removeHouse(this)) {
+			return sellHouse(bank);
+		} else if(this.houseCount > 0 || this.hotelCount > 0){
+			return -1;
+		}else if(neighborhood.numHousesEqual() && this.houseCount == 0 && this.hotelCount == 0){
+			return mortgage(bank);
+		}else{
+			return -1;
+		}
+	}
+
+	private int sellHouse(Bank bank) {
+		if (bank.transferMoney(this.owner, this.neighborhood.getHouseValue() / 2)) {
+			return this.neighborhood.getHouseValue() / 2;
+		} else {
+			int bankBalance = bank.getBalance();
+			bank.transferMoney(this.owner, bankBalance);
+			return bankBalance;
+		}
+	}
+
 	public String toString() {
-		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
+		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: "
+				+ hotelCount;
 	}
 }

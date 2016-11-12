@@ -143,6 +143,8 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(int pastNumberOfDoubles) {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
+//		int value1 = 0;
+//		int value2 = 1;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -566,6 +568,7 @@ public class MonopolyGame implements IMonopolyGame {
 				model.propertyWasUnDevelopedFor(property, mortgagingValue);
 			}
 			if (currentPlayer.getBalance() < amountOwed) {
+				System.out.println("Unable to pay. Lets repeat.");
 				amountOwed -= currentPlayer.getBalance();
 				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
 				model.unableToPay(playerOwed, amountOwed);
@@ -609,23 +612,32 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public List<String> getPlayersUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
-		for (Property curr : properties) {
-			if (curr.getOwner() != null) {
-				if (curr.getOwner().toString().equals(player)) {
-					if (curr.getType() == PropertyType.STREET) {
-						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
-							propertyList.add(curr.toString());
-						} else {
-							if (!curr.getIsMortgaged()) {
-								propertyList.add(curr.toString());
-							}
-						}
-					} else if (!curr.getIsMortgaged()) {
+		for(Property curr : properties){
+			if(curr.getOwner() != null){
+				if(curr.getOwner().toString().equals(player)){
+					if(!curr.getIsMortgaged()){
 						propertyList.add(curr.toString());
 					}
 				}
 			}
 		}
+//		for (Property curr : properties) {
+//			if (curr.getOwner() != null) {
+//				if (curr.getOwner().toString().equals(player)) {
+//					if (curr.getType() == PropertyType.STREET) {
+//						if (((Street) curr).getHouseCount() > 0 || ((Street) curr).getHotelCount() > 0) {
+//							propertyList.add(curr.toString());
+//						} else {
+//							if (!curr.getIsMortgaged()) {
+//								propertyList.add(curr.toString());
+//							}
+//						}
+//					} else if (!curr.getIsMortgaged()) {
+//						propertyList.add(curr.toString());
+//					}
+//				}
+//			}
+//		}
 		return propertyList;
 	}
 

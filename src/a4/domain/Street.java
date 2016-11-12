@@ -66,7 +66,7 @@ public class Street extends Property {
 	}
 
 	@Override
-	public int getRent() {
+	public int getRent(int dice_roll) {
 		if (houseCount > 0)
 			return rent[houseCount];
 		else if (hotelCount > 0)
@@ -79,6 +79,6 @@ public class Street extends Property {
 	}
 
 	public String toString() {
-		return super.toString() + " \nRent: " + getRent() + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
+		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
 	}
 }

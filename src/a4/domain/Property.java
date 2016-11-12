@@ -57,7 +57,5 @@ public abstract class Property {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
 	}
 
-	public int getRent() {
-		return 0;
-	}
+	public abstract int getRent(int dice_roll);
 }

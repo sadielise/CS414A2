@@ -76,42 +76,46 @@ public class Street extends Property {
 	public void addToNeighborhood(Neighborhood n) {
 		neighborhood = n;
 	}
-	
+
 	@Override
-	public boolean isDevelopable(){
-		if(isMortgaged){
+	public boolean isDevelopable() {
+		if (isMortgaged) {
 			return true;
-		}else if(this.hotelCount == 1){
+		} else if (this.hotelCount == 1) {
 			return false;
-		}else if(this.neighborhood.hasOwner()){
-			if(this.getHouseCount() < this.neighborhood.getMaxNumHouses()){
-			return true;
-			}else{
+		} else if (this.neighborhood.hasOwner()) {
+			if (this.neighborhood.streetNeedsUnmortgaged()) {
+				return false;
+			} else if (this.getHouseCount() < this.neighborhood.getMaxNumHouses()) {
+				return true;
+			} else {
 				return false;
 			}
-		}else{
+		} else {
 			return false;
-		}	
+		}
 	}
-	
-	//returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if developing failed.
+
+	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if
+	// developing failed.
 	@Override
-	public int develop(Bank bank){
-		if(isMortgaged){
-			if(unmortgage(bank)){
+	public int develop(Bank bank) {
+		if (isMortgaged) {
+			if (unmortgage(bank)) {
 				return 1;
-			}else{
+			} else {
 				return -1;
 			}
-		}else if(neighborhood.addHouse(this)){
+		} else if (neighborhood.addHouse(this)) {
 			this.owner.transferMoney(bank, this.neighborhood.getHouseValue());
 			return 2;
-		}else{
+		} else {
 			return -1;
 		}
 	}
 
 	public String toString() {
-		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
+		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: "
+				+ hotelCount;
 	}
 }

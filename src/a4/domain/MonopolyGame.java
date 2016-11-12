@@ -396,7 +396,7 @@ public class MonopolyGame implements IMonopolyGame {
 			return -1;
 		} else {
 			propertyToMortgage.setIsMortgaged(true);
-			if (!bank.transferMoney(propertyToMortgage.getOwner(), propertyToMortgage.getValue() / 2)) {
+			if (!bank.transferMoney(propertyToMortgage.getOwner(), 100)) {
 				bank.transferMoney(propertyToMortgage.getOwner(), bank.getBalance());
 				return bank.getBalance();
 			}

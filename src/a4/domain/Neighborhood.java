@@ -145,4 +145,14 @@ public class Neighborhood {
 			return false;
 		}
 	}
+	
+	//return true if a street within the neighborhood is current mortgaged.
+	public boolean streetNeedsUnmortgaged() {
+		for(Street curr : this.streets){
+			if(curr.getIsMortgaged()){
+				return true;
+			}
+		}
+		return false;
+	}
 }

@@ -89,7 +89,7 @@ public abstract class Property {
 	protected boolean unmortgage(Bank bank) {
 		int unmortgageCost = (int) (this.value * 1.1);
 		if (this.owner != null) {
-			if (this.owner.transferMoney(bank, 100)) {
+			if (this.owner.transferMoney(bank, unmortgageCost)) {
 				isMortgaged = false;
 				return true;
 			}

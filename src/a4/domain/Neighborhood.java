@@ -22,6 +22,14 @@ public class Neighborhood {
 		return color;
 	}
 
+	public int getMaxNumHouses() {
+		return maxNumHouses;
+	}
+
+	public int getMinNumHouses() {
+		return minNumHouses;
+	}
+
 	public List<Street> getStreets() {
 		return streets;
 	}

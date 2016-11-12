@@ -76,6 +76,23 @@ public class Street extends Property {
 	public void addToNeighborhood(Neighborhood n) {
 		neighborhood = n;
 	}
+	
+	@Override
+	public boolean isDevelopable(){
+		if(isMortgaged){
+			return true;
+		}else if(this.hotelCount == 1){
+			return false;
+		}else if(this.neighborhood.hasOwner()){
+			if(this.getHouseCount() < this.neighborhood.getMaxNumHouses()){
+			return true;
+			}else{
+				return false;
+			}
+		}else{
+			return false;
+		}	
+	}
 
 	public String toString() {
 		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;

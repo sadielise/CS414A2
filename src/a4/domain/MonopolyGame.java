@@ -581,14 +581,8 @@ public class MonopolyGame implements IMonopolyGame {
 		for (Property curr : properties) {
 			if (curr.getOwner() != null) {
 				if (curr.getOwner().toString().equals(player)) {
-					if (curr.getIsMortgaged()) {
+					if(curr.isDevelopable()){
 						propertyList.add(curr.toString());
-					} else if (curr.getType() == PropertyType.STREET && ((Street) curr).getHotelCount() < 1) {
-						if (((Street) curr).getNeighborhood().hasOwner()) {
-							if (((Street) curr).getNeighborhood().getOwner().toString().equals(player)) {
-								propertyList.add(curr.toString());
-							}
-						}
 					}
 				}
 			}

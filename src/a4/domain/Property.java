@@ -69,4 +69,11 @@ public abstract class Property {
 	}
 
 	public abstract int getRent(int dice_roll);
+	
+	public boolean isDevelopable(){
+		if(isMortgaged){
+			return true;
+		}
+		return false;
+	}
 }

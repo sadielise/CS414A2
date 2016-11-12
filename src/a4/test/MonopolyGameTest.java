@@ -514,7 +514,7 @@ public class MonopolyGameTest {
 		Board board = new Board();
 		int[] values = {1,2,3,4};
 		PropertySpace space = new PropertySpace();
-		space.setPropertyInfo("street", "name", 20, values, "pink");
+		space.setPropertyInfo(PropertyType.STREET, "name", 20, values, "pink");
 		board.addSpace(space);
 		Street s = (Street)space.getProperty();
 		s.setHouseCount(2);
@@ -528,7 +528,7 @@ public class MonopolyGameTest {
 		Board board = new Board();
 		int[] values = {1,2,3,4};
 		PropertySpace space = new PropertySpace();
-		space.setPropertyInfo("street", "name", 20, values, "pink");
+		space.setPropertyInfo(PropertyType.STREET, "name", 20, values, "pink");
 		board.addSpace(space);
 		Street s = (Street)space.getProperty();
 		s.setHotelCount(1);
@@ -552,7 +552,7 @@ public class MonopolyGameTest {
 		Board board = new Board();
 		int[] values = {1,2,3,4};
 		PropertySpace space = new PropertySpace();
-		space.setPropertyInfo("utility", "name", 20, values, "pink");
+		space.setPropertyInfo(PropertyType.UTILITY, "name", 20, values, "pink");
 		board.addSpace(space);
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));

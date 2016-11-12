@@ -330,6 +330,8 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(int pastNumberOfDoubles) {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
+//		int value1 = 0;
+//		int value2 = 1;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {

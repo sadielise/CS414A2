@@ -6,7 +6,7 @@ public class Railroad extends Property {
 	}
 
 	@Override
-	public int getRent() {
+	public int getRent(int dice_roll) {
 		switch (owner.getRailroadCount()) {
 		case (1):
 			return 25;

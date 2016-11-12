@@ -21,10 +21,12 @@ public class MonopolyGame implements IMonopolyGame {
 	private IModel model;
 	private int initialBankBalance = 20580;
 	public Timer gameTime;
-
-	public MonopolyGame() {
-
-	}
+	private int numHouses = 32;
+	private int numHotels = 5;
+	private int initialPlayerBalance = 1500;
+	private int numDiceSides = 6;
+	private int minNumPlayers = 2;
+	private int maxNumPlayers = 4;
 
 	public List<Property> getProperties() {
 		return properties;
@@ -43,7 +45,8 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public boolean setupGame(List<String> names, int time) {
-		if (names == null || names.size() < 2 || names.size() > 4) {
+		
+		if (names == null || names.size() < minNumPlayers || names.size() > maxNumPlayers) {
 			return false;
 		}
 
@@ -51,23 +54,25 @@ public class MonopolyGame implements IMonopolyGame {
 		properties = new ArrayList<Property>();
 		board = new Board();
 		dice = new ArrayList<Die>();
-		dice.add(new Die(6));
-		dice.add(new Die(6));
+		dice.add(new Die(numDiceSides));
+		dice.add(new Die(numDiceSides));
 		bank = new Bank(initialBankBalance);
 		bank.setBalance(initialBankBalance);
-		houseCount = 32;
-		hotelCount = 5;
+		houseCount = numHouses;
+		hotelCount = numHotels;
 
 		for (String name : names) {
 			Player newPlayer = new Player(name, 0, 0);
-			bank.transferMoney(newPlayer, 1500);
-			players.add(new Player(name, 1500, 0));
+			bank.transferMoney(newPlayer, initialPlayerBalance);
+			players.add(new Player(name, initialPlayerBalance, 0));
 		}
+		
 		for (BoardSpace space : board.getSpaces()) {
 			if (space.getType() == BoardSpaceType.PROPERTY) {
 				properties.add(((PropertySpace) space).getProperty());
 			}
 		}
+		
 		determinePlayOrder();
 		currentPlayer = players.get(0);
 		startTimer(time);
@@ -178,19 +183,17 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public void determinePlayOrder() {
 		Collections.shuffle(players);
-
 	}
 
-	// returns true if player has enough money to buy property
-	// returns false if player cannot purchase property
-	// PreCondition: the current Player is on a property space
-	// public boolean purchaseProperty(){
-	// int location = currentPlayer.getLocation();
-	// BoardSpace space = board.getSpaces().get(location);
-	// Property property = ((PropertySpace)space).getProperty();
-	// return purchaseProperty(currentPlayer, property, property.getValue());
-	// }
-
+	/* returns true if player has enough money to buy property
+	   returns false if player cannot purchase property
+	   PreCondition: the current Player is on a property space
+	   public boolean purchaseProperty(){
+	   int location = currentPlayer.getLocation();
+	   BoardSpace space = board.getSpaces().get(location);
+	   Property property = ((PropertySpace)space).getProperty();
+	   return purchaseProperty(currentPlayer, property, property.getValue());
+	*/ 
 	@Override
 	public void purchaseProperty(String player, String property) {
 		Player buyingPlayer = findPlayer(player);
@@ -198,51 +201,12 @@ public class MonopolyGame implements IMonopolyGame {
 		if (buyingPlayer == null || propertyToBuy == null) {
 			model.couldNotPurchaseProperty(player, property);
 		} else {
-			if (purchaseProperty(buyingPlayer, propertyToBuy, propertyToBuy.getValue())) {
+			if (buyingPlayer.purchaseProperty(bank, propertyToBuy, propertyToBuy.getValue())) {
 				model.purchasedProperty(player, property);
 			} else {
 				model.couldNotPurchaseProperty(player, property);
 			}
 		}
-	}
-
-	public boolean purchaseProperty(Player player, Property property, int price) {
-		if (property == null) {
-			return false;
-		}
-		if (property.getOwner() != null) {
-			return false;
-		} else {
-			if (player.transferMoney(bank, price)) {
-				if (property.getType() == PropertyType.RAILROAD) {
-					player.setRailroadCount(player.getRailroadCount() + 1);
-				} else if (property.getType() == PropertyType.UTILITY) {
-					player.setUtilityCount(player.getUtilityCount() + 1);
-				}
-				property.setOwner(player);
-				checkIfNeighborhoodIsOwnedBy(player, property);
-				return true;
-			}
-			return false;
-		}
-	}
-
-	private void checkIfNeighborhoodIsOwnedBy(Player player, Property property) {
-		if (property.getType() == PropertyType.STREET) {
-			Neighborhood neighborhood = ((Street) property).getNeighborhood();
-			int housesInNeighborhoodOwnedByPlayer = 0;
-			for (Street curr : neighborhood.getStreets()) {
-				if (curr.getOwner() != null) {
-					if (curr.getOwner().equals(player)) {
-						housesInNeighborhoodOwnedByPlayer++;
-					}
-				}
-			}
-			if (housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()) {
-				neighborhood.setOwner(player);
-			}
-		}
-
 	}
 
 	public int mortgageProperty(Property propertyToMortgage) {
@@ -308,8 +272,8 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		property1.setOwner(player2);
 		property2.setOwner(player1);
-		checkIfNeighborhoodIsOwnedBy(player1, property2);
-		checkIfNeighborhoodIsOwnedBy(player2, property1);
+		player1.checkIfNeighborhoodIsOwnedBy(property2);
+		player2.checkIfNeighborhoodIsOwnedBy(property1);
 	}
 
 	@Override
@@ -347,7 +311,7 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 		}
-		return purchaseProperty(players.get(winningPlayer), property, highestBid);
+		return players.get(winningPlayer).purchaseProperty(bank, property, highestBid);
 	}
 
 	public int buyHouse(Street street) {

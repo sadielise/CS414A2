@@ -6,7 +6,7 @@ import a4.gui.IModel;
 
 public class LuxuryTaxSpace extends BoardSpace {
 
-	int value = 100;
+	private int value = 100;
 
 	public LuxuryTaxSpace() {
 		super(BoardSpaceType.LUXURYTAX);
@@ -14,10 +14,6 @@ public class LuxuryTaxSpace extends BoardSpace {
 
 	public int getValue() {
 		return value;
-	}
-
-	void setValue(int new_value) {
-		value = new_value;
 	}
 
 	//this method will charge the player the tax

@@ -1,12 +1,12 @@
 package a4.domain;
 
 public class Street extends Property {
-	int houseCount = 0;
-	int hotelCount = 0;
-	int[] rent;
-	Neighborhood neighborhood;
-	String color;
-	boolean isMortgaged = false;
+	private int houseCount = 0;
+	private int hotelCount = 0;
+	private int[] rent;
+	private Neighborhood neighborhood;
+	private String color;
+	private boolean isMortgaged = false;
 
 	public Street(String name, int value, int[] rent, String color) {
 		super(name, value, PropertyType.STREET);
@@ -57,16 +57,12 @@ public class Street extends Property {
 		return color;
 	}
 
-	public void setColor(String newColor) {
-		this.color = newColor;
-	}
-
 	public void addToNeighborhood(Neighborhood n) {
 		neighborhood = n;
 	}
 
 	@Override
-	public int getRent() {
+	public int getRent(int dice_roll) {
 		if (houseCount > 0)
 			return rent[houseCount];
 		else if (hotelCount > 0)
@@ -79,6 +75,6 @@ public class Street extends Property {
 	}
 
 	public String toString() {
-		return super.toString() + " \nRent: " + getRent() + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
+		return super.toString() + " \nRent: " + getRent(0) + " Number of Houses: " + houseCount + " Number of Hotels: " + hotelCount;
 	}
 }

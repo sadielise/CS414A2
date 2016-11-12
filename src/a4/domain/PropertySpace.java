@@ -6,28 +6,24 @@ import a4.gui.IModel;
 
 public class PropertySpace extends BoardSpace {
 
-	Property property;
+	private Property property;
 
 	public PropertySpace(){
 		super(BoardSpaceType.PROPERTY);
 	}
 	
-	public void setPropertyInfo(String type, String name, int value, int[] rent, String color){
-		if (type.toLowerCase().equals("railroad")) {
+	public void setPropertyInfo(PropertyType type, String name, int value, int[] rent, String color){
+		if (type == PropertyType.RAILROAD) {
 			property = new Railroad(name, value);
-		} else if (type.toLowerCase().equals("utility")) {
+		} else if (type == PropertyType.UTILITY) {
 			property = new Utility(name, value);
-		} else if (type.toLowerCase().equals("street")) {
+		} else if (type == PropertyType.STREET) {
 			property = new Street(name, value, rent, color);
 		}
 	}
 
 	public Property getProperty() {
 		return property;
-	}
-
-	void setProperty(Property new_property) {
-		property = new_property;
 	}
 
 	@Override
@@ -38,7 +34,7 @@ public class PropertySpace extends BoardSpace {
 		} else if (!currentProperty.getOwner().equals(currentPlayer)) {
 			model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 			if (!currentProperty.getIsMortgaged()) {
-				int rent = currentProperty.getRent();
+				int rent = currentProperty.getRent(0);
 				if (currentProperty instanceof Utility) {
 					rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
 				}

@@ -6,19 +6,15 @@ import java.util.List;
 import a4.gui.IModel;
 
 public abstract class BoardSpace {
-	int location;
-	static int counter = 0;
-	ArrayList<Player> players = new ArrayList<Player>();
-	BoardSpaceType type;
+	protected int location;
+	protected static int counter = 0;
+	protected ArrayList<Player> players = new ArrayList<Player>();
+	protected BoardSpaceType type;
 
 	public BoardSpace(BoardSpaceType type) {
 		this.type = type;
 		location = counter;
 		counter++;
-	}
-	
-	public void setType(BoardSpaceType type){
-		this.type = type;
 	}
 	
 	public BoardSpaceType getType(){

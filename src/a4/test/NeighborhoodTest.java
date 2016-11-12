@@ -32,12 +32,6 @@ public class NeighborhoodTest {
 	}
 	
 	@Test
-	public void testSetColor() {
-		test_neighborhood.setColor("New Color");
-		assertEquals("New Color", test_neighborhood.getColor());
-	}
-	
-	@Test
 	public void testGetStreetsEmpty() {
 		assertEquals(new ArrayList<Street>(), test_neighborhood.getStreets());
 	}

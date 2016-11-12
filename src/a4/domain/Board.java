@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Board {
-	List<BoardSpace> spaces = new ArrayList<BoardSpace>();
-	ArrayList<Neighborhood> neighborhoods;
+	private List<BoardSpace> spaces = new ArrayList<BoardSpace>();
+	private ArrayList<Neighborhood> neighborhoods;
 	private int jailLocation;
 
 	public Board() {
@@ -16,7 +16,7 @@ public class Board {
 		createBoardRight();
 	}
 	
-	public void createNeighborhoods(){
+	private void createNeighborhoods(){
 		neighborhoods = new ArrayList<Neighborhood>();
 		neighborhoods.add(new Neighborhood("Brown", 50));
 		neighborhoods.add(new Neighborhood("SkyBlue", 50));
@@ -28,7 +28,7 @@ public class Board {
 		neighborhoods.add(new Neighborhood("Blue", 200));
 	}
 	
-	public void createBoardBottom(){
+	private void createBoardBottom(){
 
 		OpenSpace space1 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		space1.setName("Go");
@@ -75,7 +75,7 @@ public class Board {
 		spaces.add(space10);
 	}
 
-	public void createBoardLeft(){
+	private void createBoardLeft(){
 		
 		JailSpace space11 = (JailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		spaces.add(space11);
@@ -124,7 +124,7 @@ public class Board {
 		spaces.add(space20);
 	}
 	
-	public void createBoardTop(){
+	private void createBoardTop(){
 
 		OpenSpace space21 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		space21.setName("Free Parking");
@@ -173,7 +173,7 @@ public class Board {
 		this.addToNeighborhood(space30);
 	}
 	
-	public void createBoardRight(){
+	private void createBoardRight(){
 		
 		GoToJailSpace space31 = (GoToJailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
 		spaces.add(space31);
@@ -225,10 +225,6 @@ public class Board {
 
 	public void addSpace(BoardSpace space_to_add) {
 		spaces.add(space_to_add);
-	}
-
-	public void removeSpace(BoardSpace space_to_remove) {
-		spaces.remove(space_to_remove);
 	}
 	
 	public int getJailLocation(){

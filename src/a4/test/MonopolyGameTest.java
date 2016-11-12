@@ -380,7 +380,7 @@ public class MonopolyGameTest {
 	public void testGoToJail(){
 		Board board = testGame.getBoard();
 		JailSpace tempJail = (JailSpace)board.getSpaces().get(board.getJailLocation());
-		tempJail.sendToJail(testGame.getCurrentPlayerReference());
+		tempJail.putPlayerInJail(testGame.getCurrentPlayerReference());
 		assertNotNull(tempJail);
 		assertEquals(tempJail.getLocation(), testGame.getCurrentPlayerReference().getLocation());
 		assertTrue(tempJail.isInJail(testGame.getCurrentPlayerReference()));

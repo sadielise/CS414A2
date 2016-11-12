@@ -6,17 +6,23 @@ import java.util.List;
 import a4.gui.IModel;
 
 public class JailSpace extends BoardSpace {
+	
+	private HashMap<Player, Integer> playersInJail = new HashMap<Player, Integer>();
+	
 	public JailSpace() {
 		super(BoardSpaceType.JAIL);
 	}
 
-	HashMap<Player, Integer> playersInJail = new HashMap<Player, Integer>();
 
 	public void getOutOfJail(Player player_leaving_jail) {
+		player_leaving_jail.setInJail(false);
 		playersInJail.remove(player_leaving_jail);
 	}
 
 	public void putPlayerInJail(Player player_to_put_in_jail) {
+		player_to_put_in_jail.setLocation(location);
+		player_to_put_in_jail.setInJail(true);
+		addPlayer(player_to_put_in_jail);
 		playersInJail.put(player_to_put_in_jail, 0);
 	}
 
@@ -35,13 +41,6 @@ public class JailSpace extends BoardSpace {
 
 	public boolean isInJail(Player player_in_question) {
 		return playersInJail.containsKey(player_in_question);
-	}
-
-	public void sendToJail(Player currentPlayer) {
-		currentPlayer.setLocation(location);
-		currentPlayer.setInJail(true);
-		addPlayer(currentPlayer);
-		putPlayerInJail(currentPlayer);
 	}
 	
 	@Override

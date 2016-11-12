@@ -547,14 +547,19 @@ public class MonopolyGame implements IMonopolyGame {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);
-		} else {
+		}
+		else if(currentProperty.getIsMortgaged()){
+			model.couldNotUndevelopProperty(property);
+		}
+		else {
 			if (currentProperty.getType() == PropertyType.STREET) {
 				Street street = (Street) currentProperty;
-				if (street.getHouseCount() == 0 && street.getHotelCount() == 0) {
-					int mortgagingValue = mortgageProperty(currentProperty);
-					model.propertyWasUnDevelopedFor(property, mortgagingValue);
-				} else if (sellHouse(street) != -1) {
-					model.propertyWasUnDevelopedFor(property, street.getNeighborhood().getHouseValue());
+				int valueSoldFor = sellHouse(street);
+				if (valueSoldFor != -1) {
+					model.propertyWasUnDevelopedFor(property, valueSoldFor);
+				}else{
+					valueSoldFor = mortgageProperty(currentProperty);
+					model.propertyWasUnDevelopedFor(property, valueSoldFor);
 				}
 			} else {
 				int mortgagingValue = mortgageProperty(currentProperty);

@@ -123,6 +123,9 @@ public class Neighborhood {
 		if (null == tempStreet.getOwner()) {
 			return false;
 		}
+		if(streetHouses == 0 && streetHotel ==0){
+			return false;
+		}
 		if (streetHouses == minNumHouses) {
 			return false;
 		} else if (streetHouses <= maxNumHouses && streetHouses > minNumHouses) {

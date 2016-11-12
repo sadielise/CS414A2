@@ -150,7 +150,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (doubles && pastNumberOfDoubles == 2) {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
-			jail.sendToJail(currentPlayer);
+			jail.putPlayerInJail(currentPlayer);
 			model.playerSentToJail(currentPlayer.toString());
 		} else {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
@@ -172,7 +172,7 @@ public class MonopolyGame implements IMonopolyGame {
 		if (spaceOfPlayer.getType() == BoardSpaceType.GOTOJAIL) {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
-			jail.sendToJail(currentPlayer);
+			jail.putPlayerInJail(currentPlayer);
 		}
 	}
 
@@ -215,9 +215,9 @@ public class MonopolyGame implements IMonopolyGame {
 		} else {
 			if (player.transferMoney(bank, price)) {
 				if (property.getType() == PropertyType.RAILROAD) {
-					player.setRailroadCount(player.getRailroadCount() + 1);
+					player.addRailroad();
 				} else if (property.getType() == PropertyType.UTILITY) {
-					player.setUtilityCount(player.getUtilityCount() + 1);
+					player.addUtility();
 				}
 				property.setOwner(player);
 				checkIfNeighborhoodIsOwnedBy(player, property);
@@ -291,20 +291,20 @@ public class MonopolyGame implements IMonopolyGame {
 		Player player1 = property1.getOwner();
 		Player player2 = property2.getOwner();
 		if (property1.getType() == PropertyType.RAILROAD) {
-			player1.setRailroadCount(player1.getRailroadCount() - 1);
-			player2.setRailroadCount(player2.getRailroadCount() + 1);
+			player1.removeRailroad();
+			player2.addRailroad();
 		}
 		if (property2.getType() == PropertyType.RAILROAD) {
-			player2.setRailroadCount(player2.getRailroadCount() - 1);
-			player1.setRailroadCount(player1.getRailroadCount() + 1);
+			player2.removeRailroad();
+			player1.addRailroad();
 		}
 		if (property1.getType() == PropertyType.UTILITY) {
-			player1.setUtilityCount(player1.getUtilityCount() - 1);
-			player2.setUtilityCount(player2.getUtilityCount() + 1);
+			player1.removeUtility();
+			player2.addUtility();
 		}
 		if (property2.getType() == PropertyType.UTILITY) {
-			player2.setUtilityCount(player2.getUtilityCount() - 1);
-			player1.setUtilityCount(player1.getUtilityCount() + 1);
+			player2.removeUtility();
+			player1.addRailroad();
 		}
 		property1.setOwner(player2);
 		property2.setOwner(player1);
@@ -657,8 +657,8 @@ public class MonopolyGame implements IMonopolyGame {
 				board.getSpaces().get(player.getLocation()).removePlayer(player);
 				currentPlayer.move(value1 + value2, board.getSpaces().size());
 				board.getSpaces().get(player.getLocation()).addPlayer(player);
-				player.setInJail(false);
 				jail.removePlayer(player);
+				jail.getOutOfJail(player);
 				playerMoved();
 				return true;
 			} else {
@@ -704,10 +704,8 @@ public class MonopolyGame implements IMonopolyGame {
 			model.unableToPayFine(50);
 			return false;
 		} else {
-			player.setInJail(false);
-			jail.removePlayer(player);
+			jail.getOutOfJail(player);
 			model.paidRentTo("Jail", 50);
-			// model.paidJailFine();
 			return true;
 		}
 	}

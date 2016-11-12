@@ -6,7 +6,7 @@ import a4.gui.IModel;
 
 public class PropertySpace extends BoardSpace {
 
-	Property property;
+	private Property property;
 
 	public PropertySpace(){
 		super(BoardSpaceType.PROPERTY);
@@ -24,10 +24,6 @@ public class PropertySpace extends BoardSpace {
 
 	public Property getProperty() {
 		return property;
-	}
-
-	void setProperty(Property new_property) {
-		property = new_property;
 	}
 
 	@Override

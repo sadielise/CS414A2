@@ -28,6 +28,18 @@ public class MonopolyGame implements IMonopolyGame {
 	private int minNumPlayers = 2;
 	private int maxNumPlayers = 4;
 
+	public Bank getBank() {
+		return bank;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setModel(IModel model) {
+		this.model = model;
+	}
+	
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -42,6 +54,117 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
+	}
+	
+	public int getHouseCount() {
+		return houseCount;
+	}
+
+	@Override
+	public String getCurrentPlayer() {
+		return currentPlayer.toString();
+	}
+
+	public Player getCurrentPlayerReference() {
+		return currentPlayer;
+	}
+	
+	public Player findPlayer(String playerName) {
+		for (Player curr : players) {
+			if (curr.toString().equals(playerName)) {
+				return curr;
+			}
+		}
+		return null;
+	}
+
+	public Property findProperty(String propertyName) {
+		for (Property curr : properties) {
+			if (curr.toString().equals(propertyName)) {
+				return curr;
+			}
+		}
+		return null;
+	}
+
+	@Override
+	public List<String> getPlayers() {
+		List<String> playerNames = new ArrayList<String>();
+		for (Player curr : players) {
+			if (curr != null) {
+				playerNames.add(curr.toString());
+			}
+		}
+		return playerNames;
+	}
+
+	@Override
+	public int getBankroll(String player) {
+		for (Player curr : players) {
+			if (player.equals(curr.toString())) {
+				return curr.getBalance();
+			}
+		}
+		return -1;
+	}
+
+	@Override
+	public int getLocation(String player) {
+		Player temp = findPlayer(player);
+		if (temp == null) {
+			return -1;
+		}
+		return temp.getLocation();
+	}
+
+	@Override
+	public List<String> getProperties(String player) {
+		List<String> propertyList = new ArrayList<String>();
+		for (Property curr : properties) {
+			if (curr.getOwner() != null) {
+				if (curr.getOwner().toString().equals(player)) {
+					propertyList.add(curr.toString());
+				}
+			}
+		}
+		return propertyList;
+	}
+
+	@Override
+	public String getProperty(int location) {
+		BoardSpace space = board.getSpaces().get(location);
+		if (space.getType() == BoardSpaceType.PROPERTY) {
+			PropertySpace temp = (PropertySpace) space;
+			return temp.getProperty().toString();
+		}
+		return null;
+	}
+
+	@Override
+	public int getPlayerNumber(String player) {
+		Player playerToFind = findPlayer(player);
+		if (playerToFind == null) {
+			return -1;
+		}
+		return players.indexOf(playerToFind);
+	}
+	
+
+	@Override
+	public int getNumberHouses(int location) {
+		int numHouses = 0;
+		BoardSpace space = board.getSpaces().get(location);
+		if (space.getType() == BoardSpaceType.PROPERTY) {
+			Property p = ((PropertySpace) space).getProperty();
+			if (p.getType() == PropertyType.STREET) {
+				Street s = (Street) p;
+				numHouses += s.getHouseCount();
+				if (s.getHotelCount() > 0) {
+					numHouses += 5;
+				}
+			}
+		}
+		return numHouses;
 	}
 
 	public boolean setupGame(List<String> names, int time) {
@@ -77,6 +200,46 @@ public class MonopolyGame implements IMonopolyGame {
 		currentPlayer = players.get(0);
 		startTimer(time);
 		return true;
+	}
+	
+
+	@Override
+	public void newGame(List<String> playerNames, int timeInMinutes) {
+		players = null;
+		board = null;
+		dice = null;
+		bank = null;
+		properties = null;
+		currentPlayer = null;
+		BoardSpace.restartCounter();
+		boolean success = setupGame(playerNames, timeInMinutes);
+		if (success) {
+			model.newGameCreated();
+		} else {
+			model.newGameFailedToCreate();
+		}
+	}
+	
+	public void startTimer(int timeInMinutes) {
+		gameTime = new Timer();
+		long timeInMilliseconds = timeInMinutes * 60000;
+		gameTime.schedule(new TimerTask() {
+			public void run() {
+				endGame();
+			}
+		}, timeInMilliseconds);
+	}
+	
+	@Override
+	public void endTurn() {
+		int currentPlayerNumber = players.indexOf(currentPlayer);
+		int nextPlayerNumber = (currentPlayerNumber + 1) % players.size();
+		currentPlayer = players.get(nextPlayerNumber);
+		if (currentPlayer.getInJail()) {
+			model.startJailTurn(currentPlayer.toString());
+		} else {
+			model.startNormalTurn(currentPlayer.toString());
+		}
 	}
 
 	// returns the player that wins the game
@@ -303,7 +466,7 @@ public class MonopolyGame implements IMonopolyGame {
 		return -1;
 	}
 
-	public int sellHouse(Street property) { // Write tests
+	public int sellHouse(Street property) { 
 		Street tempStreet = (Street) property;
 		int propertyHotelCount = tempStreet.getHotelCount();
 		boolean houseRemoved = tempStreet.getNeighborhood().removeHouse(tempStreet);
@@ -321,76 +484,6 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		}
 		return -1;
-	}
-
-	public int getHouseCount() {
-		return houseCount;
-	}
-
-	public void setHouseCount(int newHouseCount) {
-		houseCount = newHouseCount;
-	}
-
-	@Override
-	public String getCurrentPlayer() {
-		return currentPlayer.toString();
-	}
-
-	public Player getCurrentPlayerReference() {
-		return currentPlayer;
-	}
-
-	@Override
-	public List<String> getPlayers() {
-		List<String> playerNames = new ArrayList<String>();
-		for (Player curr : players) {
-			if (curr != null) {
-				playerNames.add(curr.toString());
-			}
-		}
-		return playerNames;
-	}
-
-	@Override
-	public int getBankroll(String player) {
-		for (Player curr : players) {
-			if (player.equals(curr.toString())) {
-				return curr.getBalance();
-			}
-		}
-		return -1;
-	}
-
-	@Override
-	public int getLocation(String player) {
-		Player temp = findPlayer(player);
-		if (temp == null) {
-			return -1;
-		}
-		return temp.getLocation();
-	}
-
-	@Override
-	public List<String> getProperties(String player) {
-		List<String> propertyList = new ArrayList<String>();
-		for (Property curr : properties) {
-			if (curr.getOwner() != null) {
-				if (curr.getOwner().toString().equals(player)) {
-					propertyList.add(curr.toString());
-				}
-			}
-		}
-		return propertyList;
-	}
-
-	@Override
-	public String getProperty(int location) {
-		BoardSpace space = board.getSpaces().get(location);
-		if (space.getType() == BoardSpaceType.PROPERTY) {
-			PropertySpace temp = (PropertySpace) space;
-			return temp.getProperty().toString();
-		}
-		return null;
 	}
 
 	@Override
@@ -420,69 +513,11 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
-	@Override
-	public void newGame(List<String> playerNames, int timeInMinutes) {
-		players = null;
-		board = null;
-		dice = null;
-		bank = null;
-		properties = null;
-		currentPlayer = null;
-		BoardSpace.restartCounter();
-		boolean success = setupGame(playerNames, timeInMinutes);
-		if (success) {
-			model.newGameCreated();
-		} else {
-			model.newGameFailedToCreate();
-		}
-	}
-
-	public Player findPlayer(String playerName) {
-		for (Player curr : players) {
-			if (curr.toString().equals(playerName)) {
-				return curr;
-			}
-		}
-		return null;
-	}
-
-	public Property findProperty(String propertyName) {
-		for (Property curr : properties) {
-			if (curr.toString().equals(propertyName)) {
-				return curr;
-			}
-		}
-		return null;
-	}
-
 	public List<Player> getPlayerList() {
 		return players;
 	}
 
 	@Override
-	public void endTurn() {
-		int currentPlayerNumber = players.indexOf(currentPlayer);
-		int nextPlayerNumber = (currentPlayerNumber + 1) % players.size();
-		currentPlayer = players.get(nextPlayerNumber);
-		if (currentPlayer.getInJail()) {
-			model.startJailTurn(currentPlayer.toString());
-		} else {
-			model.startNormalTurn(currentPlayer.toString());
-		}
-	}
-
-	// DO WE EVER USE THIS?
-	@Override
-	public int getPlayerNumber(String player) {
-		Player playerToFind = findPlayer(player);
-		if (playerToFind == null) {
-			return -1;
-		}
-		return players.indexOf(playerToFind);
-	}
-
-	@Override
-
 	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
 		if (currentProperty == null) {
@@ -514,18 +549,6 @@ public class MonopolyGame implements IMonopolyGame {
 				currentPlayer.transferMoney(bank, amountOwed);
 			}
 		}
-	}
-
-	public Bank getBank() {
-		return bank;
-	}
-
-	public Board getBoard() {
-		return board;
-	}
-
-	public void setModel(IModel model2) {
-		model = model2;
 	}
 
 	public List<String> getDevelopableProperties(String player) {
@@ -631,7 +654,6 @@ public class MonopolyGame implements IMonopolyGame {
 				model.failedToLeaveJail();
 			}
 		}
-
 	}
 
 	public boolean payFineToLeaveJail(Player player) {
@@ -648,32 +670,5 @@ public class MonopolyGame implements IMonopolyGame {
 			// model.paidJailFine();
 			return true;
 		}
-	}
-
-	@Override
-	public int getNumberHouses(int location) {
-		int numHouses = 0;
-		BoardSpace space = board.getSpaces().get(location);
-		if (space.getType() == BoardSpaceType.PROPERTY) {
-			Property p = ((PropertySpace) space).getProperty();
-			if (p.getType() == PropertyType.STREET) {
-				Street s = (Street) p;
-				numHouses += s.getHouseCount();
-				if (s.getHotelCount() > 0) {
-					numHouses += 5;
-				}
-			}
-		}
-		return numHouses;
-	}
-
-	public void startTimer(int timeInMinutes) {
-		gameTime = new Timer();
-		long timeInMilliseconds = timeInMinutes * 60000;
-		gameTime.schedule(new TimerTask() {
-			public void run() {
-				endGame();
-			}
-		}, timeInMilliseconds);
 	}
 }

@@ -225,23 +225,6 @@ public class MonopolyGameTest {
 
 	}
 
-
-
-
-	@Test 
-	public void testGetHouseCount(){
-		testGame.setHouseCount(10);
-		assertEquals(10, testGame.getHouseCount());
-	}
-
-	@Test
-	public void testSetHouseCount(){
-		int oldCount = testGame.getHouseCount();
-		int newCount = oldCount +2;
-		testGame.setHouseCount(newCount);
-		assertEquals(testGame.getHouseCount(), newCount);
-	}
-
 	@Test
 	public void testGetCurrentPlayer(){
 		String testString = testGame.getCurrentPlayerReference().toString();

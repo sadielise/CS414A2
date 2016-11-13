@@ -5,6 +5,7 @@ import java.util.List;
 import a4.gui.IModel;
 
 public class IncomeTaxSpace extends BoardSpace {
+
 	private int value = 200;
 
 	public IncomeTaxSpace() {
@@ -20,7 +21,7 @@ public class IncomeTaxSpace extends BoardSpace {
 	public void landedOnAction(IModel model, Player currentPlayer, Bank bank, List<Die> dice) {
 		model.landedOnNonProperty("Income Tax");
 		if (!currentPlayer.transferMoney(bank, value)) {
-			model.unableToPayTax(100);
+			model.unableToPayTax(value);
 		}
 		else{
 			model.paidRentTo("Income Tax", value);

@@ -192,4 +192,8 @@ public class View extends JFrame{
 	public void paidJailFineDialog() {
 		controller.createPaidJailFineDialog();
 	}
+	
+	public void unableToEndTurnDialog(){
+		controller.createUnableToEndTurnDialog();
+	}
 }

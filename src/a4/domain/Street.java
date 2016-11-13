@@ -6,7 +6,6 @@ public class Street extends Property {
 	private int[] rent;
 	private Neighborhood neighborhood;
 	private String color;
-	private boolean isMortgaged = false;
 
 	public Street(String name, int value, int[] rent, String color) {
 		super(name, value, PropertyType.STREET);
@@ -78,6 +77,42 @@ public class Street extends Property {
 	}
 
 	@Override
+	public boolean isDevelopable() {
+		if (this.isMortgaged) {
+			return true;
+		} else if (this.hotelCount == 1) {
+			return false;
+		} else if (this.neighborhood.hasOwner()) {
+			if (this.neighborhood.streetNeedsUnmortgaged()) {
+				return false;
+			} else if (this.getHouseCount() < this.neighborhood.getMaxNumHouses()) {
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+
+	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if
+	// developing failed.
+	@Override
+	public int develop(Bank bank) {
+		if (isMortgaged) {
+			if (unmortgage(bank)) {
+				return 1;
+			} else {
+				return -1;
+			}
+		} else if (neighborhood.addHouse(this)) {
+			this.owner.transferMoney(bank, this.neighborhood.getHouseValue());
+			return 2;
+		} else {
+			return -1;
+		}
+	}
+	
 	public int undevelop(Bank bank) {
 		if (isMortgaged) {
 			return -1;

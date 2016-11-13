@@ -77,7 +77,6 @@ public class MonopolyGameTest {
 		player.setLocation(38);
 		int pastBalance = player.getBalance();
 		testGame.roll();
-		System.out.println(player.getLocation());
 		if(player.getLocation() == 2){
 			assertEquals(pastBalance, player.getBalance());
 		}
@@ -313,7 +312,6 @@ public class MonopolyGameTest {
 		while(changes == 0 && counter < 10){
 			testGame.determinePlayOrder();
 			for(int i=0; i<testList.size(); i++){
-				//				System.out.println(testList.get(i) + "\t" + shuffledTestList.get(i));
 				if(!testList.get(i).equals(shuffledTestList.get(i))){
 					changes++;
 				}
@@ -434,7 +432,6 @@ public class MonopolyGameTest {
 		
 		game.setProperties(properties);
 		java.util.List<String> actual = game.getDevelopableProperties(p1.toString());
-		System.out.println(actual);
 		assertTrue(actual.size() == 2);
 		assertTrue(actual.contains(u.toString()));
 		assertTrue(actual.contains(s.toString()));

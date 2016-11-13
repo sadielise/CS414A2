@@ -11,9 +11,10 @@ public abstract class Property {
 		this.name = name;
 		this.value = value;
 		this.type = type;
+		this.isMortgaged = false;
 	}
-	
-	public PropertyType getType(){
+
+	public PropertyType getType() {
 		return type;
 	}
 
@@ -40,7 +41,7 @@ public abstract class Property {
 	public String toString() {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
 	}
-	
+
 	// trades properties between this player and owner of propertyToTrade
 	public void tradeProperty(Property propertyToTrade) {
 		Player player = propertyToTrade.getOwner();
@@ -60,7 +61,7 @@ public abstract class Property {
 			player.setUtilityCount(player.getUtilityCount() - 1);
 			owner.setUtilityCount(owner.getUtilityCount() + 1);
 		}
-		
+
 		Player tempOwner = owner;
 		owner = player;
 		propertyToTrade.setOwner(tempOwner);
@@ -68,6 +69,15 @@ public abstract class Property {
 		owner.updateNeighborhoodOwner(this);
 	}
 
+	public abstract int getRent(int dice_roll);
+
+	public boolean isDevelopable() {
+		if (isMortgaged) {
+			return true;
+		}
+		return false;
+	}
+	
 	public int undevelop(Bank bank){
 		if(isMortgaged){
 			return -1;
@@ -75,12 +85,21 @@ public abstract class Property {
 			return mortgage(bank);
 		}
 	}
-	
+
+	public int develop(Bank bank) {
+		if (isMortgaged) {
+			if (unmortgage(bank)) {
+				return 1;
+			}
+		}
+		return -1;
+	}
+
 	protected int mortgage(Bank bank) {
 		if (this.owner == null) {
 			return -1;
 		} else {
-			isMortgaged = true;
+			this.setIsMortgaged(true);
 			if (!bank.transferMoney(this.owner, this.value / 2)) {
 				int bankBalance = bank.getBalance();
 				bank.transferMoney(this.owner, bankBalance);
@@ -90,5 +109,14 @@ public abstract class Property {
 		}
 	}
 	
-	public abstract int getRent(int dice_roll);
+	protected boolean unmortgage(Bank bank) {
+		int unmortgageCost = (int) (this.value * 1.1);
+		if (this.owner != null) {
+			if (this.owner.transferMoney(bank, unmortgageCost)) {
+				isMortgaged = false;
+				return true;
+			}
+		}
+		return false;
+	}
 }

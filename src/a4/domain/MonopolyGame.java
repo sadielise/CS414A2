@@ -44,7 +44,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public void setModel(IModel model) {
 		this.model = model;
 	}
-	
+
 	public List<Property> getProperties() {
 		return properties;
 	}
@@ -60,7 +60,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public void setPlayers(List<Player> players) {
 		this.players = players;
 	}
-	
+
 	public int getHouseCount() {
 		return houseCount;
 	}
@@ -161,7 +161,7 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 		return players.indexOf(playerToFind);
 	}
-	
+
 	//returns the number of houses for the property at "location"
 	@Override
 	public int getNumberHouses(int location) {
@@ -202,13 +202,13 @@ public class MonopolyGame implements IMonopolyGame {
 			bank.transferMoney(newPlayer, initialPlayerBalance);
 			players.add(new Player(name, initialPlayerBalance, 0));
 		}
-		
+
 		for (BoardSpace space : board.getSpaces()) {
 			if (space.getType() == BoardSpaceType.PROPERTY) {
 				properties.add(((PropertySpace) space).getProperty());
 			}
 		}
-		
+
 		determinePlayOrder();
 		currentPlayer = players.get(0);
 		startTimer(time);
@@ -243,7 +243,7 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		}, timeInMilliseconds);
 	}
-	
+
 	//end a players Turn and start the turn of the next player
 	@Override
 	public void endTurn() {
@@ -369,8 +369,15 @@ public class MonopolyGame implements IMonopolyGame {
 		Collections.shuffle(players);
 	}
 
-	//player attempts to purchase property
-	//sends result of purchase to model
+	/*
+	 * returns true if player has enough money to buy property returns false if
+	 * player cannot purchase property PreCondition: the current Player is on a
+	 * property space public boolean purchaseProperty(){ int location =
+	 * currentPlayer.getLocation(); BoardSpace space =
+	 * board.getSpaces().get(location); Property property =
+	 * ((PropertySpace)space).getProperty(); return
+	 * purchaseProperty(currentPlayer, property, property.getValue());
+	 */
 	@Override
 	public void purchaseProperty(String player, String property) {
 		Player buyingPlayer = findPlayer(player);
@@ -386,38 +393,6 @@ public class MonopolyGame implements IMonopolyGame {
 		}
 	}
 
-	//attempts to mortgage a property
-	//sends result of mortgage to model
-	public int mortgageProperty(Property propertyToMortgage) {
-		if (!(currentPlayer.equals(propertyToMortgage.getOwner()))) {
-			return -1;
-		}
-		if (propertyToMortgage.getIsMortgaged()) {
-			return -1;
-		} else {
-			propertyToMortgage.setIsMortgaged(true);
-			if (!bank.transferMoney(propertyToMortgage.getOwner(), 100)) {
-				bank.transferMoney(propertyToMortgage.getOwner(), bank.getBalance());
-				return bank.getBalance();
-			}
-			return propertyToMortgage.getValue() / 2;
-		}
-	}
-
-	//attempts to unmortgage the property
-	//sends result of unmortgage to model
-//	private int unmortgageProperty(Property propertyToUnmortgage) {
-//		int unmortgageCost = (int) (propertyToUnmortgage.getValue() * 1.1);
-//		if (!propertyToUnmortgage.getIsMortgaged()) {
-//			return -1;
-//		} else {
-//			if (!propertyToUnmortgage.getOwner().transferMoney(bank, unmortgageCost)) {
-//				return -1;
-//			}
-//			propertyToUnmortgage.setIsMortgaged(false);
-//			return unmortgageCost;
-//		}
-//	}
 
 	//trade the properties associated with the strings "currProperty" and "otherProperty"
 	@Override
@@ -473,43 +448,6 @@ public class MonopolyGame implements IMonopolyGame {
 		return players.get(winningPlayer).purchaseProperty(bank, property, highestBid);
 	}
 
-	//purchase a house for a street if it is legal
-//	public int buyHouse(Street street) {
-//		if (houseCount != 0 && street.getIsMortgaged() == false) {
-//			boolean houseBought = street.getNeighborhood().addHouse(street);
-//			if (houseBought) {
-//				if (street.getHotelCount() == 1) {
-//					hotelCount--;
-//					houseCount += 4;
-//				}
-//				street.getOwner().transferMoney(bank, street.getNeighborhood().getHouseValue());
-//				return street.getHouseCount();
-//			}
-//		}
-//		return -1;
-//	}
-
-	//sell a house for a street if it is legal
-	public int sellHouse(Street property) { 
-		Street tempStreet = (Street) property;
-		int propertyHotelCount = tempStreet.getHotelCount();
-		boolean houseRemoved = tempStreet.getNeighborhood().removeHouse(tempStreet);
-		if (houseRemoved) {
-			if (propertyHotelCount != tempStreet.getHotelCount()) {
-				hotelCount++;
-				houseCount -= 4;
-			}
-			if (bank.transferMoney(property.getOwner(), tempStreet.getNeighborhood().getHouseValue() / 2)) {
-				return tempStreet.getNeighborhood().getHouseValue() / 2;
-			} else {
-				int value = bank.getBalance();
-				bank.transferMoney(property.getOwner(), value);
-				return value;
-			}
-		}
-		return -1;
-	}
-
 	//develop a property (unmortgage, buy house) if legal
 	//sends result of development to model
 	@Override
@@ -534,27 +472,6 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 		}
 	}
-//			else if (currentProperty.getOwner() == null) {
-//			model.propertyCannotBeDeveloped(property);
-//		} else if (currentProperty.getIsMortgaged()) {
-//			int value = unmortgageProperty(currentProperty);
-//			if (value != -1) {
-//				model.propertyWasUnmortgagedFor(property, value);
-//			} else {
-//				model.propertyCannotBeDeveloped(property);
-//			}
-//		} else if (currentProperty.getType() == PropertyType.STREET) {
-//			Street currentStreet = (Street) currentProperty;
-//			int success = buyHouse(currentStreet);
-//			if (success == -1) {
-//				model.propertyCannotBeDeveloped(property);
-//			} else {
-//				model.propertyWasDeveloped(currentStreet.toString(), currentStreet.getHouseCount());
-//			}
-//		} else {
-//			model.propertyCannotBeDeveloped(property);
-//		}
-//	}
 
 	//undevelop a property (mortgage, sell houses) if legal, when a player needs more money
 	//sends result of undevelop to model
@@ -564,22 +481,23 @@ public class MonopolyGame implements IMonopolyGame {
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);
 		}
-		else if(currentProperty.getIsMortgaged()){
-			model.couldNotUndevelopProperty(property);
-		}
 		else {
-			if (currentProperty.getType() == PropertyType.STREET) {
-				Street street = (Street) currentProperty;
-				int valueSoldFor = sellHouse(street);
-				if (valueSoldFor != -1) {
-					model.propertyWasUnDevelopedFor(property, valueSoldFor);
-				}else{
-					valueSoldFor = mortgageProperty(currentProperty);
-					model.propertyWasUnDevelopedFor(property, valueSoldFor);
+			int propertyHotelCount = -1;
+			if(currentProperty.getType() == PropertyType.STREET){
+				propertyHotelCount = ((Street)currentProperty).getHotelCount();
+			}
+			int undevelopingValue = currentProperty.undevelop(bank);
+			if(undevelopingValue != -1){
+				if(currentProperty.getType() == PropertyType.STREET){
+					if(propertyHotelCount != ((Street)currentProperty).getHotelCount()){
+						hotelCount++;
+						houseCount -= 4;
+					}
 				}
-			} else {
-				int mortgagingValue = mortgageProperty(currentProperty);
-				model.propertyWasUnDevelopedFor(property, mortgagingValue);
+				model.propertyWasUnDevelopedFor(property, undevelopingValue);
+			}
+			else{
+				model.couldNotUndevelopProperty(property);
 			}
 			if (currentPlayer.getBalance() < amountOwed) {
 				amountOwed -= currentPlayer.getBalance();
@@ -609,10 +527,10 @@ public class MonopolyGame implements IMonopolyGame {
 	//get the list of properties that "player" can undevelop
 	public List<String> getUndevelopableProperties(String player) {
 		List<String> propertyList = new ArrayList<String>();
-		for(Property curr : properties){
-			if(curr.getOwner() != null){
-				if(curr.getOwner().toString().equals(player)){
-					if(!curr.getIsMortgaged()){
+		for (Property curr : properties) {
+			if (curr.getOwner() != null) {
+				if (curr.getOwner().toString().equals(player)) {
+					if (!curr.getIsMortgaged()) {
 						propertyList.add(curr.toString());
 					}
 				}

@@ -100,7 +100,7 @@ public abstract class Property {
 			return -1;
 		} else {
 			this.setIsMortgaged(true);
-			if (!bank.transferMoney(this.owner, 100)) {
+			if (!bank.transferMoney(this.owner, this.value / 2)) {
 				int bankBalance = bank.getBalance();
 				bank.transferMoney(this.owner, bankBalance);
 				return bankBalance;

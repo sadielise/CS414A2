@@ -6,7 +6,6 @@ public class Street extends Property {
 	private int[] rent;
 	private Neighborhood neighborhood;
 	private String color;
-	private boolean isMortgaged = false;
 
 	public Street(String name, int value, int[] rent, String color) {
 		super(name, value, PropertyType.STREET);
@@ -79,7 +78,7 @@ public class Street extends Property {
 
 	@Override
 	public boolean isDevelopable() {
-		if (isMortgaged) {
+		if (this.isMortgaged) {
 			return true;
 		} else if (this.hotelCount == 1) {
 			return false;

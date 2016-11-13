@@ -11,6 +11,7 @@ public abstract class Property {
 		this.name = name;
 		this.value = value;
 		this.type = type;
+		this.isMortgaged = false;
 	}
 
 	public PropertyType getType() {
@@ -98,8 +99,8 @@ public abstract class Property {
 		if (this.owner == null) {
 			return -1;
 		} else {
-			isMortgaged = true;
-			if (!bank.transferMoney(this.owner, this.value / 2)) {
+			this.setIsMortgaged(true);
+			if (!bank.transferMoney(this.owner, 100)) {
 				int bankBalance = bank.getBalance();
 				bank.transferMoney(this.owner, bankBalance);
 				return bankBalance;

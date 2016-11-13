@@ -1,5 +1,7 @@
 package a4.test;
 
+import java.util.List;
+
 import a4.domain.IMonopolyGame;
 import a4.gui.IModel;
 
@@ -123,7 +125,7 @@ public class MockModel implements IModel{
 		
 	}
 
-	public void endGame(String string) {
+	public void endGame(List<String> string) {
 		
 	}
 	 

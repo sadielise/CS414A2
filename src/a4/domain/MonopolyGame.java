@@ -282,7 +282,12 @@ public class MonopolyGame implements IMonopolyGame {
 			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
 				winner = p;
 		}
-		model.endGame(winner.toString());
+		ArrayList<String> endgameList = new ArrayList<String>();
+		for(Player curr: players){
+			endgameList.add(curr.getName() + ": $" + liquidatedFunds.get(curr) );
+		}
+		endgameList.add(winner.toString());
+		model.endGame(endgameList);
 	}
 
 	// returns true if the player is added

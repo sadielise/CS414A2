@@ -247,10 +247,10 @@ public class Model implements IModel {
 		view.rolledDialog(value, isDoubles);
 	}
 
-	public void endGame(String player) {
+	public void endGame(List<String> players) {
 		update();
 		isStarted = false;
-		view.endGameDialog(player);
+		view.endGameDialog(players);
 	}
 	
 	public void unableToPay(String playerOwed, int amountOwed){

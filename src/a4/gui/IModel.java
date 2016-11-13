@@ -1,5 +1,7 @@
 package a4.gui;
 
+import java.util.List;
+
 public interface IModel {
 	public void propertyIsUnowned(String propertyName, int propertyValue);
 	public void unableToPayRentTo(String playerName , int rentAmount);
@@ -26,7 +28,7 @@ public interface IModel {
 	public void landedOnNonProperty(String string);
 	public void landedOnOwnedProperty(String string, String string2);
 	public void rolled(int value, boolean isDoubles);
-	public void endGame(String string);
+	public void endGame(List<String> string);
 	public void propertyWasUnDevelopedFor(String property, int houseValue);
 	public void paidJailFine();
 	public void unableToPay(String playerOwed, int amountOwed);

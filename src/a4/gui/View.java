@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.List;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -180,8 +181,8 @@ public class View extends JFrame{
 		controller.createLandedOnOwnedPropertyDialog(property, owner);
 	}
 
-	public void endGameDialog(String player) {
-		controller.createEndGameDialog(player);
+	public void endGameDialog(List<String> players) {
+		controller.createEndGameDialog(players);
 	}
 
 	public void propertyWasUndevelopedDialog(String property, int houseValue) {

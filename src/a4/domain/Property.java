@@ -68,5 +68,27 @@ public abstract class Property {
 		owner.updateNeighborhoodOwner(this);
 	}
 
+	public int undevelop(Bank bank){
+		if(isMortgaged){
+			return -1;
+		}else{
+			return mortgage(bank);
+		}
+	}
+	
+	protected int mortgage(Bank bank) {
+		if (this.owner == null) {
+			return -1;
+		} else {
+			isMortgaged = true;
+			if (!bank.transferMoney(this.owner, this.value / 2)) {
+				int bankBalance = bank.getBalance();
+				bank.transferMoney(this.owner, bankBalance);
+				return bankBalance;
+			}
+			return this.value / 2;
+		}
+	}
+	
 	public abstract int getRent(int dice_roll);
 }

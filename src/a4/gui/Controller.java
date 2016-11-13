@@ -82,9 +82,11 @@ public class Controller {
 			{
 				if(model.isStarted){
 					if(!model.hasRolled){
-						model.roll();
+						createUnableToEndTurnDialog();
 					}
-					model.endTurn();
+					else{
+						model.endTurn();
+					}
 				}
 			}
 		});
@@ -220,5 +222,9 @@ public class Controller {
 	}
 	public void createPaidJailFineDialog() {
 		JOptionPane.showMessageDialog(view, "You paid the jail fine.");
+	}
+	
+	public void createUnableToEndTurnDialog() {
+		JOptionPane.showMessageDialog(view, "You cannot end your turn without rolling.\nPlease roll.");
 	}
 }

@@ -21,13 +21,21 @@ public class Player {
 		this.numUtilities = 0;
 		this.isAI = isAI;
 	}
-	
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isAI() {
+		return isAI;
+	}
+
+	public void setAI(boolean isAI) {
+		this.isAI = isAI;
 	}
 
 	public int getBalance() {
@@ -61,7 +69,7 @@ public class Player {
 	public void setLocation(int location) {
 		this.location = location;
 	}
-	
+
 	public int getRailroadCount() {
 		return numRailroads;
 	}
@@ -83,7 +91,7 @@ public class Player {
 		balance += amountToAdd;
 		return balance;
 	}
-	
+
 	// increases Player's railroad count by 1, returnss new railroad count
 	public int addRailroad() {
 		numRailroads++;
@@ -99,7 +107,7 @@ public class Player {
 			return -1;
 		}
 	}
-	
+
 	// increases Player's utility count by 1, returns new utility count
 	public int addUtility() {
 		numUtilities++;
@@ -115,7 +123,7 @@ public class Player {
 			return -1;
 		}
 	}
-	
+
 	@Override
 	public String toString() {
 		return name;
@@ -171,7 +179,7 @@ public class Player {
 		toPlayer.addBalance(amount);
 		return true;
 	}
-	
+
 	// transfers money from current player (this) to the bank
 	public boolean transferMoney(Bank toBank, int amount) {
 		if (balance < amount) {
@@ -181,7 +189,7 @@ public class Player {
 		toBank.addBalance(amount);
 		return true;
 	}
-	
+
 	// purchases property for Player, returns true if legal, returns false otherwise
 	public boolean purchaseProperty(Bank toBank, Property property, int price) {
 		if (property == null) {
@@ -203,7 +211,7 @@ public class Player {
 			return false;
 		}
 	}
-	
+
 	// checks if one Player owns every street in a neighborhood and sets them as the neighborhood owner if so
 	public void updateNeighborhoodOwner(Property property) {
 		if (property.getType() == PropertyType.STREET) {

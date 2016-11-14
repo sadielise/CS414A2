@@ -101,8 +101,8 @@ public class Model implements IModel {
 		game.trade(currProperty, otherProperty);
 	}
 
-	public void startNewGame(List<String> playerNames, int timeInMinutes){
-		game.newGame(playerNames,timeInMinutes);
+	public void startNewGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes){
+		game.newGame(playerNames, aiPlayers, timeInMinutes);
 		isStarted = true;
 		update();
 	}

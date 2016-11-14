@@ -181,7 +181,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	//create all of instances of the objects needed to play a monopoly game
-	public boolean setupGame(List<String> names, int time) {
+	public boolean setupGame(List<String> names, List<String> aiNames, int time) {
 		if (names == null || names.size() < minNumPlayers || names.size() > maxNumPlayers) {
 			return false;
 		}
@@ -198,9 +198,12 @@ public class MonopolyGame implements IMonopolyGame {
 		hotelCount = numHotels;
 
 		for (String name : names) {
-			Player newPlayer = new Player(name, 0, 0);
+			boolean isAI = false;
+			if (aiNames != null)
+				isAI = aiNames.contains(name);
+			Player newPlayer = new Player(name, 0, 0, isAI);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
-			players.add(new Player(name, initialPlayerBalance, 0));
+			players.add(new Player(name, initialPlayerBalance, 0, isAI));
 		}
 
 		for (BoardSpace space : board.getSpaces()) {
@@ -217,7 +220,7 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	//clear the variables from an old game, setup a new game, nd start the timer
 	@Override
-	public void newGame(List<String> playerNames, int timeInMinutes) {
+	public void newGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes) {
 		players = null;
 		board = null;
 		dice = null;
@@ -225,7 +228,7 @@ public class MonopolyGame implements IMonopolyGame {
 		properties = null;
 		currentPlayer = null;
 		BoardSpace.restartCounter();
-		boolean success = setupGame(playerNames, timeInMinutes);
+		boolean success = setupGame(playerNames, aiPlayers, timeInMinutes);
 		if (success) {
 			model.newGameCreated();
 		} else {

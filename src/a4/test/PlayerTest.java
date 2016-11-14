@@ -20,14 +20,15 @@ public class PlayerTest {
 
 	@Before
 	public void setUp() throws Exception {
-		player = new Player(name, balance, location);
+		player = new Player(name, balance, location, false);
 			testGame = new MonopolyGame();
 			IModel model = new MockModel(testGame);
 			testGame.setModel(model);
 			ArrayList<String> names = new ArrayList<String>();
+			ArrayList<String> aiNames = new ArrayList<String>();
 			names.add("Chancey");
 			names.add("David");
-			testGame.newGame(names, 30);
+			testGame.newGame(names, aiNames, 30);
 	}
 
 	@After
@@ -43,14 +44,14 @@ public class PlayerTest {
 	
 	@Test
 	public void testToString_EmptyName(){
-		Player player2 = new Player("", balance, location);
+		Player player2 = new Player("", balance, location, false);
 		String actual = player2.toString();
 		assertTrue("" == actual);
 	}
 	
 	@Test
 	public void testEqual_Success(){
-		Player player2 = new Player(name, balance, location);
+		Player player2 = new Player(name, balance, location, false);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertTrue(player.equals(player2));
@@ -71,7 +72,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testEqual_DifferentNames(){
-		Player player2 = new Player("Sadie", balance, location);
+		Player player2 = new Player("Sadie", balance, location, false);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertFalse(player.equals(player2));
@@ -80,7 +81,7 @@ public class PlayerTest {
 	@Test
 	public void testEqual_NullName(){
 		player.setName(null);
-		Player player2 = new Player(name, balance, location);
+		Player player2 = new Player(name, balance, location, false);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertFalse(player.equals(player2));
@@ -89,7 +90,7 @@ public class PlayerTest {
 	@Test
 	public void testEqual_BothNullName(){
 		player.setName(null);
-		Player player2 = new Player(null, balance, location);
+		Player player2 = new Player(null, balance, location, false);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.THIMBLE);
 		assertTrue(player.equals(player2));
@@ -97,7 +98,7 @@ public class PlayerTest {
 	
 	@Test
 	public void testEqual_DifferentTokens(){
-		Player player2 = new Player(name, balance, location);
+		Player player2 = new Player(name, balance, location, false);
 		player.setToken(Token.THIMBLE);
 		player2.setToken(Token.CAT);
 		assertFalse(player.equals(player2));
@@ -118,7 +119,7 @@ public class PlayerTest {
 
 	@Test
 	public void testGetName_EmptyName() {
-		Player player2 = new Player("", balance, location);
+		Player player2 = new Player("", balance, location, false);
 		String actual = player2.getName();
 		assertTrue("" == actual);
 	}
@@ -147,7 +148,7 @@ public class PlayerTest {
 	@Test
 	public void testGetBalance_ZeroBalance() {
 		int initialBalance = 0;
-		Player player2 = new Player(name, initialBalance, location);
+		Player player2 = new Player(name, initialBalance, location, false);
 		int actual = player2.getBalance();
 		assertTrue(actual == initialBalance);
 	}
@@ -273,7 +274,7 @@ public class PlayerTest {
 
 	@Test
 	public void testGetLocation_NegativeLocation() {
-		Player player2 = new Player(name, balance, -1);
+		Player player2 = new Player(name, balance, -1, false);
 		int actual = player2.getLocation();
 		assertTrue(-1 == actual);
 	}

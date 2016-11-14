@@ -20,7 +20,7 @@ public class BankTest {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		names.add("David");
-		testGame.newGame(names, 30);
+		testGame.newGame(names, null, 30);
 	}
 	
 	@Test

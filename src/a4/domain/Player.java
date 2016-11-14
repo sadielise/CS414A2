@@ -3,6 +3,7 @@ package a4.domain;
 public class Player {
 
 	private String name;
+	private boolean isAI;
 	private int balance;
 	private Token token;
 	private boolean inJail;
@@ -10,7 +11,7 @@ public class Player {
 	private int numRailroads;
 	private int numUtilities;
 
-	public Player(String name, int balance, int location) {
+	public Player(String name, int balance, int location, boolean isAI) {
 		this.name = name;
 		this.balance = balance;
 		this.token = null;
@@ -18,6 +19,7 @@ public class Player {
 		this.location = location;
 		this.numRailroads = 0;
 		this.numUtilities = 0;
+		this.isAI = isAI;
 	}
 	
 	public String getName() {

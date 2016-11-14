@@ -13,10 +13,10 @@ public class BoardSpaceTest {
 	BoardSpaceFactory test_factory;
 	OpenSpace test_space;
 	ArrayList<Player> test_players = new ArrayList<Player>();
-	Player player1 = new Player("Test Player 1", 1500, 0);
-	Player player2 = new Player("Test Player 2", 1500, 0);
-	Player player3 = new Player("Test Player 3", 1500, 0);
-	Player player4 = new Player("Test Player 4", 1500, 0);
+	Player player1 = new Player("Test Player 1", 1500, 0, false);
+	Player player2 = new Player("Test Player 2", 1500, 0, false);
+	Player player3 = new Player("Test Player 3", 1500, 0, false);
+	Player player4 = new Player("Test Player 4", 1500, 0, false);
 
 	@Before
 	public void initialize() {

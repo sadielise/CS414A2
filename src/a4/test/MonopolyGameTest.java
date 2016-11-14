@@ -77,7 +77,7 @@ public class MonopolyGameTest {
 		player.setLocation(38);
 		int pastBalance = player.getBalance();
 		testGame.roll();
-		if(testGame.getBoard().getSpaces().get(player.getLocation()) instanceof IncomeTaxSpace){
+		if(player.getLocation() == 2){
 			assertEquals(pastBalance, player.getBalance());
 		}
 		else{
@@ -312,7 +312,6 @@ public class MonopolyGameTest {
 		while(changes == 0 && counter < 10){
 			testGame.determinePlayOrder();
 			for(int i=0; i<testList.size(); i++){
-				//				System.out.println(testList.get(i) + "\t" + shuffledTestList.get(i));
 				if(!testList.get(i).equals(shuffledTestList.get(i))){
 					changes++;
 				}
@@ -433,7 +432,6 @@ public class MonopolyGameTest {
 		
 		game.setProperties(properties);
 		java.util.List<String> actual = game.getDevelopableProperties(p1.toString());
-		System.out.println(actual);
 		assertTrue(actual.size() == 2);
 		assertTrue(actual.contains(u.toString()));
 		assertTrue(actual.contains(s.toString()));
@@ -557,7 +555,7 @@ public class MonopolyGameTest {
 		game.setBoard(board);
 		assertTrue(0 == game.getNumberHouses(40));
 	}
-	
+/*	
 	@Test
 	public void testSellHouse_Success(){
 		Player testPlayer = new Player("test", 0,0);
@@ -648,4 +646,5 @@ public class MonopolyGameTest {
 		assertNotEquals(-1, testGame.sellHouse(street1));
 		assertEquals(playerBalance + 1, testPlayer.getBalance());
 	}
+	*/
 }

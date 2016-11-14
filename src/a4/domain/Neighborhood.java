@@ -22,6 +22,14 @@ public class Neighborhood {
 		return color;
 	}
 
+	public int getMaxNumHouses() {
+		return maxNumHouses;
+	}
+
+	public int getMinNumHouses() {
+		return minNumHouses;
+	}
+
 	public List<Street> getStreets() {
 		return streets;
 	}
@@ -117,6 +125,9 @@ public class Neighborhood {
 		if (null == tempStreet.getOwner()) {
 			return false;
 		}
+		if(streetHouses == 0 && streetHotel ==0){
+			return false;
+		}
 		if (streetHouses == minNumHouses) {
 			return false;
 		} else if (streetHouses <= maxNumHouses && streetHouses > minNumHouses) {
@@ -136,5 +147,15 @@ public class Neighborhood {
 			// something went wrong
 			return false;
 		}
+	}
+	
+	//return true if a street within the neighborhood is current mortgaged.
+	public boolean streetNeedsUnmortgaged() {
+		for(Street curr : this.streets){
+			if(curr.getIsMortgaged()){
+				return true;
+			}
+		}
+		return false;
 	}
 }

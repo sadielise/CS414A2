@@ -82,9 +82,11 @@ public class Controller {
 			{
 				if(model.isStarted){
 					if(!model.hasRolled){
-						model.roll();
+						createUnableToEndTurnDialog();
 					}
-					model.endTurn();
+					else{
+						model.endTurn();
+					}
 				}
 			}
 		});
@@ -207,13 +209,22 @@ public class Controller {
 	public void createLandedOnOwnedPropertyDialog(String property, String owner) {
 		JOptionPane.showMessageDialog(view, "You landed on " + property + " which is owned by " + owner);
 	}
-	public void createEndGameDialog(String player) {
-		JOptionPane.showMessageDialog(view, "The game is over! "+player+" is the winner!\nYou can start a new game by clicking \'New Game!\'");
+	public void createEndGameDialog(List<String> players) {
+		String output = "The game is over! Here are the results: \n\n";
+		for(int i=0; i<players.size()-1; i++){
+			output += players.get(i) + "\n";
+		}
+		output += "\nThe Winner is: " + players.get(players.size()-1) + "\nYou can start a new game by clicking \'New Game!\'";
+		JOptionPane.showMessageDialog(view, output);
 	}
 	public void createPropertyWasUndevelopedDialog(String property, int houseValue) {
 		JOptionPane.showMessageDialog(view, property +" was undeveloped for $"+houseValue +".");
 	}
 	public void createPaidJailFineDialog() {
 		JOptionPane.showMessageDialog(view, "You paid the jail fine.");
+	}
+	
+	public void createUnableToEndTurnDialog() {
+		JOptionPane.showMessageDialog(view, "You cannot end your turn without rolling.\nPlease roll.");
 	}
 }

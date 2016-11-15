@@ -236,7 +236,7 @@ public class Controller {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (count <= 0) {
-					view.updateTimer("");
+					view.updateTimer("Time Remaining: 0 min");
 					((Timer)e.getSource()).stop();
 				} 
 				else {

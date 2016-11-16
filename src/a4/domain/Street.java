@@ -76,31 +76,31 @@ public class Street extends Property {
 		neighborhood = n;
 	}
 
+	// returns 1 if street is developable, 0 otherwise
 	@Override
-	public boolean isDevelopable() {
+	public int isDevelopable() {
 		if (this.isMortgaged) {
-			return true;
+			return 1;
 		} else if (this.hotelCount == 1) {
-			return false;
+			return -1;
 		} else if (this.neighborhood.hasOwner()) {
 			if (this.neighborhood.streetNeedsUnmortgaged()) {
-				return false;
+				return -1;
 			} else if (this.getHouseCount() < this.neighborhood.getMaxNumHouses()) {
-				return true;
+				return 1;
 			} else {
-				return false;
+				return -1;
 			}
 		} else {
-			return false;
+			return -1;
 		}
 	}
 
-	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if
-	// developing failed.
+	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if developing failed.
 	@Override
 	public int develop(Bank bank) {
 		if (isMortgaged) {
-			if (unmortgage(bank)) {
+			if (unmortgage(bank) == 1) {
 				return 1;
 			} else {
 				return -1;
@@ -113,6 +113,7 @@ public class Street extends Property {
 		}
 	}
 	
+	// sells house or mortgages house if street can be undeveloped, -1 otherwise
 	public int undevelop(Bank bank) {
 		if (isMortgaged) {
 			return -1;
@@ -127,6 +128,7 @@ public class Street extends Property {
 		}
 	}
 
+	// returns half the value of the street if bank has enough funds, balance of bank otherwise
 	private int sellHouse(Bank bank) {
 		if (bank.transferMoney(this.owner, this.neighborhood.getHouseValue() / 2)) {
 			return this.neighborhood.getHouseValue() / 2;

@@ -20,8 +20,8 @@ public class Board {
 		return spaces;
 	}
 
-	public void addSpace(BoardSpace space_to_add) {
-		spaces.add(space_to_add);
+	public void addSpace(BoardSpace spaceToAdd) {
+		spaces.add(spaceToAdd);
 	}
 	
 	public int getJailLocation(){

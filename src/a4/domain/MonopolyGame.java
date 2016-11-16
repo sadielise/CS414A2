@@ -15,8 +15,6 @@ public class MonopolyGame implements IMonopolyGame {
 	private List<Die> dice;
 	private Bank bank;
 	private List<Property> properties;
-	private int houseCount;
-	private int hotelCount;
 	private Player currentPlayer;
 	private IModel model;
 	private int initialBankBalance = 20580;
@@ -62,7 +60,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public int getHouseCount() {
-		return houseCount;
+		return bank.getHouseCount();
 	}
 
 	@Override
@@ -192,15 +190,12 @@ public class MonopolyGame implements IMonopolyGame {
 		dice = new ArrayList<Die>();
 		dice.add(new Die(numDiceSides));
 		dice.add(new Die(numDiceSides));
-		bank = new Bank(initialBankBalance);
-		bank.setBalance(initialBankBalance);
-		houseCount = numHouses;
-		hotelCount = numHotels;
+		bank = new Bank(initialBankBalance, numHouses, numHotels);
 
 		for (String name : names) {
 			Player newPlayer = new Player(name, 0, 0);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
-			players.add(new Player(name, initialPlayerBalance, 0));
+			players.add(newPlayer);
 		}
 
 		for (BoardSpace space : board.getSpaces()) {
@@ -451,10 +446,6 @@ public class MonopolyGame implements IMonopolyGame {
 			if(developingEvent == 1){
 				model.propertyWasUnmortgagedFor(property, (int)(currentProperty.getValue() * 1.1));
 			}else if(developingEvent == 2){
-				if(((Street)currentProperty).getHotelCount() == 1){
-					hotelCount--;
-					houseCount+=4;
-				}
 				model.propertyWasDeveloped(property, ((Street)currentProperty).getHouseCount());
 			}else{
 				model.propertyCannotBeDeveloped(property);
@@ -478,8 +469,8 @@ public class MonopolyGame implements IMonopolyGame {
 			if(undevelopingValue != -1){
 				if(currentProperty.getType() == PropertyType.STREET){
 					if(propertyHotelCount != ((Street)currentProperty).getHotelCount()){
-						hotelCount++;
-						houseCount -= 4;
+//						hotelCount++;
+//						houseCount -= 4;
 					}
 				}
 				model.propertyWasUnDevelopedFor(property, undevelopingValue);

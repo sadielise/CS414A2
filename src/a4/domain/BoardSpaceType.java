@@ -6,5 +6,7 @@ public enum BoardSpaceType {
 	OPEN, 
 	GOTOJAIL, 
 	JAIL, 
-	PROPERTY
+	PROPERTY,
+	CHANCE,
+	COMMUNITYCHEST
 }

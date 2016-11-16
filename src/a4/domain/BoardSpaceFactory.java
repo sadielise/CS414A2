@@ -17,6 +17,10 @@ public class BoardSpaceFactory {
 			space = new JailSpace(); break;
 		case PROPERTY:
 			space = new PropertySpace(); break;
+		case CHANCE:
+			space = new ChanceSpace(); break;
+		case COMMUNITYCHEST:
+			space = new CommunityChestSpace(); break;
 		default:
 			space = null; break;
 		}

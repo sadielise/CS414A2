@@ -102,6 +102,7 @@ public class Model implements IModel {
 	}
 
 	public void startNewGame(List<String> playerNames, int timeInMinutes){
+		view.startRemainingTime(timeInMinutes);
 		game.newGame(playerNames,timeInMinutes);
 		isStarted = true;
 		update();
@@ -164,6 +165,7 @@ public class Model implements IModel {
 	}
 
 	public void newGameCreated() {
+		update();
 		view.startNewGameDialog();
 		startNormalTurn(game.getCurrentPlayer());
 		

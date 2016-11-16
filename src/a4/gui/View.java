@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class View extends JFrame{
 	private Model model;
@@ -20,6 +21,8 @@ public class View extends JFrame{
 	private PlayingBoard playingBoard;
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
+	private JLabel timeRemaining;
+	private Timer timer;
 	
 	public void setModel(Model m){
 		model = m;
@@ -56,12 +59,12 @@ public class View extends JFrame{
 		buttonSetup(playerOptionsAndInfo,controller.getEndTurnButton(), "End Turn");
 
 		currentPlayer = new JLabel(" Current Player: <noplayer>     ");
-		currentBankroll = new JLabel(" Current Bankroll:  $<nomoney>");
+		currentBankroll = new JLabel(" Current Bankroll:  $<nomoney>       ");
+		timeRemaining = new JLabel (" Time Remaining: <null> ");
 		JLabel guiBuffer = new JLabel("                              ");	
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
-
-		playerOptionsAndInfo.add(guiBuffer);
+		playerOptionsAndInfo.add(timeRemaining);
 		playerOptionsAndInfo.add(guiBuffer);
 		playingBoard = new PlayingBoard(model);
 
@@ -75,7 +78,7 @@ public class View extends JFrame{
 
 	public void update(){
 		currentPlayer.setText(" Current Player: " + model.getPlayer()+"     ");
-		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll());
+		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll()+"     ");
 		playingBoard.update();
 	}
 
@@ -196,4 +199,13 @@ public class View extends JFrame{
 	public void unableToEndTurnDialog(){
 		controller.createUnableToEndTurnDialog();
 	}
+	
+	public void updateTimer(String timerText){
+		timeRemaining.setText(timerText);
+	}
+
+	public void startRemainingTime(int timeInMinutes) {
+		timer = controller.createAndStartTimer(timeInMinutes);
+	}
+	
 }

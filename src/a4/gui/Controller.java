@@ -4,9 +4,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimerTask;
 
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class Controller {
 	private Model model;
@@ -204,7 +206,7 @@ public class Controller {
 		}
 	}
 	public void createLandedOnNonPropertyDialog(String property) {
-			JOptionPane.showMessageDialog(view, "You landed on " + property);
+		JOptionPane.showMessageDialog(view, "You landed on " + property);
 	}
 	public void createLandedOnOwnedPropertyDialog(String property, String owner) {
 		JOptionPane.showMessageDialog(view, "You landed on " + property + " which is owned by " + owner);
@@ -223,8 +225,28 @@ public class Controller {
 	public void createPaidJailFineDialog() {
 		JOptionPane.showMessageDialog(view, "You paid the jail fine.");
 	}
-	
+
 	public void createUnableToEndTurnDialog() {
 		JOptionPane.showMessageDialog(view, "You cannot end your turn without rolling.\nPlease roll.");
+	}
+
+	public Timer createAndStartTimer(int timeInMinutes){
+		Timer timer = new Timer(60000, new ActionListener() {
+			private int count = timeInMinutes-1;
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (count <= 0) {
+					view.updateTimer("Time Remaining: 0 min");
+					((Timer)e.getSource()).stop();
+				} 
+				else {
+					view.updateTimer("Time Remaining: " +(Integer.toString(count)) + " min");
+					count--;
+				}
+			}
+		});
+		view.updateTimer("Time Remaining: " + timeInMinutes +" min");
+		timer.start();
+		return timer;
 	}
 }

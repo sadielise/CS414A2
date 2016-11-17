@@ -8,6 +8,8 @@ public interface IMonopolyGame {
 
 	public String getCurrentPlayer();
 
+	public boolean getCurrentPlayerIsAI();
+
 	public List<String> getPlayers();
 
 	public int getBankroll(String player);

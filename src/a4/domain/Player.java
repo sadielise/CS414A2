@@ -126,7 +126,10 @@ public class Player {
 
 	@Override
 	public String toString() {
-		return name;
+		String playerString = name;
+		if (isAI)
+			playerString += " (AI)";
+		return playerString;
 	}
 
 	// Players are equal if the name and token are equal

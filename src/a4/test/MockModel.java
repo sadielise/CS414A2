@@ -148,4 +148,16 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void startAITurn(String player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startAIJailTurn(String player) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

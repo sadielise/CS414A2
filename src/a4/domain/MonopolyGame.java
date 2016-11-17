@@ -70,6 +70,10 @@ public class MonopolyGame implements IMonopolyGame {
 		return currentPlayer.toString();
 	}
 
+	public boolean getCurrentPlayerIsAI() {
+		return currentPlayer.isAI();
+	}
+
 	public Player getCurrentPlayerReference() {
 		return currentPlayer;
 	}
@@ -253,10 +257,18 @@ public class MonopolyGame implements IMonopolyGame {
 		int currentPlayerNumber = players.indexOf(currentPlayer);
 		int nextPlayerNumber = (currentPlayerNumber + 1) % players.size();
 		currentPlayer = players.get(nextPlayerNumber);
-		if (currentPlayer.getInJail()) {
-			model.startJailTurn(currentPlayer.toString());
+		if (currentPlayer.isAI()) {
+			if (currentPlayer.getInJail()) {
+				model.startAIJailTurn(currentPlayer.toString());  // TODO
+			} else {
+				model.startAITurn(currentPlayer.toString());  // TODO
+			}
 		} else {
-			model.startNormalTurn(currentPlayer.toString());
+			if (currentPlayer.getInJail()) {
+				model.startJailTurn(currentPlayer.toString());
+			} else {
+				model.startNormalTurn(currentPlayer.toString());
+			}
 		}
 	}
 

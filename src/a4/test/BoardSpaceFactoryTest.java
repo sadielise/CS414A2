@@ -79,7 +79,6 @@ public class BoardSpaceFactoryTest {
 		Player test_player = new Player("Test Player", 1500, 0, false);
 		PropertySpace street = (PropertySpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
 		street.setPropertyInfo(PropertyType.STREET, "Street Name", 150, new int[]{1, 2, 3, 4, 5, 6}, "Blue");
-		street.addPlayer(test_player);
 	}
 
 }

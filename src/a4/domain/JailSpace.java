@@ -34,7 +34,6 @@ public class JailSpace extends BoardSpace {
 	public void putPlayerInJail(Player player) {
 		player.setLocation(location);
 		player.setInJail(true);
-		addPlayer(player);
 		playersInJail.put(player, 0);
 	}
 

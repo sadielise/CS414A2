@@ -109,7 +109,9 @@ public class Controller {
 		String bid;
 		int offer;
 		for (String playerName : players) {
-			if (!model.playerIsAI(playerName)) {
+			if (model.playerIsAI(playerName)) {
+				offers.add(-2);
+			} else {
 				bid = JOptionPane.showInputDialog(playerName + " please enter your bid!");
 				try {
 					offer = Integer.parseInt(bid);

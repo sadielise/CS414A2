@@ -21,7 +21,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public Timer gameTime;
 	private int numHouses = 32;
 	private int numHotels = 5;
-	private int initialPlayerBalance = 50;
+	private int initialPlayerBalance = 1500;
 	private int numDiceSides = 6;
 	private int minNumPlayers = 2;
 	private int maxNumPlayers = 4;
@@ -207,6 +207,9 @@ public class MonopolyGame implements IMonopolyGame {
 				isAI = aiNames.contains(name);
 			Player newPlayer = new Player(name, 0, 0, isAI);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
+			// TODO: Remove this later
+			if (isAI)
+				newPlayer.setBalance(1);
 			players.add(newPlayer);
 		}
 
@@ -314,6 +317,9 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(int pastNumberOfDoubles) {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
+		// todo: remove these later
+		value1 = 0;
+		value2 = 3;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {

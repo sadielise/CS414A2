@@ -231,10 +231,11 @@ public class MonopolyGame implements IMonopolyGame {
 		bank = null;
 		properties = null;
 		currentPlayer = null;
+		gameTime = null;
 		BoardSpace.restartCounter();
 		boolean success = setupGame(playerNames, aiPlayers, timeInMinutes);
 		if (success) {
-			model.newGameCreated(currentPlayer.isAI());
+			model.newGameCreated(timeInMinutes, currentPlayer.isAI());
 		} else {
 			model.newGameFailedToCreate();
 		}

@@ -25,7 +25,7 @@ public interface IModel {
 
 	public void startAIJailTurn(String player);
 
-	public void newGameCreated(boolean firstPlayerIsAI);
+	public void newGameCreated(int timeInMinutes, boolean firstPlayerIsAI);
 
 	public void newGameFailedToCreate();
 

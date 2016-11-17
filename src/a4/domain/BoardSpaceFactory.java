@@ -6,15 +6,20 @@ public class BoardSpaceFactory {
 		BoardSpace space = null;
 		switch (type) {
 		case INCOMETAX:
-			space = new IncomeTaxSpace(); break;
+			space = new IncomeTaxSpace();
+			break;
 		case LUXURYTAX:
-			space = new LuxuryTaxSpace(); break;
+			space = new LuxuryTaxSpace();
+			break;
 		case OPEN:
-			space = new OpenSpace(); break;
+			space = new OpenSpace();
+			break;
 		case GOTOJAIL:
-			space = new GoToJailSpace(); break;
+			space = new GoToJailSpace();
+			break;
 		case JAIL:
-			space = new JailSpace(); break;
+			space = new JailSpace();
+			break;
 		case PROPERTY:
 			space = new PropertySpace(); break;
 		case CHANCE:
@@ -22,7 +27,8 @@ public class BoardSpaceFactory {
 		case COMMUNITYCHEST:
 			space = new CommunityChestSpace(); break;
 		default:
-			space = null; break;
+			space = null;
+			break;
 		}
 		return space;
 	}

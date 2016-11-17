@@ -3,7 +3,6 @@ package a4.test;
 import static org.junit.Assert.*;
 
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 import a4.domain.*;
@@ -44,7 +43,7 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetJailAndAttemptToEscape() {
 		JailSpace js = (JailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
-		Player test_player = new Player("Test Player", 1500, 0);
+		Player test_player = new Player("Test Player", 1500, 0, false);
 		js.putPlayerInJail(test_player);
 		assertEquals(0, js.getAttempts(test_player));
 		js.incrementAttempts(test_player);
@@ -54,7 +53,7 @@ public class BoardSpaceFactoryTest {
 	@Test
 	public void testGetOutOfJail() {
 		JailSpace js = (JailSpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
-		Player test_player = new Player("Test Player", 1500, 0);
+		Player test_player = new Player("Test Player", 1500, 0, false);
 		js.putPlayerInJail(test_player);
 		js.getOutOfJail(test_player);
 		assertEquals(0, js.getAttempts(test_player));
@@ -77,10 +76,8 @@ public class BoardSpaceFactoryTest {
 	// Property
 	@Test
 	public void testGetStreet() {
-		Player test_player = new Player("Test Player", 1500, 0);
 		PropertySpace street = (PropertySpace) a4.domain.BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
 		street.setPropertyInfo(PropertyType.STREET, "Street Name", 150, new int[]{1, 2, 3, 4, 5, 6}, "Blue");
-		street.addPlayer(test_player);
 	}
 
 }

@@ -26,8 +26,8 @@ public abstract class Property {
 		return owner;
 	}
 
-	public void setOwner(Player new_owner) {
-		owner = new_owner;
+	public void setOwner(Player newOwner) {
+		owner = newOwner;
 	}
 
 	public boolean getIsMortgaged() {
@@ -37,6 +37,8 @@ public abstract class Property {
 	public void setIsMortgaged(boolean state) {
 		isMortgaged = state;
 	}
+
+	public abstract int getRent(int diceRoll);
 
 	public String toString() {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;
@@ -64,20 +66,22 @@ public abstract class Property {
 
 		Player tempOwner = owner;
 		owner = player;
+		owner.addProperty(this);
 		propertyToTrade.setOwner(tempOwner);
-		tempOwner.updateNeighborhoodOwner(propertyToTrade);
-		owner.updateNeighborhoodOwner(this);
+		tempOwner.addProperty(propertyToTrade);
+		propertyToTrade.updateNeighborhoodOwner();
+		updateNeighborhoodOwner();
 	}
 
-	public abstract int getRent(int dice_roll);
-
-	public boolean isDevelopable() {
+	// returns 1 if property can be developed, -1 otherwise
+	public int isDevelopable() {
 		if (isMortgaged) {
-			return true;
+			return 1;
 		}
-		return false;
+		return -1;
 	}
 	
+	// returns half of the property value if property can be undeveloped, -1 if not
 	public int undevelop(Bank bank){
 		if(isMortgaged){
 			return -1;
@@ -86,18 +90,20 @@ public abstract class Property {
 		}
 	}
 
+	// returns 1 if property can be developed, -1 if not
 	public int develop(Bank bank) {
 		if (isMortgaged) {
-			if (unmortgage(bank)) {
+			if (unmortgage(bank) == 1) {
 				return 1;
 			}
 		}
 		return -1;
 	}
 
+	// returns bank balance if bank doesn't have enough money, half of property value if it does, 0 otherwise
 	protected int mortgage(Bank bank) {
 		if (this.owner == null) {
-			return -1;
+			return 0;
 		} else {
 			this.setIsMortgaged(true);
 			if (!bank.transferMoney(this.owner, this.value / 2)) {
@@ -109,14 +115,22 @@ public abstract class Property {
 		}
 	}
 	
-	protected boolean unmortgage(Bank bank) {
+	// returns 1 if unmortgage is legal, -1 otherwise
+	protected int unmortgage(Bank bank) {
 		int unmortgageCost = (int) (this.value * 1.1);
 		if (this.owner != null) {
 			if (this.owner.transferMoney(bank, unmortgageCost)) {
 				isMortgaged = false;
-				return true;
+				return 1;
 			}
 		}
-		return false;
+		return -1;
+	}
+	
+	// checks if one Player owns every street in a neighborhood and sets them as the neighborhood owner if so
+	public void updateNeighborhoodOwner() {
+		if (type == PropertyType.STREET) {
+			((Street) this).getNeighborhood().updateOwner();
+		}
 	}
 }

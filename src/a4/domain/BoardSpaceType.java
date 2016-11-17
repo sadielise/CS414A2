@@ -1,6 +1,6 @@
 package a4.domain;
 
-public enum BoardSpaceType {
+public enum BoardSpaceType { 
 	INCOMETAX, 
 	LUXURYTAX, 
 	OPEN, 
@@ -9,4 +9,5 @@ public enum BoardSpaceType {
 	PROPERTY,
 	CHANCE,
 	COMMUNITYCHEST
+
 }

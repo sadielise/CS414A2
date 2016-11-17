@@ -26,12 +26,6 @@ public class ChanceSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 	}
 
-	@Override
-	public void landedOnAction(IModel model, Player currentPlayer, Bank bank, List<Die> dice) {
-		//I HATE THIS METHOD
-		
-	}
-
 	public ChanceCard landedOnAction(){
 		ChanceCard currentCard = deckOfChanceCards.remove();
 		deckOfChanceCards.add(currentCard);

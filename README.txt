@@ -1,7 +1,9 @@
 Monopoly Game - Group 4 - CS414 Assignment 5, Fall 2016
+
 This is a version of Monopoly recreated using Java for the purpose of experiencing the full process of application development. 
-The game’s rules and specifications are based off of the Wikipedia page. A game is timer-based, and the winner is determined by 
-who has the most liquidated funds. The Bank is handled internally, and the gui allows users to interact with the game.
+The game’s rules and specifications are based off of the Wikipedia page found at "https://en.wikipedia.org/wiki/Monopoly_(game)". 
+A game is timer-based, and the winner is determined by who has the most liquidated funds. The Bank is handled internally, and it 
+ allows users to interact with the game.
 
 For this assignment, we implemented cards for Chance and Community Chest and implemented an AI player so that humans can play
 with the computer. In addition, we did a fairly extensive refactoring of our code to make it better-organized, cleaner, and
@@ -11,13 +13,15 @@ External .jar File Dependencies:
 Our program uses javax.swing for the gui.
 
 How to Run from Eclipse:
-First, clone the directory into wherever you want to store this repository. 
-Next, load the project into your Eclipse environment. Inside of the packet labeled “app”, open up Application.java. 
+First, clone the github repository into wherever you want to store this repository. 
+Next, load the git project into your Eclipse environment. Inside of the packet labeled “app”, open up Application.java. 
 There are no extra parameters needed to run the program. Execute the main method in Application.java and the Swing 
-graphical user interface should appear. You can have as few as 2 and up to 4 Players. You are allowed to interact with any 
-of the given button, and the game will commence giving occasional instructions and options throughout.
-The game is based off of a timer which can be set in minutes at the beginning of the game. Once the timer is done, 
-the Player with the most liquidated funds will win, and you will have a chance to start a new game.
+graphical user interface should appear. Enter the player names and the amount of time in minutes that you wish to play. 
+You can have as few as 2 and up to 4 Players. You are allowed to interact with any of the given button, and the game will 
+commence giving occasional instructions and options throughout. The game is based off of a timer which can be set in minutes 
+at the beginning of the game. Once the timer is done, the Player with the most liquidated funds will win, and the graphical 
+user interface will indicate the results of the game and the winner. You can start a new game at any point during game play 
+or after the game has ended by selecting the NewGame button.
 
 **No usernames or passwords are needed**
 
@@ -42,9 +46,13 @@ within the domain.
 This ended up fixing another issue of "lazy classes". Many of the classes had way too little functionality, although
 they were necessary for the game to function correctly. Thus, we pushed as much functionality as we could to those classes to make them
 as useful as possible. 
+In A4 we had many methods in the MonopolyGame class that were very long and complicated.  We split up these methods and moved what we could
+ into different classes. This helped to make the methods shorter and more clear.
 We also went through all of our domain code and removed any unused methods (mainly getters and setters), standardized method names
 and comment structure, adjusted the visibility of methods and global variables, etc. This cleaned up much of the "junk" in our code 
 and made it easier to navigate and read.
+We also responded to the comments that we got during the A4 code review. We added a timer to the view so that the players can see 
+how much time is left in the game.  We also displayed all of the players statistics at the end of the game in addition to the winner.
 
 **************************************************************
 Included Packets of a4

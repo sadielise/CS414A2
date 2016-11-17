@@ -330,16 +330,13 @@ public class MonopolyGame implements IMonopolyGame {
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
 			jail.putPlayerInJail(currentPlayer);
 			model.playerSentToJail(currentPlayer.toString());
 		} else {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			if (currentPlayer.move(value1 + value2, board.getSpaces().size())) {
 				bank.transferMoney(currentPlayer, 200);
 			}
-			board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
 			playerMoved();
 			if (doubles) {
 				pastNumberOfDoubles++;
@@ -385,7 +382,6 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 		} else if (BoardSpaceType.GOTOJAIL == spaceOfPlayer.getType()) {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
 			jail.putPlayerInJail(currentPlayer);
 		} else if (BoardSpaceType.JAIL == spaceOfPlayer.getType()) {
@@ -564,10 +560,7 @@ public class MonopolyGame implements IMonopolyGame {
 			model.rolled(value1 + value2, doubles);
 			if (doubles) {
 				model.succeededInLeavingJail();
-				board.getSpaces().get(player.getLocation()).removePlayer(player);
 				currentPlayer.move(value1 + value2, board.getSpaces().size());
-				board.getSpaces().get(player.getLocation()).addPlayer(player);
-				jail.removePlayer(player);
 				jail.getOutOfJail(player);
 				playerMoved();
 				return true;
@@ -576,9 +569,7 @@ public class MonopolyGame implements IMonopolyGame {
 				if (jail.getAttempts(player) > 2) {
 					if (payFineToLeaveJail(player)) {
 						model.succeededInLeavingJail();
-						board.getSpaces().get(player.getLocation()).removePlayer(player);
 						currentPlayer.move(value1 + value2, board.getSpaces().size());
-						board.getSpaces().get(player.getLocation()).addPlayer(player);
 						playerMoved();
 						return true;
 					}

@@ -67,8 +67,6 @@ public class MonopolyGameTest {
 		int oldLocation = currentPlayer.getLocation();
 		testGame.roll();
 		assertNotEquals(oldLocation, currentPlayer.getLocation());
-		assertTrue(testGame.getBoard().getSpaces().get(currentPlayer.getLocation()).getPlayers().contains(currentPlayer));
-		assertFalse(testGame.getBoard().getSpaces().get(oldLocation).getPlayers().contains(currentPlayer));
 	}
 
 	@Test
@@ -383,7 +381,6 @@ public class MonopolyGameTest {
 		assertNotNull(tempJail);
 		assertEquals(tempJail.getLocation(), testGame.getCurrentPlayerReference().getLocation());
 		assertTrue(tempJail.isInJail(testGame.getCurrentPlayerReference()));
-		assertTrue(tempJail.getPlayers().contains(testGame.getCurrentPlayerReference()));
 	}
 /*
 	@Test

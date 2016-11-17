@@ -351,20 +351,17 @@ public class MonopolyGame implements IMonopolyGame {
 	// perform the action associated with the boardSpace that the player moved to
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
+		model.landedOnNonProperty(spaceOfPlayer.getType().toString());
 		if (BoardSpaceType.LUXURYTAX == spaceOfPlayer.getType()) {
-			model.landedOnNonProperty("Luxury Tax");
-			if (!currentPlayer.transferMoney(bank, ((LuxuryTaxSpace) spaceOfPlayer).getValue())) {
-				model.unableToPayTax(200);
-			}
-			else{
+			if (!((LuxuryTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
+				model.unableToPayTax(((LuxuryTaxSpace) spaceOfPlayer).getValue());
+			} else{
 				model.paidRentTo("Luxury Tax", ((LuxuryTaxSpace) spaceOfPlayer).getValue());
 			}
 		} else if (BoardSpaceType.INCOMETAX == spaceOfPlayer.getType()) {
-			model.landedOnNonProperty("Income Tax");
-			if (!currentPlayer.transferMoney(bank, ((IncomeTaxSpace) spaceOfPlayer).getValue())) {
+			if (!((IncomeTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
 				model.unableToPayTax(((IncomeTaxSpace) spaceOfPlayer).getValue());
-			}
-			else{
+			} else{
 				model.paidRentTo("Income Tax", ((IncomeTaxSpace) spaceOfPlayer).getValue());
 			}	
 		} else if (BoardSpaceType.OPEN == spaceOfPlayer.getType()) {

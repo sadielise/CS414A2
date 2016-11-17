@@ -11,4 +11,8 @@ public class IncomeTaxSpace extends BoardSpace {
 	public int getValue() {
 		return value;
 	}
+	
+	public boolean collectTax(Player player, Bank bank){
+		return player.transferMoney(bank, value); 
+	}
 }

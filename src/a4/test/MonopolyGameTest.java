@@ -230,21 +230,6 @@ public class MonopolyGameTest {
 	}
 
 	@Test
-	public void testAddPlayer_NewPlayer(){
-		Player player = new Player("Gabby", 123456, 0);
-		assertTrue(testGame.addPlayer(player));
-		//TODO: check number of players
-	}
-
-	@Test
-	public void testAddPlayer_AddExistingPlayer(){
-		Player player = new Player("Gabby", 123456, 0);
-		assertTrue(testGame.addPlayer(player));
-		assertFalse(testGame.addPlayer(player));
-		//TODO: check number of players
-	}
-
-	@Test
 	public void testPurchaseProperty_Success(){
 		Player player = new Player("Gabby", 200, 0);
 		int propertyValue = 100;
@@ -331,31 +316,6 @@ public class MonopolyGameTest {
 		String testName = "JIMBALKSJ";
 		Player testPlayer = testGame.findPlayer(testName);
 		assertNull(testPlayer);
-	}
-
-	@Test
-	public void testRemovePlayer(){
-		Player testPlayer = testGame.getCurrentPlayerReference();
-		assertTrue(testGame.getPlayerList().contains(testPlayer));
-		boolean success = testGame.removePlayer(testPlayer);
-		assertTrue(success);
-		assertFalse(testGame.getPlayerList().contains(testPlayer));
-	}
-
-	@Test
-	public void testRemovePlayerNull(){
-		Player testPlayer = null;
-		assertFalse(testGame.getPlayerList().contains(testPlayer));
-		boolean success = testGame.removePlayer(testPlayer);
-		assertFalse(success);
-	}
-
-	@Test
-	public void testRemovePlayerNotInGame(){
-		Player testPlayer = new Player("asldkfj", 100, 0);
-		assertFalse(testGame.getPlayerList().contains(testPlayer));
-		boolean success = testGame.removePlayer(testPlayer);
-		assertFalse(success);
 	}
 
 	@Test

@@ -167,15 +167,21 @@ public class Player {
 		}
 	}
 
-	// moves Player numSpaces and updates their location, returns true if Player passed GO, false otherwise
-	public boolean move(int numSpaces, int maxSpaces) {
-		boolean passedGo = false;
+	//move player to newLocation, transfers money from bank to player if passes Go
+	public void move(int newLocation, boolean isJailSpace, Bank bank){
+		if(!isJailSpace && (newLocation < location)){
+			bank.transferMoney(this, 200);
+		}
+		location = newLocation;
+	}
+	
+	// moves Player numSpaces and updates their location, transfers money from bank to player if passes Go
+	public void move(int numSpaces, int maxSpaces, Bank bank) {
 		location = location + numSpaces;
 		if (location >= maxSpaces) {
 			location = location % maxSpaces;
-			passedGo = true;
+			bank.transferMoney(this,  200);
 		}
-		return passedGo;
 	}
 
 	// transfers money from current player (this) to toPlayer

@@ -220,4 +220,18 @@ public class Player {
 			return false;
 		}
 	}
+	
+	public void liquidateFunds(){
+		for(Property p : properties){
+			int housesValue = 0;
+			int hotelValue = 0;
+			if (p.getType() == PropertyType.STREET) {
+				Street s = (Street) p;
+				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
+			}
+			int propertyValue = p.getValue();
+			balance += housesValue + hotelValue + propertyValue;
+		}
+	}
 }

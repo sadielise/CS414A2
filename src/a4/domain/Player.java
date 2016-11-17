@@ -122,20 +122,26 @@ public class Player {
 	// Players are equal if the name and token are equal
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj){
 			return true;
-		if (obj == null)
+		}
+		if (obj == null){
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()){
 			return false;
+		}
 		Player other = (Player) obj;
 		if (name == null) {
-			if (other.name != null)
+			if (other.name != null){
 				return false;
-		} else if (!name.equals(other.name))
+			}
+		} else if (!name.equals(other.name)){
 			return false;
-		if (token != other.token)
+		}
+		if (token != other.token){
 			return false;
+		}
 		return true;
 	}
 

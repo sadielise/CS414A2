@@ -401,11 +401,7 @@ public class MonopolyGame implements IMonopolyGame {
 		BoardSpace space = board.getSpaces().get(currentPlayer.getLocation());
 		if (space.getType() == BoardSpaceType.PROPERTY) {
 			propertyToAuction = ((PropertySpace) space).getProperty();
-			int[] bids = new int[offers.size()];
-			for (int i = 0; i < offers.size(); i++) {
-				bids[i] = offers.get(i).intValue();
-			}
-			if (bid(bids, propertyToAuction)) {
+			if (auction(offers, propertyToAuction)) {
 				model.purchasedProperty(propertyToAuction.getOwner().toString(), propertyToAuction.toString());
 			} else {
 				model.auctionFailed(propertyToAuction.toString());
@@ -416,14 +412,14 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	// find the highest bid and sell property to player who bid the highest
-	public boolean bid(int[] bids, Property property) {
+	public boolean auction(List<Integer> bids, Property property) {
 		int highestBid = 0;
 		int winningPlayer = 0;
-		for (int i = 0; i < bids.length; i++) {
-			if (bids[i] > highestBid) {
-				highestBid = bids[i];
+		for (int i = 0; i < bids.size(); i++) {
+			if (bids.get(i) > highestBid) {
+				highestBid = bids.get(i);
 				winningPlayer = i;
-			} else if (bids[i] == highestBid) {
+			} else if (bids.get(i) == highestBid) {
 				int rnd = (int) (Math.random() * 2) + 1;
 				if (rnd == 2) {
 					winningPlayer = i;

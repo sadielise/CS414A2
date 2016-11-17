@@ -15,8 +15,6 @@ public class MonopolyGame implements IMonopolyGame {
 	private List<Die> dice;
 	private Bank bank;
 	private List<Property> properties;
-	private int houseCount;
-	private int hotelCount;
 	private Player currentPlayer;
 	private IModel model;
 	private int initialBankBalance = 20580;
@@ -62,7 +60,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	public int getHouseCount() {
-		return houseCount;
+		return bank.getHouseCount();
 	}
 
 	@Override
@@ -192,15 +190,12 @@ public class MonopolyGame implements IMonopolyGame {
 		dice = new ArrayList<Die>();
 		dice.add(new Die(numDiceSides));
 		dice.add(new Die(numDiceSides));
-		bank = new Bank(initialBankBalance);
-		bank.setBalance(initialBankBalance);
-		houseCount = numHouses;
-		hotelCount = numHotels;
+		bank = new Bank(initialBankBalance, numHouses, numHotels);
 
 		for (String name : names) {
 			Player newPlayer = new Player(name, 0, 0);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
-			players.add(new Player(name, initialPlayerBalance, 0));
+			players.add(newPlayer);
 		}
 
 		for (BoardSpace space : board.getSpaces()) {
@@ -406,11 +401,7 @@ public class MonopolyGame implements IMonopolyGame {
 		BoardSpace space = board.getSpaces().get(currentPlayer.getLocation());
 		if (space.getType() == BoardSpaceType.PROPERTY) {
 			propertyToAuction = ((PropertySpace) space).getProperty();
-			int[] bids = new int[offers.size()];
-			for (int i = 0; i < offers.size(); i++) {
-				bids[i] = offers.get(i).intValue();
-			}
-			if (bid(bids, propertyToAuction)) {
+			if (auction(offers, propertyToAuction)) {
 				model.purchasedProperty(propertyToAuction.getOwner().toString(), propertyToAuction.toString());
 			} else {
 				model.auctionFailed(propertyToAuction.toString());
@@ -421,14 +412,14 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 
 	// find the highest bid and sell property to player who bid the highest
-	public boolean bid(int[] bids, Property property) {
+	public boolean auction(List<Integer> bids, Property property) {
 		int highestBid = 0;
 		int winningPlayer = 0;
-		for (int i = 0; i < bids.length; i++) {
-			if (bids[i] > highestBid) {
-				highestBid = bids[i];
+		for (int i = 0; i < bids.size(); i++) {
+			if (bids.get(i) > highestBid) {
+				highestBid = bids.get(i);
 				winningPlayer = i;
-			} else if (bids[i] == highestBid) {
+			} else if (bids.get(i) == highestBid) {
 				int rnd = (int) (Math.random() * 2) + 1;
 				if (rnd == 2) {
 					winningPlayer = i;
@@ -451,10 +442,6 @@ public class MonopolyGame implements IMonopolyGame {
 			if(developingEvent == 1){
 				model.propertyWasUnmortgagedFor(property, (int)(currentProperty.getValue() * 1.1));
 			}else if(developingEvent == 2){
-				if(((Street)currentProperty).getHotelCount() == 1){
-					hotelCount--;
-					houseCount+=4;
-				}
 				model.propertyWasDeveloped(property, ((Street)currentProperty).getHouseCount());
 			}else{
 				model.propertyCannotBeDeveloped(property);
@@ -478,8 +465,8 @@ public class MonopolyGame implements IMonopolyGame {
 			if(undevelopingValue != -1){
 				if(currentProperty.getType() == PropertyType.STREET){
 					if(propertyHotelCount != ((Street)currentProperty).getHotelCount()){
-						hotelCount++;
-						houseCount -= 4;
+//						hotelCount++;
+//						houseCount -= 4;
 					}
 				}
 				model.propertyWasUnDevelopedFor(property, undevelopingValue);

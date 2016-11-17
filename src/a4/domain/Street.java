@@ -79,14 +79,14 @@ public class Street extends Property {
 	// returns 1 if street is developable, 0 otherwise
 	@Override
 	public int isDevelopable() {
-		if (this.isMortgaged) {
+		if (isMortgaged) {
 			return 1;
-		} else if (this.hotelCount == 1) {
+		} else if (hotelCount == 1) {
 			return -1;
-		} else if (this.neighborhood.hasOwner()) {
-			if (this.neighborhood.streetNeedsUnmortgaged()) {
+		} else if (neighborhood.hasOwner()) {
+			if (neighborhood.streetNeedsUnmortgaged()) {
 				return -1;
-			} else if (this.getHouseCount() < this.neighborhood.getMaxNumHouses()) {
+			} else if (houseCount < neighborhood.getMaxNumHouses()) {
 				return 1;
 			} else {
 				return -1;
@@ -105,10 +105,23 @@ public class Street extends Property {
 			} else {
 				return -1;
 			}
-		} else if (neighborhood.addHouse(this)) {
-			this.owner.transferMoney(bank, this.neighborhood.getHouseValue());
-			return 2;
-		} else {
+		} else if(houseCount < 4 && bank.canRemoveHouse()){
+			if (neighborhood.addHouse(this)) {
+				owner.transferMoney(bank, neighborhood.getHouseValue());
+				bank.removeHouse();
+				return 2;
+			} else {
+				return -1;
+			}
+		} else if(houseCount == 4 && bank.canRemoveHotel()){
+			if (neighborhood.addHouse(this)) {
+				owner.transferMoney(bank, neighborhood.getHouseValue());
+				bank.removeHotel();
+				return 2;
+			} else {
+				return -1;
+			}
+		} else{
 			return -1;
 		}
 	}

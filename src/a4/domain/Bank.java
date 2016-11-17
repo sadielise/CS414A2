@@ -2,9 +2,37 @@ package a4.domain;
 
 public class Bank {
 	private int balance;
+	private int houseCount;
+	private int hotelCount;
 
-	public Bank(int initialBalance) {
+	public Bank(int initialBalance, int initialHouseCount, int initialHotelCount) {
 		balance = initialBalance;
+		houseCount = initialHouseCount;
+		hotelCount = initialHotelCount;
+	}
+
+	public int getHouseCount() {
+		return houseCount;
+	}
+
+	public boolean canRemoveHouse(){
+		return (houseCount > 0);
+	}
+	public void removeHouse() {
+		houseCount--;
+	}
+
+	public int getHotelCount() {
+		return hotelCount;
+	}
+
+	public boolean canRemoveHotel() {
+		return (hotelCount > 0);
+	}
+
+	public void removeHotel() {
+		hotelCount--;
+		houseCount += 4;
 	}
 
 	public int getBalance() {
@@ -15,7 +43,8 @@ public class Bank {
 		balance = newBalance;
 	}
 
-	// removes amountToRemove from bank or zeros balance, returns amountToRemove or zero
+	// removes amountToRemove from bank or zeros balance, returns amountToRemove
+	// or zero
 	public int removeBalance(int amountToRemove) {
 		if (0 == balance) {
 			return 0;
@@ -34,7 +63,7 @@ public class Bank {
 		balance += amountToAdd;
 		return balance;
 	}
-	
+
 	// transfer money from the bank to toPlayer
 	public boolean transferMoney(Player player, int amount) {
 		if (balance < amount) {

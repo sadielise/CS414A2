@@ -353,6 +353,8 @@ public class MonopolyGame implements IMonopolyGame {
 						model.unableToPayRentTo(currentProperty.getOwner().toString(), rent);
 					}
 				}
+			} else if(currentProperty.getOwner().equals(currentPlayer)){
+				model.landedOnOwnedProperty(currentProperty.toString(), currentPlayer.toString());
 			}
 		} else if (BoardSpaceType.GOTOJAIL == spaceOfPlayer.getType()) {
 			model.landedOnNonProperty("Go To Jail");

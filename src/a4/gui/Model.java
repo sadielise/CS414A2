@@ -104,7 +104,9 @@ public class Model implements IModel {
 		game.trade(currProperty, otherProperty);
 	}
 
+
 	public void startNewGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes) {
+		view.startRemainingTime(timeInMinutes);
 		game.newGame(playerNames, aiPlayers, timeInMinutes);
 		isStarted = true;
 		update();
@@ -182,6 +184,7 @@ public class Model implements IModel {
 	}
 
 	public void newGameCreated(boolean firstPlayerIsAI) {
+		update();
 		view.startNewGameDialog();
 		if (firstPlayerIsAI)
 			startAITurn(game.getCurrentPlayer());

@@ -6,13 +6,13 @@ public class Utility extends Property {
 		super(name, value, PropertyType.UTILITY);
 	}
 
-	// returns rent based on dice_roll value
+	// returns rent based on diceRoll value
 	@Override
-	public int getRent(int dice_roll) {
+	public int getRent(int diceRoll) {
 		if (owner.getUtilityCount() == 1) {
-			return dice_roll * 4;
+			return diceRoll * 4;
 		} else {
-			return dice_roll * 10;
+			return diceRoll * 10;
 		}
 	}
 }

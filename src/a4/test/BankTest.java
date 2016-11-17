@@ -11,7 +11,8 @@ import a4.gui.IModel;
 
 public class BankTest {
 	private MonopolyGame testGame;
-
+	private int numHouses = 5;
+	private int numHotels = 6;
 	@Before
 	public void doBeforeTests(){
 		testGame = new MonopolyGame();
@@ -26,7 +27,7 @@ public class BankTest {
 	@Test
 	public void testGetBalance_Success() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.getBalance();
 		assertTrue(actual == initialBalance);
 	}
@@ -34,7 +35,7 @@ public class BankTest {
 	@Test
 	public void testGetBalance_ZeroBalance() {
 		int initialBalance = 0;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.getBalance();
 		assertTrue(actual == initialBalance);
 	}
@@ -42,7 +43,7 @@ public class BankTest {
 	@Test
 	public void testSetBalance_Success() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int newBalance = 300000;
 		bank.setBalance(newBalance);
 		int actual = bank.getBalance();
@@ -52,7 +53,7 @@ public class BankTest {
 	@Test
 	public void testSetBalance_SetToZero() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int newBalance = 0;
 		bank.setBalance(newBalance);
 		int actual = bank.getBalance();
@@ -62,7 +63,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_Success() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int toRemove = 2500;
 		int actual = bank.removeBalance(toRemove);
 		assertTrue(actual == toRemove);
@@ -72,7 +73,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_RemoveZero() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.removeBalance(0);
 		assertTrue(0 == actual);
 		assertTrue(bank.getBalance() == initialBalance);
@@ -81,7 +82,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_RemoveTooMuch() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.removeBalance(600000);
 		assertTrue(actual == initialBalance);
 		assertTrue(0 == bank.getBalance());
@@ -90,7 +91,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_RemoveTooMuchCorner() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.removeBalance(initialBalance + 1);
 		assertTrue(actual == initialBalance);
 		assertTrue(0 == bank.getBalance());
@@ -99,7 +100,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_SuccessCorner() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.removeBalance(initialBalance - 1);
 		assertTrue(actual == (initialBalance - 1));
 		assertTrue(1 == bank.getBalance());
@@ -108,7 +109,7 @@ public class BankTest {
 	@Test
 	public void testRemoveBalance_BankEmpty() {
 		int initialBalance = 0;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.removeBalance(500000);
 		assertTrue(0 == actual);
 		assertTrue(0 == bank.getBalance());
@@ -117,7 +118,7 @@ public class BankTest {
 	@Test
 	public void testAddBalance_Success() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.addBalance(700);
 		int expected = initialBalance + 700;
 		assertTrue(actual == expected);
@@ -126,7 +127,7 @@ public class BankTest {
 	@Test
 	public void testAddBalance_AddZero() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.addBalance(0);
 		assertTrue(actual == initialBalance);
 	}
@@ -134,7 +135,7 @@ public class BankTest {
 	@Test
 	public void testAddBalance_AddOne() {
 		int initialBalance = 500000;
-		Bank bank = new Bank(initialBalance);
+		Bank bank = new Bank(initialBalance, numHouses, numHotels);
 		int actual = bank.addBalance(1);
 		int expected = initialBalance + 1;
 		assertTrue(actual == expected);

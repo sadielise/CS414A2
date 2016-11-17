@@ -8,11 +8,11 @@ public class Die {
 	public Die(int numSides) {
 		this.numSides = numSides;
 	}
-	
-	public int getState(){
+
+	public int getState() {
 		return state;
 	}
-	
+
 	// returns random number between 1 and numSides, inclusive
 	public int roll() {
 		state = (int) (Math.random() * numSides) + 1;

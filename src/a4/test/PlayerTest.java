@@ -17,22 +17,25 @@ public class PlayerTest {
 	int balance = 15000;
 	int location = 0;
 	MonopolyGame testGame;
+	Bank bank;
 
 	@Before
 	public void setUp() throws Exception {
 		player = new Player(name, balance, location);
-			testGame = new MonopolyGame();
-			IModel model = new MockModel(testGame);
-			testGame.setModel(model);
-			ArrayList<String> names = new ArrayList<String>();
-			names.add("Chancey");
-			names.add("David");
-			testGame.newGame(names, 30);
+		testGame = new MonopolyGame();
+		IModel model = new MockModel(testGame);
+		testGame.setModel(model);
+		ArrayList<String> names = new ArrayList<String>();
+		names.add("Chancey");
+		names.add("David");
+		testGame.newGame(names, 30);
+		bank = new Bank(2500, 9, 10);
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		player = null;
+		bank = null;
 	}
 
 	@Test
@@ -295,27 +298,29 @@ public class PlayerTest {
 
 	@Test
 	public void testMove_Success() {
-		player.move(5, 10);
+		player.move(5, 10, bank);
 		assertTrue(5 == player.getLocation());
 	}
 
 	@Test
 	public void testMove_MoveOne() {
-		player.move(1, 10);
+		player.move(1, 10, bank);
 		assertTrue(1 == player.getLocation());
 	}
 
 	@Test
 	public void testMove_MovePastMax() {
-		boolean actual = player.move(6, 5);
-		assert(true == actual);
+		int startingBalance = player.getBalance();
+		player.move(6, 5, bank);
+		assertTrue(startingBalance + 200 == player.getBalance());
 		assertTrue(1 == player.getLocation());
 	}
 
 	@Test
 	public void testMove_MoveToMax() {
-		boolean actual = player.move(5, 5);
-		assertTrue(true == actual);
+		int startingBalance = player.getBalance();
+		player.move(5, 5, bank);
+		assertTrue(startingBalance + 200 == player.getBalance());
 		assertTrue(0 == player.getLocation());
 	}
 

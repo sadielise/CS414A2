@@ -351,14 +351,50 @@ public class MonopolyGame implements IMonopolyGame {
 	// perform the action associated with the boardSpace that the player moved to
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
-		spaceOfPlayer.landedOnAction(model, currentPlayer, bank, dice);
-		if (spaceOfPlayer.getType() == BoardSpaceType.GOTOJAIL) {
+		model.landedOnNonProperty(spaceOfPlayer.getType().toString());
+		if (BoardSpaceType.LUXURYTAX == spaceOfPlayer.getType()) {
+			if (!((LuxuryTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
+				model.unableToPayTax(((LuxuryTaxSpace) spaceOfPlayer).getValue());
+			} else{
+				model.paidRentTo("Luxury Tax", ((LuxuryTaxSpace) spaceOfPlayer).getValue());
+			}
+		} else if (BoardSpaceType.INCOMETAX == spaceOfPlayer.getType()) {
+			if (!((IncomeTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
+				model.unableToPayTax(((IncomeTaxSpace) spaceOfPlayer).getValue());
+			} else{
+				model.paidRentTo("Income Tax", ((IncomeTaxSpace) spaceOfPlayer).getValue());
+			}	
+		} else if (BoardSpaceType.OPEN == spaceOfPlayer.getType()) {
+			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());		
+		} else if (BoardSpaceType.PROPERTY == spaceOfPlayer.getType()) {
+			Property currentProperty = ((PropertySpace) spaceOfPlayer).getProperty();
+			if (currentProperty.getOwner() == null) {
+				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
+			} else if (!currentProperty.getOwner().equals(currentPlayer)) {
+				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
+				if (!currentProperty.getIsMortgaged()) {
+					int rent = currentProperty.getRent(0);
+					if (currentProperty instanceof Utility) {
+						rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
+					}
+					if (currentPlayer.transferMoney(currentProperty.getOwner(), rent)) {
+						model.paidRentTo(currentProperty.getOwner().toString(), rent);
+					} else {
+						model.unableToPayRentTo(currentProperty.getOwner().toString(), rent);
+					}
+				}
+			}
+		} else if (BoardSpaceType.GOTOJAIL == spaceOfPlayer.getType()) {
 			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
 			jail.putPlayerInJail(currentPlayer);
+		} else if (BoardSpaceType.JAIL == spaceOfPlayer.getType()) {
+			model.landedOnNonProperty("Jail");
+		} else {
+			System.err.println("You done messed A-ARon!");
 		}
 	}
-
+		 		
 	// randomize the list of players to determine the order of play
 	public void determinePlayOrder() {
 		Collections.shuffle(players);

@@ -49,7 +49,7 @@ public class Street extends Property {
 
 	// returns rent based on total house and hotel count
 	@Override
-	public int getRent(int dice_roll) {
+	public int getRent(int diceRoll) {
 		if (houseCount > 0)
 			return rent[houseCount];
 		else if (hotelCount > 0)

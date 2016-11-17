@@ -207,10 +207,6 @@ public class MonopolyGame implements IMonopolyGame {
 				isAI = aiNames.contains(name);
 			Player newPlayer = new Player(name, 0, 0, isAI);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
-			// TODO: Remove this later
-//			if (isAI) {
-//				newPlayer.setBalance(1);
-//			}
 			players.add(newPlayer);
 		}
 
@@ -318,9 +314,6 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(int pastNumberOfDoubles) {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
-		// TODO: remove these later
-//		value1 = 0;
-//		value2 = 3;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {

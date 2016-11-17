@@ -28,6 +28,8 @@ public interface IMonopolyGame {
 
 	public void developProperty(String property);
 
+	public String undevelopFirstAIProperty();
+
 	public void endTurn();
 
 	public void undevelop(String property, String playerOwed, int amountOwed);

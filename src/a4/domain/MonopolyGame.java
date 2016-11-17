@@ -208,8 +208,9 @@ public class MonopolyGame implements IMonopolyGame {
 			Player newPlayer = new Player(name, 0, 0, isAI);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
 			// TODO: Remove this later
-			if (isAI)
-				newPlayer.setBalance(1);
+//			if (isAI) {
+//				newPlayer.setBalance(1);
+//			}
 			players.add(newPlayer);
 		}
 
@@ -317,9 +318,9 @@ public class MonopolyGame implements IMonopolyGame {
 	public void roll(int pastNumberOfDoubles) {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
-		// todo: remove these later
-		value1 = 0;
-		value2 = 3;
+		// TODO: remove these later
+//		value1 = 0;
+//		value2 = 3;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -479,6 +480,15 @@ public class MonopolyGame implements IMonopolyGame {
 				model.propertyCannotBeDeveloped(property);
 			}
 		}
+	}
+
+	public String undevelopFirstAIProperty() {
+		if (!(currentPlayer.getProperties().isEmpty())) {
+			Property toUndevelop = getProperties().get(0);
+			currentPlayer.getProperties().get(0).undevelop(bank);
+			return toUndevelop.toString();
+		}
+		return "";
 	}
 
 	// undevelop a property (mortgage, sell houses) if legal, send result of undevelop to model

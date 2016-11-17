@@ -93,6 +93,10 @@ public class Model implements IModel {
 		game.developProperty(property);
 	}
 
+	public String undevelopPropertyForAI() {
+		return game.undevelopFirstAIProperty();
+	}
+	
 	public void roll() {
 		if (!hasRolled) {
 			game.roll();
@@ -190,6 +194,7 @@ public class Model implements IModel {
 		update();
 		hasRolled = true;
 		view.startJailAITurnDialog(player);
+		game.endTurn();
 	}
 
 	public void newGameCreated(boolean firstPlayerIsAI) {

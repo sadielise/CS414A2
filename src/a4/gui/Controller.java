@@ -126,7 +126,16 @@ public class Controller {
 
 	public void createUnableToPayDialog(String playerOwed, int amountDue) {
 		JOptionPane.showMessageDialog(view, "You were unable to pay, and must undevelop!");
-		DevelopDialog.createAndShowDevelopDialog(model, view, true, playerOwed, amountDue);
+		if (model.currentPlayerIsAI()) {
+			String property = model.undevelopPropertyForAI();
+			if (property.isEmpty()) {
+				JOptionPane.showMessageDialog(view,  "You do not have any properties to undevelop.");
+			} else {
+				JOptionPane.showMessageDialog(view,  "You undeveloped " + property);
+			}
+		} else {
+			DevelopDialog.createAndShowDevelopDialog(model, view, true, playerOwed, amountDue);
+		}
 	}
 
 	public void createPaidRentDialog(String playerName, int rentAmount) {

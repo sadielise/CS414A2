@@ -10,6 +10,14 @@ import java.util.TimerTask;
 import a4.gui.IModel;
 
 public class MonopolyGame implements IMonopolyGame {
+	private final int initialBankBalance = 20580;
+	private final int initialPlayerBalance = 1500;
+	private final int numHouses = 32;
+	private final int numHotels = 5;
+	private final int numDiceSides = 6;
+	private final int minNumPlayers = 2;
+	private final int maxNumPlayers = 4;
+	
 	private List<Player> players;
 	private Board board;
 	private List<Die> dice;
@@ -17,15 +25,7 @@ public class MonopolyGame implements IMonopolyGame {
 	private List<Property> properties;
 	private Player currentPlayer;
 	private IModel model;
-	private int initialBankBalance = 20580;
 	public Timer gameTime;
-	private int numHouses = 32;
-	private int numHotels = 5;
-	private int initialPlayerBalance = 1500;
-	private int numDiceSides = 6;
-	private int minNumPlayers = 2;
-	private int maxNumPlayers = 4;
-
 
 	public List<Player> getPlayerList() {
 		return players;

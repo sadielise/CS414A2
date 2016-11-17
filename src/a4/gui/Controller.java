@@ -282,4 +282,8 @@ public class Controller {
 		timer.start();
 		return timer;
 	}
+
+	public void createLandedOnCardSpaceDialog(String message) {
+		JOptionPane.showMessageDialog(view, message);
+	}
 }

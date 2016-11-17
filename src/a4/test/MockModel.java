@@ -172,4 +172,10 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void landedOnCardSpace(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -5,8 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import a4.gui.IModel;
-
 public class ChanceSpace extends BoardSpace {
 
 	private static Queue<ChanceCard> deckOfChanceCards = new LinkedList<ChanceCard>();
@@ -26,7 +24,7 @@ public class ChanceSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 	}
 
-	public ChanceCard landedOnAction(){
+	public String landedOnAction(Bank bank, List<Player> players){
 		ChanceCard currentCard = deckOfChanceCards.remove();
 		deckOfChanceCards.add(currentCard);
 		numberOfCardsUsed++;
@@ -34,6 +32,6 @@ public class ChanceSpace extends BoardSpace {
 			numberOfCardsUsed = 0;
 			Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 		}
-		return currentCard;
+		return currentCard.getMessage();
 	}
 }

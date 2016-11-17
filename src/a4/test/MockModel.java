@@ -166,4 +166,10 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

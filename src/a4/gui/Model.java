@@ -27,6 +27,10 @@ public class Model implements IModel {
 		return game.getCurrentPlayerIsAI();
 	}
 
+	public boolean playerIsAI(String player) {
+		return game.getPlayerIsAI(player);
+	}
+
 	public int getLocation(String player) {
 		return game.getLocation(player);
 	}
@@ -124,6 +128,11 @@ public class Model implements IModel {
 	public void propertyIsUnowned(String propertyName, int propertyValue) {
 		update();
 		view.unownedPropertyDialog(propertyName, propertyValue);
+	}
+
+	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
+		update();
+		view.unownedPropertyAIDialog(propertyName, propertyValue);
 	}
 
 	public void unableToPayRentTo(String playerName, int rentAmount) {

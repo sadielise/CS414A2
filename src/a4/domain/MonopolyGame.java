@@ -21,7 +21,7 @@ public class MonopolyGame implements IMonopolyGame {
 	public Timer gameTime;
 	private int numHouses = 32;
 	private int numHotels = 5;
-	private int initialPlayerBalance = 1500;
+	private int initialPlayerBalance = 50;
 	private int numDiceSides = 6;
 	private int minNumPlayers = 2;
 	private int maxNumPlayers = 4;
@@ -70,6 +70,15 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public boolean getCurrentPlayerIsAI() {
 		return currentPlayer.isAI();
+	}
+
+	public boolean getPlayerIsAI(String playerName) {
+		for (Player p : players) {
+			if (p.toString().equals(playerName) && p.isAI()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Player getCurrentPlayerReference() {
@@ -254,9 +263,9 @@ public class MonopolyGame implements IMonopolyGame {
 		currentPlayer = players.get(nextPlayerNumber);
 		if (currentPlayer.isAI()) {
 			if (currentPlayer.getInJail()) {
-				model.startAIJailTurn(currentPlayer.toString());  // TODO
+				model.startAIJailTurn(currentPlayer.toString());
 			} else {
-				model.startAITurn(currentPlayer.toString());  // TODO
+				model.startAITurn(currentPlayer.toString());
 			}
 		} else {
 			if (currentPlayer.getInJail()) {
@@ -380,11 +389,14 @@ public class MonopolyGame implements IMonopolyGame {
 				model.paidRentTo("Income Tax", ((IncomeTaxSpace) spaceOfPlayer).getValue());
 			}	
 		} else if (BoardSpaceType.OPEN == spaceOfPlayer.getType()) {
-			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());		
+			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());
 		} else if (BoardSpaceType.PROPERTY == spaceOfPlayer.getType()) {
 			Property currentProperty = ((PropertySpace) spaceOfPlayer).getProperty();
 			if (currentProperty.getOwner() == null) {
-				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
+				if (currentPlayer.isAI())
+					model.propertyIsUnownedAI(currentProperty.toString(), currentProperty.getValue());
+				else
+					model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
 			} else if (!currentProperty.getOwner().equals(currentPlayer)) {
 				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 				if (!currentProperty.getIsMortgaged()) {

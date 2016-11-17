@@ -5,6 +5,8 @@ import java.util.List;
 public interface IModel {
 	public void propertyIsUnowned(String propertyName, int propertyValue);
 
+	public void propertyIsUnownedAI(String propertyName, int propertyValue);
+
 	public void unableToPayRentTo(String playerName, int rentAmount);
 
 	public void paidRentTo(String playerName, int rentAmount);

@@ -86,6 +86,10 @@ public class View extends JFrame {
 		controller.createLandedOnUnownedDialog(property, cost);
 	}
 
+	public void unownedPropertyAIDialog(String property, int cost) {
+		controller.createAILandedOnUnownedDialog(property, cost);
+	}
+
 	public void unableToPayDialog(String player, int rentDue) {
 		controller.createUnableToPayDialog(player, rentDue);
 	}

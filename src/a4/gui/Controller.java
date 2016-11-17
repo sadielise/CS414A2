@@ -97,6 +97,10 @@ public class Controller {
 		}
 	}
 
+	public void createAILandedOnUnownedDialog(String property, int cost) {
+		model.purchaseProperty(model.getPlayer(), property);
+	}
+
 	public void createAuctionDialog(String property) {
 		JOptionPane.showMessageDialog(view, property
 				+ " is up for auction. Please enter your bids when the dialog appears. Highest bid will buy the property!");
@@ -104,14 +108,16 @@ public class Controller {
 		List<Integer> offers = new ArrayList<Integer>(players.size());
 		String bid;
 		int offer;
-		for (int i = 0; i < players.size(); i++) {
-			bid = JOptionPane.showInputDialog(players.get(i) + " please enter your bid!");
-			try {
-				offer = Integer.parseInt(bid);
-			} catch (Exception e) {
-				offer = -1;
+		for (String playerName : players) {
+			if (!model.playerIsAI(playerName)) {
+				bid = JOptionPane.showInputDialog(playerName + " please enter your bid!");
+				try {
+					offer = Integer.parseInt(bid);
+				} catch (Exception e) {
+					offer = -1;
+				}
+				offers.add(offer);
 			}
-			offers.add(offer);
 		}
 		model.purchaseAuctionedProperty(offers);
 	}

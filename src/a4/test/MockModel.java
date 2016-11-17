@@ -160,4 +160,10 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void newGameCreated(boolean firstPlayerIsAI) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

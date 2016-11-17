@@ -23,7 +23,7 @@ public interface IModel {
 
 	public void startAIJailTurn(String player);
 
-	public void newGameCreated();
+	public void newGameCreated(boolean firstPlayerIsAI);
 
 	public void newGameFailedToCreate();
 

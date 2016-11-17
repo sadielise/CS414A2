@@ -234,7 +234,7 @@ public class MonopolyGame implements IMonopolyGame {
 		BoardSpace.restartCounter();
 		boolean success = setupGame(playerNames, aiPlayers, timeInMinutes);
 		if (success) {
-			model.newGameCreated();
+			model.newGameCreated(currentPlayer.isAI());
 		} else {
 			model.newGameFailedToCreate();
 		}
@@ -351,7 +351,7 @@ public class MonopolyGame implements IMonopolyGame {
 		int value1 = dice.get(0).roll();
 		int value2 = dice.get(1).roll();
 //		int value1 = 0;
-//		int value2 = 1;
+//		int value2 = 30;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {

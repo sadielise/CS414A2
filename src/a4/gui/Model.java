@@ -170,6 +170,7 @@ public class Model implements IModel {
 	public void startJailTurn(String player) {
 		update();
 		hasRolled = true;
+		roll();
 		view.startJailTurnDialog(player);
 	}
 
@@ -177,12 +178,15 @@ public class Model implements IModel {
 	public void startAIJailTurn(String player) {
 		update();
 		hasRolled = true;
-		view.startJailTurnDialog(player);
+		view.startJailAITurnDialog(player);
 	}
 
-	public void newGameCreated() {
+	public void newGameCreated(boolean firstPlayerIsAI) {
 		view.startNewGameDialog();
-		startNormalTurn(game.getCurrentPlayer());
+		if (firstPlayerIsAI)
+			startAITurn(game.getCurrentPlayer());
+		else
+			startNormalTurn(game.getCurrentPlayer());
 	}
 
 	public void newGameFailedToCreate() {

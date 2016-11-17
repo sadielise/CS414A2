@@ -107,6 +107,10 @@ public class View extends JFrame {
 		controller.createStartJailTurnDialog(player);
 	}
 
+	public void startJailAITurnDialog(String player) {
+		controller.createAIJailTurnDialog(player);
+	}
+
 	public void startNewGameDialog() {
 		controller.createNewGameDialog();
 	}

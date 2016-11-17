@@ -147,6 +147,10 @@ public class Controller {
 		}
 	}
 
+	public void createAIJailTurnDialog(String player) {
+		model.payJailFine(player, true);
+	}
+
 	public void createNewGameDialog() {
 		JOptionPane.showMessageDialog(view, "New game has started!");
 	}

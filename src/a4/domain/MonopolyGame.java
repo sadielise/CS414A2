@@ -251,31 +251,15 @@ public class MonopolyGame implements IMonopolyGame {
 	// checks which player has the most liquidated funds and updates model
 	public void endGame() {
 		Player winner = players.get(0);
-		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
 		for (Player p : players) {
-			liquidatedFunds.put(p, p.getBalance());
-		}
-		for (Property p : properties) {
-			if (p.getOwner() != null) {
-				int housesValue = 0;
-				int hotelValue = 0;
-				if (p.getType() == PropertyType.STREET) {
-					Street s = (Street) p;
-					housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
-					hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
-				}
-				int propertyValue = p.getValue();
-				int oldValue = liquidatedFunds.get(p.getOwner());
-				liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
-			}
-		}
-		for (Player p : players) {
-			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
+			p.liquidateFunds();
+			if (p.getBalance() > winner.getBalance()){
 				winner = p;
+			}
 		}
 		ArrayList<String> endgameList = new ArrayList<String>();
 		for(Player curr: players){
-			endgameList.add(curr.getName() + ": $" + liquidatedFunds.get(curr) );
+			endgameList.add(curr.getName() + ": $" + curr.getBalance() );
 		}
 		endgameList.add(winner.toString());
 		model.endGame(endgameList);

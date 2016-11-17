@@ -50,7 +50,7 @@ public class MockModel implements IModel{
 		
 	}
 
-	public void newGameCreated() {
+	public void newGameCreated(int timeInMinutes) {
 		
 	}
 	 

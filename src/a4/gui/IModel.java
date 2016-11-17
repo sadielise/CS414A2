@@ -11,7 +11,7 @@ public interface IModel {
 	public void propertyCannotBeDeveloped(String propertyName);
 	public void startNormalTurn(String player);
 	public void startJailTurn(String player);
-	public void newGameCreated();
+	public void newGameCreated(int timeInMinutes);
 	public void newGameFailedToCreate();
 	public void unableToPayTax(int amount);
 	public void propertyWasMortgagedFor(String property, int amount);

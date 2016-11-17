@@ -102,9 +102,7 @@ public class Model implements IModel {
 	}
 
 	public void startNewGame(List<String> playerNames, int timeInMinutes){
-		view.startRemainingTime(timeInMinutes);
 		game.newGame(playerNames,timeInMinutes);
-		isStarted = true;
 		update();
 	}
 
@@ -164,11 +162,12 @@ public class Model implements IModel {
 		view.startJailTurnDialog(player);		
 	}
 
-	public void newGameCreated() {
+	public void newGameCreated(int timeInMinutes) {
+		view.startRemainingTime(timeInMinutes);
+		isStarted = true;
 		update();
 		view.startNewGameDialog();
 		startNormalTurn(game.getCurrentPlayer());
-		
 	}
 
 	public void newGameFailedToCreate() {

@@ -6,7 +6,7 @@ import java.util.List;
 public class Neighborhood {
 	private List<Street> streets = new ArrayList<Street>();
 	private String color;
-	private Player owner = null;
+	private Player owner;
 	private int houseValue;
 	private int maxNumHouses;
 	private int minNumHouses;
@@ -16,6 +16,7 @@ public class Neighborhood {
 		this.houseValue = houseValue;
 		this.maxNumHouses = 1;
 		this.minNumHouses = 0;
+		this.owner = null;
 	}
 
 	public String getColor() {
@@ -157,5 +158,18 @@ public class Neighborhood {
 			}
 		}
 		return false;
+	}
+	
+	public void updateOwner(){
+		Player firstOwner = streets.get(0).getOwner();
+		boolean oneOwner = true;
+		for(int i = 1; i < streets.size(); i++){
+			if(streets.get(i).getOwner() != firstOwner){
+				oneOwner = false;
+			}
+		}
+		if(oneOwner == true){
+			owner = firstOwner;
+		}
 	}
 }

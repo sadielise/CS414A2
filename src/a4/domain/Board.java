@@ -52,8 +52,7 @@ public class Board {
 		this.addToNeighborhood(space2);
 		spaces.add(space2);
 		
-		OpenSpace space3 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space3.setName("Community Chest");
+		CommunityChestSpace space3 = (CommunityChestSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.COMMUNITYCHEST);
 		spaces.add(space3);
 		
 		PropertySpace space4 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
@@ -73,8 +72,7 @@ public class Board {
 		this.addToNeighborhood(space7);
 		spaces.add(space7);
 		
-		OpenSpace space8 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space8.setName("Chance");
+		ChanceSpace space8 = (ChanceSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.CHANCE);
 		spaces.add(space8);
 		
 		PropertySpace space9 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
@@ -122,8 +120,7 @@ public class Board {
 		spaces.add(space17);
 		this.addToNeighborhood(space17);
 		
-		OpenSpace space18 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space18.setName("Community Chest");
+		CommunityChestSpace space18 = (CommunityChestSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.COMMUNITYCHEST);
 		spaces.add(space18);
 		
 		PropertySpace space19 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
@@ -148,8 +145,7 @@ public class Board {
 		spaces.add(space22);
 		this.addToNeighborhood(space22);
 		
-		OpenSpace space23 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space23.setName("Chance");
+		ChanceSpace space23 = (ChanceSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.CHANCE);
 		spaces.add(space23);
 		
 		PropertySpace space24 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);
@@ -201,8 +197,7 @@ public class Board {
 		spaces.add(space33);
 		this.addToNeighborhood(space33);
 
-		OpenSpace space34 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space34.setName("Community Chest");
+		CommunityChestSpace space34 = (CommunityChestSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.COMMUNITYCHEST);
 		spaces.add(space34);
 		
 		PropertySpace space35 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);		
@@ -214,8 +209,7 @@ public class Board {
 		space36.setPropertyInfo(PropertyType.RAILROAD, "Short Line", 200, new int[] {}, "");
 		spaces.add(space36);
 		
-		OpenSpace space37 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
-		space37.setName("Chance");
+		ChanceSpace space37 = (ChanceSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.CHANCE);
 		spaces.add(space37);
 		
 		PropertySpace space38 = (PropertySpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.PROPERTY);		

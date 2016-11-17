@@ -207,5 +207,9 @@ public class View extends JFrame {
 	public void startRemainingTime(int timeInMinutes) {
 		controller.createAndStartTimer(timeInMinutes);
 	}
+
+	public void landedOnCardSpaceDialog(String message) {
+		controller.createLandedOnCardSpaceDialog(message);
+	}
 	
 }

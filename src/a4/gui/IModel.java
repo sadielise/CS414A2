@@ -66,4 +66,6 @@ public interface IModel {
 	public void paidJailFine();
 
 	public void unableToPay(String playerOwed, int amountOwed);
+
+	public void landedOnCardSpace(String message);
 }

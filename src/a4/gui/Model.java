@@ -304,4 +304,9 @@ public class Model implements IModel {
 		update();
 		view.paidJailFineDialog();
 	}
+
+	public void landedOnCardSpace(String message) {
+		update();
+		view.landedOnCardSpaceDialog(message);
+	}
 }

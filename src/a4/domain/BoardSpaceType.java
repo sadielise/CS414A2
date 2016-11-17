@@ -1,5 +1,13 @@
 package a4.domain;
 
-public enum BoardSpaceType {
-	INCOMETAX, LUXURYTAX, OPEN, GOTOJAIL, JAIL, PROPERTY
+public enum BoardSpaceType { 
+	INCOMETAX, 
+	LUXURYTAX, 
+	OPEN, 
+	GOTOJAIL, 
+	JAIL, 
+	PROPERTY,
+	CHANCE,
+	COMMUNITYCHEST
+
 }

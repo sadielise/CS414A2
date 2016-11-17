@@ -43,7 +43,6 @@ public class Board {
 	
 	// creates bottom row board spaces
 	private void createBoardBottom(){
-
 		OpenSpace space1 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		space1.setName("Go");
 		spaces.add(space1);
@@ -91,7 +90,6 @@ public class Board {
 
 	// creates left row board spaces
 	private void createBoardLeft(){
-		
 		JailSpace space11 = (JailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.JAIL);
 		spaces.add(space11);
 		jailLocation = spaces.size()-1;
@@ -141,7 +139,6 @@ public class Board {
 	
 	// creates top row board spaces
 	private void createBoardTop(){
-
 		OpenSpace space21 = (OpenSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.OPEN);
 		space21.setName("Free Parking");
 		spaces.add(space21);
@@ -191,7 +188,6 @@ public class Board {
 	
 	// creates right row board spaces
 	private void createBoardRight(){
-		
 		GoToJailSpace space31 = (GoToJailSpace) BoardSpaceFactory.getBoardSpace(BoardSpaceType.GOTOJAIL);
 		spaces.add(space31);
 

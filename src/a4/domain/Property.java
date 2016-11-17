@@ -26,8 +26,8 @@ public abstract class Property {
 		return owner;
 	}
 
-	public void setOwner(Player new_owner) {
-		owner = new_owner;
+	public void setOwner(Player newOwner) {
+		owner = newOwner;
 	}
 
 	public boolean getIsMortgaged() {
@@ -38,7 +38,7 @@ public abstract class Property {
 		isMortgaged = state;
 	}
 
-	public abstract int getRent(int dice_roll);
+	public abstract int getRent(int diceRoll);
 
 	public String toString() {
 		return name + ": Value: " + value + " Currently Mortgaged: " + isMortgaged;

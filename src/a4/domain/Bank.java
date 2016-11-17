@@ -6,18 +6,19 @@ public class Bank {
 	private int hotelCount;
 
 	public Bank(int initialBalance, int initialHouseCount, int initialHotelCount) {
-		balance = initialBalance;
-		houseCount = initialHouseCount;
-		hotelCount = initialHotelCount;
+		this.balance = initialBalance;
+		this.houseCount = initialHouseCount;
+		this.hotelCount = initialHotelCount;
 	}
 
 	public int getHouseCount() {
 		return houseCount;
 	}
 
-	public boolean canRemoveHouse(){
+	public boolean canRemoveHouse() {
 		return (houseCount > 0);
 	}
+
 	public void removeHouse() {
 		houseCount--;
 	}
@@ -43,8 +44,7 @@ public class Bank {
 		balance = newBalance;
 	}
 
-	// removes amountToRemove from bank or zeros balance, returns amountToRemove
-	// or zero
+	// removes amountToRemove from bank or zeros balance, returns amountToRemove or zero
 	public int removeBalance(int amountToRemove) {
 		if (0 == balance) {
 			return 0;

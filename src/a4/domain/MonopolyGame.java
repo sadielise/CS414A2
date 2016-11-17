@@ -401,6 +401,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 	
 	// purchase a property after an auction and send result of purchase to model
+	@SuppressWarnings("null")
 	@Override
 	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;

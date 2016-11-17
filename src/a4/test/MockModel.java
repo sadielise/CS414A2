@@ -148,4 +148,28 @@ public class MockModel implements IModel{
 		
 	}
 
+	@Override
+	public void startAITurn(String player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startAIJailTurn(String player) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void newGameCreated(int timeInMinutes, boolean firstPlayerIsAI) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

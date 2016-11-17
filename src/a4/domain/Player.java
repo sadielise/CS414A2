@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Player {
 
 	private String name;
+	private boolean isAI;
 	private int balance;
 	private Token token;
 	private boolean inJail;
@@ -13,7 +14,7 @@ public class Player {
 	private int numUtilities;
 	private ArrayList<Property> properties;
 
-	public Player(String name, int balance, int location) {
+	public Player(String name, int balance, int location, boolean isAI) {
 		this.name = name;
 		this.balance = balance;
 		this.token = null;
@@ -21,15 +22,24 @@ public class Player {
 		this.location = location;
 		this.numRailroads = 0;
 		this.numUtilities = 0;
+		this.isAI = isAI;
 		this.properties = new ArrayList<Property>();
 	}
-	
+
 	public String getName() {
 		return name;
 	}
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public boolean isAI() {
+		return isAI;
+	}
+
+	public void setAI(boolean isAI) {
+		this.isAI = isAI;
 	}
 
 	public int getBalance() {
@@ -63,7 +73,7 @@ public class Player {
 	public void setLocation(int location) {
 		this.location = location;
 	}
-	
+
 	public int getRailroadCount() {
 		return numRailroads;
 	}
@@ -85,7 +95,7 @@ public class Player {
 		balance += amountToAdd;
 		return balance;
 	}
-	
+
 	// increases Player's railroad count by 1, returnss new railroad count
 	public int addRailroad() {
 		numRailroads++;
@@ -101,7 +111,7 @@ public class Player {
 			return -1;
 		}
 	}
-	
+
 	// increases Player's utility count by 1, returns new utility count
 	public int addUtility() {
 		numUtilities++;
@@ -128,7 +138,10 @@ public class Player {
 	
 	@Override
 	public String toString() {
-		return name;
+		String playerString = name;
+		if (isAI)
+			playerString += " (AI)";
+		return playerString;
 	}
 
 	// Players are equal if the name and token are equal
@@ -193,7 +206,7 @@ public class Player {
 		toPlayer.addBalance(amount);
 		return true;
 	}
-	
+
 	// transfers money from current player (this) to the bank
 	public boolean transferMoney(Bank toBank, int amount) {
 		if (balance < amount) {
@@ -203,7 +216,7 @@ public class Player {
 		toBank.addBalance(amount);
 		return true;
 	}
-	
+
 	// purchases property for Player, returns true if legal, returns false otherwise
 	public boolean purchaseProperty(Bank bank, Property property, int price) {
 		if (property == null) {

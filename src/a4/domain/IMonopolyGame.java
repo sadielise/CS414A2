@@ -8,6 +8,10 @@ public interface IMonopolyGame {
 
 	public String getCurrentPlayer();
 
+	public boolean getCurrentPlayerIsAI();
+
+	public boolean getPlayerIsAI(String playerName);
+
 	public List<String> getPlayers();
 
 	public int getBankroll(String player);
@@ -24,6 +28,8 @@ public interface IMonopolyGame {
 
 	public void developProperty(String property);
 
+	public String undevelopFirstAIProperty();
+
 	public void endTurn();
 
 	public void undevelop(String property, String playerOwed, int amountOwed);
@@ -32,7 +38,7 @@ public interface IMonopolyGame {
 
 	public void trade(String currProperty, String otherProperty);
 
-	public void newGame(List<String> playerNames, int timeInMinutes);
+	public void newGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes);
 
 	public void purchaseProperty(String player, String property);
 

@@ -64,6 +64,19 @@ public class MonopolyGame implements IMonopolyGame {
 		return currentPlayer.toString();
 	}
 
+	public boolean getCurrentPlayerIsAI() {
+		return currentPlayer.isAI();
+	}
+
+	public boolean getPlayerIsAI(String playerName) {
+		for (Player p : players) {
+			if (p.toString().equals(playerName) && p.isAI()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public Player getCurrentPlayerReference() {
 		return currentPlayer;
 	}
@@ -174,8 +187,8 @@ public class MonopolyGame implements IMonopolyGame {
 		return numHouses;
 	}
 
-	// create all of instances of the objects needed to play a monopoly game
-	public boolean setupGame(List<String> names, int time) {
+	//create all of instances of the objects needed to play a monopoly game
+	public boolean setupGame(List<String> names, List<String> aiNames, int time) {
 		if (names == null || names.size() < minNumPlayers || names.size() > maxNumPlayers) {
 			return false;
 		}
@@ -189,7 +202,10 @@ public class MonopolyGame implements IMonopolyGame {
 		bank = new Bank(initialBankBalance, numHouses, numHotels);
 
 		for (String name : names) {
-			Player newPlayer = new Player(name, 0, 0);
+			boolean isAI = false;
+			if (aiNames != null)
+				isAI = aiNames.contains(name);
+			Player newPlayer = new Player(name, 0, 0, isAI);
 			bank.transferMoney(newPlayer, initialPlayerBalance);
 			players.add(newPlayer);
 		}
@@ -208,7 +224,7 @@ public class MonopolyGame implements IMonopolyGame {
 	
 	// clear the variables from an old game, setup a new game, and start the timer
 	@Override
-	public void newGame(List<String> playerNames, int timeInMinutes) {
+	public void newGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes) {
 		players = null;
 		board = null;
 		dice = null;
@@ -217,9 +233,9 @@ public class MonopolyGame implements IMonopolyGame {
 		currentPlayer = null;
 		gameTime = null;
 		BoardSpace.restartCounter();
-		boolean success = setupGame(playerNames, timeInMinutes);
+		boolean success = setupGame(playerNames, aiPlayers, timeInMinutes);
 		if (success) {
-			model.newGameCreated(timeInMinutes);
+			model.newGameCreated(timeInMinutes, currentPlayer.isAI());
 		} else {
 			model.newGameFailedToCreate();
 		}
@@ -242,10 +258,18 @@ public class MonopolyGame implements IMonopolyGame {
 		int currentPlayerNumber = players.indexOf(currentPlayer);
 		int nextPlayerNumber = (currentPlayerNumber + 1) % players.size();
 		currentPlayer = players.get(nextPlayerNumber);
-		if (currentPlayer.getInJail()) {
-			model.startJailTurn(currentPlayer.toString());
+		if (currentPlayer.isAI()) {
+			if (currentPlayer.getInJail()) {
+				model.startAIJailTurn(currentPlayer.toString());
+			} else {
+				model.startAITurn(currentPlayer.toString());
+			}
 		} else {
-			model.startNormalTurn(currentPlayer.toString());
+			if (currentPlayer.getInJail()) {
+				model.startJailTurn(currentPlayer.toString());
+			} else {
+				model.startNormalTurn(currentPlayer.toString());
+			}
 		}
 	}
 
@@ -309,11 +333,14 @@ public class MonopolyGame implements IMonopolyGame {
 				model.paidRentTo("Income Tax", ((IncomeTaxSpace) spaceOfPlayer).getValue());
 			}	
 		} else if (BoardSpaceType.OPEN == spaceOfPlayer.getType()) {
-			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());		
+			model.landedOnNonProperty(((OpenSpace) spaceOfPlayer).getName());
 		} else if (BoardSpaceType.PROPERTY == spaceOfPlayer.getType()) {
 			Property currentProperty = ((PropertySpace) spaceOfPlayer).getProperty();
 			if (currentProperty.getOwner() == null) {
-				model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
+				if (currentPlayer.isAI())
+					model.propertyIsUnownedAI(currentProperty.toString(), currentProperty.getValue());
+				else
+					model.propertyIsUnowned(currentProperty.toString(), currentProperty.getValue());
 			} else if (!currentProperty.getOwner().equals(currentPlayer)) {
 				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 				if (!currentProperty.getIsMortgaged()) {
@@ -427,6 +454,15 @@ public class MonopolyGame implements IMonopolyGame {
 				model.propertyCannotBeDeveloped(property);
 			}
 		}
+	}
+
+	public String undevelopFirstAIProperty() {
+		if (!(currentPlayer.getProperties().isEmpty())) {
+			Property toUndevelop = getProperties().get(0);
+			currentPlayer.getProperties().get(0).undevelop(bank);
+			return toUndevelop.toString();
+		}
+		return "";
 	}
 
 	// undevelop a property (mortgage, sell houses) if legal, send result of undevelop to model

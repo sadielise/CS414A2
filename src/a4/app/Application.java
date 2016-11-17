@@ -7,6 +7,7 @@ import a4.gui.Model;
 import a4.gui.View;
 
 public class Application {
+	@SuppressWarnings("deprecation")
 	public static void main(String[] args)
 	{
 		Model      model      = new Model();

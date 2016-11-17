@@ -14,7 +14,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-public class View extends JFrame{
+@SuppressWarnings("serial")
+public class View extends JFrame {
 	private Model model;
 	private Controller controller;
 	private Font buttonFont;
@@ -23,25 +24,24 @@ public class View extends JFrame{
 	private JLabel currentBankroll;
 	private JLabel timeRemaining;
 	private Timer timer;
-	
-	public void setModel(Model m){
+
+	public void setModel(Model m) {
 		model = m;
 	}
 
-	public void setController(Controller c){
+	public void setController(Controller c) {
 		controller = c;
 	}
 
-	private void buttonSetup(JPanel panelHoldingButtons, JButton button, String buttonLabel){
+	private void buttonSetup(JPanel panelHoldingButtons, JButton button, String buttonLabel) {
 		button.setText(buttonLabel);
 		button.setFont(buttonFont);
 		panelHoldingButtons.add(button);
 	}
 
-	public void build(){
+	public void build() {
 		addWindowListener(new WindowAdapter() {
-			public void windowClosing(WindowEvent e)
-			{
+			public void windowClosing(WindowEvent e) {
 				System.exit(0);
 			}
 		});
@@ -51,17 +51,17 @@ public class View extends JFrame{
 		buttonFont = new Font("Monospaced", Font.BOLD, 11);
 
 		JPanel playerOptionsAndInfo = new JPanel();
-		playerOptionsAndInfo.setLayout(new BoxLayout(playerOptionsAndInfo,BoxLayout.X_AXIS));
-		buttonSetup(playerOptionsAndInfo,controller.getNewGameButton(), "New Game");
-		buttonSetup(playerOptionsAndInfo,controller.getRollButton(), "Roll");
-		buttonSetup(playerOptionsAndInfo,controller.getDevelopButton(), "Develop");
-		buttonSetup(playerOptionsAndInfo,controller.getTradeButton(), "Trade");
-		buttonSetup(playerOptionsAndInfo,controller.getEndTurnButton(), "End Turn");
+		playerOptionsAndInfo.setLayout(new BoxLayout(playerOptionsAndInfo, BoxLayout.X_AXIS));
+		buttonSetup(playerOptionsAndInfo, controller.getNewGameButton(), "New Game");
+		buttonSetup(playerOptionsAndInfo, controller.getRollButton(), "Roll");
+		buttonSetup(playerOptionsAndInfo, controller.getDevelopButton(), "Develop");
+		buttonSetup(playerOptionsAndInfo, controller.getTradeButton(), "Trade");
+		buttonSetup(playerOptionsAndInfo, controller.getEndTurnButton(), "End Turn");
 
 		currentPlayer = new JLabel(" Current Player: <noplayer>     ");
 		currentBankroll = new JLabel(" Current Bankroll:  $<nomoney>       ");
 		timeRemaining = new JLabel (" Time Remaining: <null> ");
-		JLabel guiBuffer = new JLabel("                              ");	
+		JLabel guiBuffer = new JLabel("                              ");
 		playerOptionsAndInfo.add(currentPlayer);
 		playerOptionsAndInfo.add(currentBankroll);
 		playerOptionsAndInfo.add(timeRemaining);
@@ -70,29 +70,32 @@ public class View extends JFrame{
 
 		Container contentPane = getContentPane();
 		contentPane.add(playerOptionsAndInfo, "North");
-		contentPane.add(playingBoard,"Center");
+		contentPane.add(playingBoard, "Center");
 
 		pack();
 
 	}
 
-	public void update(){
-		currentPlayer.setText(" Current Player: " + model.getPlayer()+"     ");
+	public void update() {
+		currentPlayer.setText(" Current Player: " + model.getPlayer() + "     ");
 		currentBankroll.setText(" Current Bankroll: $" + model.getCurrentBankroll()+"     ");
 		playingBoard.update();
 	}
 
-	public void unownedPropertyDialog(String property, int cost){
+	public void unownedPropertyDialog(String property, int cost) {
 		controller.createLandedOnUnownedDialog(property, cost);
 	}
 
-	public void unableToPayDialog(String player, int rentDue){
-		controller.createUnableToPayDialog(player,rentDue);
+	public void unownedPropertyAIDialog(String property, int cost) {
+		controller.createAILandedOnUnownedDialog(property, cost);
+	}
+
+	public void unableToPayDialog(String player, int rentDue) {
+		controller.createUnableToPayDialog(player, rentDue);
 	}
 
 	public void paidRentDialog(String playerName, int rentAmount) {
 		controller.createPaidRentDialog(playerName, rentAmount);
-
 	}
 
 	public void sentToJailDialog(String playerName) {
@@ -105,26 +108,26 @@ public class View extends JFrame{
 
 	public void startNormalTurnDialog(String player) {
 		controller.createStartNormalTurnDialog(player);
-		
 	}
+
 	public void startJailTurnDialog(String player) {
 		controller.createStartJailTurnDialog(player);
-		
+	}
+
+	public void startJailAITurnDialog(String player) {
+		controller.createAIJailTurnDialog(player);
 	}
 
 	public void startNewGameDialog() {
 		controller.createNewGameDialog();
-		
 	}
 
 	public void failedToCreateNewGameDialog() {
 		controller.createFailedToCreateNewGameDialog();
-		
 	}
 
 	public void propertyWasDevelopedDialog(String property, int numberOfHouses) {
 		controller.createPropertyWasDevelopedDialog(property, numberOfHouses);
-		
 	}
 
 	public void propertyWasMortgagedDialog(String property, int amount) {
@@ -141,7 +144,6 @@ public class View extends JFrame{
 
 	public void unableToPurchasePropertyDialog(String player, String property) {
 		controller.createUnableToPurchasePropertyDialog(player, property);
-		
 	}
 
 	public void purchasedPropertyDialog(String player, String property) {
@@ -152,7 +154,7 @@ public class View extends JFrame{
 		controller.createAuctionFailedDialog(property);
 	}
 
-	Dimension getEnclosingBox(){
+	Dimension getEnclosingBox() {
 		return playingBoard.getSize();
 	}
 
@@ -169,7 +171,7 @@ public class View extends JFrame{
 	}
 
 	public void tradeSucceededDialog(String currProperty, String otherProperty) {
-		controller.createTradeSucceededDialog(currProperty, otherProperty);		
+		controller.createTradeSucceededDialog(currProperty, otherProperty);
 	}
 
 	public void rolledDialog(int value, boolean isDoubles) {
@@ -189,14 +191,14 @@ public class View extends JFrame{
 	}
 
 	public void propertyWasUndevelopedDialog(String property, int houseValue) {
-		controller.createPropertyWasUndevelopedDialog(property,houseValue);
+		controller.createPropertyWasUndevelopedDialog(property, houseValue);
 	}
 
 	public void paidJailFineDialog() {
 		controller.createPaidJailFineDialog();
 	}
-	
-	public void unableToEndTurnDialog(){
+
+	public void unableToEndTurnDialog() {
 		controller.createUnableToEndTurnDialog();
 	}
 	

@@ -16,6 +16,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
+@SuppressWarnings("serial")
 public class PlayingBoard extends JPanel{
 	
 	private Model model;

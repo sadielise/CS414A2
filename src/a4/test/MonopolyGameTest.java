@@ -25,7 +25,7 @@ public class MonopolyGameTest {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		names.add("David");
-		testGame.newGame(names, 30);
+		testGame.newGame(names, null, 30);
 	}
 
 	@Test
@@ -33,20 +33,20 @@ public class MonopolyGameTest {
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
 		names.add("David");
-		assertTrue(testGame.setupGame(names, 30));
+		assertTrue(testGame.setupGame(names, null, 30));
 		assertTrue(testGame.getCurrentPlayerReference().equals(testGame.getPlayerList().get(0)));
 	}
 
 	@Test
 	public void testSetupGameNullListOfNames(){
-		assertFalse(testGame.setupGame(null, 30));
+		assertFalse(testGame.setupGame(null, null, 30));
 	}
 
 	@Test
 	public void testSetupGameTooFewPlayers(){
 		ArrayList<String> names = new ArrayList<String>();
 		names.add("Chancey");
-		assertFalse(testGame.setupGame(names, 30));
+		assertFalse(testGame.setupGame(names, null, 30));
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class MonopolyGameTest {
 		names.add("Jeff");
 		names.add("Gabby");
 		names.add("Saddie");
-		assertFalse(testGame.setupGame(names, 30));
+		assertFalse(testGame.setupGame(names, null, 30));
 
 	}
 
@@ -231,7 +231,7 @@ public class MonopolyGameTest {
 
 	@Test
 	public void testPurchaseProperty_Success(){
-		Player player = new Player("Gabby", 200, 0);
+		Player player = new Player("Gabby", 200, 0, false);
 		int propertyValue = 100;
 		int bankBalance = testGame.getBank().getBalance();
 		Railroad property = new Railroad("Super cool property", propertyValue);
@@ -243,7 +243,7 @@ public class MonopolyGameTest {
 
 	@Test
 	public void testPurchaseProperty_PlayerDoesntHaveEnough(){
-		Player player = new Player("Gabby", 200, 0);
+		Player player = new Player("Gabby", 200, 0, false);
 		int propertyValue = 300;
 		int bankBalance = testGame.getBank().getBalance();
 		Railroad property = new Railroad("Super cool property", propertyValue);
@@ -255,15 +255,15 @@ public class MonopolyGameTest {
 
 	@Test
 	public void testPurchaseNullProperty(){
-		Player player = new Player("Gabby", 200, 0);
+		Player player = new Player("Gabby", 200, 0, false);
 		assertFalse(player.purchaseProperty(testGame.getBank(), null, 100));
 		assertEquals(200, player.getBalance());
 	}
 
 	@Test
 	public void testPurchaseOwnedProperty(){
-		Player player = new Player("Gabby", 200, 0);
-		Player player2 = new Player("Chancey", 200, 0);
+		Player player = new Player("Gabby", 200, 0, false);
+		Player player2 = new Player("Chancey", 200, 0, false);
 		int propertyValue = 100;
 		Railroad property = new Railroad("Super cool property", propertyValue);
 		property.setOwner(player2);

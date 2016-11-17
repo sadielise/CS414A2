@@ -11,107 +11,119 @@ public class Model implements IModel {
 	boolean isStarted = false;
 	boolean hasRolled = false;
 
-	public void setView(View v){
+	public void setView(View v) {
 		view = v;
 	}
 
-	public void setGame(IMonopolyGame g){
+	public void setGame(IMonopolyGame g) {
 		game = g;
 	}
 
-	public String getPlayer(){
+	public String getPlayer() {
 		return game.getCurrentPlayer();
 	}
 
-	public int getLocation(String player){
+	public boolean currentPlayerIsAI() {
+		return game.getCurrentPlayerIsAI();
+	}
+
+	public boolean playerIsAI(String player) {
+		return game.getPlayerIsAI(player);
+	}
+
+	public int getLocation(String player) {
 		return game.getLocation(player);
 	}
 
-	public List<String> getPlayers(){
+	public List<String> getPlayers() {
 		return game.getPlayers();
 	}
 
-	public String getCurrentBankroll(){
-		return ""+game.getBankroll(game.getCurrentPlayer());
+	public String getCurrentBankroll() {
+		return "" + game.getBankroll(game.getCurrentPlayer());
 	}
 
-	public List<String> getCurrentPlayersProperties(){
+	public List<String> getCurrentPlayersProperties() {
 		return game.getProperties(game.getCurrentPlayer());
 	}
 
-	public List<String> getPlayersProperties(String player){
+	public List<String> getPlayersProperties(String player) {
 		return game.getProperties(player);
 	}
-	
-	public List<String> getPlayersDevelopableProperties(String player){
+
+	public List<String> getPlayersDevelopableProperties(String player) {
 		return game.getDevelopableProperties(player);
 	}
-	
-	public List<String> getPlayersUndevelopableProperties(String player){
+
+	public List<String> getPlayersUndevelopableProperties(String player) {
 		return game.getUndevelopableProperties(player);
 	}
 
-	public void purchaseAuctionedProperty(List<Integer> offers){
+	public void purchaseAuctionedProperty(List<Integer> offers) {
 		game.purchaseAuctionedProperty(offers);
 	}
 
-	public int getPlayerLocation(String player){
+	public int getPlayerLocation(String player) {
 		return game.getLocation(player);
 	}
-	
-	public String getProperty(int location){
+
+	public String getProperty(int location) {
 		return game.getProperty(location);
 	}
-	
-	public int getNumberHouses(int location){
+
+	public int getNumberHouses(int location) {
 		int numHouses = game.getNumberHouses(location);
-		if(numHouses > 4){
+		if (numHouses > 4) {
 			return 0;
-		}
-		else{
+		} else {
 			return numHouses;
 		}
 	}
-	
-	public int getNumberHotels(int location){
+
+	public int getNumberHotels(int location) {
 		int numHouses = game.getNumberHouses(location);
-		if(numHouses > 4){
+		if (numHouses > 4) {
 			return 1;
-		}
-		else{
+		} else {
 			return 0;
 		}
 	}
 
-	public void develop(String property){
+	public void develop(String property) {
 		game.developProperty(property);
 	}
 
-	public void roll(){
-		if(!hasRolled){
+	public String undevelopPropertyForAI() {
+		return game.undevelopFirstAIProperty();
+	}
+	
+	public void roll() {
+		if (!hasRolled) {
 			game.roll();
 			hasRolled = true;
 		}
 	}
 
-	public void purchaseProperty(String player, String property){
-		game.purchaseProperty(player,property);
+	public void purchaseProperty(String player, String property) {
+		game.purchaseProperty(player, property);
 	}
-	public void trade(String currProperty, String otherProperty){
+
+	public void trade(String currProperty, String otherProperty) {
 		game.trade(currProperty, otherProperty);
 	}
 
-	public void startNewGame(List<String> playerNames, int timeInMinutes){
-		game.newGame(playerNames,timeInMinutes);
+	public void startNewGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes) {
+		view.startRemainingTime(timeInMinutes);
+		game.newGame(playerNames, aiPlayers, timeInMinutes);
+		isStarted = true;
 		update();
 	}
 
-	public void endTurn(){
+	public void endTurn() {
 		game.endTurn();
 	}
 
-
-	public void undevelop(String property, String playerOwed, int amountOwed){
+	public void undevelop(String property, String playerOwed, int amountOwed) {
 		game.undevelop(property, playerOwed, amountOwed);
 		update();
 	}
@@ -119,6 +131,11 @@ public class Model implements IModel {
 	public void propertyIsUnowned(String propertyName, int propertyValue) {
 		update();
 		view.unownedPropertyDialog(propertyName, propertyValue);
+	}
+
+	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
+		update();
+		view.unownedPropertyAIDialog(propertyName, propertyValue);
 	}
 
 	public void unableToPayRentTo(String playerName, int rentAmount) {
@@ -140,14 +157,13 @@ public class Model implements IModel {
 		view.propertyCannotBeDevelopedDialog(propertyName);
 	}
 
-	private void update(){
+	private void update() {
 		view.update();
 	}
 
 	public void propertyWasDeveloped(String property, int numberOfHouses) {
-		view.propertyWasDevelopedDialog(property,numberOfHouses);
+		view.propertyWasDevelopedDialog(property, numberOfHouses);
 		update();
-		
 	}
 
 	public void startNormalTurn(String player) {
@@ -156,18 +172,39 @@ public class Model implements IModel {
 		view.startNormalTurnDialog(player);
 	}
 
+	// TODO: Need to account for if AI is first player to start
+	public void startAITurn(String player) {
+		update();
+		hasRolled = false;
+		view.startNormalTurnDialog(player);
+		roll();
+		game.endTurn();
+	}
+
 	public void startJailTurn(String player) {
 		update();
 		hasRolled = true;
-		view.startJailTurnDialog(player);		
+		roll();
+		view.startJailTurnDialog(player);
 	}
 
-	public void newGameCreated(int timeInMinutes) {
+	// TODO
+	public void startAIJailTurn(String player) {
+		update();
+		hasRolled = true;
+		view.startJailAITurnDialog(player);
+		game.endTurn();
+	}
+
+	public void newGameCreated(int timeInMinutes, boolean firstPlayerIsAI) {
 		view.startRemainingTime(timeInMinutes);
 		isStarted = true;
 		update();
 		view.startNewGameDialog();
-		startNormalTurn(game.getCurrentPlayer());
+		if (firstPlayerIsAI)
+			startAITurn(game.getCurrentPlayer());
+		else
+			startNormalTurn(game.getCurrentPlayer());
 	}
 
 	public void newGameFailedToCreate() {
@@ -175,7 +212,7 @@ public class Model implements IModel {
 	}
 
 	public void payJailFine(String player, boolean isPayingFine) {
-		game.payJailFine(player,isPayingFine);
+		game.payJailFine(player, isPayingFine);
 	}
 
 	public void unableToPayTax(int amount) {
@@ -198,7 +235,7 @@ public class Model implements IModel {
 
 	public void couldNotPurchaseProperty(String player, String property) {
 		view.unableToPurchasePropertyDialog(player, property);
-		update();		
+		update();
 	}
 
 	public void purchasedProperty(String player, String property) {
@@ -208,7 +245,6 @@ public class Model implements IModel {
 
 	public void failedToLeaveJail() {
 		view.failedToLeaveJailDialog();
-		
 	}
 
 	public void succeededInLeavingJail() {
@@ -227,10 +263,10 @@ public class Model implements IModel {
 		view.tradeSucceededDialog(currProperty, otherProperty);
 		update();
 	}
-	
-	public void auctionFailed(String property){
+
+	public void auctionFailed(String property) {
 		view.auctionFailedDialog(property);
-		update();		
+		update();
 	}
 
 	public void landedOnNonProperty(String property) {
@@ -253,15 +289,15 @@ public class Model implements IModel {
 		isStarted = false;
 		view.endGameDialog(players);
 	}
-	
-	public void unableToPay(String playerOwed, int amountOwed){
+
+	public void unableToPay(String playerOwed, int amountOwed) {
 		update();
 		view.unableToPayDialog(playerOwed, amountOwed);
 	}
 
 	public void propertyWasUnDevelopedFor(String property, int houseValue) {
 		update();
-		view.propertyWasUndevelopedDialog(property,houseValue);
+		view.propertyWasUndevelopedDialog(property, houseValue);
 	}
 
 	public void paidJailFine() {

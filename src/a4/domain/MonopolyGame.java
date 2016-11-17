@@ -2,7 +2,6 @@ package a4.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -469,33 +468,36 @@ public class MonopolyGame implements IMonopolyGame {
 	@Override
 	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
+		Player owedPlayer = findPlayer(playerOwed);
+		boolean bankOwed = false;
+		if(owedPlayer == null){
+			bankOwed = true;
+		}
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);
 		}
 		else {
-			int propertyHotelCount = -1;
-			if(currentProperty.getType() == PropertyType.STREET){
-				propertyHotelCount = ((Street)currentProperty).getHotelCount();
-			}
 			int undevelopingValue = currentProperty.undevelop(bank);
-			if(undevelopingValue != -1){
-				if(currentProperty.getType() == PropertyType.STREET){
-					if(propertyHotelCount != ((Street)currentProperty).getHotelCount()){
-//						hotelCount++;
-//						houseCount -= 4;
-					}
-				}
-				model.propertyWasUnDevelopedFor(property, undevelopingValue);
-			}
-			else{
+			if(undevelopingValue == -1){
 				model.couldNotUndevelopProperty(property);
 			}
-			if (currentPlayer.getBalance() < amountOwed) {
-				amountOwed -= currentPlayer.getBalance();
+			else{
+				model.propertyWasUnDevelopedFor(property, undevelopingValue);
+			}
+		}
+		if(currentPlayer.getBalance() < amountOwed){
+			amountOwed -= currentPlayer.getBalance();
+			if(bankOwed == true){
 				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
-				model.unableToPay(playerOwed, amountOwed);
-			} else {
+			}else{
+				currentPlayer.transferMoney(owedPlayer, currentPlayer.getBalance());
+			}
+			model.unableToPay(playerOwed, amountOwed);
+		}else{
+			if(bankOwed == true){
 				currentPlayer.transferMoney(bank, amountOwed);
+			} else{
+				currentPlayer.transferMoney(owedPlayer, amountOwed);
 			}
 		}
 	}

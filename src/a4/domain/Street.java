@@ -96,7 +96,8 @@ public class Street extends Property {
 		}
 	}
 
-	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if developing failed.
+	// returns 1 if street was unMortgaged, 2 if a house was bought, and -1 if
+	// developing failed.
 	@Override
 	public int develop(Bank bank) {
 		if (isMortgaged) {
@@ -105,7 +106,7 @@ public class Street extends Property {
 			} else {
 				return -1;
 			}
-		} else if(houseCount < 4 && bank.canRemoveHouse()){
+		} else if (houseCount < 4 && bank.canRemoveHouse()) {
 			if (neighborhood.addHouse(this)) {
 				owner.transferMoney(bank, neighborhood.getHouseValue());
 				bank.removeHouse();
@@ -113,7 +114,7 @@ public class Street extends Property {
 			} else {
 				return -1;
 			}
-		} else if(houseCount == 4 && bank.canRemoveHotel()){
+		} else if (houseCount == 4 && bank.canRemoveHotel()) {
 			if (neighborhood.addHouse(this)) {
 				owner.transferMoney(bank, neighborhood.getHouseValue());
 				bank.removeHotel();
@@ -121,27 +122,42 @@ public class Street extends Property {
 			} else {
 				return -1;
 			}
-		} else{
-			return -1;
-		}
-	}
-	
-	// sells house or mortgages house if street can be undeveloped, -1 otherwise
-	public int undevelop(Bank bank) {
-		if (isMortgaged) {
-			return -1;
-		} else if (neighborhood.removeHouse(this)) {
-			return sellHouse(bank);
-		} else if(this.houseCount > 0 || this.hotelCount > 0){
-			return -1;
-		}else if(neighborhood.numHousesEqual() && this.houseCount == 0 && this.hotelCount == 0){
-			return mortgage(bank);
-		}else{
+		} else {
 			return -1;
 		}
 	}
 
-	// returns half the value of the street if bank has enough funds, balance of bank otherwise
+	// sells house or mortgages house if street can be undeveloped, -1 otherwise
+	public int undevelop(Bank bank) {
+		int undevelopingValue = -1;
+		if (isMortgaged) {
+			return undevelopingValue;
+		} else if (hotelCount == 1 && bank.canAddHotel()) {
+			if (neighborhood.removeHouse(this)) {
+				undevelopingValue = sellHouse(bank);
+				bank.addHotel();
+				return undevelopingValue;
+			} else {
+				return undevelopingValue;
+			}
+		} else if (houseCount > 0) {
+			if (neighborhood.removeHouse(this)) {
+				undevelopingValue = sellHouse(bank);
+				bank.addHouse();
+				return undevelopingValue;
+			} else {
+				return undevelopingValue;
+			}
+		} else if (neighborhood.numHousesEqual() && houseCount == 0 && hotelCount == 0) {
+			return mortgage(bank);
+			
+		} else {
+			return -1;
+		}
+	}
+
+	// returns half the value of the street if bank has enough funds, balance of
+	// bank otherwise
 	private int sellHouse(Bank bank) {
 		if (bank.transferMoney(this.owner, this.neighborhood.getHouseValue() / 2)) {
 			return this.neighborhood.getHouseValue() / 2;

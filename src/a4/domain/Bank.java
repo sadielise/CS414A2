@@ -15,6 +15,10 @@ public class Bank {
 		return houseCount;
 	}
 
+	public void addHouse(){
+		houseCount++;
+	}
+	
 	public boolean canRemoveHouse() {
 		return (houseCount > 0);
 	}
@@ -22,11 +26,23 @@ public class Bank {
 	public void removeHouse() {
 		houseCount--;
 	}
-
+	
 	public int getHotelCount() {
 		return hotelCount;
 	}
+	
+	public boolean canAddHotel(){
+		if(houseCount >= 4){
+			return true;
+		}
+		return false;
+	}
 
+	public void addHotel(){
+		hotelCount++;
+		houseCount -= 4;
+	}
+	
 	public boolean canRemoveHotel() {
 		return (hotelCount > 0);
 	}

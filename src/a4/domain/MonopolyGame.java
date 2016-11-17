@@ -272,10 +272,8 @@ public class MonopolyGame implements IMonopolyGame {
 
 	// roll the die and keep track of the number of doubles rolled, send the player to jail if 3 sets of doubles rolled
 	public void roll(int pastNumberOfDoubles) {
-//		int value1 = dice.get(0).roll();
-//		int value2 = dice.get(1).roll();
-		int value1 = 0;
-		int value2 = 1;
+		int value1 = dice.get(0).roll();
+		int value2 = dice.get(1).roll();
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {

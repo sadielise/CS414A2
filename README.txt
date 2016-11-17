@@ -1,7 +1,11 @@
 Monopoly Game - Group 4 - CS414 Assignment 5, Fall 2016
 This is a version of Monopoly recreated using Java for the purpose of experiencing the full process of application development. 
 The game’s rules and specifications are based off of the Wikipedia page. A game is timer-based, and the winner is determined by 
-who has the most liquidated funds. The Bank is handled internally, and the gui is interactable.
+who has the most liquidated funds. The Bank is handled internally, and the gui allows users to interact with the game.
+
+For this assignment, we implemented cards for Chance and Community Chest and implemented an AI player so that humans can play
+with the computer. In addition, we did a fairly extensive refactoring of our code to make it better-organized, cleaner, and
+easier to understand.
 
 External .jar File Dependencies: // need to write
 
@@ -9,7 +13,7 @@ How to Run from Eclipse:
 First, clone the directory into wherever you want to store this repository. 
 Next, load the project into your Eclipse environment. Inside of the packet labeled “app”, open up Application.java. 
 There are no extra parameters needed to run the program. Execute the main method in Application.java and the Swing 
-graphical user interface should appear. You can have as little as 2 and up to 4 Players. You are allowed to interact with any 
+graphical user interface should appear. You can have as few as 2 and up to 4 Players. You are allowed to interact with any 
 of the given button, and the game will commence giving occasional instructions and options throughout.
 The game is based off of a timer which can be set in minutes at the beginning of the game. Once the timer is done, 
 the Player with the most liquidated funds will win, and you will have a chance to start a new game.
@@ -26,10 +30,20 @@ access to. Thus, we had to work to balance the classes while avoiding extensive 
 Patterns Used:
 We implemented the Factory pattern for the board spaces in the domain. The BoardSpaceFactory class uses an Enum to determine the type
 of board space that needs to be created and then returns that board space. This pattern makes our code much cleaner.
-We implemented the ...
+We implemented the Model-View-Controller pattern in the gui. This cleanly separates the gui from the domain by simply sending messages
+back and forth from the domain to the gui. This pattern makes our code adaptable by allowing us to make domain changes without affecting
+the gui and vice versa.
 
 Refactorings Used:
-
+The main issue we worked to address in our code was within the MonopolyGame class. For A4, much of the overall functionality was in 
+MonopolyGame, making it somewhat of a "god class". Thus, we pushed much of the functionality out of MonopolyGame into other classes
+within the domain. 
+This ended up fixing another issue of "lazy classes". Many of the classes had way too little functionality, although
+they were necessary for the game to function correctly. Thus, we pushed as much functionality as we could to those classes to make them
+as useful as possible. 
+We also went through all of our domain code and removed any unused methods (mainly getters and setters), standardized method names
+and comment structure, adjusted the visibility of methods and global variables, etc. This cleaned up much of the "junk" in our code 
+and made it easier to navigate and read.
 
 **************************************************************
 Included Packets of a4

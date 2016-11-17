@@ -2,7 +2,6 @@ package a4.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -10,6 +9,14 @@ import java.util.TimerTask;
 import a4.gui.IModel;
 
 public class MonopolyGame implements IMonopolyGame {
+	private final int initialBankBalance = 20580;
+	private final int initialPlayerBalance = 1500;
+	private final int numHouses = 32;
+	private final int numHotels = 5;
+	private final int numDiceSides = 6;
+	private final int minNumPlayers = 2;
+	private final int maxNumPlayers = 4;
+	
 	private List<Player> players;
 	private Board board;
 	private List<Die> dice;
@@ -17,15 +24,7 @@ public class MonopolyGame implements IMonopolyGame {
 	private List<Property> properties;
 	private Player currentPlayer;
 	private IModel model;
-	private int initialBankBalance = 20580;
 	public Timer gameTime;
-	private int numHouses = 8;
-	private int numHotels = 5;
-	private int initialPlayerBalance = 1500;
-	private int numDiceSides = 6;
-	private int minNumPlayers = 2;
-	private int maxNumPlayers = 4;
-
 
 	public List<Player> getPlayerList() {
 		return players;
@@ -57,10 +56,6 @@ public class MonopolyGame implements IMonopolyGame {
 
 	public void setPlayers(List<Player> players) {
 		this.players = players;
-	}
-
-	public int getHouseCount() {
-		return bank.getHouseCount();
 	}
 
 	@Override
@@ -255,67 +250,18 @@ public class MonopolyGame implements IMonopolyGame {
 	// checks which player has the most liquidated funds and updates model
 	public void endGame() {
 		Player winner = players.get(0);
-		HashMap<Player, Integer> liquidatedFunds = new HashMap<Player, Integer>();
 		for (Player p : players) {
-			liquidatedFunds.put(p, p.getBalance());
-		}
-		for (Property p : properties) {
-			if (p.getOwner() != null) {
-				int housesValue = 0;
-				int hotelValue = 0;
-				if (p.getType() == PropertyType.STREET) {
-					Street s = (Street) p;
-					housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
-					hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
-				}
-				int propertyValue = p.getValue();
-				int oldValue = liquidatedFunds.get(p.getOwner());
-				liquidatedFunds.put(p.getOwner(), oldValue + housesValue + hotelValue + propertyValue);
-			}
-		}
-		for (Player p : players) {
-			if (liquidatedFunds.get(p) > liquidatedFunds.get(winner))
+			p.liquidateFunds();
+			if (p.getBalance() > winner.getBalance()){
 				winner = p;
+			}
 		}
 		ArrayList<String> endgameList = new ArrayList<String>();
 		for(Player curr: players){
-			endgameList.add(curr.getName() + ": $" + liquidatedFunds.get(curr) );
+			endgameList.add(curr.getName() + ": $" + curr.getBalance() );
 		}
 		endgameList.add(winner.toString());
 		model.endGame(endgameList);
-	}
-
-	// returns true if the player is added, returns false if player has already been added
-	public boolean addPlayer(Player player) {
-		if (players.contains(player)) {
-			return false;
-		} else {
-			players.add(player);
-			return true;
-		}
-	}
-
-	// remove a player from the game and as owner from their properties
-	public boolean removePlayer(Player player) {
-		if (players.contains(player)) {
-			for (Property property : properties) {
-				if (property.getOwner() != null) {
-					if (property.getOwner().equals(player)) {
-						property.setOwner(null);
-					}
-				}
-			}
-			players.remove(player);
-			if (players.size() == 1) {
-				endGame();
-				return true;
-			}
-			return true;
-		} else if (player == null) {
-			return false;
-		} else {
-			return false;
-		}
 	}
 
 	@Override
@@ -332,16 +278,11 @@ public class MonopolyGame implements IMonopolyGame {
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
 			jail.putPlayerInJail(currentPlayer);
 			model.playerSentToJail(currentPlayer.toString());
 		} else {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
-			if (currentPlayer.move(value1 + value2, board.getSpaces().size())) {
-				bank.transferMoney(currentPlayer, 200);
-			}
-			board.getSpaces().get(currentPlayer.getLocation()).addPlayer(currentPlayer);
+			currentPlayer.move(value1 + value2, board.getSpaces().size(), bank);
 			playerMoved();
 			if (doubles) {
 				pastNumberOfDoubles++;
@@ -353,14 +294,15 @@ public class MonopolyGame implements IMonopolyGame {
 	// perform the action associated with the boardSpace that the player moved to
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
-		model.landedOnNonProperty(spaceOfPlayer.getType().toString());
 		if (BoardSpaceType.LUXURYTAX == spaceOfPlayer.getType()) {
+			model.landedOnNonProperty("Luxury Tax");
 			if (!((LuxuryTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
 				model.unableToPayTax(((LuxuryTaxSpace) spaceOfPlayer).getValue());
 			} else{
 				model.paidRentTo("Luxury Tax", ((LuxuryTaxSpace) spaceOfPlayer).getValue());
 			}
 		} else if (BoardSpaceType.INCOMETAX == spaceOfPlayer.getType()) {
+			model.landedOnNonProperty("Income Tax");
 			if (!((IncomeTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
 				model.unableToPayTax(((IncomeTaxSpace) spaceOfPlayer).getValue());
 			} else{
@@ -387,7 +329,7 @@ public class MonopolyGame implements IMonopolyGame {
 				}
 			}
 		} else if (BoardSpaceType.GOTOJAIL == spaceOfPlayer.getType()) {
-			board.getSpaces().get(currentPlayer.getLocation()).removePlayer(currentPlayer);
+			model.landedOnNonProperty("Go To Jail");
 			JailSpace jail = (JailSpace) board.getSpaces().get(board.getJailLocation());
 			jail.putPlayerInJail(currentPlayer);
 		} else if (BoardSpaceType.JAIL == spaceOfPlayer.getType()) {
@@ -569,10 +511,7 @@ public class MonopolyGame implements IMonopolyGame {
 			model.rolled(value1 + value2, doubles);
 			if (doubles) {
 				model.succeededInLeavingJail();
-				board.getSpaces().get(player.getLocation()).removePlayer(player);
-				currentPlayer.move(value1 + value2, board.getSpaces().size());
-				board.getSpaces().get(player.getLocation()).addPlayer(player);
-				jail.removePlayer(player);
+				currentPlayer.move(value1 + value2, board.getSpaces().size(), bank);
 				jail.getOutOfJail(player);
 				playerMoved();
 				return true;
@@ -581,9 +520,7 @@ public class MonopolyGame implements IMonopolyGame {
 				if (jail.getAttempts(player) > 2) {
 					if (payFineToLeaveJail(player)) {
 						model.succeededInLeavingJail();
-						board.getSpaces().get(player.getLocation()).removePlayer(player);
-						currentPlayer.move(value1 + value2, board.getSpaces().size());
-						board.getSpaces().get(player.getLocation()).addPlayer(player);
+						currentPlayer.move(value1 + value2, board.getSpaces().size(), bank);
 						playerMoved();
 						return true;
 					}

@@ -66,9 +66,11 @@ public abstract class Property {
 
 		Player tempOwner = owner;
 		owner = player;
+		owner.addProperty(this);
 		propertyToTrade.setOwner(tempOwner);
-		tempOwner.updateNeighborhoodOwner(propertyToTrade);
-		owner.updateNeighborhoodOwner(this);
+		tempOwner.addProperty(propertyToTrade);
+		propertyToTrade.updateNeighborhoodOwner();
+		updateNeighborhoodOwner();
 	}
 
 	// returns 1 if property can be developed, -1 otherwise
@@ -123,5 +125,12 @@ public abstract class Property {
 			}
 		}
 		return -1;
+	}
+	
+	// checks if one Player owns every street in a neighborhood and sets them as the neighborhood owner if so
+	public void updateNeighborhoodOwner() {
+		if (type == PropertyType.STREET) {
+			((Street) this).getNeighborhood().updateOwner();
+		}
 	}
 }

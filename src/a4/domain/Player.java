@@ -1,5 +1,7 @@
 package a4.domain;
 
+import java.util.ArrayList;
+
 public class Player {
 
 	private String name;
@@ -9,6 +11,7 @@ public class Player {
 	private int location; // NOTE: location is zero-based
 	private int numRailroads;
 	private int numUtilities;
+	private ArrayList<Property> properties;
 
 	public Player(String name, int balance, int location) {
 		this.name = name;
@@ -18,6 +21,7 @@ public class Player {
 		this.location = location;
 		this.numRailroads = 0;
 		this.numUtilities = 0;
+		this.properties = new ArrayList<Property>();
 	}
 	
 	public String getName() {
@@ -114,6 +118,14 @@ public class Player {
 		}
 	}
 	
+	public void addProperty(Property property){
+		properties.add(property);
+	}
+	
+	public ArrayList<Property> getProperties(){
+		return properties;
+	}
+	
 	@Override
 	public String toString() {
 		return name;
@@ -155,15 +167,21 @@ public class Player {
 		}
 	}
 
-	// moves Player numSpaces and updates their location, returns true if Player passed GO, false otherwise
-	public boolean move(int numSpaces, int maxSpaces) {
-		boolean passedGo = false;
+	//move player to newLocation, transfers money from bank to player if passes Go
+	public void move(int newLocation, boolean isJailSpace, Bank bank){
+		if(!isJailSpace && (newLocation < location)){
+			bank.transferMoney(this, 200);
+		}
+		location = newLocation;
+	}
+	
+	// moves Player numSpaces and updates their location, transfers money from bank to player if passes Go
+	public void move(int numSpaces, int maxSpaces, Bank bank) {
 		location = location + numSpaces;
 		if (location >= maxSpaces) {
 			location = location % maxSpaces;
-			passedGo = true;
+			bank.transferMoney(this,  200);
 		}
-		return passedGo;
 	}
 
 	// transfers money from current player (this) to toPlayer
@@ -187,42 +205,39 @@ public class Player {
 	}
 	
 	// purchases property for Player, returns true if legal, returns false otherwise
-	public boolean purchaseProperty(Bank toBank, Property property, int price) {
+	public boolean purchaseProperty(Bank bank, Property property, int price) {
 		if (property == null) {
 			return false;
 		}
 		if (property.getOwner() != null) {
 			return false;
 		} else {
-			if (transferMoney(toBank, price)) {
+			if (transferMoney(bank, price)) {
 				if (property.getType() == PropertyType.RAILROAD) {
 					setRailroadCount(getRailroadCount() + 1);
 				} else if (property.getType() == PropertyType.UTILITY) {
 					setUtilityCount(getUtilityCount() + 1);
 				}
 				property.setOwner(this);
-				updateNeighborhoodOwner(property);
+				addProperty(property);
+				property.updateNeighborhoodOwner();
 				return true;
 			}
 			return false;
 		}
 	}
 	
-	// checks if one Player owns every street in a neighborhood and sets them as the neighborhood owner if so
-	public void updateNeighborhoodOwner(Property property) {
-		if (property.getType() == PropertyType.STREET) {
-			Neighborhood neighborhood = ((Street) property).getNeighborhood();
-			int housesInNeighborhoodOwnedByPlayer = 0;
-			for (Street curr : neighborhood.getStreets()) {
-				if (curr.getOwner() != null) {
-					if (curr.getOwner().equals(this)) {
-						housesInNeighborhoodOwnedByPlayer++;
-					}
-				}
+	public void liquidateFunds(){
+		for(Property p : properties){
+			int housesValue = 0;
+			int hotelValue = 0;
+			if (p.getType() == PropertyType.STREET) {
+				Street s = (Street) p;
+				housesValue = s.getHouseCount() * s.getNeighborhood().getHouseValue();
+				hotelValue = s.getHotelCount() * s.getNeighborhood().getHouseValue();
 			}
-			if (housesInNeighborhoodOwnedByPlayer == neighborhood.getStreets().size()) {
-				neighborhood.setOwner(this);
-			}
+			int propertyValue = p.getValue();
+			balance += housesValue + hotelValue + propertyValue;
 		}
 	}
 }

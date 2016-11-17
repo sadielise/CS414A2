@@ -2,7 +2,7 @@ package a4.domain;
 
 public class IncomeTaxSpace extends BoardSpace {
 
-	private int value = 200;
+	private int value = 2000;
 
 	public IncomeTaxSpace() {
 		super(BoardSpaceType.INCOMETAX);

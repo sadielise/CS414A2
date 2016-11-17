@@ -19,7 +19,7 @@ public class MonopolyGame implements IMonopolyGame {
 	private IModel model;
 	private int initialBankBalance = 20580;
 	public Timer gameTime;
-	private int numHouses = 32;
+	private int numHouses = 8;
 	private int numHotels = 5;
 	private int initialPlayerBalance = 1500;
 	private int numDiceSides = 6;
@@ -325,8 +325,10 @@ public class MonopolyGame implements IMonopolyGame {
 
 	// roll the die and keep track of the number of doubles rolled, send the player to jail if 3 sets of doubles rolled
 	public void roll(int pastNumberOfDoubles) {
-		int value1 = dice.get(0).roll();
-		int value2 = dice.get(1).roll();
+//		int value1 = dice.get(0).roll();
+//		int value2 = dice.get(1).roll();
+		int value1 = 0;
+		int value2 = 1;
 		boolean doubles = (value1 == value2);
 		model.rolled(value1 + value2, doubles);
 		if (doubles && pastNumberOfDoubles == 2) {
@@ -489,33 +491,36 @@ public class MonopolyGame implements IMonopolyGame {
 	@Override
 	public void undevelop(String property, String playerOwed, int amountOwed) {
 		Property currentProperty = findProperty(property);
+		Player owedPlayer = findPlayer(playerOwed);
+		boolean bankOwed = false;
+		if(owedPlayer == null){
+			bankOwed = true;
+		}
 		if (currentProperty == null) {
 			model.couldNotUndevelopProperty(property);
 		}
 		else {
-			int propertyHotelCount = -1;
-			if(currentProperty.getType() == PropertyType.STREET){
-				propertyHotelCount = ((Street)currentProperty).getHotelCount();
-			}
 			int undevelopingValue = currentProperty.undevelop(bank);
-			if(undevelopingValue != -1){
-				if(currentProperty.getType() == PropertyType.STREET){
-					if(propertyHotelCount != ((Street)currentProperty).getHotelCount()){
-//						hotelCount++;
-//						houseCount -= 4;
-					}
-				}
-				model.propertyWasUnDevelopedFor(property, undevelopingValue);
-			}
-			else{
+			if(undevelopingValue == -1){
 				model.couldNotUndevelopProperty(property);
 			}
-			if (currentPlayer.getBalance() < amountOwed) {
-				amountOwed -= currentPlayer.getBalance();
+			else{
+				model.propertyWasUnDevelopedFor(property, undevelopingValue);
+			}
+		}
+		if(currentPlayer.getBalance() < amountOwed){
+			amountOwed -= currentPlayer.getBalance();
+			if(bankOwed == true){
 				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
-				model.unableToPay(playerOwed, amountOwed);
-			} else {
+			}else{
+				currentPlayer.transferMoney(owedPlayer, currentPlayer.getBalance());
+			}
+			model.unableToPay(playerOwed, amountOwed);
+		}else{
+			if(bankOwed == true){
 				currentPlayer.transferMoney(bank, amountOwed);
+			} else{
+				currentPlayer.transferMoney(owedPlayer, amountOwed);
 			}
 		}
 	}

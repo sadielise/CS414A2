@@ -12,7 +12,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
 @SuppressWarnings("serial")
 public class View extends JFrame {
@@ -23,7 +22,6 @@ public class View extends JFrame {
 	private JLabel currentPlayer;
 	private JLabel currentBankroll;
 	private JLabel timeRemaining;
-	private Timer timer;
 
 	public void setModel(Model m) {
 		model = m;
@@ -207,7 +205,7 @@ public class View extends JFrame {
 	}
 
 	public void startRemainingTime(int timeInMinutes) {
-		timer = controller.createAndStartTimer(timeInMinutes);
+		controller.createAndStartTimer(timeInMinutes);
 	}
 	
 }

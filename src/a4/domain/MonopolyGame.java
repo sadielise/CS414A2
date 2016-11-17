@@ -2,7 +2,6 @@ package a4.domain;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -402,6 +401,7 @@ public class MonopolyGame implements IMonopolyGame {
 	}
 	
 	// purchase a property after an auction and send result of purchase to model
+	@SuppressWarnings("null")
 	@Override
 	public void purchaseAuctionedProperty(List<Integer> offers) {
 		Property propertyToAuction = null;

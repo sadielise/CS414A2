@@ -7,7 +7,8 @@ For this assignment, we implemented cards for Chance and Community Chest and imp
 with the computer. In addition, we did a fairly extensive refactoring of our code to make it better-organized, cleaner, and
 easier to understand.
 
-External .jar File Dependencies: // need to write
+External .jar File Dependencies:
+Our program uses javax.swing for the gui.
 
 How to Run from Eclipse:
 First, clone the directory into wherever you want to store this repository. 

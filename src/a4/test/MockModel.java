@@ -161,13 +161,13 @@ public class MockModel implements IModel{
 	}
 
 	@Override
-	public void newGameCreated(boolean firstPlayerIsAI) {
+	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void propertyIsUnownedAI(String propertyName, int propertyValue) {
+	public void newGameCreated(int timeInMinutes, boolean firstPlayerIsAI) {
 		// TODO Auto-generated method stub
 		
 	}

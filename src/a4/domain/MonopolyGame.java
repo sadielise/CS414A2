@@ -523,7 +523,6 @@ public class MonopolyGame implements IMonopolyGame {
 			model.rolled(value1 + value2, doubles);
 			if (doubles) {
 				model.succeededInLeavingJail();
-				board.getSpaces().get(player.getLocation()).removePlayer(player);
 				currentPlayer.move(value1 + value2, board.getSpaces().size(), bank);
 				jail.getOutOfJail(player);
 				playerMoved();

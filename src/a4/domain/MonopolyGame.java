@@ -60,6 +60,8 @@ public class MonopolyGame implements IMonopolyGame {
 
 	@Override
 	public String getCurrentPlayer() {
+		if (currentPlayer == null)
+			return "";
 		return currentPlayer.toString();
 	}
 
@@ -115,9 +117,11 @@ public class MonopolyGame implements IMonopolyGame {
 	// get the Player bankroll associated with the string "player"
 	@Override
 	public int getBankroll(String player) {
-		for (Player curr : players) {
-			if (player.equals(curr.toString())) {
-				return curr.getBalance();
+		if (players != null) {
+			for (Player curr : players) {
+				if (player.equals(curr.toString())) {
+					return curr.getBalance();
+				}
 			}
 		}
 		return -1;

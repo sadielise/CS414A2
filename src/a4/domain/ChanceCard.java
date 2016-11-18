@@ -75,11 +75,15 @@ public class ChanceCard {
 					totalCost += ((Street)p).getHotelCount() * 100;
 				}
 			}
-			currentPlayer.transferMoney(bank, totalCost);
+			if(!currentPlayer.transferMoney(bank, totalCost)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 10:
 			message = "Pay poor tax of $15";
-			currentPlayer.transferMoney(bank, 15);
+			if(!currentPlayer.transferMoney(bank, 15)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 11:
 			message = "Advance to Reading Railroad";
@@ -93,7 +97,9 @@ public class ChanceCard {
 			message = "Elected chairmen, pay each player $50";
 			for (Player player : players){
 				if(!player.equals(currentPlayer)){
-					currentPlayer.transferMoney(player, 50);
+					if(!currentPlayer.transferMoney(player, 50)){
+						currentPlayer.transferMoney(player, currentPlayer.getBalance());
+					}
 				}
 			}
 			break;

@@ -106,12 +106,7 @@ public abstract class Property {
 			return 0;
 		} else {
 			this.setIsMortgaged(true);
-			if (!bank.transferMoney(this.owner, this.value / 2)) {
-				int bankBalance = bank.getBalance();
-				bank.transferMoney(this.owner, bankBalance);
-				return bankBalance;
-			}
-			return this.value / 2;
+			return bank.transferMoney(this.owner, this.value / 2);
 		}
 	}
 	

@@ -15,10 +15,10 @@ public class Bank {
 		return houseCount;
 	}
 
-	public void addHouse(){
+	public void addHouse() {
 		houseCount++;
 	}
-	
+
 	public boolean canRemoveHouse() {
 		return (houseCount > 0);
 	}
@@ -26,23 +26,23 @@ public class Bank {
 	public void removeHouse() {
 		houseCount--;
 	}
-	
+
 	public int getHotelCount() {
 		return hotelCount;
 	}
-	
-	public boolean canAddHotel(){
-		if(houseCount >= 4){
+
+	public boolean canAddHotel() {
+		if (houseCount >= 4) {
 			return true;
 		}
 		return false;
 	}
 
-	public void addHotel(){
+	public void addHotel() {
 		hotelCount++;
 		houseCount -= 4;
 	}
-	
+
 	public boolean canRemoveHotel() {
 		return (hotelCount > 0);
 	}
@@ -60,7 +60,8 @@ public class Bank {
 		balance = newBalance;
 	}
 
-	// removes amountToRemove from bank or zeros balance, returns amountToRemove or zero
+	// removes amountToRemove from bank or zeros balance, returns amountToRemove
+	// or zero
 	public int removeBalance(int amountToRemove) {
 		if (0 == balance) {
 			return 0;
@@ -81,12 +82,16 @@ public class Bank {
 	}
 
 	// transfer money from the bank to toPlayer
-	public boolean transferMoney(Player player, int amount) {
+	public int transferMoney(Player player, int amount) {
 		if (balance < amount) {
-			return false;
+			int value = balance;
+			player.addBalance(balance);
+			removeBalance(balance);
+			return value;
+		} else {
+			removeBalance(amount);
+			player.addBalance(amount);
+			return amount;
 		}
-		removeBalance(amount);
-		player.addBalance(amount);
-		return true;
 	}
 }

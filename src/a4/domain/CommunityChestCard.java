@@ -22,7 +22,9 @@ public class CommunityChestCard {
 			break;
 		case 2:
 			message = "Doctor's fees, pay $50";
-			currentPlayer.transferMoney(bank, 50);
+			if(!currentPlayer.transferMoney(bank, 50)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 3:
 			message = "Get out of Jail free card";
@@ -38,7 +40,9 @@ public class CommunityChestCard {
 			message = "It is your birthday, collect $10 from each player";
 			for(Player player : players){
 				if(!player.equals(currentPlayer)){
-					player.transferMoney(currentPlayer, 10);
+					if(!player.transferMoney(currentPlayer, 10)){
+						player.transferMoney(currentPlayer, player.getBalance());
+					}
 				}
 			}
 			break;
@@ -46,7 +50,9 @@ public class CommunityChestCard {
 			message = "Grand Opera Night, collect $50 from each player";
 			for(Player player : players){
 				if(!player.equals(currentPlayer)){
-					player.transferMoney(currentPlayer, 50);
+					if(!player.transferMoney(currentPlayer, 50)){
+						player.transferMoney(currentPlayer, player.getBalance());
+					}
 				}
 			}
 			break;
@@ -60,11 +66,15 @@ public class CommunityChestCard {
 			break;
 		case 9:
 			message = "Pay Hospital fees of $100";
-			currentPlayer.transferMoney(bank, 100);
+			if(!currentPlayer.transferMoney(bank, 100)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 10:
 			message = "Pay School fees of $50";
-			currentPlayer.transferMoney(bank, 50);
+			if(!currentPlayer.transferMoney(bank, 50)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 11:
 			message = "Consultancy fee, collect $25";
@@ -79,7 +89,9 @@ public class CommunityChestCard {
 					totalCost += ((Street)p).getHotelCount() * 115;
 				}
 			}
-			currentPlayer.transferMoney(bank, totalCost);
+			if(!currentPlayer.transferMoney(bank, totalCost)){
+				currentPlayer.transferMoney(bank, currentPlayer.getBalance());
+			}
 			break;
 		case 13:
 			message = "You won second prize in a beauty contest, collect $10";

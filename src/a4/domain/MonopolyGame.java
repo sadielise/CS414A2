@@ -320,6 +320,7 @@ public class MonopolyGame implements IMonopolyGame {
 	// to
 	public void playerMoved() {
 		BoardSpace spaceOfPlayer = board.getSpaces().get(currentPlayer.getLocation());
+		int beginningLocation = currentPlayer.getLocation();
 		if (BoardSpaceType.LUXURYTAX == spaceOfPlayer.getType()) {
 			model.landedOnNonProperty("Luxury Tax");
 			if (!((LuxuryTaxSpace) spaceOfPlayer).collectTax(currentPlayer, bank)) {
@@ -335,6 +336,10 @@ public class MonopolyGame implements IMonopolyGame {
 			else{
 				// maybe null means they couldn't pay? I'm not 10/10 here
 			}
+			//check if player moved
+			if(beginningLocation != currentPlayer.getLocation()){
+				playerMoved();
+			}
 		} else if(BoardSpaceType.COMMUNITYCHEST == spaceOfPlayer.getType()){
 			String message = ((CommunityChestSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players, board);
 			if(message.charAt(0) != 'x'){
@@ -342,6 +347,10 @@ public class MonopolyGame implements IMonopolyGame {
 			}
 			else{
 				// same
+			}
+			//check if player moved
+			if(beginningLocation != currentPlayer.getLocation()){
+				playerMoved();
 			}
 		}else if (BoardSpaceType.INCOMETAX == spaceOfPlayer.getType()) {
 		

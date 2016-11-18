@@ -147,8 +147,8 @@ public class BankTest {
 		Bank testBank = testGame.getBank();
 		int playerBalance = testPlayer.getBalance();
 		int bankBalance = testBank.getBalance();
-		boolean success = testBank.transferMoney(testPlayer, bankBalance);
-		assertTrue(success);
+		int result = testBank.transferMoney(testPlayer, bankBalance);
+		assertEquals(result, bankBalance);
 		assertEquals(playerBalance + bankBalance, testPlayer.getBalance());
 		assertEquals(0, testBank.getBalance());
 	}
@@ -159,10 +159,10 @@ public class BankTest {
 		Bank testBank = testGame.getBank();
 		int playerBalance = testPlayer.getBalance();
 		int bankBalance = testBank.getBalance();
-		boolean success = testBank.transferMoney(testPlayer, bankBalance + 100);
-		assertFalse(success);
-		assertEquals(playerBalance, testPlayer.getBalance());
-		assertEquals(bankBalance, testBank.getBalance());
+		int result = testBank.transferMoney(testPlayer, bankBalance + 100);
+		assertEquals(result, bankBalance);
+		assertEquals(playerBalance + result, testPlayer.getBalance());
+		assertEquals(0, testBank.getBalance());
 	}
 
 }

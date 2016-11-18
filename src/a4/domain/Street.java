@@ -159,13 +159,7 @@ public class Street extends Property {
 	// returns half the value of the street if bank has enough funds, balance of
 	// bank otherwise
 	private int sellHouse(Bank bank) {
-		if (bank.transferMoney(this.owner, this.neighborhood.getHouseValue() / 2)) {
-			return this.neighborhood.getHouseValue() / 2;
-		} else {
-			int bankBalance = bank.getBalance();
-			bank.transferMoney(this.owner, bankBalance);
-			return bankBalance;
-		}
+		return bank.transferMoney(owner, neighborhood.getHouseValue() / 2);
 	}
 
 	public String toString() {

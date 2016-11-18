@@ -28,6 +28,19 @@ public class ChanceCard {
 			else{
 				currentPlayer.move(28, false, bank);
 			}
+			BoardSpace space = board.getSpaces().get(currentPlayer.getLocation());
+			if(BoardSpaceType.PROPERTY == space.getType()){
+				Property property = ((PropertySpace)space).getProperty();
+				if(PropertyType.UTILITY == property.getType()){
+					((Utility)property).setGotChanceCard(true);
+				}
+				else{
+					System.err.println("The player did not get moved to a Utility space");
+				}
+			}
+			else{
+				System.err.println("The player did not get moved to a Property");
+			}
 			break;
 		case 3:
 			message = "Advance to nearest Railroad";

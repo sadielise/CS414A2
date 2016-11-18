@@ -372,10 +372,7 @@ public class MonopolyGame implements IMonopolyGame {
 			} else if (!currentProperty.getOwner().equals(currentPlayer)) {
 				model.landedOnOwnedProperty(currentProperty.toString(), currentProperty.getOwner().toString());
 				if (!currentProperty.getIsMortgaged()) {
-					int rent = currentProperty.getRent(0);
-					if (currentProperty instanceof Utility) {
-						rent = ((Utility) currentProperty).getRent(dice.get(0).getState() + dice.get(1).getState());
-					}
+					int rent = currentProperty.getRent(dice.get(0).getState() + dice.get(1).getState());
 					if (currentPlayer.transferMoney(currentProperty.getOwner(), rent)) {
 						model.paidRentTo(currentProperty.getOwner().toString(), rent);
 					} else {

@@ -24,8 +24,9 @@ public class ChanceSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 	}
 
-	public String landedOnAction(Bank bank, List<Player> players){
+	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players){
 		ChanceCard currentCard = deckOfChanceCards.remove();
+		currentCard.doEffect(bank, currentPlayer, players);
 		deckOfChanceCards.add(currentCard);
 		numberOfCardsUsed++;
 		if(numberOfCardsUsed == numberOfChanceCards){

@@ -25,8 +25,9 @@ public class CommunityChestSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<CommunityChestCard>)deckOfCommunityChestCards);
 	}
 
-	public String landedOnAction(Bank bank,List<Player> players){
+	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players){
 		CommunityChestCard currentCard = deckOfCommunityChestCards.remove();
+		currentCard.doEffect(bank, currentPlayer, players);
 		deckOfCommunityChestCards.add(currentCard);
 		numberOfCardsUsed++;
 		if(numberOfCardsUsed == numberOfCommunityChestCards){

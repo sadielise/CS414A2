@@ -328,16 +328,16 @@ public class MonopolyGame implements IMonopolyGame {
 				model.paidRentTo("Luxury Tax", ((LuxuryTaxSpace) spaceOfPlayer).getValue());
 			}
 		} else if(BoardSpaceType.CHANCE == spaceOfPlayer.getType()){
-			String message = ((ChanceSpace)spaceOfPlayer).landedOnAction(bank,players);
-			if(message!=null){
+			String message = ((ChanceSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players);
+			if(message.charAt(0)!='x'){
 				model.landedOnCardSpace(message);
 			}
 			else{
 				// maybe null means they couldn't pay? I'm not 10/10 here
 			}
 		} else if(BoardSpaceType.COMMUNITYCHEST == spaceOfPlayer.getType()){
-			String message = ((CommunityChestSpace)spaceOfPlayer).landedOnAction(bank, players);
-			if(message!=null){
+			String message = ((CommunityChestSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players);
+			if(message.charAt(0) != 'x'){
 				model.landedOnCardSpace(message);
 			}
 			else{

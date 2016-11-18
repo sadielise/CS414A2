@@ -113,9 +113,7 @@ public class Model implements IModel {
 	}
 
 	public void startNewGame(List<String> playerNames, List<String> aiPlayers, int timeInMinutes) {
-		view.startRemainingTime(timeInMinutes);
 		game.newGame(playerNames, aiPlayers, timeInMinutes);
-		isStarted = true;
 		update();
 	}
 
@@ -172,7 +170,6 @@ public class Model implements IModel {
 		view.startNormalTurnDialog(player);
 	}
 
-	// TODO: Need to account for if AI is first player to start
 	public void startAITurn(String player) {
 		update();
 		hasRolled = false;
@@ -194,7 +191,6 @@ public class Model implements IModel {
 			view.startJailTurnDialog(player);
 	}
 
-	// TODO
 	public void startAIJailTurn(String player, int numberOfJailCards) {
 		update();
 		hasRolled = true;

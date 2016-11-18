@@ -52,4 +52,6 @@ public interface IMonopolyGame {
 
 	public List<String> getUndevelopableProperties(String player);
 
+	public void usedGetOutOfJailCard(String player);
+
 }

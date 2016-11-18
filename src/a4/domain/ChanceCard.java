@@ -10,7 +10,7 @@ public class ChanceCard {
 		this.cardNumber = cardNumber;
 	}
 
-	public int doEffect(Bank bank, Player currentPlayer, List<Player> players){
+	public int doEffect(Bank bank, Player currentPlayer, List<Player> players, Board board){
 		switch(cardNumber){
 		case 0:
 			message = "Advance to Go";
@@ -54,6 +54,7 @@ public class ChanceCard {
 			break;
 		case 6:
 			message = "Get out of Jail free";
+			currentPlayer.addGetOutOfJailCard();
 			break;
 		case 7:
 			message = "Go back 3 spaces";
@@ -62,10 +63,19 @@ public class ChanceCard {
 		case 8:
 			message = "Go to Jail";
 			currentPlayer.move(10, true, bank);
-			currentPlayer.setInJail(true);
+			JailSpace jail = (JailSpace) board.getSpaces().get(10);
+			jail.putPlayerInJail(currentPlayer);
 			break;
 		case 9:
 			message = "General repairs, $25 for house $100 for hotel";
+			int totalCost = 0;
+			for(Property p: currentPlayer.getProperties()){
+				if(p instanceof Street){
+					totalCost += ((Street)p).getHouseCount() * 25;
+					totalCost += ((Street)p).getHotelCount() * 100;
+				}
+			}
+			currentPlayer.transferMoney(bank, totalCost);
 			break;
 		case 10:
 			message = "Pay poor tax of $15";

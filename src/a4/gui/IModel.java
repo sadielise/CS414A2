@@ -21,9 +21,9 @@ public interface IModel {
 
 	public void startAITurn(String player);
 
-	public void startJailTurn(String player);
+	public void startJailTurn(String player, int i);
 
-	public void startAIJailTurn(String player);
+	public void startAIJailTurn(String player, int i);
 
 	public void newGameCreated(int timeInMinutes, boolean firstPlayerIsAI);
 

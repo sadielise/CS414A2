@@ -25,15 +25,15 @@ public class CommunityChestSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<CommunityChestCard>)deckOfCommunityChestCards);
 	}
 
-	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players){
+	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players, Board board){
 		CommunityChestCard currentCard = deckOfCommunityChestCards.remove();
-		currentCard.doEffect(bank, currentPlayer, players);
+		currentCard.doEffect(bank, currentPlayer, players, board);
 		deckOfCommunityChestCards.add(currentCard);
 		numberOfCardsUsed++;
 		if(numberOfCardsUsed == numberOfCommunityChestCards){
 			numberOfCardsUsed = 0;
 			Collections.shuffle((LinkedList<CommunityChestCard>)deckOfCommunityChestCards);
 		}
-		return currentCard.getMessage();
+		return currentPlayer.getName()+" landed on Community Chest: "+currentCard.getMessage();
 	}
 }

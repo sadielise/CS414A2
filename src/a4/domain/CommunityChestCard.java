@@ -10,7 +10,7 @@ public class CommunityChestCard {
 		this.cardNumber = cardNumber;
 	}
 
-	public int doEffect(Bank bank, Player currentPlayer, List<Player> players){
+	public int doEffect(Bank bank, Player currentPlayer, List<Player> players, Board board){
 		switch(cardNumber){
 		case 0:
 			message = "Advance to Go";
@@ -26,11 +26,13 @@ public class CommunityChestCard {
 			break;
 		case 3:
 			message = "Get out of Jail free card";
+			currentPlayer.addGetOutOfJailCard();
 			break;
 		case 4:
 			message = "Go to Jail";
 			currentPlayer.move(10, true, bank);
-			currentPlayer.setInJail(true);
+			JailSpace jail = (JailSpace) board.getSpaces().get(10);
+			jail.putPlayerInJail(currentPlayer);
 			break;
 		case 5:
 			message = "It is your birthday, collect $10 from each player";
@@ -70,6 +72,14 @@ public class CommunityChestCard {
 			break;
 		case 12:
 			message = "Street repairs, pay $40 per house and $115 per hotel";
+			int totalCost = 0;
+			for(Property p: currentPlayer.getProperties()){
+				if(p instanceof Street){
+					totalCost += ((Street)p).getHouseCount() * 40;
+					totalCost += ((Street)p).getHotelCount() * 115;
+				}
+			}
+			currentPlayer.transferMoney(bank, totalCost);
 			break;
 		case 13:
 			message = "You won second prize in a beauty contest, collect $10";

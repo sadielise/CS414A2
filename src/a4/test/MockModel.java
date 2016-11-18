@@ -154,7 +154,6 @@ public class MockModel implements IModel{
 		
 	}
 
-	@Override
 	public void startAIJailTurn(String player) {
 		// TODO Auto-generated method stub
 		
@@ -174,6 +173,18 @@ public class MockModel implements IModel{
 
 	@Override
 	public void landedOnCardSpace(String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startJailTurn(String player, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void startAIJailTurn(String player, int i) {
 		// TODO Auto-generated method stub
 		
 	}

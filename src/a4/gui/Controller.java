@@ -286,4 +286,14 @@ public class Controller {
 	public void createLandedOnCardSpaceDialog(String message) {
 		JOptionPane.showMessageDialog(view, message);
 	}
+
+	public boolean createUseGetOutOfJailCardDialog(int numberOfJailCards) {
+		int choice = JOptionPane.showConfirmDialog(view, "You have: " + numberOfJailCards+"! Do you want to use one?");
+		if(choice == JOptionPane.YES_OPTION){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
 }

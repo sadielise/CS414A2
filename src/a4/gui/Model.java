@@ -96,7 +96,7 @@ public class Model implements IModel {
 	public String undevelopPropertyForAI() {
 		return game.undevelopFirstAIProperty();
 	}
-	
+
 	public void roll() {
 		if (!hasRolled) {
 			game.roll();
@@ -181,15 +181,21 @@ public class Model implements IModel {
 		game.endTurn();
 	}
 
-	public void startJailTurn(String player) {
+	public void startJailTurn(String player, int numberOfJailCards) {
 		update();
-		hasRolled = true;
-		roll();
-		view.startJailTurnDialog(player);
+		if(numberOfJailCards > 0){
+			if(view.useGetOutOfJailCardDialog(numberOfJailCards)){
+				game.usedGetOutOfJailCard(player);
+				return;
+			}
+		}
+			hasRolled = true;
+			roll();
+			view.startJailTurnDialog(player);
 	}
 
 	// TODO
-	public void startAIJailTurn(String player) {
+	public void startAIJailTurn(String player, int numberOfJailCards) {
 		update();
 		hasRolled = true;
 		view.startJailAITurnDialog(player);
@@ -306,7 +312,7 @@ public class Model implements IModel {
 	}
 
 	public void landedOnCardSpace(String message) {
-		update();
 		view.landedOnCardSpaceDialog(message);
+		update();
 	}
 }

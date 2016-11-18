@@ -24,15 +24,15 @@ public class ChanceSpace extends BoardSpace {
 		Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 	}
 
-	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players){
+	public String landedOnAction(Bank bank, Player currentPlayer, List<Player> players, Board board){
 		ChanceCard currentCard = deckOfChanceCards.remove();
-		currentCard.doEffect(bank, currentPlayer, players);
+		currentCard.doEffect(bank, currentPlayer, players, board);
 		deckOfChanceCards.add(currentCard);
 		numberOfCardsUsed++;
 		if(numberOfCardsUsed == numberOfChanceCards){
 			numberOfCardsUsed = 0;
 			Collections.shuffle((LinkedList<ChanceCard>)deckOfChanceCards);
 		}
-		return currentCard.getMessage();
+		return currentPlayer.getName()+" landed on Chance: "+currentCard.getMessage();
 	}
 }

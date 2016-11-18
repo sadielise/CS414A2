@@ -211,5 +211,9 @@ public class View extends JFrame {
 	public void landedOnCardSpaceDialog(String message) {
 		controller.createLandedOnCardSpaceDialog(message);
 	}
+
+	public boolean useGetOutOfJailCardDialog(int numberOfJailCards) {
+		return controller.createUseGetOutOfJailCardDialog(numberOfJailCards);
+	}
 	
 }

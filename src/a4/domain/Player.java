@@ -12,6 +12,7 @@ public class Player {
 	private int location; // NOTE: location is zero-based
 	private int numRailroads;
 	private int numUtilities;
+	private int numberOfGetOutOfJailCards;
 	private ArrayList<Property> properties;
 
 	public Player(String name, int balance, int location, boolean isAI) {
@@ -22,6 +23,7 @@ public class Player {
 		this.location = location;
 		this.numRailroads = 0;
 		this.numUtilities = 0;
+		this.numberOfGetOutOfJailCards = 0;
 		this.isAI = isAI;
 		this.properties = new ArrayList<Property>();
 	}
@@ -127,15 +129,15 @@ public class Player {
 			return -1;
 		}
 	}
-	
+
 	public void addProperty(Property property){
 		properties.add(property);
 	}
-	
+
 	public ArrayList<Property> getProperties(){
 		return properties;
 	}
-	
+
 	@Override
 	public String toString() {
 		String playerString = name;
@@ -187,7 +189,7 @@ public class Player {
 		}
 		location = newLocation;
 	}
-	
+
 	// moves Player numSpaces and updates their location, transfers money from bank to player if passes Go
 	public void move(int numSpaces, int maxSpaces, Bank bank) {
 		location = location + numSpaces;
@@ -239,7 +241,7 @@ public class Player {
 			return false;
 		}
 	}
-	
+
 	public void liquidateFunds(){
 		for(Property p : properties){
 			int housesValue = 0;
@@ -252,5 +254,16 @@ public class Player {
 			int propertyValue = p.getValue();
 			balance += housesValue + hotelValue + propertyValue;
 		}
+	}
+
+	public int getGetOutOfJailCards(){
+		return numberOfGetOutOfJailCards;
+	}
+	public void addGetOutOfJailCard() {
+		numberOfGetOutOfJailCards++;
+	}
+
+	public void removeGetOutOfJailCard() {
+		numberOfGetOutOfJailCards--;
 	}
 }

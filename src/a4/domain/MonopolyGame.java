@@ -260,13 +260,13 @@ public class MonopolyGame implements IMonopolyGame {
 		currentPlayer = players.get(nextPlayerNumber);
 		if (currentPlayer.isAI()) {
 			if (currentPlayer.getInJail()) {
-				model.startAIJailTurn(currentPlayer.toString());
+				model.startAIJailTurn(currentPlayer.toString(), currentPlayer.getGetOutOfJailCards());
 			} else {
 				model.startAITurn(currentPlayer.toString());
 			}
 		} else {
 			if (currentPlayer.getInJail()) {
-				model.startJailTurn(currentPlayer.toString());
+				model.startJailTurn(currentPlayer.toString(), currentPlayer.getGetOutOfJailCards());
 			} else {
 				model.startNormalTurn(currentPlayer.toString());
 			}
@@ -328,7 +328,7 @@ public class MonopolyGame implements IMonopolyGame {
 				model.paidRentTo("Luxury Tax", ((LuxuryTaxSpace) spaceOfPlayer).getValue());
 			}
 		} else if(BoardSpaceType.CHANCE == spaceOfPlayer.getType()){
-			String message = ((ChanceSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players);
+			String message = ((ChanceSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players, board);
 			if(message.charAt(0)!='x'){
 				model.landedOnCardSpace(message);
 			}
@@ -336,7 +336,7 @@ public class MonopolyGame implements IMonopolyGame {
 				// maybe null means they couldn't pay? I'm not 10/10 here
 			}
 		} else if(BoardSpaceType.COMMUNITYCHEST == spaceOfPlayer.getType()){
-			String message = ((CommunityChestSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players);
+			String message = ((CommunityChestSpace)spaceOfPlayer).landedOnAction(bank, currentPlayer, players, board);
 			if(message.charAt(0) != 'x'){
 				model.landedOnCardSpace(message);
 			}
@@ -620,5 +620,13 @@ public class MonopolyGame implements IMonopolyGame {
 			model.paidRentTo("Jail", 50);
 			return true;
 		}
+	}
+
+	public void usedGetOutOfJailCard(String player) {
+		Player playerOutOfJail = findPlayer(player);
+		JailSpace jail = (JailSpace) board.getSpaces().get(10);
+		playerOutOfJail.removeGetOutOfJailCard();
+		jail.getOutOfJail(playerOutOfJail);
+		model.startNormalTurn(player);
 	}
 }

@@ -1,251 +1,402 @@
-03557a9 = dbthorpe, 13 minutes ago : changed some unittests
-227265e = Sadie Henry, 23 minutes ago : Merge pull request #60 from sadielise/changesToMessagingSystem
-72c87e8 = dbthorpe, 26 minutes ago : fixed issue with messages not updating the fact that tax was paid
-8750ad0 = Jeffrey Buehler, 27 minutes ago : Merge pull request #59 from sadielise/sadie_gui
-614a268 = Sadie, 28 minutes ago : creating diagram, deleting extraneous classes
-2b8cf41 = Sadie, 32 minutes ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-5667ddb = dbthorpe, 55 minutes ago : Merge pull request #58 from sadielise/gabby_testCases
-2650005 = dbthorpe, 55 minutes ago : Merge pull request #57 from sadielise/readme
-5d9950e = gfontani, 58 minutes ago : Here are all of the test cases!
-a35d093 = Jeffrey Buehler, 62 minutes ago : readme files
-f6225a6 = cedunn, 63 minutes ago : Merge pull request #56 from sadielise/finalPolishing
-3b0d165 = dbthorpe, 65 minutes ago : added small changes and an if statement to hopefully stop painting if the game hasn't started
-9210dfa = dbthorpe, 73 minutes ago : Merge pull request #55 from sadielise/CD_DevelopProperties
-e4baf45 = Chancey Dunn, 83 minutes ago : Changed income tax value back
-69f2ed2 = Chancey Dunn, 87 minutes ago : undevelop fixed
-26371ac = Sadie, 2 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-87ae26e = Chancey Dunn, 3 hours ago : Merge branch 'master' into CD_DevelopProperties
-ce92be0 = Chancey Dunn, 3 hours ago : Progress on undevelop Properties
-1f9a24a = cedunn, 3 hours ago : Merge pull request #54 from sadielise/finalImplementationChangesForGui
-7d6f6f9 = Chancey Dunn, 3 hours ago : IModel methods
-af0e49b = dbthorpe, 3 hours ago : added messages for the new methods in IModel. Also cleaned up some formatting
-57512fc = Chancey Dunn, 4 hours ago : Merge branch 'master' into CD_DevelopProperties
-a1ecb3b = Sadie, 4 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-2a6ddd7 = gfontani, 4 hours ago : Merge pull request #53 from sadielise/CD_GetOutOfJail
-7207cb6 = Chancey Dunn, 4 hours ago : removed doubles boolean being true
-27d31eb = Chancey Dunn, 4 hours ago : Failing to roll double three times allows you to pay fine and take turn
-4864dd8 = cedunn, 5 hours ago : Merge pull request #52 from sadielise/addingMoreParamsToUndevelop
-9f916d1 = dbthorpe, 5 hours ago : any unable to pay dialog will now trigger model.unableToPay(String, int) where string == player owed (tax if tax and jail if fine) and int is the amount owed. undevelop now passes string,string,int which is property,playerOwed,Amountowed.
-c3fba23 = Chancey Dunn, 5 hours ago : updated undevelop to keep asking for properties until paid off.
-6c80a15 = Chancey Dunn, 5 hours ago : merged new master and add unimplemented methods to Model classes
-70b734d = Chancey Dunn, 5 hours ago : Merge branch 'master' into CD_DevelopProperties
-1569566 = cedunn, 5 hours ago : Merge pull request #51 from sadielise/updatingDevelopDialog
-01f8d6b = dbthorpe, 8 hours ago : made so after a develop or undevelop occurs the window closes, after a trade is accepted or denies, the window closes as well
-6d3cc83 = Sadie, 8 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-5e09575 = Chancey Dunn, 8 hours ago : Added a two new model calls and fixed issue with develop
-4a13a54 = dbthorpe, 10 hours ago : Merge pull request #50 from sadielise/CD_GetOutOfJail
-7c25947 = Chancey Dunn, 10 hours ago : merge master
-14b1b3d = Chancey Dunn, 10 hours ago : Merge branch 'master' into CD_GetOutOfJail
-df98fae = Chancey Dunn, 10 hours ago : uncommented functionality and fixed null pointer exception
-6c6ea34 = Chancey Dunn, 11 hours ago : Tested and fixed Jail interactions, also rent and purchasing issues.
-6540da5 = dbthorpe, 24 hours ago : Merge pull request #48 from sadielise/CD_GetOutOfJail
-fc18312 = dbthorpe, 24 hours ago : Merge pull request #49 from sadielise/gabby_tests_bugFixing
-6a86208 = Chancey Dunn, 24 hours ago : david's stuff
-14e4b7c = Chancey Dunn, 24 hours ago : Implemented GetOutOfJail
-955761a = cedunn, 24 hours ago : Merge pull request #47 from sadielise/finishingGuiImplementationAndPolishing
-68bb2a4 = David Thorpe, 24 hours ago : fixed tradeDialog formatting. Also fixed weird text ing View
-e873024 = gfontani, 24 hours ago : fixed get developable properties so that can't develop property unless the neighborhood is owned
-f315493 = David Thorpe, 24 hours ago : Merge branch 'master' into finishingGuiImplementationAndPolishing
-e032d88 = dbthorpe, 24 hours ago : Merge pull request #46 from sadielise/sadie_gui
-1417d53 = Sadie, 24 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-e3813ff = Sadie, 24 hours ago : fixing hotels - they work now!
-d88d536 = David Thorpe, 24 hours ago : Merge branch 'master' into finishingGuiImplementationAndPolishing
-b993e75 = Jeffrey Buehler, 24 hours ago : Merge pull request #45 from sadielise/sadie_gui
-a0b3341 = David Thorpe, 24 hours ago : fixed merge issues
-5418a24 = David Thorpe, 24 hours ago : changed formatting for trade dialog, might have cause issues!
-bb9fa4d = Sadie, 24 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-b7ee74b = Sadie, 24 hours ago : fixing infinite loop in PlayingBoard
-af92aab = cedunn, 24 hours ago : Merge pull request #44 from sadielise/fixingIssuesWithPlayersThatDoNotOwnProperties
-a87bf99 = cedunn, 24 hours ago : Merge pull request #43 from sadielise/JB_endgame_check
-fc18a9c = David Thorpe, 24 hours ago : fixed merge issues before making the PR
-9f6e2cc = David Thorpe, 25 hours ago : fixed issues with trading with players that do not own properties.
-ac7f6de = dbthorpe, 25 hours ago : Merge pull request #42 from sadielise/CD_TurnTaking
-5a0bacc = Chancey Dunn, 25 hours ago : Merge branch 'master' into CD_TurnTaking
-4485a38 = Jeffrey Buehler, 25 hours ago : checks property for owner first
-b2f4171 = gfontani, 25 hours ago : Merge pull request #41 from sadielise/finishingGuiImplementationAndPolishing
-91d13b2 = David Thorpe, 25 hours ago : fixed the merge issue
-3f48b3b = Chancey Dunn, 25 hours ago : Merge branch 'master' into CD_TurnTaking
-53ee245 = David Thorpe, 25 hours ago : added curly brackets to fix jeffs crap
-53e13a1 = David Thorpe, 25 hours ago : polished the gui sized to show player name and bankroll. Added the timer. Fixed messages
-ae70a96 = cedunn, 25 hours ago : Merge pull request #39 from sadielise/gabby_tests_bugFixing
-265a3c4 = gfontani, 25 hours ago : Merge pull request #40 from sadielise/JB_openSpaceName
-ead28b2 = gfontani, 25 hours ago : Merge branch 'master' into gabby_tests_bugFixing
-10eb02a = Jeffrey Buehler, 25 hours ago : OpenSpace default name and set all names
-ad27612 = gfontani, 25 hours ago : fixed the null pointer exception when attempt to develop property David fixed array index out of bounds exception when player tries to develop and they don't own any properties
-d835506 = Chancey Dunn, 26 hours ago : Merge branch 'master' into CD_TurnTaking
-ff14bdd = Sadie, 26 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-84a1116 = Chancey Dunn, 26 hours ago : fixed null pointer exceptions
-428e4b2 = cedunn, 26 hours ago : Merge pull request #38 from sadielise/finishingGuiImplementationAndPolishing
-f323851 = David Thorpe, 26 hours ago : Implemented more messages from IModel!
-433e533 = dbthorpe, 26 hours ago : Merge pull request #37 from sadielise/sadie_gui
-2d630b7 = Sadie, 26 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-df09118 = Sadie, 26 hours ago : fixing out of bounds error in PlayingBoard
-99df3ab = dbthorpe, 26 hours ago : Merge pull request #36 from sadielise/CD_TurnTaking
-f62c38b = gfontani, 26 hours ago : Merge pull request #35 from sadielise/finishingGuiImplementationAndPolishing
-d810efc = dbthorpe, 26 hours ago : Merge pull request #34 from sadielise/gabby_tests_bugFixing
-acca602 = Chancey Dunn, 26 hours ago : fix error
-fb31829 = David Thorpe, 26 hours ago : fixed auction issue of index out of bounds.
-3b9f613 = gfontani, 26 hours ago : Changed the order in the monopolygametest setup so that all of the tests run and pass
-b7f63ed = Chancey Dunn, 26 hours ago : bid ties, rolled() to IModel
-f96e89d = dbthorpe, 26 hours ago : Merge pull request #33 from sadielise/sadie_gui
-8f35901 = Sadie, 26 hours ago : fixing PlayingBoard issues
-a81ed27 = Sadie, 26 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-1dfa4ea = dbthorpe, 26 hours ago : Merge pull request #30 from sadielise/gabby_tests_bugFixing
-843ce40 = gfontani, 26 hours ago : fixed stuff
-e61795b = cedunn, 26 hours ago : Merge pull request #31 from sadielise/finishingGuiImplementationAndPolishing
-5f17c86 = David Thorpe, 27 hours ago : fixed issues with model's calls to view.update()
-99a7387 = Sadie, 27 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-301e055 = dbthorpe, 27 hours ago : Merge pull request #32 from sadielise/CD_TurnTaking
-f55c370 = Chancey Dunn, 27 hours ago : Merge branch 'master' into CD_TurnTaking
-9031e6d = Chancey Dunn, 27 hours ago : Added calls to model to notify player where they landed
-c6e1620 = David Thorpe, 27 hours ago : implemented more message dialogs from IModel.java
-5c27fab = gfontani, 27 hours ago : Uncomment set up for monopolygame tests
-f19f100 = gfontani, 27 hours ago : Merge branch 'master' into gabby_tests_bugFixing
-842ad4d = cedunn, 27 hours ago : Merge pull request #29 from sadielise/implementingSmallChangesWithGuiAndDomain
-aea86e3 = gfontani, 27 hours ago : implemented the getNumberHouses method unit tests
-09889bc = David Thorpe, 27 hours ago : Made changes to the names of variables. Master should have NO errors after this
-1f0a9f1 = dbthorpe, 27 hours ago : Merge pull request #28 from sadielise/CD_TurnTaking
-421b6a6 = Chancey Dunn, 27 hours ago : Merge branch 'master' into CD_TurnTaking
-408dbb4 = Chancey Dunn, 27 hours ago : fixed raw chicken next to cooked chicken
-37c2446 = Sadie, 27 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-9d81a0a = dbthorpe, 27 hours ago : Merge pull request #27 from sadielise/CD_TurnTaking
-6a03fc8 = Chancey Dunn, 27 hours ago : Merge branch 'master' into CD_TurnTaking
-06a72bd = Sadie, 27 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-c449321 = Chancey Dunn, 27 hours ago : Fixed purchase null exception
-0b74cc6 = Jeffrey Buehler, 28 hours ago : Merge pull request #26 from sadielise/implementingSmallChangesWithGuiAndDomain
-94693eb = David Thorpe, 28 hours ago : Changed functionailty with how the gui is shown. Started to implement a mock model for unit tests
-5f624ca = dbthorpe, 28 hours ago : Merge pull request #20 from sadielise/CD_TurnTaking
-ade2be4 = Jeffrey Buehler, 28 hours ago : formatting
-2cf5120 = gfontani, 28 hours ago : fixed some errors It's not perfect but we need this in master!
-2069751 = gfontani, 28 hours ago : Merge branch 'master' into CD_TurnTaking
-7b8dcf7 = gfontani, 29 hours ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
-17560bb = dbthorpe, 29 hours ago : Merge pull request #25 from sadielise/sadie_gui
-73425a0 = Sadie, 29 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-c991815 = Sadie, 29 hours ago : adding house/hotel functionality
-9ec9073 = gfontani, 29 hours ago : fixed neighborhood bug implemented get developable properties implemented getundevelopable properties tests
-1751309 = gfontani, 29 hours ago : Merge pull request #24 from sadielise/implementingGui
-0870104 = Chancey Dunn, 29 hours ago : Implemented GetOutOfJail()
-b0ae834 = David Thorpe, 29 hours ago : updated message wording
-e2e7766 = gfontani, 31 hours ago : Merge pull request #23 from sadielise/sadie_gui
-34ebb3e = Sadie, 31 hours ago : fixing errors when running application
-6cf0907 = Sadie, 31 hours ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-825b0e2 = Sadie, 31 hours ago : accidentally worked in master, trying to fix
-176482b = gfontani, 32 hours ago : Merge pull request #22 from sadielise/implementingGui
-ac3fed1 = David Thorpe, 32 hours ago : implemented methods on IModel that were in chancey's branch. I also modified developDialog to only show properties viable to be developed or undeveloped depeneding on the dialog. This should be a good QOL change.
-dce1dc8 = gfontani, 34 hours ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
-d1b37a8 = gfontani, 34 hours ago : Implemented adding and removing houses from neighborhood
-f21f0a5 = Chancey Dunn, 35 hours ago : still trying to merge
-932199c = Chancey Dunn, 35 hours ago : Still trying to merge
-2f0e35f = Chancey Dunn, 2 days ago : added propertyWasMortgagedFor(String property, int amount) to IModel
-a243a50 = Chancey Dunn, 35 hours ago : merge branch with sadie
-92655fc = gfontani, 2 days ago : Merge pull request #21 from sadielise/implementingGui
-886d578 = dbthorpe, 2 days ago : Merge branch 'master' into implementingGui
-eaad972 = dbthorpe, 2 days ago : Implemented more of the IModel interface methods throughout the GUI. I modified one because I needed more information!
-3252652 = Sadie Henry, 2 days ago : Merge pull request #19 from sadielise/implementingGui
-747ce65 = Sadie, 2 days ago : fixing a few little issues
-45b700a = Sadie, 2 days ago : working on mortgage, unmortgage, and trading properties
-de5b3b4 = dbthorpe, 2 days ago : Implemented Auction dialog sequence, and fixed Application.java's depreciated method call
-36f6e53 = Chancey Dunn, 2 days ago : Implemented and test setUpGame/newGame
-d8257fb = Chancey Dunn, 2 days ago : Setup Game and newGame implementation
-90f33b0 = Chancey Dunn, 2 days ago : Merge branch 'master' into CD_TurnTaking
-d64559a = Chancey Dunn, 2 days ago : rough implementation of roll, need latest master branch
-1745011 = Jeffrey Buehler, 2 days ago : Merge pull request #16 from sadielise/jeff_endgame
-d84034a = gfontani, 2 days ago : Merge pull request #18 from sadielise/implementingGui
-8917041 = David Thorpe, 2 days ago : Merge branch 'master' into implementingGui
-98df1c1 = dbthorpe, 2 days ago : Merge pull request #17 from sadielise/sadie_gui
-aef5acf = David Thorpe, 2 days ago : Implemented gui components for methods available in IModel. Still need to do the Auction Dialog and anything else that is added to IModel.
-e106bb7 = Sadie, 2 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-d26eba8 = Sadie, 2 days ago : finally figuring out the board
-144f2df = Chancey Dunn, 2 days ago : Merge branch 'master' into CD_TurnTaking
-5f1693b = Chancey Dunn, 2 days ago : added a few methods to IModel, and implemented buy/sell house
-c16ddbb = gfontani, 3 days ago : Merge branch 'master' into jeff_endgame
-90d0226 = gfontani, 3 days ago : Added check to see if property is a street or not
-64cdcb2 = gfontani, 3 days ago : Merge pull request #15 from sadielise/Jeff_rent
-b110f0c = gfontani, 3 days ago : Changed comparison of owners in rent file from == to .equals
-e78b47c = gfontani, 3 days ago : Merge pull request #14 from sadielise/cleaningUpGuiFunctionality
-61836ce = Jeffrey Buehler, 3 days ago : Neighborhood constructor test case
-a35aba1 = Jeffrey Buehler, 3 days ago : endgame calculation
-2d5d4c2 = Jeffrey Buehler, 3 days ago : rent
-983eba6 = Sadie, 3 days ago : adding token images, adding token and position readers
-53c1d55 = David Thorpe, 3 days ago :  forgot to add the files I changed to the previous commit
-8d4d13a = Jeffrey Buehler, 3 days ago : mortgage all properties
-fb3a6d5 = Sadie, 3 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-23eb71e = Chancey Dunn, 3 days ago : Merge branch 'master' into CD_TurnTaking
-619bf0a = Chancey Dunn, 3 days ago : implemented remove player and sell house.
-f3c7602 = gfontani, 3 days ago : Merge pull request #8 from sadielise/jeff_board_and_space
-2a9485e = dbthorpe, 3 days ago : Merge pull request #13 from sadielise/sadie_gui
-1e7c26c = Jeffrey Buehler, 3 days ago : removed uneccessary imports
-f27707c = Jeffrey Buehler, 3 days ago : formatting and Street case for Property
-33c5dfc = Sadie, 3 days ago : display board image in PlayingBoard
-d8dc8ae = gfontani, 3 days ago : Made some changes regarding neighborhood Started the property get rent method. Jeff will continue it
-89a10d6 = Chancey Dunn, 3 days ago : Merge branch 'master' into CD_TurnTaking
-d21043b = gfontani, 4 days ago : Responded to jeffs comments and added unit tests for it
-b495621 = dbthorpe, 4 days ago : implemented newGameDialog.java which gets player's names (0-4 possible) and a time in minutes (default being 30) and passes those to the model, which calls imonopolygame's newGame method.
-49bc2e7 = gfontani, 5 days ago : Finished up player and player tests. Full test coverage for Player
-8db4bce = gfontani, 5 days ago : finished player tests renamed bank test to make more sense
-aefa631 = gfontani, 6 days ago : Actually adding the token class and the player class. Almost done with player unit tests
-579faf2 = gfontani, 6 days ago : Added token enum added Player class started player tests
-2a18dd6 = gfontani, 8 days ago : Merging with master started adding player stuff
-6c7ed81 = Sadie, 3 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
-a5a937a = gfontani, 3 days ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
-f1a4248 = gfontani, 3 days ago : Added addPlayer Added start of bidding Added purchase property Added all tests except for bidding tests
-419be08 = Jeffrey Buehler, 3 days ago : Merged with master
-b02567a = Jeffrey Buehler, 3 days ago : Add Neighborhood Test to TestAll
-6f32208 = Jeffrey Buehler, 3 days ago : Neighborhood in Board and Assigned in Factory
-9ac3893 = Chancey Dunn, 3 days ago : Implemented Interface methods and wrote tests.
-92a842d = Jeffrey Buehler, 3 days ago : tests
-3026a27 = cedunn, 3 days ago : Merge pull request #11 from sadielise/gabby_players
-fb6fe74 = Jeffrey Buehler, 4 days ago : merged with master
-621c01c = Jeffrey Buehler, 4 days ago : removed openspace constructor string
-0decd5b = Jeffrey Buehler, 4 days ago : fixes
-b22e47a = gfontani, 4 days ago : Merge pull request #12 from sadielise/implementingGui
-094a6ab = gfontani, 4 days ago : Responded to jeffs comments and added unit tests for it
-3e8e1e8 = dbthorpe, 4 days ago : implemented newGameDialog.java which gets player's names (0-4 possible) and a time in minutes (default being 30) and passes those to the model, which calls imonopolygame's newGame method.
-adc5839 = gfontani, 5 days ago : Finished up player and player tests. Full test coverage for Player
-c0ce736 = Jeffrey Buehler, 5 days ago : removed unneccessary imports
-d311c30 = Jeffrey Buehler, 5 days ago : interface to inheritance
-39ac2e6 = Chancey Dunn, 5 days ago : Merge branch 'master' into CD_TurnTaking
-8439899 = Chancey Dunn, 5 days ago : Implemented roll() and playerMoved() inside MonopolyGame.
-42de8d9 = gfontani, 5 days ago : Merge branch 'master' into gabby_players
-9e917c3 = cedunn, 5 days ago : Merge pull request #10 from sadielise/implementingGui
-a2d0274 = dbthorpe, 5 days ago :  changes to model and controller, along with making MonopolyGame.java implement the interface!
-bf94dcf = cedunn, 5 days ago : Merge pull request #9 from sadielise/implementingGui
-0b3c4d9 = dbthorpe, 5 days ago : Continued to implement GUI elements, including dialogs for developing a space and trading two spaces. Still need to implement new game dialog, and where we are tracking the game timer.
-c9ff610 = gfontani, 5 days ago : finished player tests renamed bank test to make more sense
-f0d811b = Jeffrey Buehler, 5 days ago : All Properties Factory
-5624bf2 = dbthorpe, 5 days ago : Merge branch 'creatingTheGuiFrame'
-97851db = dbthorpe, 5 days ago : Merge pull request #7 from sadielise/monopoly_game
-9968daa = dbthorpe, 5 days ago : added Controller.java Model.java and View.java to the files tracked by git (I thought I did this on the first commit)
-3fa87fc = dbthorpe, 5 days ago : added PlayingBoard.java to the files that are tracked by github
-7491942 = dbthorpe, 5 days ago : Basic implementations of the View and Controller complete. Need to finish PlayingBoard (which be used to paint the locations of the players onto the monopoly board) and model (blocked by the facade classes). Also added a4/app which contains the class Application.java. This is the class that you actually run to start the program! It should be responsible for initializing any domain classes that need to be initizlied at startup!
-f45eedd = gfontani, 5 days ago : Added the method signatures for the monopolyGame class which willact as our facade
-0404688 = gfontani, 6 days ago : Actually adding the token class and the player class. Almost done with player unit tests
-29ef81c = gfontani, 6 days ago : Added token enum added Player class started player tests
-30e6006 = Jeffrey Buehler, 8 days ago : tests finished
-0bf1ff2 = Jeffrey Buehler, 8 days ago : test files
-dae6c6d = gfontani, 8 days ago : Merging with master started adding player stuff
-ceb7697 = Jeffrey Buehler, 8 days ago : methods, attributes, and tests
-c804137 = Jeffrey Buehler, 8 days ago : Delete .keep
-279fecb = Jeffrey Buehler, 8 days ago : Merge pull request #6 from sadielise/gabby_dice_bank
-36172f4 = Jeffrey Buehler, 8 days ago : formatting
-37c88a8 = gfontani, 9 days ago : made dice class singular changed remove from bank according to conversation with Jeff
-6d25d81 = gfontani, 9 days ago : Created Bank according to class model Created Dice according to class model Created tests for Bank Created tests for Dice Modified TestAll so that it will run the tests in the test classes. Moved Jeff's tests to a google doc
-e0ec76e = Jeffrey Buehler, 10 days ago : Merge pull request #4 from sadielise/creatingPackages
-8f87831 = David Thorpe, 10 days ago : fixed package naming. The testAll.java does not compile but I think we will more than likely delete the content anyways.
-2638381 = Jeffrey Buehler, 10 days ago : Update README.md
-80b852c = Jeffrey Buehler, 10 days ago : Update README.md
-8e6d643 = Jeffrey Buehler, 10 days ago : Merge pull request #3 from sadielise/creatingPackages
-01cece2 = David Thorpe, 10 days ago : created a package for the domain logic, gui logic, and tests. Also updated the README
-4b2596d = dbthorpe, 11 days ago : Merge pull request #1 from sadielise/classes
-199857f = dbthorpe, 11 days ago : Merge pull request #2 from sadielise/jeffs_tests
-2702281 = Sadie, 13 days ago : more changes to the diagram
-cf8b682 = Sadie, 13 days ago : rought draft of diagram
-c172c16 = Jeffrey Buehler, 2 weeks ago : Tests for cases 1-12
-15aa30d = Jeffrey Buehler, 2 weeks ago : blank classes
-984a3a4 = Jeffrey Buehler, 2 weeks ago : testing areas
-b139f28 = Jeffrey Buehler, 2 weeks ago : Test Structure
-a69a7b7 = Sadie, 2 weeks ago : lots of changes to the design diagram
-3fe920c = Sadie, 3 weeks ago : added the design class diagram file
-3c8d34a = buehlerj, 7 weeks ago : Merge branch 'master' of github.com:sadielise/CS414A2
-c4dc493 = buehlerj, 7 weeks ago : setup environment
-a8ad73a = Sadie Henry, 7 weeks ago : Initial commit
+b31c29c - dbthorpe, 28 minutes ago : Merge pull request #108 from sadielise/jeff_startGameWith1Player
+abe2936 - dbthorpe, 29 minutes ago : Merge pull request #107 from sadielise/gabby_chanceGoToUtilityCard
+b44f13d - Jeffrey Buehler, 87 minutes ago : removed console error if you try to start a game with insufficient players
+2539b76 - Jeffrey Buehler, 2 hours ago : Merge pull request #106 from sadielise/gabby_fixingGuiTimerAgain
+cb718c9 - gfontani, 2 hours ago : added boolean to utility to keep track of when a chance card was drawn
+a8e9899 - gfontani, 3 hours ago : fixed the gui timer bug again fixed the bank tests removed some comments
+7b951c4 - dbthorpe, 3 hours ago : Merge pull request #105 from sadielise/gabby_handleChanceMove
+54b17be - gfontani, 4 hours ago : When chance/community chest card moves player, the action associated with the new space is performed
+7cdb5c3 - gfontani, 4 hours ago : Merge pull request #104 from sadielise/CD_CommunityChest
+7e8c4bc - Chancey Dunn, 4 hours ago : Changed Community Chest and Chance so player pays remaining balance.
+7dcc313 - Sadie Henry, 19 hours ago : Merge pull request #103 from sadielise/implementingCommunityChestAndChance
+cfa4b79 - dbthorpe, 19 hours ago : Implemented the majority of communityChest and Chance, need to figure out how to trigger that the player moved
+3c59386 - Sadie Henry, 23 hours ago : Merge pull request #102 from sadielise/implementingCommunityChestAndChance
+90b8bba - dbthorpe, 24 hours ago : implemented ezpz chance/community chest cards. Only a few leftgit status
+5422f88 - Sadie Henry, 27 hours ago : Merge pull request #101 from sadielise/implementingCommunityChestAndChance
+e39dfc1 - dbthorpe, 28 hours ago : barebones implementation of chance and community chest
+6ee7156 - dbthorpe, 29 hours ago : updated code to master and continued work on chance/communitychest
+3602ce3 - Sadie Henry, 2 days ago : Merge pull request #100 from sadielise/gabby_ReadMeContributions
+dc456c7 - gfontani, 2 days ago : Added to readme
+c7bf7a5 - Sadie Henry, 2 days ago : Merge pull request #99 from sadielise/CD_FixedLandingOnYourOwnProperty
+28cfa01 - Chancey Dunn, 2 days ago : Fixed bug where things aren't updated if landing on your own property
+8d7c91b - Sadie Henry, 2 days ago : Merge pull request #98 from sadielise/jeff_unused_resources
+bc654ac - Jeffrey Buehler, 2 days ago : removed unneccessary resources
+0eb18e1 - Sadie Henry, 2 days ago : Merge pull request #97 from sadielise/sadie_refac6
+a841b71 - Sadie Henry, 2 days ago : Merge pull request #96 from sadielise/CD_FixUndevelop
+cf19ada - Sadie Henry, 2 days ago : Merge pull request #95 from sadielise/jeff_ai
+ba82027 - Chancey Dunn, 2 days ago : made it so undevelop worked for paying player as well as bank
+eca39fa - Jeffrey Buehler, 2 days ago : changed test method name
+53a8780 - Jeffrey Buehler, 2 days ago : merged with master
+fd7ba2c - Chancey Dunn, 2 days ago : Merge branch 'master' into CD_FixUndevelop
+ca25b5c - Chancey Dunn, 2 days ago : Merge branch 'master' into CD_FixUndevelop
+78cd641 - Sadie Henry, 2 days ago : Merge pull request #94 from sadielise/gabby_fixingGUITimer
+1e605a8 - Jeffrey Buehler, 2 days ago : merged with master
+e548e36 - Chancey Dunn, 2 days ago : Fixed undevelop
+cdc0b2d - Jeffrey Buehler, 2 days ago : removed todos
+53c8779 - gfontani, 2 days ago : fixed the gui timer to work when you fail to start a game
+08dfc5d - Jeffrey Buehler, 2 days ago : undevelop automatically
+9de1e29 - Sadie, 2 days ago : adjusting readme
+4170934 - gfontani, 2 days ago : Merge pull request #93 from sadielise/sadie_refac5
+443660e - Sadie, 2 days ago : adding to the README, removing extra files
+827fbbb - Jeffrey Buehler, 2 days ago : bidding on ai fix
+6312b01 - Sadie Henry, 2 days ago : Merge pull request #92 from sadielise/gabby_refactorEndGame
+f78bd6e - gfontani, 2 days ago : moved liquidate funds to player changed engGame logic
+6e4eeda - gfontani, 2 days ago : Merge pull request #91 from sadielise/sadie_refac4
+75f8df0 - Sadie, 2 days ago : making things final
+264b277 - gfontani, 2 days ago : Merge pull request #90 from sadielise/sadie_refac3
+f756b71 - Sadie, 2 days ago : fixing errors!!
+66ff3c3 - Sadie, 2 days ago : Merge branch 'master' into sadie_refac3
+d364a6e - Jeffrey Buehler, 2 days ago : merged with master
+ba705ea - Jeffrey Buehler, 2 days ago : auto purchase and do not bid
+df279b8 - Sadie Henry, 2 days ago : Merge pull request #89 from sadielise/gabby_playerMove
+d5df0ed - Sadie, 2 days ago : and again
+a735150 - Sadie, 2 days ago : fixing test case issues
+3d8bd27 - Sadie, 2 days ago : still working on stuff
+5d43858 - Sadie, 2 days ago : removing board space reference to players
+109c44d - gfontani, 2 days ago : Merge pull request #88 from sadielise/sadie_refact2
+4ea36fe - gfontani, 2 days ago : Adding new player move method Change player move methods so that they transfer money to the player when the player passes Go fixed mistake that broke a lot of stuff...
+dc0ee94 - Sadie, 2 days ago : players now know which properties they own
+4ad525f - Sadie, 2 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refact2
+3124fd0 - Jeffrey Buehler, 2 days ago : merged with master
+c5cc496 - Jeffrey Buehler, 2 days ago : jail ai
+a4fcceb - Sadie Henry, 2 days ago : Merge pull request #87 from sadielise/gabby_fixingStyle
+760dc8f - Sadie, 2 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refact2
+9965f31 - Jeffrey Buehler, 2 days ago : formatting and basic ai
+4464ce4 - dbthorpe, 2 days ago : Merge pull request #86 from sadielise/gabby-refactorBid
+9e3e23e - gfontani, 2 days ago : put all references of model into monopoly game
+2f669ca - gfontani, 2 days ago : renamed the bid method and fixed stuff with it
+35ea15e - gfontani, 2 days ago : taking references to model out of other classes fixing some style stuff
+8f947bc - gfontani, 2 days ago : Merge pull request #85 from sadielise/CD_FixingDevelop
+2ea651b - Chancey Dunn, 2 days ago : moved house and hotel mangement into bank class, refactored develop
+4c97c5e - dbthorpe, 2 days ago : outlined the chancespace, and chance card... not sure how i want to proceed
+da65b90 - gfontani, 2 days ago : Merge pull request #84 from sadielise/sadie_refac1
+8067551 - gfontani, 2 days ago : Merge pull request #83 from sadielise/sadie_refac
+da98099 - Sadie, 3 days ago : fixing one variable with underscores in Board
+034591a - Sadie, 3 days ago : making comments consistent, fixing some of them
+5877f63 - Sadie, 3 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+fbd4ae5 - Sadie Henry, 3 days ago : Merge pull request #82 from sadielise/creatingTimerForGui
+d69ced4 - dbthorpe, 3 days ago : Merge pull request #81 from sadielise/sadie_refac
+d9faac3 - David Thorpe, 3 days ago : changed some formatting on the timer
+85737cc - David Thorpe, 3 days ago : Added a countdown timer to the gui
+b62a716 - Sadie, 4 days ago : working on the readme
+be0186b - Sadie, 4 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+01d0804 - Jeffrey Buehler, 5 days ago : removed warnings
+ce5b5e0 - Jeffrey Buehler, 5 days ago : implemented ai selection
+cfd2d2d - Sadie Henry, 5 days ago : Merge pull request #80 from sadielise/gabby_fixingEndTurn
+2b5307a - gfontani, 6 days ago : Changed endTurn so that if a player tries to end the turn a dialog box pops up telling them to roll instead of automatically rolling
+59168e7 - gfontani, 6 days ago : Merge pull request #79 from sadielise/CD_FixingDevelop
+da83238 - Chancey Dunn, 6 days ago : reverted mortgage price back to original
+29c33db - Chancey Dunn, 6 days ago : merge with master
+96ecc56 - Chancey Dunn, 6 days ago : Merge branch 'master' into CD_FixingDevelop
+8a28384 - Chancey Dunn, 6 days ago : Removed isMortgaged variable from Street, fixed developing properties.
+37fe783 - gfontani, 6 days ago : Merge pull request #78 from sadielise/CD_FixEnding
+a765d49 - Chancey Dunn, 6 days ago : Merge branch 'master' into CD_FixingDevelop
+717c4ce - Chancey Dunn, 6 days ago : merge with master
+fc75a4c - Chancey Dunn, 6 days ago : Merge branch 'master' into CD_FixEnding
+be5c5e8 - gfontani, 6 days ago : Merge pull request #77 from sadielise/CD_FixUndevelop
+ada3978 - Chancey Dunn, 6 days ago : players and there money is listed at end of game
+573d1bd - Chancey Dunn, 6 days ago : finished up develop functionality
+ec1735c - Chancey Dunn, 6 days ago : moved developing functionality out of monopolyGame
+05593ae - Chancey Dunn, 6 days ago : created isDevelopable() for property class
+6a366f5 - Chancey Dunn, 6 days ago : changed roll back
+be306ec - Chancey Dunn, 6 days ago : Merge branch 'master' into CD_FixUndevelop
+911a5f9 - Chancey Dunn, 6 days ago : moved undevelop functionality out of MonopolyGame
+911e8d2 - Chancey Dunn, 6 days ago : Merge branch 'master' into CD_FixUndevelop
+6a0cef9 - gfontani, 6 days ago : Merge pull request #76 from sadielise/sadie_refac
+6125632 - Sadie Henry, 6 days ago : Merge pull request #75 from sadielise/gabby_addMonopolyGameComments
+7353871 - Sadie, 6 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+a0d10b9 - Sadie, 6 days ago : adding comments
+67eac1f - gfontani, 6 days ago : Added comments to methods in monopolyGame class
+d73276b - Chancey Dunn, 6 days ago : finished up undevelop logic fixes
+8e1314d - Sadie, 6 days ago : commenting
+47526be - gfontani, 6 days ago : fixed whitespace and removed unnecessary comments changed method name
+5d673b6 - Sadie, 6 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+930073c - Sadie Henry, 6 days ago : Merge pull request #74 from sadielise/gabby_removeUnusedMethod
+494fab9 - gfontani, 6 days ago : Merge pull request #73 from sadielise/sadie_refac
+934a758 - gfontani, 6 days ago : Merge branch 'master' into gabby_removeUnusedMethod
+0061fe5 - Sadie, 6 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+6320bfb - Sadie, 6 days ago : fixing use of PropertyType enum
+84a5f64 - gfontani, 6 days ago : removed all unused methods made sure all methods and variables are public, private, or protected
+64e6f7d - gfontani, 6 days ago : Merge pull request #72 from sadielise/sadie_refac
+edf2049 - Sadie, 6 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+b589d9b - Sadie, 6 days ago : reordering/removing methods in MonopolyGame
+b037f65 - gfontani, 6 days ago : Merge pull request #71 from sadielise/sadie_refac
+6002854 - Sadie, 6 days ago : Putting Trade Property in Property
+6853378 - gfontani, 6 days ago : Merge pull request #70 from sadielise/sadie_refac
+0b26b68 - Sadie, 6 days ago : moving purchaseProperty to Player
+08a2e11 - Sadie, 6 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+f846640 - Sadie Henry, 6 days ago : Merge pull request #69 from sadielise/CD_FixUndevelop
+dc71193 - Chancey Dunn, 7 days ago : Working on undevelop process
+7ee26ef - Chancey Dunn, 7 days ago : Changed logic of undevelop.
+0b02d2a - Chancey Dunn, 7 days ago : Fixed Selling House logic to account for bank being low on money.
+85945a4 - gfontani, 7 days ago : Merge pull request #68 from sadielise/sadie_refac
+1c6cb52 - Sadie, 7 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+2d99a2b - Sadie, 7 days ago : turning property into an abstract class with enum type
+f0cf1fc - Sadie Henry, 7 days ago : Merge pull request #67 from sadielise/gabby_fixPlayerMovedMethod
+1cee0dd - gfontani, 7 days ago : shortened the playerMoved method added method in all board spaces to perform the correct action when the space is landed on moved the goToJail method to jailSpace so that monopolyGame isn't as huge
+36b2a23 - Sadie, 7 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+b38d954 - Sadie, 7 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+d5dbf3f - Sadie Henry, 7 days ago : Merge pull request #66 from sadielise/gabby_refactor
+ed7379f - gfontani, 8 days ago : Moved the transfer methods out of the monopolyGame class. Fixed tests associated with this change
+56521e5 - gfontani, 8 days ago : Merge pull request #65 from sadielise/sadie_refac
+b55612a - Sadie, 8 days ago : refactoring the factory and boardspace-related classes
+fa0de13 - Sadie, 8 days ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_refac
+2ff7d8f - Sadie Henry, 8 days ago : Merge pull request #64 from sadielise/gabby_refactor_neighborhoodNaming
+180fd4e - gfontani, 8 days ago : Merge pull request #63 from sadielise/sadie_refac
+a532193 - gfontani, 9 days ago : deleted empty file renamed some variables and methods in Neighborhood to be easier to read (hopefully)
+3724767 - Sadie, 9 days ago : refactoring the Board class
+9039165 - dbthorpe, 3 weeks ago : added commitLog.txt to srcControl
+398aca9 - Sadie Henry, 3 weeks ago : Merge pull request #62 from sadielise/gabby_sequencediagrams
+cda17e0 - gfontani, 3 weeks ago : Added the three sequence diagrams
+ae296df - Sadie Henry, 3 weeks ago : Merge pull request #61 from sadielise/unitTestChanges
+03557a9 - dbthorpe, 3 weeks ago : changed some unittests
+227265e - Sadie Henry, 3 weeks ago : Merge pull request #60 from sadielise/changesToMessagingSystem
+72c87e8 - dbthorpe, 3 weeks ago : fixed issue with messages not updating the fact that tax was paid
+8750ad0 - Jeffrey Buehler, 3 weeks ago : Merge pull request #59 from sadielise/sadie_gui
+614a268 - Sadie, 3 weeks ago : creating diagram, deleting extraneous classes
+2b8cf41 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+5667ddb - dbthorpe, 3 weeks ago : Merge pull request #58 from sadielise/gabby_testCases
+2650005 - dbthorpe, 3 weeks ago : Merge pull request #57 from sadielise/readme
+5d9950e - gfontani, 3 weeks ago : Here are all of the test cases!
+a35d093 - Jeffrey Buehler, 3 weeks ago : readme files
+f6225a6 - cedunn, 3 weeks ago : Merge pull request #56 from sadielise/finalPolishing
+3b0d165 - dbthorpe, 3 weeks ago : added small changes and an if statement to hopefully stop painting if the game hasn't started
+9210dfa - dbthorpe, 3 weeks ago : Merge pull request #55 from sadielise/CD_DevelopProperties
+e4baf45 - Chancey Dunn, 3 weeks ago : Changed income tax value back
+69f2ed2 - Chancey Dunn, 3 weeks ago : undevelop fixed
+26371ac - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+87ae26e - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_DevelopProperties
+ce92be0 - Chancey Dunn, 3 weeks ago : Progress on undevelop Properties
+1f9a24a - cedunn, 3 weeks ago : Merge pull request #54 from sadielise/finalImplementationChangesForGui
+7d6f6f9 - Chancey Dunn, 3 weeks ago : IModel methods
+af0e49b - dbthorpe, 3 weeks ago : added messages for the new methods in IModel. Also cleaned up some formatting
+57512fc - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_DevelopProperties
+a1ecb3b - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+2a6ddd7 - gfontani, 3 weeks ago : Merge pull request #53 from sadielise/CD_GetOutOfJail
+7207cb6 - Chancey Dunn, 3 weeks ago : removed doubles boolean being true
+27d31eb - Chancey Dunn, 3 weeks ago : Failing to roll double three times allows you to pay fine and take turn
+4864dd8 - cedunn, 3 weeks ago : Merge pull request #52 from sadielise/addingMoreParamsToUndevelop
+9f916d1 - dbthorpe, 3 weeks ago : any unable to pay dialog will now trigger model.unableToPay(String, int) where string == player owed (tax if tax and jail if fine) and int is the amount owed. undevelop now passes string,string,int which is property,playerOwed,Amountowed.
+c3fba23 - Chancey Dunn, 3 weeks ago : updated undevelop to keep asking for properties until paid off.
+6c80a15 - Chancey Dunn, 3 weeks ago : merged new master and add unimplemented methods to Model classes
+70b734d - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_DevelopProperties
+1569566 - cedunn, 3 weeks ago : Merge pull request #51 from sadielise/updatingDevelopDialog
+01f8d6b - dbthorpe, 3 weeks ago : made so after a develop or undevelop occurs the window closes, after a trade is accepted or denies, the window closes as well
+6d3cc83 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+5e09575 - Chancey Dunn, 3 weeks ago : Added a two new model calls and fixed issue with develop
+4a13a54 - dbthorpe, 3 weeks ago : Merge pull request #50 from sadielise/CD_GetOutOfJail
+7c25947 - Chancey Dunn, 3 weeks ago : merge master
+14b1b3d - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_GetOutOfJail
+df98fae - Chancey Dunn, 3 weeks ago : uncommented functionality and fixed null pointer exception
+6c6ea34 - Chancey Dunn, 3 weeks ago : Tested and fixed Jail interactions, also rent and purchasing issues.
+6540da5 - dbthorpe, 3 weeks ago : Merge pull request #48 from sadielise/CD_GetOutOfJail
+fc18312 - dbthorpe, 3 weeks ago : Merge pull request #49 from sadielise/gabby_tests_bugFixing
+6a86208 - Chancey Dunn, 3 weeks ago : david's stuff
+14e4b7c - Chancey Dunn, 3 weeks ago : Implemented GetOutOfJail
+955761a - cedunn, 3 weeks ago : Merge pull request #47 from sadielise/finishingGuiImplementationAndPolishing
+68bb2a4 - David Thorpe, 3 weeks ago : fixed tradeDialog formatting. Also fixed weird text ing View
+e873024 - gfontani, 3 weeks ago : fixed get developable properties so that can't develop property unless the neighborhood is owned
+f315493 - David Thorpe, 3 weeks ago : Merge branch 'master' into finishingGuiImplementationAndPolishing
+e032d88 - dbthorpe, 3 weeks ago : Merge pull request #46 from sadielise/sadie_gui
+1417d53 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+e3813ff - Sadie, 3 weeks ago : fixing hotels - they work now!
+d88d536 - David Thorpe, 3 weeks ago : Merge branch 'master' into finishingGuiImplementationAndPolishing
+b993e75 - Jeffrey Buehler, 3 weeks ago : Merge pull request #45 from sadielise/sadie_gui
+a0b3341 - David Thorpe, 3 weeks ago : fixed merge issues
+5418a24 - David Thorpe, 3 weeks ago : changed formatting for trade dialog, might have cause issues!
+bb9fa4d - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+b7ee74b - Sadie, 3 weeks ago : fixing infinite loop in PlayingBoard
+af92aab - cedunn, 3 weeks ago : Merge pull request #44 from sadielise/fixingIssuesWithPlayersThatDoNotOwnProperties
+a87bf99 - cedunn, 3 weeks ago : Merge pull request #43 from sadielise/JB_endgame_check
+fc18a9c - David Thorpe, 3 weeks ago : fixed merge issues before making the PR
+9f6e2cc - David Thorpe, 3 weeks ago : fixed issues with trading with players that do not own properties.
+ac7f6de - dbthorpe, 3 weeks ago : Merge pull request #42 from sadielise/CD_TurnTaking
+5a0bacc - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+4485a38 - Jeffrey Buehler, 3 weeks ago : checks property for owner first
+b2f4171 - gfontani, 3 weeks ago : Merge pull request #41 from sadielise/finishingGuiImplementationAndPolishing
+91d13b2 - David Thorpe, 3 weeks ago : fixed the merge issue
+3f48b3b - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+53ee245 - David Thorpe, 3 weeks ago : added curly brackets to fix jeffs crap
+53e13a1 - David Thorpe, 3 weeks ago : polished the gui sized to show player name and bankroll. Added the timer. Fixed messages
+ae70a96 - cedunn, 3 weeks ago : Merge pull request #39 from sadielise/gabby_tests_bugFixing
+265a3c4 - gfontani, 3 weeks ago : Merge pull request #40 from sadielise/JB_openSpaceName
+ead28b2 - gfontani, 3 weeks ago : Merge branch 'master' into gabby_tests_bugFixing
+10eb02a - Jeffrey Buehler, 3 weeks ago : OpenSpace default name and set all names
+ad27612 - gfontani, 3 weeks ago : fixed the null pointer exception when attempt to develop property David fixed array index out of bounds exception when player tries to develop and they don't own any properties
+d835506 - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+ff14bdd - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+84a1116 - Chancey Dunn, 3 weeks ago : fixed null pointer exceptions
+428e4b2 - cedunn, 3 weeks ago : Merge pull request #38 from sadielise/finishingGuiImplementationAndPolishing
+f323851 - David Thorpe, 3 weeks ago : Implemented more messages from IModel!
+433e533 - dbthorpe, 3 weeks ago : Merge pull request #37 from sadielise/sadie_gui
+2d630b7 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+df09118 - Sadie, 3 weeks ago : fixing out of bounds error in PlayingBoard
+99df3ab - dbthorpe, 3 weeks ago : Merge pull request #36 from sadielise/CD_TurnTaking
+f62c38b - gfontani, 3 weeks ago : Merge pull request #35 from sadielise/finishingGuiImplementationAndPolishing
+d810efc - dbthorpe, 3 weeks ago : Merge pull request #34 from sadielise/gabby_tests_bugFixing
+acca602 - Chancey Dunn, 3 weeks ago : fix error
+fb31829 - David Thorpe, 3 weeks ago : fixed auction issue of index out of bounds.
+3b9f613 - gfontani, 3 weeks ago : Changed the order in the monopolygametest setup so that all of the tests run and pass
+b7f63ed - Chancey Dunn, 3 weeks ago : bid ties, rolled() to IModel
+f96e89d - dbthorpe, 3 weeks ago : Merge pull request #33 from sadielise/sadie_gui
+8f35901 - Sadie, 3 weeks ago : fixing PlayingBoard issues
+a81ed27 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+1dfa4ea - dbthorpe, 3 weeks ago : Merge pull request #30 from sadielise/gabby_tests_bugFixing
+843ce40 - gfontani, 3 weeks ago : fixed stuff
+e61795b - cedunn, 3 weeks ago : Merge pull request #31 from sadielise/finishingGuiImplementationAndPolishing
+5f17c86 - David Thorpe, 3 weeks ago : fixed issues with model's calls to view.update()
+99a7387 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+301e055 - dbthorpe, 3 weeks ago : Merge pull request #32 from sadielise/CD_TurnTaking
+f55c370 - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+9031e6d - Chancey Dunn, 3 weeks ago : Added calls to model to notify player where they landed
+c6e1620 - David Thorpe, 3 weeks ago : implemented more message dialogs from IModel.java
+5c27fab - gfontani, 3 weeks ago : Uncomment set up for monopolygame tests
+f19f100 - gfontani, 3 weeks ago : Merge branch 'master' into gabby_tests_bugFixing
+842ad4d - cedunn, 3 weeks ago : Merge pull request #29 from sadielise/implementingSmallChangesWithGuiAndDomain
+aea86e3 - gfontani, 3 weeks ago : implemented the getNumberHouses method unit tests
+09889bc - David Thorpe, 3 weeks ago : Made changes to the names of variables. Master should have NO errors after this
+1f0a9f1 - dbthorpe, 3 weeks ago : Merge pull request #28 from sadielise/CD_TurnTaking
+421b6a6 - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+408dbb4 - Chancey Dunn, 3 weeks ago : fixed raw chicken next to cooked chicken
+37c2446 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+9d81a0a - dbthorpe, 3 weeks ago : Merge pull request #27 from sadielise/CD_TurnTaking
+6a03fc8 - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+06a72bd - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+c449321 - Chancey Dunn, 3 weeks ago : Fixed purchase null exception
+0b74cc6 - Jeffrey Buehler, 3 weeks ago : Merge pull request #26 from sadielise/implementingSmallChangesWithGuiAndDomain
+94693eb - David Thorpe, 3 weeks ago : Changed functionailty with how the gui is shown. Started to implement a mock model for unit tests
+5f624ca - dbthorpe, 3 weeks ago : Merge pull request #20 from sadielise/CD_TurnTaking
+ade2be4 - Jeffrey Buehler, 3 weeks ago : formatting
+2cf5120 - gfontani, 3 weeks ago : fixed some errors It's not perfect but we need this in master!
+2069751 - gfontani, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+7b8dcf7 - gfontani, 3 weeks ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
+17560bb - dbthorpe, 3 weeks ago : Merge pull request #25 from sadielise/sadie_gui
+73425a0 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+c991815 - Sadie, 3 weeks ago : adding house/hotel functionality
+9ec9073 - gfontani, 3 weeks ago : fixed neighborhood bug implemented get developable properties implemented getundevelopable properties tests
+1751309 - gfontani, 3 weeks ago : Merge pull request #24 from sadielise/implementingGui
+0870104 - Chancey Dunn, 3 weeks ago : Implemented GetOutOfJail()
+b0ae834 - David Thorpe, 3 weeks ago : updated message wording
+e2e7766 - gfontani, 3 weeks ago : Merge pull request #23 from sadielise/sadie_gui
+34ebb3e - Sadie, 3 weeks ago : fixing errors when running application
+6cf0907 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+825b0e2 - Sadie, 3 weeks ago : accidentally worked in master, trying to fix
+176482b - gfontani, 3 weeks ago : Merge pull request #22 from sadielise/implementingGui
+ac3fed1 - David Thorpe, 3 weeks ago : implemented methods on IModel that were in chancey's branch. I also modified developDialog to only show properties viable to be developed or undeveloped depeneding on the dialog. This should be a good QOL change.
+dce1dc8 - gfontani, 3 weeks ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
+d1b37a8 - gfontani, 3 weeks ago : Implemented adding and removing houses from neighborhood
+f21f0a5 - Chancey Dunn, 3 weeks ago : still trying to merge
+932199c - Chancey Dunn, 3 weeks ago : Still trying to merge
+2f0e35f - Chancey Dunn, 3 weeks ago : added propertyWasMortgagedFor(String property, int amount) to IModel
+a243a50 - Chancey Dunn, 3 weeks ago : merge branch with sadie
+92655fc - gfontani, 3 weeks ago : Merge pull request #21 from sadielise/implementingGui
+886d578 - dbthorpe, 3 weeks ago : Merge branch 'master' into implementingGui
+eaad972 - dbthorpe, 3 weeks ago : Implemented more of the IModel interface methods throughout the GUI. I modified one because I needed more information!
+3252652 - Sadie Henry, 3 weeks ago : Merge pull request #19 from sadielise/implementingGui
+747ce65 - Sadie, 3 weeks ago : fixing a few little issues
+45b700a - Sadie, 3 weeks ago : working on mortgage, unmortgage, and trading properties
+de5b3b4 - dbthorpe, 3 weeks ago : Implemented Auction dialog sequence, and fixed Application.java's depreciated method call
+36f6e53 - Chancey Dunn, 3 weeks ago : Implemented and test setUpGame/newGame
+d8257fb - Chancey Dunn, 3 weeks ago : Setup Game and newGame implementation
+90f33b0 - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+d64559a - Chancey Dunn, 3 weeks ago : rough implementation of roll, need latest master branch
+1745011 - Jeffrey Buehler, 3 weeks ago : Merge pull request #16 from sadielise/jeff_endgame
+d84034a - gfontani, 3 weeks ago : Merge pull request #18 from sadielise/implementingGui
+8917041 - David Thorpe, 3 weeks ago : Merge branch 'master' into implementingGui
+98df1c1 - dbthorpe, 3 weeks ago : Merge pull request #17 from sadielise/sadie_gui
+aef5acf - David Thorpe, 3 weeks ago : Implemented gui components for methods available in IModel. Still need to do the Auction Dialog and anything else that is added to IModel.
+e106bb7 - Sadie, 3 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+d26eba8 - Sadie, 3 weeks ago : finally figuring out the board
+144f2df - Chancey Dunn, 3 weeks ago : Merge branch 'master' into CD_TurnTaking
+5f1693b - Chancey Dunn, 3 weeks ago : added a few methods to IModel, and implemented buy/sell house
+c16ddbb - gfontani, 4 weeks ago : Merge branch 'master' into jeff_endgame
+90d0226 - gfontani, 4 weeks ago : Added check to see if property is a street or not
+64cdcb2 - gfontani, 4 weeks ago : Merge pull request #15 from sadielise/Jeff_rent
+b110f0c - gfontani, 4 weeks ago : Changed comparison of owners in rent file from == to .equals
+e78b47c - gfontani, 4 weeks ago : Merge pull request #14 from sadielise/cleaningUpGuiFunctionality
+61836ce - Jeffrey Buehler, 4 weeks ago : Neighborhood constructor test case
+a35aba1 - Jeffrey Buehler, 4 weeks ago : endgame calculation
+2d5d4c2 - Jeffrey Buehler, 4 weeks ago : rent
+983eba6 - Sadie, 4 weeks ago : adding token images, adding token and position readers
+53c1d55 - David Thorpe, 4 weeks ago :  forgot to add the files I changed to the previous commit
+8d4d13a - Jeffrey Buehler, 4 weeks ago : mortgage all properties
+fb3a6d5 - Sadie, 4 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+23eb71e - Chancey Dunn, 4 weeks ago : Merge branch 'master' into CD_TurnTaking
+619bf0a - Chancey Dunn, 4 weeks ago : implemented remove player and sell house.
+f3c7602 - gfontani, 4 weeks ago : Merge pull request #8 from sadielise/jeff_board_and_space
+2a9485e - dbthorpe, 4 weeks ago : Merge pull request #13 from sadielise/sadie_gui
+1e7c26c - Jeffrey Buehler, 4 weeks ago : removed uneccessary imports
+f27707c - Jeffrey Buehler, 4 weeks ago : formatting and Street case for Property
+33c5dfc - Sadie, 4 weeks ago : display board image in PlayingBoard
+d8dc8ae - gfontani, 4 weeks ago : Made some changes regarding neighborhood Started the property get rent method. Jeff will continue it
+89a10d6 - Chancey Dunn, 4 weeks ago : Merge branch 'master' into CD_TurnTaking
+d21043b - gfontani, 4 weeks ago : Responded to jeffs comments and added unit tests for it
+b495621 - dbthorpe, 4 weeks ago : implemented newGameDialog.java which gets player's names (0-4 possible) and a time in minutes (default being 30) and passes those to the model, which calls imonopolygame's newGame method.
+49bc2e7 - gfontani, 4 weeks ago : Finished up player and player tests. Full test coverage for Player
+8db4bce - gfontani, 4 weeks ago : finished player tests renamed bank test to make more sense
+aefa631 - gfontani, 4 weeks ago : Actually adding the token class and the player class. Almost done with player unit tests
+579faf2 - gfontani, 4 weeks ago : Added token enum added Player class started player tests
+2a18dd6 - gfontani, 4 weeks ago : Merging with master started adding player stuff
+6c7ed81 - Sadie, 4 weeks ago : Merge remote-tracking branch 'refs/remotes/origin/master' into sadie_gui
+a5a937a - gfontani, 4 weeks ago : Merge branch 'CD_TurnTaking' of github.com:sadielise/CS414Project into CD_TurnTaking
+f1a4248 - gfontani, 4 weeks ago : Added addPlayer Added start of bidding Added purchase property Added all tests except for bidding tests
+419be08 - Jeffrey Buehler, 4 weeks ago : Merged with master
+b02567a - Jeffrey Buehler, 4 weeks ago : Add Neighborhood Test to TestAll
+6f32208 - Jeffrey Buehler, 4 weeks ago : Neighborhood in Board and Assigned in Factory
+9ac3893 - Chancey Dunn, 4 weeks ago : Implemented Interface methods and wrote tests.
+92a842d - Jeffrey Buehler, 4 weeks ago : tests
+3026a27 - cedunn, 4 weeks ago : Merge pull request #11 from sadielise/gabby_players
+fb6fe74 - Jeffrey Buehler, 4 weeks ago : merged with master
+621c01c - Jeffrey Buehler, 4 weeks ago : removed openspace constructor string
+0decd5b - Jeffrey Buehler, 4 weeks ago : fixes
+b22e47a - gfontani, 4 weeks ago : Merge pull request #12 from sadielise/implementingGui
+094a6ab - gfontani, 4 weeks ago : Responded to jeffs comments and added unit tests for it
+3e8e1e8 - dbthorpe, 4 weeks ago : implemented newGameDialog.java which gets player's names (0-4 possible) and a time in minutes (default being 30) and passes those to the model, which calls imonopolygame's newGame method.
+adc5839 - gfontani, 4 weeks ago : Finished up player and player tests. Full test coverage for Player
+c0ce736 - Jeffrey Buehler, 4 weeks ago : removed unneccessary imports
+d311c30 - Jeffrey Buehler, 4 weeks ago : interface to inheritance
+39ac2e6 - Chancey Dunn, 4 weeks ago : Merge branch 'master' into CD_TurnTaking
+8439899 - Chancey Dunn, 4 weeks ago : Implemented roll() and playerMoved() inside MonopolyGame.
+42de8d9 - gfontani, 4 weeks ago : Merge branch 'master' into gabby_players
+9e917c3 - cedunn, 4 weeks ago : Merge pull request #10 from sadielise/implementingGui
+a2d0274 - dbthorpe, 4 weeks ago :  changes to model and controller, along with making MonopolyGame.java implement the interface!
+bf94dcf - cedunn, 4 weeks ago : Merge pull request #9 from sadielise/implementingGui
+0b3c4d9 - dbthorpe, 4 weeks ago : Continued to implement GUI elements, including dialogs for developing a space and trading two spaces. Still need to implement new game dialog, and where we are tracking the game timer.
+c9ff610 - gfontani, 4 weeks ago : finished player tests renamed bank test to make more sense
+f0d811b - Jeffrey Buehler, 4 weeks ago : All Properties Factory
+5624bf2 - dbthorpe, 4 weeks ago : Merge branch 'creatingTheGuiFrame'
+97851db - dbthorpe, 4 weeks ago : Merge pull request #7 from sadielise/monopoly_game
+9968daa - dbthorpe, 4 weeks ago : added Controller.java Model.java and View.java to the files tracked by git (I thought I did this on the first commit)
+3fa87fc - dbthorpe, 4 weeks ago : added PlayingBoard.java to the files that are tracked by github
+7491942 - dbthorpe, 4 weeks ago : Basic implementations of the View and Controller complete. Need to finish PlayingBoard (which be used to paint the locations of the players onto the monopoly board) and model (blocked by the facade classes). Also added a4/app which contains the class Application.java. This is the class that you actually run to start the program! It should be responsible for initializing any domain classes that need to be initizlied at startup!
+f45eedd - gfontani, 4 weeks ago : Added the method signatures for the monopolyGame class which willact as our facade
+0404688 - gfontani, 4 weeks ago : Actually adding the token class and the player class. Almost done with player unit tests
+29ef81c - gfontani, 4 weeks ago : Added token enum added Player class started player tests
+30e6006 - Jeffrey Buehler, 4 weeks ago : tests finished
+0bf1ff2 - Jeffrey Buehler, 4 weeks ago : test files
+dae6c6d - gfontani, 4 weeks ago : Merging with master started adding player stuff
+ceb7697 - Jeffrey Buehler, 4 weeks ago : methods, attributes, and tests
+c804137 - Jeffrey Buehler, 4 weeks ago : Delete .keep
+279fecb - Jeffrey Buehler, 4 weeks ago : Merge pull request #6 from sadielise/gabby_dice_bank
+36172f4 - Jeffrey Buehler, 4 weeks ago : formatting
+37c88a8 - gfontani, 4 weeks ago : made dice class singular changed remove from bank according to conversation with Jeff
+6d25d81 - gfontani, 4 weeks ago : Created Bank according to class model Created Dice according to class model Created tests for Bank Created tests for Dice Modified TestAll so that it will run the tests in the test classes. Moved Jeff's tests to a google doc
+e0ec76e - Jeffrey Buehler, 5 weeks ago : Merge pull request #4 from sadielise/creatingPackages
+8f87831 - David Thorpe, 5 weeks ago : fixed package naming. The testAll.java does not compile but I think we will more than likely delete the content anyways.
+2638381 - Jeffrey Buehler, 5 weeks ago : Update README.md
+80b852c - Jeffrey Buehler, 5 weeks ago : Update README.md
+8e6d643 - Jeffrey Buehler, 5 weeks ago : Merge pull request #3 from sadielise/creatingPackages
+01cece2 - David Thorpe, 5 weeks ago : created a package for the domain logic, gui logic, and tests. Also updated the README
+4b2596d - dbthorpe, 5 weeks ago : Merge pull request #1 from sadielise/classes
+199857f - dbthorpe, 5 weeks ago : Merge pull request #2 from sadielise/jeffs_tests
+2702281 - Sadie, 5 weeks ago : more changes to the diagram
+cf8b682 - Sadie, 5 weeks ago : rought draft of diagram
+c172c16 - Jeffrey Buehler, 5 weeks ago : Tests for cases 1-12
+15aa30d - Jeffrey Buehler, 5 weeks ago : blank classes
+984a3a4 - Jeffrey Buehler, 5 weeks ago : testing areas
+b139f28 - Jeffrey Buehler, 5 weeks ago : Test Structure
+a69a7b7 - Sadie, 6 weeks ago : lots of changes to the design diagram
+3fe920c - Sadie, 6 weeks ago : added the design class diagram file
+3c8d34a - buehlerj, 10 weeks ago : Merge branch 'master' of github.com:sadielise/CS414A2
+c4dc493 - buehlerj, 10 weeks ago : setup environment
+a8ad73a - Sadie Henry, 10 weeks ago : Initial commit
